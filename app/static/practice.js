@@ -1,4 +1,4 @@
-import { EMPTY_FEN, PracticeBoard, STARTING_FEN } from "/static/practice-board.js";
+import { EMPTY_FEN, PracticeBoard, STARTING_FEN } from "/static/components/practice-board.js";
 
 const boardElement = document.querySelector("#practice-board");
 const status = document.querySelector("#practice-status");
