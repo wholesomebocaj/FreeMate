@@ -13,22 +13,23 @@
       <div class="nav-links">
         <a href="/" aria-current="page">Home</a>
         <a href="/lessons">Lessons</a>
+        <a href="/lessons#puzzles">Puzzles</a>
+        <a href="/lessons#progress">Progress</a>
       </div>
     </nav>
   </header>
 
-  <main>
-    <section class="hero">
+  <main class="home-shell">
+    <section class="hero home-hero">
       <div class="hero-content">
-        <p class="eyebrow">Chess basics, one move at a time</p>
-        <h1>Learn chess without feeling lost.</h1>
+        <p class="eyebrow">Beginner chess coaching</p>
+        <h1>Learn chess the right way.</h1>
         <p class="hero-copy">
-          FreeMate helps new players understand the board, practice legal moves,
-          and build confidence before their first full game.
+          Free structured lessons for beginners.
         </p>
         <div class="hero-actions">
-          <a class="button primary" href="/lessons">Start lessons</a>
-          <a class="button secondary" href="#move-checker">Check a move</a>
+          <a class="button primary" href="/lessons">Start Learning</a>
+          <a class="button secondary" href="/lessons">Continue Learning</a>
         </div>
       </div>
       <div class="board-preview" aria-label="Simple chess board preview">
@@ -36,28 +37,21 @@
       </div>
     </section>
 
-    <section class="panel" id="move-checker">
-      <div>
-        <p class="eyebrow">Move checker</p>
-        <h2>Try a legal opening move</h2>
-        <p>
-          Type a move in UCI format. For example, try <strong>e2e4</strong>,
-          <strong>d2d4</strong>, or <strong>g1f3</strong>.
-        </p>
+    <section class="roadmap-section" aria-labelledby="roadmap-title">
+      <div class="section-heading">
+        <p class="eyebrow">Roadmap</p>
+        <h2 id="roadmap-title">What should I learn next?</h2>
       </div>
-
-      <form class="move-form" id="move-form">
-        <label for="move-input">Move</label>
-        <div class="input-row">
-          <input id="move-input" name="move" type="text" placeholder="e2e4" required>
-          <button class="button primary" type="submit">Validate</button>
-        </div>
-        <p class="result" id="move-result" role="status"></p>
-      </form>
+      <div class="roadmap" id="home-roadmap">
+        <div class="roadmap-item complete">Rules of Chess</div>
+        <div class="roadmap-item complete">Piece Movement</div>
+        <div class="roadmap-item current">Opening Principles</div>
+        <div class="roadmap-item locked">Basic Tactics</div>
+        <div class="roadmap-item locked">Mate in 1</div>
+      </div>
     </section>
   </main>
 
   <script src="/static/script.js"></script>
 </body>
 </html>
-

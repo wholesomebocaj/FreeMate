@@ -13,39 +13,71 @@
       <div class="nav-links">
         <a href="/">Home</a>
         <a href="/lessons" aria-current="page">Lessons</a>
+        <a href="#puzzles">Puzzles</a>
+        <a href="#progress">Progress</a>
       </div>
     </nav>
   </header>
 
-  <main>
-    <section class="page-title">
-      <p class="eyebrow">Beginner path</p>
-      <h1 id="course-title">Start with the ideas every chess player needs.</h1>
-      <p>
-        FreeMate lessons are organized as a course with categories, skills,
-        lessons, and interactive exercises.
-      </p>
-    </section>
-
-    <section class="course-progress" aria-label="Course progress">
+  <main class="lesson-shell">
+    <section class="coach-header">
       <div>
-        <p class="eyebrow">Progress</p>
-        <h2 id="progress-count">0 of 0 lessons complete</h2>
+        <p class="eyebrow">FreeMate coach</p>
+        <h1 id="course-title">FreeMate Beginner Chess Course</h1>
+        <p id="course-description">Choose your next lesson and follow the guided steps.</p>
       </div>
-      <div class="progress-track" aria-hidden="true">
-        <div class="progress-fill" id="progress-fill"></div>
+      <div class="coach-stats" id="progress">
+        <span id="progress-count">0 of 0 complete</span>
+        <div class="progress-track" aria-hidden="true">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
       </div>
     </section>
 
-    <section class="category-tabs" id="category-tabs" aria-label="Course categories"></section>
+    <section class="roadmap-section compact" aria-label="Course roadmap">
+      <div class="roadmap" id="lesson-roadmap"></div>
+    </section>
 
-    <section class="curriculum-layout">
-      <div class="lesson-list" id="lesson-list" aria-label="Course lessons"></div>
-      <article class="exercise-panel" id="exercise-panel" aria-live="polite">
-        <p class="eyebrow">Interactive exercise</p>
-        <h2>Select a lesson</h2>
-        <p>Choose a lesson card to see its skill focus, difficulty, rating range, and exercise.</p>
+    <section class="lesson-workspace">
+      <aside class="course-sidebar" aria-label="Course navigation">
+        <div class="sidebar-title">
+          <p class="eyebrow">Course map</p>
+          <h2>Roadmap</h2>
+        </div>
+        <div class="course-tree" id="course-tree"></div>
+      </aside>
+
+      <article class="coach-panel" id="lesson-player" aria-live="polite">
+        <p class="eyebrow">Interactive lesson</p>
+        <h2>Loading your next lesson...</h2>
       </article>
+
+      <aside class="progress-sidebar" aria-label="Lesson progress">
+        <div class="mini-dashboard">
+          <p class="eyebrow">Dashboard</p>
+          <h2>Progress</h2>
+          <div class="metric-grid">
+            <div>
+              <span id="completed-number">0</span>
+              <p>Completed</p>
+            </div>
+            <div>
+              <span id="course-percent">0%</span>
+              <p>Course</p>
+            </div>
+          </div>
+        </div>
+        <div class="focus-card">
+          <p class="eyebrow">Current focus</p>
+          <h3 id="current-focus">Piece Movement</h3>
+          <p id="next-lesson">Next: Move the Rook from d4</p>
+        </div>
+        <div class="focus-card" id="puzzles">
+          <p class="eyebrow">Puzzles</p>
+          <h3>Coming next</h3>
+          <p>Basic tactics will unlock puzzle-style drills as the curriculum grows.</p>
+        </div>
+      </aside>
     </section>
   </main>
 
