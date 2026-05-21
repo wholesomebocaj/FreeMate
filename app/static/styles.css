@@ -754,6 +754,15 @@ button.board-square {
   box-shadow: inset 0 0 0 999px rgba(250, 204, 21, 0.2);
 }
 
+.board-square.target-square::before {
+  border: 4px solid rgba(34, 197, 94, 0.85);
+  border-radius: 14px;
+  content: "";
+  inset: 8px;
+  position: absolute;
+  z-index: 1;
+}
+
 .piece-img {
   filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.38));
   height: 78%;

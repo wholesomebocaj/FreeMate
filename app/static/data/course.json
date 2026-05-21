@@ -116,12 +116,14 @@
                   "type": "explain",
                   "title": "Rooks move in straight lines",
                   "body": "A rook can move up, down, left, or right. It cannot move diagonally.",
+                  "fen": "7k/8/8/8/3R4/8/8/7K w - - 0 1",
                   "highlights": ["d1", "d2", "d3", "d5", "d6", "d7", "d8", "a4", "b4", "c4", "e4", "f4", "g4", "h4"]
                 },
                 {
                   "type": "rook-practice",
                   "title": "Move to a legal square",
                   "body": "Choose any highlighted straight-line square from d4.",
+                  "fen": "7k/8/8/8/3R4/8/8/7K w - - 0 1",
                   "startSquare": "d4",
                   "successText": "Nice. That is how a rook travels across a rank or file."
                 },
@@ -129,6 +131,7 @@
                   "type": "rook-challenge",
                   "title": "Capture the hanging pawn",
                   "body": "Now capture the loose pawn on d7. The rook must move straight up the d-file.",
+                  "fen": "7k/3p4/8/8/3R4/8/8/7K w - - 0 1",
                   "startSquare": "d4",
                   "targetSquare": "d7",
                   "pieces": [{ "square": "d7", "piece": "p" }],

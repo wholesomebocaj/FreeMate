@@ -41,6 +41,17 @@ class RookMoveResponse(BaseModel):
     message: str
 
 
+class LegalMovesRequest(BaseModel):
+    fen: str = Field(..., examples=[chess.STARTING_FEN])
+    from_square: str = Field(..., examples=["d4"])
+
+
+class LegalMovesResponse(BaseModel):
+    from_square: str
+    legal_squares: list[str]
+    message: str
+
+
 @app.get("/")
 def homepage() -> FileResponse:
     return FileResponse(STATIC_DIR / "index.html")
@@ -98,6 +109,33 @@ def validate_move(request: MoveRequest) -> MoveResponse:
         message="Nice move. That is legal from this position.",
         san=san,
         resulting_fen=board.fen(),
+    )
+
+
+@app.post("/api/legal-moves", response_model=LegalMovesResponse)
+def legal_moves(request: LegalMovesRequest) -> LegalMovesResponse:
+    from_square = request.from_square.strip().lower()
+
+    try:
+        board = chess.Board(request.fen)
+        start = chess.parse_square(from_square)
+    except ValueError:
+        return LegalMovesResponse(
+            from_square=from_square,
+            legal_squares=[],
+            message="That board position or square is not valid.",
+        )
+
+    legal_squares = [
+        chess.square_name(move.to_square)
+        for move in board.legal_moves
+        if move.from_square == start
+    ]
+
+    return LegalMovesResponse(
+        from_square=from_square,
+        legal_squares=legal_squares,
+        message=f"Found {len(legal_squares)} legal moves.",
     )
 
 

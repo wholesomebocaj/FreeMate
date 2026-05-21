@@ -2,19 +2,27 @@ const files = ["a", "b", "c", "d", "e", "f", "g", "h"];
 const progressKey = "freemate.completedLessons";
 const stepKey = "freemate.lessonSteps";
 const pieceAssets = {
+  wK: "/static/assets/pieces/wK.svg",
+  wQ: "/static/assets/pieces/wQ.svg",
   wR: "/static/assets/pieces/wR.svg",
+  wB: "/static/assets/pieces/wB.svg",
+  wN: "/static/assets/pieces/wN.svg",
+  wP: "/static/assets/pieces/wP.svg",
+  bK: "/static/assets/pieces/bK.svg",
+  bQ: "/static/assets/pieces/bQ.svg",
+  bR: "/static/assets/pieces/bR.svg",
+  bB: "/static/assets/pieces/bB.svg",
+  bN: "/static/assets/pieces/bN.svg",
   bP: "/static/assets/pieces/bP.svg",
 };
+const startingFen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
 
 let course = null;
 let completedLessons = loadSet(progressKey);
 let savedSteps = loadObject(stepKey);
 let activeLesson = null;
 let activeStepIndex = 0;
-let selectedSquare = null;
-let lastMove = [];
-let boardPieces = {};
-let draggedSquare = null;
+let activeBoard = null;
 let audioContext = null;
 
 function loadSet(key) {
@@ -99,6 +107,181 @@ function progressPercent() {
 function setText(selector, value) {
   const element = document.querySelector(selector);
   if (element) element.textContent = value;
+}
+
+class ChessBoard {
+  constructor(element, options = {}) {
+    this.element = element;
+    this.orientation = options.orientation || "white";
+    this.fen = options.fen || startingFen;
+    this.position = parseFen(this.fen);
+    this.selectedSquare = null;
+    this.legalSquares = options.legalSquares || [];
+    this.instructionalSquares = options.legalSquares || [];
+    this.lastMove = [];
+    this.draggedSquare = null;
+    this.targetSquare = options.targetSquare || null;
+    this.onMove = options.onMove || (() => {});
+    this.render();
+  }
+
+  setLegalSquares(squares) {
+    this.legalSquares = squares;
+    this.render();
+  }
+
+  pieceAt(square) {
+    return this.position[square];
+  }
+
+  render() {
+    this.element.innerHTML = "";
+    this.element.className = "modern-board";
+
+    const ranks = this.orientation === "white" ? [8, 7, 6, 5, 4, 3, 2, 1] : [1, 2, 3, 4, 5, 6, 7, 8];
+    const boardFiles = this.orientation === "white" ? files : [...files].reverse();
+
+    ranks.forEach((rank) => {
+      boardFiles.forEach((file, fileIndex) => {
+        const square = `${file}${rank}`;
+        const piece = this.pieceAt(square);
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "board-square";
+        button.dataset.square = square;
+        button.setAttribute("aria-label", square);
+        button.classList.add((rank + files.indexOf(file)) % 2 === 0 ? "light" : "dark");
+        if (this.legalSquares.includes(square)) button.classList.add("legal");
+        if (this.selectedSquare === square) button.classList.add("selected");
+        if (this.lastMove.includes(square)) button.classList.add("last-move");
+        if (this.targetSquare === square) button.classList.add("target-square");
+
+        if (piece) {
+          const image = document.createElement("img");
+          image.className = "piece-img";
+          image.src = pieceAssets[piece];
+          image.alt = pieceName(piece);
+          image.draggable = true;
+          image.addEventListener("dragstart", () => {
+            this.draggedSquare = square;
+            this.select(square);
+          });
+          button.appendChild(image);
+        }
+
+        button.addEventListener("click", () => this.handleClick(square));
+        button.addEventListener("dragover", (event) => event.preventDefault());
+        button.addEventListener("drop", (event) => {
+          event.preventDefault();
+          this.tryMove(this.draggedSquare, square);
+        });
+        this.element.appendChild(button);
+      });
+    });
+  }
+
+  async select(square) {
+    if (!this.pieceAt(square)) return;
+    this.selectedSquare = square;
+    await this.loadLegalSquares(square);
+    this.render();
+  }
+
+  handleClick(square) {
+    if (this.pieceAt(square)) {
+      this.select(square);
+      return;
+    }
+
+    if (this.selectedSquare) {
+      this.tryMove(this.selectedSquare, square);
+    }
+  }
+
+  async loadLegalSquares(square) {
+    try {
+      const response = await fetch("/api/legal-moves", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ fen: this.fen, from_square: square }),
+      });
+      const data = await response.json();
+      this.legalSquares = data.legal_squares || [];
+    } catch (error) {
+      this.legalSquares = this.instructionalSquares;
+    }
+  }
+
+  async tryMove(fromSquare, toSquare) {
+    if (!fromSquare || !toSquare || fromSquare === toSquare) return;
+    await this.onMove({ board: this, fromSquare, toSquare, move: `${fromSquare}${toSquare}` });
+  }
+
+  applyMove(fromSquare, toSquare) {
+    const movingPiece = this.position[fromSquare];
+    delete this.position[fromSquare];
+    this.position[toSquare] = movingPiece;
+    this.selectedSquare = null;
+    this.legalSquares = [];
+    this.lastMove = [fromSquare, toSquare];
+    this.fen = positionToFen(this.position);
+    this.render();
+  }
+
+  clearSelection() {
+    this.selectedSquare = null;
+    this.render();
+  }
+}
+
+function parseFen(fen) {
+  const placement = fen.split(" ")[0];
+  const position = {};
+  const ranks = placement.split("/");
+  ranks.forEach((rankText, rankIndex) => {
+    let fileIndex = 0;
+    const rank = 8 - rankIndex;
+    [...rankText].forEach((char) => {
+      if (Number.isInteger(Number(char)) && char !== "0") {
+        fileIndex += Number(char);
+        return;
+      }
+      const color = char === char.toUpperCase() ? "w" : "b";
+      position[`${files[fileIndex]}${rank}`] = `${color}${char.toUpperCase()}`;
+      fileIndex += 1;
+    });
+  });
+  return position;
+}
+
+function positionToFen(position) {
+  const ranks = [];
+  for (let rank = 8; rank >= 1; rank -= 1) {
+    let row = "";
+    let empty = 0;
+    files.forEach((file) => {
+      const piece = position[`${file}${rank}`];
+      if (!piece) {
+        empty += 1;
+        return;
+      }
+      if (empty) {
+        row += empty;
+        empty = 0;
+      }
+      const pieceLetter = piece[1];
+      row += piece[0] === "w" ? pieceLetter : pieceLetter.toLowerCase();
+    });
+    if (empty) row += empty;
+    ranks.push(row);
+  }
+  return `${ranks.join("/")} w - - 0 1`;
+}
+
+function pieceName(pieceCode) {
+  const color = pieceCode[0] === "w" ? "White" : "Black";
+  const names = { K: "king", Q: "queen", R: "rook", B: "bishop", N: "knight", P: "pawn" };
+  return `${color} ${names[pieceCode[1]]}`;
 }
 
 function updateProgressUI() {
@@ -301,11 +484,11 @@ function renderStepContent(step) {
   `;
 
   if (step.type === "rook-practice" || step.type === "rook-challenge" || step.highlights) {
-    setupBoardForStep(step);
     boardArea.innerHTML = '<div class="modern-board" id="modern-board" aria-label="Interactive chessboard"></div>';
-    renderModernBoard(step);
+    renderReusableBoard(step);
   } else {
-    boardArea.innerHTML = renderBoardShell("d4", [], {});
+    boardArea.innerHTML = '<div class="modern-board" id="modern-board" aria-label="Chessboard"></div>';
+    activeBoard = new ChessBoard(document.querySelector("#modern-board"), { fen: startingFen });
   }
 
   if (step.type === "checklist") {
@@ -330,112 +513,39 @@ function renderStepContent(step) {
   }
 }
 
-function setupBoardForStep(step) {
-  selectedSquare = null;
-  lastMove = [];
-  boardPieces = { [step.startSquare || "d4"]: "wR" };
-  if (step.pieces) {
-    step.pieces.forEach((piece) => {
-      boardPieces[piece.square] = piece.piece === "p" ? "bP" : piece.piece;
-    });
-  }
-}
-
 function rookLegalSquares(fromSquare) {
   return files.flatMap((file) => `${file}${fromSquare[1]}`)
     .concat([1, 2, 3, 4, 5, 6, 7, 8].map((rank) => `${fromSquare[0]}${rank}`))
     .filter((square) => square !== fromSquare);
 }
 
-function renderBoardShell(pieceSquare, highlights, pieces) {
-  let html = '<div class="modern-board is-static">';
-  for (let rank = 8; rank >= 1; rank -= 1) {
-    for (let fileIndex = 0; fileIndex < files.length; fileIndex += 1) {
-      const square = `${files[fileIndex]}${rank}`;
-      const piece = square === pieceSquare ? "wR" : pieces[square];
-      html += `
-        <div class="board-square ${(rank + fileIndex) % 2 === 0 ? "light" : "dark"} ${highlights.includes(square) ? "legal" : ""}">
-          ${piece ? `<img class="piece-img" src="${pieceAssets[piece]}" alt="">` : ""}
-        </div>
-      `;
-    }
-  }
-  html += "</div>";
-  return html;
+function renderReusableBoard(step) {
+  const boardElement = document.querySelector("#modern-board");
+  const startSquare = step.startSquare || "d4";
+  const legalSquares = step.highlights || (step.type === "rook-challenge" ? [step.targetSquare] : rookLegalSquares(startSquare));
+  activeBoard = new ChessBoard(boardElement, {
+    fen: step.fen || startingFen,
+    legalSquares,
+    targetSquare: step.targetSquare,
+    onMove: ({ board, fromSquare, toSquare, move }) => attemptBoardMove(step, board, fromSquare, toSquare, move),
+  });
 }
 
-function renderModernBoard(step) {
-  const board = document.querySelector("#modern-board");
-  if (!board) return;
-
-  const rookSquare = Object.keys(boardPieces).find((square) => boardPieces[square] === "wR");
-  const legalSquares = step.type === "rook-challenge" ? [step.targetSquare] : rookLegalSquares(rookSquare);
-  board.innerHTML = "";
-
-  for (let rank = 8; rank >= 1; rank -= 1) {
-    for (let fileIndex = 0; fileIndex < files.length; fileIndex += 1) {
-      const square = `${files[fileIndex]}${rank}`;
-      const piece = boardPieces[square];
-      const squareButton = document.createElement("button");
-      squareButton.type = "button";
-      squareButton.className = "board-square";
-      squareButton.dataset.square = square;
-      squareButton.classList.add((rank + fileIndex) % 2 === 0 ? "light" : "dark");
-      if (legalSquares.includes(square)) squareButton.classList.add("legal");
-      if (selectedSquare === square) squareButton.classList.add("selected");
-      if (lastMove.includes(square)) squareButton.classList.add("last-move");
-
-      if (piece) {
-        const img = document.createElement("img");
-        img.className = "piece-img";
-        img.src = pieceAssets[piece];
-        img.alt = piece === "wR" ? "White rook" : "Black pawn";
-        img.draggable = piece === "wR";
-        img.addEventListener("dragstart", () => {
-          draggedSquare = square;
-          selectedSquare = square;
-          renderModernBoard(step);
-        });
-        squareButton.appendChild(img);
-      }
-
-      squareButton.addEventListener("click", () => handleSquareClick(step, square));
-      squareButton.addEventListener("dragover", (event) => event.preventDefault());
-      squareButton.addEventListener("drop", (event) => {
-        event.preventDefault();
-        attemptBoardMove(step, draggedSquare, square);
-      });
-      board.appendChild(squareButton);
-    }
-  }
-}
-
-function handleSquareClick(step, square) {
-  if (boardPieces[square] === "wR") {
-    selectedSquare = square;
-    renderModernBoard(step);
-    return;
-  }
-
-  if (selectedSquare) {
-    attemptBoardMove(step, selectedSquare, square);
-  }
-}
-
-async function attemptBoardMove(step, fromSquare, toSquare) {
+async function attemptBoardMove(step, board, fromSquare, toSquare, move) {
   if (!fromSquare || fromSquare === toSquare) return;
   const feedback = document.querySelector("#step-feedback");
   const sideFeedback = document.querySelector("#side-feedback");
   feedback.textContent = "Checking move...";
+  const captured = Boolean(board.pieceAt(toSquare));
 
   try {
-    const response = await fetch("/api/rook-move", {
+    const response = await fetch("/api/validate-move", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ from_square: fromSquare, to_square: toSquare }),
+      body: JSON.stringify({ move, fen: board.fen }),
     });
     const data = await response.json();
-    if (!data.is_correct || (step.targetSquare && toSquare !== step.targetSquare)) {
+    if (!data.is_valid || (step.targetSquare && toSquare !== step.targetSquare)) {
       const message = step.targetSquare && toSquare !== step.targetSquare
         ? `Legal rook move, but the goal is ${step.targetSquare}.`
         : data.message;
@@ -443,22 +553,19 @@ async function attemptBoardMove(step, fromSquare, toSquare) {
       sideFeedback.textContent = message;
       feedback.className = "result error";
       playSound("illegal");
-      selectedSquare = null;
-      renderModernBoard(step);
+      board.clearSelection();
       return;
     }
 
-    const captured = Boolean(boardPieces[toSquare]);
-    delete boardPieces[fromSquare];
-    boardPieces[toSquare] = "wR";
-    selectedSquare = null;
-    lastMove = [fromSquare, toSquare];
+    board.applyMove(fromSquare, toSquare);
+    if (data.resulting_fen) {
+      board.fen = data.resulting_fen;
+    }
     feedback.textContent = step.successText || data.message;
     sideFeedback.textContent = feedback.textContent;
     feedback.className = "result success";
     playSound(captured ? "capture" : "move");
     unlockNextStep();
-    renderModernBoard(step);
   } catch (error) {
     feedback.textContent = "The coach cannot reach the backend right now.";
     feedback.className = "result error";
