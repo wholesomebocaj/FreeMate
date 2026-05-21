@@ -729,29 +729,37 @@ button.board-square {
 }
 
 .board-square.light {
-  background: #d6c29a;
+  background: #eeeed2;
 }
 
 .board-square.dark {
-  background: #6d8a63;
+  background: #769656;
 }
 
 .board-square.legal::after {
-  background: rgba(34, 197, 94, 0.42);
-  border: 2px solid rgba(5, 46, 22, 0.35);
+  background: rgba(20, 85, 30, 0.32);
+  border: 0;
   border-radius: 999px;
   content: "";
-  height: 30%;
+  height: 28%;
   position: absolute;
-  width: 30%;
+  width: 28%;
+  z-index: 1;
+}
+
+.board-square.occupied.legal::after {
+  background: transparent;
+  border: 5px solid rgba(20, 85, 30, 0.32);
+  height: 82%;
+  width: 82%;
 }
 
 .board-square.selected {
-  box-shadow: inset 0 0 0 5px rgba(250, 204, 21, 0.9);
+  box-shadow: inset 0 0 0 999px rgba(246, 246, 105, 0.36);
 }
 
 .board-square.last-move {
-  box-shadow: inset 0 0 0 999px rgba(250, 204, 21, 0.2);
+  box-shadow: inset 0 0 0 999px rgba(246, 246, 105, 0.26);
 }
 
 .board-square.target-square::before {
@@ -764,17 +772,313 @@ button.board-square {
 }
 
 .piece-img {
-  filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.38));
-  height: 78%;
+  cursor: grab;
+  filter: drop-shadow(0 6px 6px rgba(0, 0, 0, 0.32));
+  height: 91%;
   object-fit: contain;
   position: relative;
-  transition: transform 0.16s ease;
-  width: 78%;
+  transition: transform 0.12s ease, filter 0.12s ease;
+  user-select: none;
+  width: 91%;
   z-index: 2;
 }
 
 .piece-img:hover {
-  transform: scale(1.05);
+  filter: drop-shadow(0 9px 9px rgba(0, 0, 0, 0.38));
+  transform: scale(1.035);
+}
+
+.piece-img:active {
+  cursor: grabbing;
+  transform: scale(1.08);
+}
+
+.practice-shell {
+  max-width: 1480px;
+  padding-top: 22px;
+}
+
+.practice-header {
+  align-items: end;
+  display: grid;
+  gap: 18px;
+  grid-template-columns: 1fr 300px;
+  margin-bottom: 18px;
+}
+
+.practice-header h1 {
+  font-size: clamp(2rem, 4.5vw, 4.4rem);
+  line-height: 0.96;
+  margin: 0;
+}
+
+.practice-header p {
+  color: var(--muted);
+  max-width: 720px;
+}
+
+.practice-layout {
+  align-items: start;
+  display: grid;
+  gap: 18px;
+  grid-template-columns: minmax(560px, 1fr) 340px;
+}
+
+.practice-board-wrap {
+  background: linear-gradient(180deg, rgba(31, 41, 55, 0.75), rgba(15, 23, 42, 0.92));
+  border: 1px solid rgba(249, 250, 251, 0.08);
+  border-radius: 18px;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.42);
+  display: grid;
+  justify-items: center;
+  padding: 12px;
+}
+
+.practice-board,
+.practice-board-component {
+  aspect-ratio: 1;
+  background: #2b3327;
+  border: 0;
+  border-radius: 8px;
+  box-shadow:
+    0 22px 55px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.08);
+  display: block;
+  max-width: min(82vh, 880px);
+  overflow: hidden;
+  position: relative;
+  touch-action: none;
+  width: 100%;
+}
+
+.practice-board.cg-wrap,
+.practice-board-component.cg-wrap {
+  box-sizing: border-box;
+  isolation: isolate;
+}
+
+.practice-board.cg-wrap cg-container,
+.practice-board-component.cg-wrap cg-container {
+  border-radius: 8px;
+  inset: 0;
+  overflow: hidden;
+}
+
+.practice-board.cg-wrap cg-board,
+.practice-board-component.cg-wrap cg-board {
+  background-color: #eeeed2;
+  background-image:
+    linear-gradient(45deg, #769656 25%, transparent 25%),
+    linear-gradient(-45deg, #769656 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #769656 75%),
+    linear-gradient(-45deg, transparent 75%, #769656 75%);
+  background-position: 0 0, 0 12.5%, 12.5% -12.5%, -12.5% 0;
+  background-size: 25% 25%;
+}
+
+.practice-board.cg-wrap cg-board square.move-dest,
+.practice-board-component.cg-wrap cg-board square.move-dest {
+  background: radial-gradient(rgba(20, 85, 30, 0.38) 19%, transparent 20%);
+}
+
+.practice-board.cg-wrap cg-board square.oc.move-dest,
+.practice-board-component.cg-wrap cg-board square.oc.move-dest {
+  background: radial-gradient(transparent 0%, transparent 74%, rgba(20, 85, 30, 0.36) 75%);
+}
+
+.practice-board.cg-wrap cg-board square.move-dest:hover,
+.practice-board-component.cg-wrap cg-board square.move-dest:hover {
+  background: rgba(20, 85, 30, 0.28);
+}
+
+.practice-board.cg-wrap cg-board square.selected,
+.practice-board-component.cg-wrap cg-board square.selected {
+  background-color: rgba(246, 246, 105, 0.36);
+}
+
+.practice-board.cg-wrap cg-board square.last-move,
+.practice-board-component.cg-wrap cg-board square.last-move {
+  background-color: rgba(246, 246, 105, 0.28);
+}
+
+.practice-board.cg-wrap piece,
+.practice-board-component.cg-wrap piece {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 98%;
+  filter: drop-shadow(0 6px 6px rgba(0, 0, 0, 0.36));
+}
+
+.practice-board.cg-wrap piece.dragging,
+.practice-board-component.cg-wrap piece.dragging {
+  cursor: grabbing;
+  filter: drop-shadow(0 12px 12px rgba(0, 0, 0, 0.42));
+}
+
+.practice-board.cg-wrap piece.ghost,
+.practice-board-component.cg-wrap piece.ghost {
+  opacity: 0.35;
+}
+
+.practice-board.cg-wrap coords,
+.practice-board-component.cg-wrap coords {
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: clamp(0.55rem, 1vw, 0.72rem);
+  font-weight: 900;
+  line-height: 1;
+  opacity: 0.82;
+  pointer-events: none;
+  text-transform: lowercase;
+  z-index: 5;
+}
+
+.practice-board.cg-wrap coords.ranks,
+.practice-board-component.cg-wrap coords.ranks {
+  height: 100%;
+  left: 4px;
+  top: 0;
+  width: 14px;
+}
+
+.practice-board.cg-wrap coords.ranks.left,
+.practice-board-component.cg-wrap coords.ranks.left {
+  align-items: stretch;
+  left: 4px;
+}
+
+.practice-board.cg-wrap coords.files,
+.practice-board-component.cg-wrap coords.files {
+  bottom: 3px;
+  height: 12px;
+  left: 0;
+  text-align: right;
+  width: 100%;
+}
+
+.practice-board.cg-wrap coords.ranks coord,
+.practice-board-component.cg-wrap coords.ranks coord {
+  box-sizing: border-box;
+  padding-top: 4px;
+  transform: none;
+}
+
+.practice-board.cg-wrap coords.files coord,
+.practice-board-component.cg-wrap coords.files coord {
+  box-sizing: border-box;
+  padding-right: 5px;
+}
+
+.practice-board.cg-wrap coords coord:nth-child(odd),
+.practice-board-component.cg-wrap coords coord:nth-child(odd) {
+  color: rgba(238, 238, 210, 0.86);
+}
+
+.practice-board.cg-wrap coords coord:nth-child(even),
+.practice-board-component.cg-wrap coords coord:nth-child(even) {
+  color: rgba(39, 53, 32, 0.74);
+}
+
+.practice-panel {
+  display: grid;
+  gap: 12px;
+  position: sticky;
+  top: 88px;
+}
+
+.practice-panel .focus-card {
+  border-radius: 16px;
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.24);
+  padding: 16px;
+}
+
+.practice-info-card h2 {
+  margin: 0 0 14px;
+}
+
+.practice-info-grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.practice-info-grid div {
+  background: rgba(249, 250, 251, 0.055);
+  border: 1px solid rgba(249, 250, 251, 0.075);
+  border-radius: 12px;
+  padding: 10px;
+}
+
+.practice-info-grid span {
+  color: var(--muted);
+  display: block;
+  font-size: 0.76rem;
+  font-weight: 850;
+}
+
+.practice-info-grid strong {
+  display: block;
+  font-size: 1rem;
+  margin-top: 4px;
+}
+
+.practice-actions {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: 1fr;
+}
+
+.fen-form {
+  display: grid;
+  gap: 12px;
+}
+
+.fen-form label {
+  color: var(--text);
+  font-weight: 850;
+}
+
+textarea {
+  background: rgba(249, 250, 251, 0.08);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  color: var(--text);
+  resize: vertical;
+  padding: 12px;
+}
+
+.move-history {
+  color: var(--muted);
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  max-height: 230px;
+  overflow: auto;
+  padding-left: 22px;
+}
+
+.square-coordinate {
+  color: rgba(39, 53, 32, 0.68);
+  font-size: clamp(0.55rem, 1vw, 0.76rem);
+  font-weight: 900;
+  line-height: 1;
+  pointer-events: none;
+  position: absolute;
+  text-transform: lowercase;
+  z-index: 1;
+}
+
+.board-square.dark .square-coordinate {
+  color: rgba(238, 238, 210, 0.72);
+}
+
+.coord-rank {
+  left: 4px;
+  top: 4px;
+}
+
+.coord-file {
+  bottom: 4px;
+  right: 5px;
 }
 
 .mini-board-wrap .lesson-board {
@@ -901,6 +1205,8 @@ input::placeholder {
   .lesson-workspace,
   .coach-header,
   .course-browser-hero,
+  .practice-header,
+  .practice-layout,
   .lesson-mode-shell,
   .progress-overview,
   .lesson-focus-grid {
@@ -908,7 +1214,8 @@ input::placeholder {
   }
 
   .course-sidebar,
-  .progress-sidebar {
+  .progress-sidebar,
+  .practice-panel {
     position: static;
   }
 
@@ -1001,6 +1308,7 @@ input::placeholder {
   .coach-panel,
   .roadmap-section,
   .course-sidebar,
+  .practice-board-wrap,
   .mini-dashboard,
   .focus-card {
     border-radius: 18px;

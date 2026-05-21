@@ -13,6 +13,7 @@
       <div class="nav-links">
         <a href="/">Home</a>
         <a href="/lessons">Lessons</a>
+        <a href="/practice">Practice</a>
         <a href="/lessons#puzzles">Puzzles</a>
         <a href="/lessons#progress">Progress</a>
       </div>
@@ -53,6 +54,10 @@
     </aside>
   </main>
 
+  <script type="module">
+    import { PracticeBoard } from "/static/practice-board.js";
+    window.PracticeBoard = PracticeBoard;
+  </script>
   <script src="/static/script.js"></script>
 </body>
 </html>

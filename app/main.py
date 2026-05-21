@@ -62,6 +62,11 @@ def lessons_page() -> FileResponse:
     return FileResponse(STATIC_DIR / "lessons.html")
 
 
+@app.get("/practice")
+def practice_page() -> FileResponse:
+    return FileResponse(STATIC_DIR / "practice.html")
+
+
 @app.get("/lesson/{lesson_id}")
 def lesson_page(lesson_id: str) -> FileResponse:
     return FileResponse(STATIC_DIR / "lesson.html")
