@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="black pawn">
+  <defs>
+    <linearGradient id="pawn" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#475569"/>
+      <stop offset="1" stop-color="#111827"/>
+    </linearGradient>
+  </defs>
+  <path fill="#000000" opacity=".28" d="M25 82h50v8H25z"/>
+  <path fill="url(#pawn)" stroke="#020617" stroke-width="4" stroke-linejoin="round" d="M50 16a14 14 0 0 1 7 26l7 12 9 25H27l9-25 7-12a14 14 0 0 1 7-26z"/>
+  <path fill="#64748b" opacity=".7" d="M43 24a8 8 0 0 1 12 0 18 18 0 0 0-12 0z"/>
+</svg>

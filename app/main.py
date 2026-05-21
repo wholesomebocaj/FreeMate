@@ -51,6 +51,11 @@ def lessons_page() -> FileResponse:
     return FileResponse(STATIC_DIR / "lessons.html")
 
 
+@app.get("/lesson/{lesson_id}")
+def lesson_page(lesson_id: str) -> FileResponse:
+    return FileResponse(STATIC_DIR / "lesson.html")
+
+
 @app.get("/api/course")
 def get_course() -> JSONResponse:
     with COURSE_PATH.open(encoding="utf-8") as course_file:

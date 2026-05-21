@@ -146,13 +146,13 @@
         },
         {
           "id": "minor-piece-movement",
-          "title": "Minor Piece Movement",
-          "subskills": ["Bishop diagonals", "Knight jumps"],
+          "title": "Bishop Movement",
+          "subskills": ["Bishop diagonals", "Same-color movement"],
           "lessons": [
             {
-              "id": "bishop-and-knight-shapes",
-              "title": "Bishop Lines and Knight Jumps",
-              "summary": "Separate diagonal movement from L-shaped knight movement.",
+              "id": "bishop-movement",
+              "title": "Bishop Movement",
+              "summary": "Learn how bishops travel diagonally and stay on one color.",
               "difficulty": "Beginner",
               "ratingRange": "200-700",
               "timeMinutes": 6,
@@ -181,6 +181,95 @@
                 "prompt": "Compare the bishop and knight before choosing a move.",
                 "tasks": ["Bishops stay on one color", "Knights jump in an L shape", "Knights can hop over pieces"]
               }
+            }
+          ]
+        },
+        {
+          "id": "knight-movement",
+          "title": "Knight Movement",
+          "subskills": ["L shapes", "Jumping pieces"],
+          "lessons": [
+            {
+              "id": "knight-movement",
+              "title": "Knight Movement",
+              "summary": "Practice the knight's L-shaped jump.",
+              "difficulty": "Beginner",
+              "ratingRange": "200-700",
+              "timeMinutes": 6,
+              "locked": true,
+              "coachIntro": "Knights feel strange at first because they are the only pieces that jump.",
+              "steps": [
+                {"type": "explain", "title": "Knights jump in an L", "body": "Move two squares in one direction and one square sideways."},
+                {"type": "checklist", "title": "Knight scan", "body": "Check each possible L shape around the knight.", "tasks": ["Two then one", "One then two", "Jumping is allowed"]}
+              ],
+              "exercise": {"type": "checklist", "prompt": "Use the knight movement scan.", "tasks": ["Two then one", "One then two", "Can jump over pieces"]}
+            }
+          ]
+        },
+        {
+          "id": "queen-movement",
+          "title": "Queen Movement",
+          "subskills": ["Rook movement", "Bishop movement", "Long-range control"],
+          "lessons": [
+            {
+              "id": "queen-movement",
+              "title": "Queen Movement",
+              "summary": "Combine rook lines and bishop diagonals.",
+              "difficulty": "Beginner",
+              "ratingRange": "300-800",
+              "timeMinutes": 5,
+              "locked": true,
+              "coachIntro": "The queen is powerful because she combines straight and diagonal movement.",
+              "steps": [
+                {"type": "explain", "title": "Queen equals rook plus bishop", "body": "The queen moves along ranks, files, and diagonals."},
+                {"type": "checklist", "title": "Queen line check", "body": "Before moving the queen, check if the path is clear.", "tasks": ["Same rank", "Same file", "Same diagonal"]}
+              ],
+              "exercise": {"type": "checklist", "prompt": "Use the queen line check.", "tasks": ["Rank", "File", "Diagonal"]}
+            }
+          ]
+        },
+        {
+          "id": "king-movement",
+          "title": "King Movement",
+          "subskills": ["One-square moves", "King safety"],
+          "lessons": [
+            {
+              "id": "king-movement",
+              "title": "King Movement",
+              "summary": "Move the king safely one square at a time.",
+              "difficulty": "Beginner",
+              "ratingRange": "300-800",
+              "timeMinutes": 5,
+              "locked": true,
+              "coachIntro": "The king is slow, but every move matters because the king can never move into check.",
+              "steps": [
+                {"type": "explain", "title": "One square only", "body": "The king moves one square in any direction."},
+                {"type": "checklist", "title": "Safety check", "body": "A king move is legal only if the destination is safe.", "tasks": ["Is the square attacked?", "Is the path legal?", "Does the king remain safe?"]}
+              ],
+              "exercise": {"type": "checklist", "prompt": "Use the king safety check.", "tasks": ["Destination safe", "No moving into check", "One square"]}
+            }
+          ]
+        },
+        {
+          "id": "pawn-movement",
+          "title": "Pawn Movement",
+          "subskills": ["Forward moves", "Captures", "Promotion"],
+          "lessons": [
+            {
+              "id": "pawn-movement",
+              "title": "Pawn Movement",
+              "summary": "Learn pawn moves, captures, first moves, and promotion.",
+              "difficulty": "Beginner",
+              "ratingRange": "300-900",
+              "timeMinutes": 7,
+              "locked": true,
+              "coachIntro": "Pawns look simple, but their movement rules create many beginner mistakes.",
+              "steps": [
+                {"type": "explain", "title": "Pawns move forward", "body": "A pawn moves forward one square, or two from its starting square if clear."},
+                {"type": "explain", "title": "Pawns capture diagonally", "body": "Pawns do not capture the same way they move."},
+                {"type": "checklist", "title": "Pawn rule scan", "body": "Check the pawn rule before moving.", "tasks": ["Move forward", "Capture diagonally", "Promote on the last rank"]}
+              ],
+              "exercise": {"type": "checklist", "prompt": "Use the pawn rule scan.", "tasks": ["Forward move", "Diagonal capture", "Promotion goal"]}
             }
           ]
         }

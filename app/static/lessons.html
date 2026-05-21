@@ -19,12 +19,16 @@
     </nav>
   </header>
 
-  <main class="lesson-shell">
-    <section class="coach-header">
+  <main class="course-browser-shell">
+    <section class="course-browser-hero">
       <div>
-        <p class="eyebrow">FreeMate coach</p>
+        <p class="eyebrow">Course library</p>
         <h1 id="course-title">FreeMate Beginner Chess Course</h1>
-        <p id="course-description">Choose your next lesson and follow the guided steps.</p>
+        <p id="course-description">A structured beginner roadmap with guided interactive lessons.</p>
+        <div class="hero-actions">
+          <a class="button primary" id="continue-learning" href="/lesson/rook-from-d4">Continue Learning</a>
+          <a class="button secondary" href="#course-categories">Browse Course</a>
+        </div>
       </div>
       <div class="coach-stats" id="progress">
         <span id="progress-count">0 of 0 complete</span>
@@ -38,46 +42,42 @@
       <div class="roadmap" id="lesson-roadmap"></div>
     </section>
 
-    <section class="lesson-workspace">
-      <aside class="course-sidebar" aria-label="Course navigation">
-        <div class="sidebar-title">
-          <p class="eyebrow">Course map</p>
-          <h2>Roadmap</h2>
-        </div>
-        <div class="course-tree" id="course-tree"></div>
-      </aside>
+    <section class="continue-panel">
+      <div>
+        <p class="eyebrow">Continue learning</p>
+        <h2 id="continue-title">Your next lesson is ready</h2>
+        <p id="continue-description">Jump back into the next unlocked lesson.</p>
+      </div>
+      <a class="button primary" id="continue-card-button" href="/lesson/rook-from-d4">Open Lesson</a>
+    </section>
 
-      <article class="coach-panel" id="lesson-player" aria-live="polite">
-        <p class="eyebrow">Interactive lesson</p>
-        <h2>Loading your next lesson...</h2>
-      </article>
+    <section class="course-browser-grid" id="course-categories" aria-label="Course categories"></section>
 
-      <aside class="progress-sidebar" aria-label="Lesson progress">
-        <div class="mini-dashboard">
-          <p class="eyebrow">Dashboard</p>
-          <h2>Progress</h2>
-          <div class="metric-grid">
-            <div>
-              <span id="completed-number">0</span>
-              <p>Completed</p>
-            </div>
-            <div>
-              <span id="course-percent">0%</span>
-              <p>Course</p>
-            </div>
+    <section class="progress-overview" id="progress-overview">
+      <div class="mini-dashboard">
+        <p class="eyebrow">Progress dashboard</p>
+        <h2>Beginner Roadmap</h2>
+        <div class="metric-grid">
+          <div>
+            <span id="completed-number">0</span>
+            <p>Lessons completed</p>
+          </div>
+          <div>
+            <span id="course-percent">0%</span>
+            <p>Course complete</p>
           </div>
         </div>
-        <div class="focus-card">
-          <p class="eyebrow">Current focus</p>
-          <h3 id="current-focus">Piece Movement</h3>
-          <p id="next-lesson">Next: Move the Rook from d4</p>
-        </div>
-        <div class="focus-card" id="puzzles">
-          <p class="eyebrow">Puzzles</p>
-          <h3>Coming next</h3>
-          <p>Basic tactics will unlock puzzle-style drills as the curriculum grows.</p>
-        </div>
-      </aside>
+      </div>
+      <div class="focus-card">
+        <p class="eyebrow">Current focus</p>
+        <h3 id="current-focus">Piece Movement</h3>
+        <p id="next-lesson">Next: Move the Rook from d4</p>
+      </div>
+      <div class="focus-card" id="puzzles">
+        <p class="eyebrow">Puzzles</p>
+        <h3>Coming next</h3>
+        <p>Basic tactics will unlock puzzle-style drills as the curriculum grows.</p>
+      </div>
     </section>
   </main>
 

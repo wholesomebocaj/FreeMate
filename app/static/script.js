@@ -1,13 +1,21 @@
 const files = ["a", "b", "c", "d", "e", "f", "g", "h"];
 const progressKey = "freemate.completedLessons";
 const stepKey = "freemate.lessonSteps";
+const pieceAssets = {
+  wR: "/static/assets/pieces/wR.svg",
+  bP: "/static/assets/pieces/bP.svg",
+};
 
 let course = null;
-let activeLessonId = null;
-let activeStepIndex = 0;
 let completedLessons = loadSet(progressKey);
 let savedSteps = loadObject(stepKey);
-let currentRookSquare = "d4";
+let activeLesson = null;
+let activeStepIndex = 0;
+let selectedSquare = null;
+let lastMove = [];
+let boardPieces = {};
+let draggedSquare = null;
+let audioContext = null;
 
 function loadSet(key) {
   try {
@@ -30,100 +38,96 @@ function saveProgress() {
   localStorage.setItem(stepKey, JSON.stringify(savedSteps));
 }
 
-function squareName(fileIndex, rank) {
-  return `${files[fileIndex]}${rank}`;
+function playSound(type) {
+  audioContext = audioContext || new AudioContext();
+  const oscillator = audioContext.createOscillator();
+  const gain = audioContext.createGain();
+  const tones = {
+    move: [420, 0.045],
+    capture: [260, 0.07],
+    illegal: [130, 0.11],
+    success: [620, 0.12],
+  };
+  const [frequency, duration] = tones[type] || tones.move;
+
+  oscillator.frequency.value = frequency;
+  oscillator.type = type === "illegal" ? "sawtooth" : "sine";
+  gain.gain.setValueAtTime(0.0001, audioContext.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.08, audioContext.currentTime + 0.01);
+  gain.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + duration);
+  oscillator.connect(gain);
+  gain.connect(audioContext.destination);
+  oscillator.start();
+  oscillator.stop(audioContext.currentTime + duration);
 }
 
-function getAllLessons() {
-  if (!course) {
-    return [];
-  }
-
+function allLessons() {
+  if (!course) return [];
   return course.categories.flatMap((category) =>
     category.skills.flatMap((skill) =>
-      skill.lessons.map((lesson) => ({
-        ...lesson,
-        category,
-        skill,
-      }))
+      skill.lessons.map((lesson) => ({ ...lesson, category, skill }))
     )
   );
 }
 
-function getLessonById(lessonId) {
-  return getAllLessons().find((lesson) => lesson.id === lessonId);
+function lessonById(id) {
+  return allLessons().find((lesson) => lesson.id === id);
 }
 
-function getLessonIndex(lessonId) {
-  return getAllLessons().findIndex((lesson) => lesson.id === lessonId);
+function lessonIndex(id) {
+  return allLessons().findIndex((lesson) => lesson.id === id);
 }
 
-function isLessonUnlocked(lessonId) {
-  const index = getLessonIndex(lessonId);
-  if (index <= 0) {
-    return true;
-  }
-
-  const lesson = getLessonById(lessonId);
-  if (lesson.locked && !completedLessons.has(getAllLessons()[index - 1].id)) {
-    return false;
-  }
-
-  return completedLessons.has(getAllLessons()[index - 1].id) || !lesson.locked;
+function isUnlocked(lesson) {
+  const index = lessonIndex(lesson.id);
+  if (index <= 0) return true;
+  const previous = allLessons()[index - 1];
+  return !lesson.locked || completedLessons.has(previous.id);
 }
 
-function nextAvailableLesson() {
-  return getAllLessons().find((lesson) => !completedLessons.has(lesson.id) && isLessonUnlocked(lesson.id))
-    || getAllLessons()[0];
+function nextLesson() {
+  return allLessons().find((lesson) => !completedLessons.has(lesson.id) && isUnlocked(lesson))
+    || allLessons()[0];
 }
 
-function updateGlobalProgress() {
-  const lessons = getAllLessons();
-  const completeCount = lessons.filter((lesson) => completedLessons.has(lesson.id)).length;
-  const percent = lessons.length ? Math.round((completeCount / lessons.length) * 100) : 0;
-
-  setText("#progress-count", `${completeCount} of ${lessons.length} complete`);
-  setText("#completed-number", completeCount);
-  setText("#course-percent", `${percent}%`);
-
-  document.querySelectorAll("#progress-fill").forEach((fill) => {
-    fill.style.width = `${percent}%`;
-  });
-
-  const current = getLessonById(activeLessonId) || nextAvailableLesson();
-  if (current) {
-    setText("#current-focus", current.skill.title);
-    const next = getAllLessons().find((lesson) => !completedLessons.has(lesson.id) && lesson.id !== current.id);
-    setText("#next-lesson", next ? `Next: ${next.title}` : "Course complete. Beautiful work.");
-  }
+function progressPercent() {
+  const lessons = allLessons();
+  if (!lessons.length) return 0;
+  return Math.round((lessons.filter((lesson) => completedLessons.has(lesson.id)).length / lessons.length) * 100);
 }
 
 function setText(selector, value) {
   const element = document.querySelector(selector);
-  if (element) {
-    element.textContent = value;
+  if (element) element.textContent = value;
+}
+
+function updateProgressUI() {
+  const lessons = allLessons();
+  const completeCount = lessons.filter((lesson) => completedLessons.has(lesson.id)).length;
+  const percent = progressPercent();
+  setText("#progress-count", `${completeCount} of ${lessons.length} complete`);
+  setText("#completed-number", completeCount);
+  setText("#course-percent", `${percent}%`);
+  document.querySelectorAll(".progress-fill").forEach((fill) => {
+    if (fill.id !== "lesson-progress-fill") fill.style.width = `${percent}%`;
+  });
+
+  const next = nextLesson();
+  if (next) {
+    setText("#current-focus", next.skill.title);
+    setText("#next-lesson", `Next: ${next.title}`);
   }
 }
 
-function lessonStateLabel(lesson) {
-  if (completedLessons.has(lesson.id)) {
-    return "Done";
-  }
-
-  return isLessonUnlocked(lesson.id) ? "Open" : "Locked";
-}
-
-function renderRoadmap(targetSelector) {
-  const target = document.querySelector(targetSelector);
-  if (!target || !course) {
-    return;
-  }
-
+function renderRoadmap(targetId) {
+  const target = document.querySelector(targetId);
+  if (!target || !course) return;
   target.innerHTML = "";
+
   course.categories.forEach((category) => {
     const lessons = category.skills.flatMap((skill) => skill.lessons);
     const complete = lessons.every((lesson) => completedLessons.has(lesson.id));
-    const unlocked = lessons.some((lesson) => isLessonUnlocked(lesson.id));
+    const unlocked = lessons.some((lesson) => isUnlocked(lessonById(lesson.id)));
     const item = document.createElement("div");
     item.className = `roadmap-item ${complete ? "complete" : unlocked ? "current" : "locked"}`;
     item.textContent = category.title;
@@ -131,12 +135,73 @@ function renderRoadmap(targetSelector) {
   });
 }
 
-function renderCourseTree() {
-  const tree = document.querySelector("#course-tree");
-  if (!tree || !course) {
-    return;
+function renderCourseBrowser() {
+  const browser = document.querySelector("#course-categories");
+  if (!browser || !course) return;
+
+  const next = nextLesson();
+  setText("#course-title", course.title);
+  setText("#course-description", course.description);
+  if (next) {
+    document.querySelector("#continue-learning").href = `/lesson/${next.id}`;
+    document.querySelector("#continue-card-button").href = `/lesson/${next.id}`;
+    setText("#continue-title", next.title);
+    setText("#continue-description", `${next.category.title} · ${next.skill.title} · ${next.timeMinutes || 5} min`);
   }
 
+  browser.innerHTML = "";
+  course.categories.forEach((category) => {
+    const section = document.createElement("section");
+    section.className = "course-category-card";
+    section.innerHTML = `
+      <div class="category-heading">
+        <div>
+          <p class="eyebrow">Category</p>
+          <h2>${category.title}</h2>
+          <p>${category.description}</p>
+        </div>
+      </div>
+      <div class="lesson-row-list"></div>
+    `;
+
+    const list = section.querySelector(".lesson-row-list");
+    category.skills.forEach((skill) => {
+      skill.lessons.forEach((lessonData) => {
+        const lesson = lessonById(lessonData.id);
+        const complete = completedLessons.has(lesson.id);
+        const unlocked = isUnlocked(lesson);
+        const stepCount = lesson.steps?.length || 1;
+        const lessonProgress = complete ? 100 : Math.round(((savedSteps[lesson.id] || 0) / stepCount) * 100);
+        const row = document.createElement("article");
+        row.className = `lesson-row ${unlocked ? "" : "is-locked"}`;
+        row.innerHTML = `
+          <div class="lesson-row-main">
+            <span class="lesson-state">${complete ? "Complete" : unlocked ? "Unlocked" : "Locked"}</span>
+            <h3>${lesson.title}</h3>
+            <p>${lesson.summary}</p>
+          </div>
+          <div class="lesson-row-meta">
+            <span>${lesson.difficulty}</span>
+            <span>${lesson.timeMinutes || 5} min</span>
+            <span>${lesson.ratingRange}</span>
+          </div>
+          <div class="lesson-row-progress">
+            <div class="progress-track"><div class="progress-fill" style="width: ${lessonProgress}%"></div></div>
+            <span>${lessonProgress}%</span>
+          </div>
+          <a class="button ${unlocked ? "primary" : "secondary"}" href="${unlocked ? `/lesson/${lesson.id}` : "#"}">${complete ? "Review" : "Continue"}</a>
+        `;
+        list.appendChild(row);
+      });
+    });
+
+    browser.appendChild(section);
+  });
+}
+
+function renderCourseTree() {
+  const tree = document.querySelector("#course-tree");
+  if (!tree || !course) return;
   tree.innerHTML = "";
 
   course.categories.forEach((category) => {
@@ -145,396 +210,345 @@ function renderCourseTree() {
     group.innerHTML = `<h3>${category.title}</h3>`;
 
     category.skills.forEach((skill) => {
-      const skillBlock = document.createElement("div");
-      skillBlock.className = "tree-skill";
-      skillBlock.innerHTML = `<p>${skill.title}</p>`;
-
-      skill.lessons.forEach((lesson) => {
-        const unlocked = isLessonUnlocked(lesson.id);
-        const button = document.createElement("button");
-        button.type = "button";
-        button.className = "tree-lesson";
-        button.disabled = !unlocked;
-        button.setAttribute("aria-current", String(lesson.id === activeLessonId));
-        button.innerHTML = `
-          <span>${lessonStateLabel(lesson)}</span>
+      const block = document.createElement("div");
+      block.className = "tree-skill";
+      block.innerHTML = `<p>${skill.title}</p>`;
+      skill.lessons.forEach((lessonData) => {
+        const lesson = lessonById(lessonData.id);
+        const unlocked = isUnlocked(lesson);
+        const link = document.createElement("a");
+        link.className = `tree-lesson ${unlocked ? "" : "is-locked"}`;
+        link.href = unlocked ? `/lesson/${lesson.id}` : "#";
+        link.setAttribute("aria-current", String(activeLesson && lesson.id === activeLesson.id));
+        link.innerHTML = `
+          <span>${completedLessons.has(lesson.id) ? "Done" : unlocked ? "Open" : "Locked"}</span>
           <strong>${lesson.title}</strong>
         `;
-        button.addEventListener("click", () => openLesson(lesson.id));
-        skillBlock.appendChild(button);
+        block.appendChild(link);
       });
-
-      group.appendChild(skillBlock);
+      group.appendChild(block);
     });
 
     tree.appendChild(group);
   });
 }
 
-function openLesson(lessonId) {
-  if (!isLessonUnlocked(lessonId)) {
-    return;
-  }
-
-  activeLessonId = lessonId;
-  activeStepIndex = savedSteps[lessonId] || 0;
-  renderCourseTree();
-  renderLessonPlayer();
-  updateGlobalProgress();
-  renderRoadmap("#lesson-roadmap");
+function currentLessonIdFromUrl() {
+  const parts = window.location.pathname.split("/");
+  return parts[1] === "lesson" ? parts[2] : null;
 }
 
-function renderLessonPlayer() {
+function renderLessonMode() {
   const player = document.querySelector("#lesson-player");
-  const lesson = getLessonById(activeLessonId);
-  if (!player || !lesson) {
-    return;
-  }
+  if (!player || !course) return;
 
-  const steps = lesson.steps || [];
-  const step = steps[activeStepIndex] || steps[0];
+  const requestedLesson = lessonById(currentLessonIdFromUrl());
+  activeLesson = requestedLesson && isUnlocked(requestedLesson) ? requestedLesson : nextLesson();
+  activeStepIndex = savedSteps[activeLesson.id] || 0;
+  renderCourseTree();
+  renderLessonStep();
+}
+
+function renderLessonStep() {
+  const player = document.querySelector("#lesson-player");
+  const step = activeLesson.steps[activeStepIndex];
   const stepNumber = activeStepIndex + 1;
-  const percent = steps.length ? Math.round((stepNumber / steps.length) * 100) : 0;
+  const stepPercent = Math.round((stepNumber / activeLesson.steps.length) * 100);
+
+  setText("#lesson-objective", activeLesson.title);
+  setText("#lesson-goal", activeLesson.coachIntro || activeLesson.summary);
+  setText("#lesson-progress-label", `Step ${stepNumber} of ${activeLesson.steps.length}`);
+  document.querySelector("#lesson-progress-fill").style.width = `${stepPercent}%`;
 
   player.innerHTML = `
     <div class="lesson-kicker">
-      <span>${lesson.category.title}</span>
-      <span>${lesson.difficulty}</span>
-      <span>${lesson.ratingRange}</span>
-      <span>${lesson.timeMinutes || 5} min</span>
+      <span>${activeLesson.category.title}</span>
+      <span>${activeLesson.skill.title}</span>
+      <span>${activeLesson.difficulty}</span>
+      <span>${activeLesson.timeMinutes || 5} min</span>
     </div>
     <div class="lesson-title-row">
       <div>
-        <p class="eyebrow">${lesson.skill.title}</p>
-        <h2>${lesson.title}</h2>
+        <p class="eyebrow">Learning mode</p>
+        <h1>${activeLesson.title}</h1>
       </div>
-      <span class="completion-pill">${completedLessons.has(lesson.id) ? "Complete" : "In progress"}</span>
+      <span class="completion-pill">${completedLessons.has(activeLesson.id) ? "Complete" : "Training"}</span>
     </div>
-    <p class="coach-note">${lesson.coachIntro || lesson.summary}</p>
-    <div class="step-progress">
-      <span>Step ${stepNumber} of ${steps.length}</span>
-      <div class="progress-track"><div class="progress-fill" style="width: ${percent}%"></div></div>
-    </div>
-    <section class="lesson-step" id="lesson-step"></section>
+    <p class="coach-note">${activeLesson.coachIntro || activeLesson.summary}</p>
+    <section class="lesson-focus-grid">
+      <div class="board-area" id="board-area"></div>
+      <div class="instruction-card" id="instruction-card"></div>
+    </section>
     <div class="lesson-actions">
       <button class="button secondary" type="button" id="hint-button">Show Hint</button>
       <button class="button secondary" type="button" id="previous-step" ${activeStepIndex === 0 ? "disabled" : ""}>Back</button>
-      <button class="button primary" type="button" id="next-step">${activeStepIndex === steps.length - 1 ? "Complete Lesson" : "Next Step"}</button>
+      <button class="button primary" type="button" id="next-step">Next Step</button>
     </div>
+  `;
+
+  renderStepContent(step);
+  bindStepControls(step);
+}
+
+function renderStepContent(step) {
+  const boardArea = document.querySelector("#board-area");
+  const card = document.querySelector("#instruction-card");
+  card.innerHTML = `
+    <p class="eyebrow">Step ${activeStepIndex + 1}</p>
+    <h2>${step.title}</h2>
+    <p>${step.body}</p>
     <p class="result" id="step-feedback" role="status"></p>
   `;
 
-  renderStep(step, lesson);
-  bindLessonActions(lesson);
-}
-
-function renderStep(step, lesson) {
-  const container = document.querySelector("#lesson-step");
-  if (!container) {
-    return;
-  }
-
-  if (step.type === "rook-practice" || step.type === "rook-challenge") {
-    renderRookStep(container, step, lesson);
-    return;
-  }
-
-  if (step.type === "move-validation") {
-    renderMoveValidationStep(container, step);
-    return;
+  if (step.type === "rook-practice" || step.type === "rook-challenge" || step.highlights) {
+    setupBoardForStep(step);
+    boardArea.innerHTML = '<div class="modern-board" id="modern-board" aria-label="Interactive chessboard"></div>';
+    renderModernBoard(step);
+  } else {
+    boardArea.innerHTML = renderBoardShell("d4", [], {});
   }
 
   if (step.type === "checklist") {
-    container.innerHTML = `
-      <div class="teaching-card">
-        <h3>${step.title}</h3>
-        <p>${step.body}</p>
-        <ul class="exercise-checklist">
-          ${step.tasks.map((task) => `<li>${task}</li>`).join("")}
-        </ul>
-      </div>
-    `;
-    return;
+    card.insertAdjacentHTML("beforeend", `
+      <ul class="exercise-checklist">
+        ${step.tasks.map((task) => `<li>${task}</li>`).join("")}
+      </ul>
+    `);
   }
 
-  container.innerHTML = `
-    <div class="teaching-card">
-      <h3>${step.title}</h3>
-      <p>${step.body}</p>
-      ${step.highlights ? `<div class="mini-board-wrap">${renderStaticBoard("d4", step.highlights)}</div>` : ""}
-    </div>
-  `;
+  if (step.type === "move-validation") {
+    card.insertAdjacentHTML("beforeend", `
+      <form class="move-form" id="lesson-move-form">
+        <label for="lesson-move-input">Try a move</label>
+        <div class="input-row">
+          <input id="lesson-move-input" name="move" type="text" placeholder="${step.placeholder || "e2e4"}" required>
+          <button class="button primary" type="submit">Validate</button>
+        </div>
+      </form>
+    `);
+    document.querySelector("#lesson-move-form").addEventListener("submit", (event) => validateTypedMove(event, step));
+  }
 }
 
-function renderStaticBoard(pieceSquare, highlights = []) {
-  let html = '<div class="lesson-board is-static">';
+function setupBoardForStep(step) {
+  selectedSquare = null;
+  lastMove = [];
+  boardPieces = { [step.startSquare || "d4"]: "wR" };
+  if (step.pieces) {
+    step.pieces.forEach((piece) => {
+      boardPieces[piece.square] = piece.piece === "p" ? "bP" : piece.piece;
+    });
+  }
+}
+
+function rookLegalSquares(fromSquare) {
+  return files.flatMap((file) => `${file}${fromSquare[1]}`)
+    .concat([1, 2, 3, 4, 5, 6, 7, 8].map((rank) => `${fromSquare[0]}${rank}`))
+    .filter((square) => square !== fromSquare);
+}
+
+function renderBoardShell(pieceSquare, highlights, pieces) {
+  let html = '<div class="modern-board is-static">';
   for (let rank = 8; rank >= 1; rank -= 1) {
     for (let fileIndex = 0; fileIndex < files.length; fileIndex += 1) {
-      const square = squareName(fileIndex, rank);
-      const classes = [
-        "rook-square",
-        (rank + fileIndex) % 2 === 0 ? "light" : "dark",
-        highlights.includes(square) ? "highlighted" : "",
-        square === pieceSquare ? "has-rook" : "",
-      ].join(" ");
-      html += `<div class="${classes}" aria-label="${square}">${square === pieceSquare ? "R" : ""}</div>`;
+      const square = `${files[fileIndex]}${rank}`;
+      const piece = square === pieceSquare ? "wR" : pieces[square];
+      html += `
+        <div class="board-square ${(rank + fileIndex) % 2 === 0 ? "light" : "dark"} ${highlights.includes(square) ? "legal" : ""}">
+          ${piece ? `<img class="piece-img" src="${pieceAssets[piece]}" alt="">` : ""}
+        </div>
+      `;
     }
   }
   html += "</div>";
   return html;
 }
 
-function renderRookStep(container, step) {
-  currentRookSquare = step.startSquare || "d4";
-  container.innerHTML = `
-    <div class="board-lesson-layout">
-      <div class="teaching-card">
-        <h3>${step.title}</h3>
-        <p>${step.body}</p>
-        <p class="hint-text">Hint: rooks move in straight lines across ranks and files.</p>
-        <button class="button secondary" type="button" id="reset-rook">Reset</button>
-        <p class="result" id="rook-feedback" role="status"></p>
-      </div>
-      <div class="lesson-board" id="rook-board" aria-label="Interactive rook movement board"></div>
-    </div>
-  `;
+function renderModernBoard(step) {
+  const board = document.querySelector("#modern-board");
+  if (!board) return;
 
-  drawInteractiveBoard(step);
-  document.querySelector("#reset-rook").addEventListener("click", () => {
-    currentRookSquare = step.startSquare || "d4";
-    setText("#rook-feedback", "");
-    drawInteractiveBoard(step);
-  });
-}
-
-function drawInteractiveBoard(step) {
-  const board = document.querySelector("#rook-board");
-  if (!board) {
-    return;
-  }
-
-  const pieces = step.pieces || [];
-  const highlights = step.type === "rook-practice"
-    ? ["d1", "d2", "d3", "d5", "d6", "d7", "d8", "a4", "b4", "c4", "e4", "f4", "g4", "h4"]
-    : [step.targetSquare];
-
+  const rookSquare = Object.keys(boardPieces).find((square) => boardPieces[square] === "wR");
+  const legalSquares = step.type === "rook-challenge" ? [step.targetSquare] : rookLegalSquares(rookSquare);
   board.innerHTML = "";
+
   for (let rank = 8; rank >= 1; rank -= 1) {
     for (let fileIndex = 0; fileIndex < files.length; fileIndex += 1) {
-      const square = squareName(fileIndex, rank);
-      const extraPiece = pieces.find((piece) => piece.square === square);
-      const button = document.createElement("button");
-      button.type = "button";
-      button.className = "rook-square";
-      button.dataset.square = square;
-      button.setAttribute("aria-label", square);
-      button.classList.add((rank + fileIndex) % 2 === 0 ? "light" : "dark");
+      const square = `${files[fileIndex]}${rank}`;
+      const piece = boardPieces[square];
+      const squareButton = document.createElement("button");
+      squareButton.type = "button";
+      squareButton.className = "board-square";
+      squareButton.dataset.square = square;
+      squareButton.classList.add((rank + fileIndex) % 2 === 0 ? "light" : "dark");
+      if (legalSquares.includes(square)) squareButton.classList.add("legal");
+      if (selectedSquare === square) squareButton.classList.add("selected");
+      if (lastMove.includes(square)) squareButton.classList.add("last-move");
 
-      if (highlights.includes(square)) {
-        button.classList.add("highlighted");
+      if (piece) {
+        const img = document.createElement("img");
+        img.className = "piece-img";
+        img.src = pieceAssets[piece];
+        img.alt = piece === "wR" ? "White rook" : "Black pawn";
+        img.draggable = piece === "wR";
+        img.addEventListener("dragstart", () => {
+          draggedSquare = square;
+          selectedSquare = square;
+          renderModernBoard(step);
+        });
+        squareButton.appendChild(img);
       }
 
-      if (square === currentRookSquare) {
-        button.classList.add("has-rook");
-        button.textContent = "R";
-        button.setAttribute("aria-label", `White rook on ${square}`);
-      } else if (extraPiece) {
-        button.classList.add("target-piece");
-        button.textContent = extraPiece.piece;
-      }
-
-      button.addEventListener("click", () => tryRookMove(step, square));
-      board.appendChild(button);
+      squareButton.addEventListener("click", () => handleSquareClick(step, square));
+      squareButton.addEventListener("dragover", (event) => event.preventDefault());
+      squareButton.addEventListener("drop", (event) => {
+        event.preventDefault();
+        attemptBoardMove(step, draggedSquare, square);
+      });
+      board.appendChild(squareButton);
     }
   }
 }
 
-async function tryRookMove(step, toSquare) {
-  const feedback = document.querySelector("#rook-feedback");
-  if (!feedback || toSquare === currentRookSquare) {
+function handleSquareClick(step, square) {
+  if (boardPieces[square] === "wR") {
+    selectedSquare = square;
+    renderModernBoard(step);
     return;
   }
 
-  feedback.textContent = "Checking with the coach...";
-  feedback.className = "result";
+  if (selectedSquare) {
+    attemptBoardMove(step, selectedSquare, square);
+  }
+}
+
+async function attemptBoardMove(step, fromSquare, toSquare) {
+  if (!fromSquare || fromSquare === toSquare) return;
+  const feedback = document.querySelector("#step-feedback");
+  const sideFeedback = document.querySelector("#side-feedback");
+  feedback.textContent = "Checking move...";
 
   try {
     const response = await fetch("/api/rook-move", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        from_square: currentRookSquare,
-        to_square: toSquare,
-      }),
+      body: JSON.stringify({ from_square: fromSquare, to_square: toSquare }),
     });
     const data = await response.json();
-
-    if (!data.is_correct) {
-      feedback.textContent = data.message;
-      feedback.classList.add("error");
+    if (!data.is_correct || (step.targetSquare && toSquare !== step.targetSquare)) {
+      const message = step.targetSquare && toSquare !== step.targetSquare
+        ? `Legal rook move, but the goal is ${step.targetSquare}.`
+        : data.message;
+      feedback.textContent = message;
+      sideFeedback.textContent = message;
+      feedback.className = "result error";
+      playSound("illegal");
+      selectedSquare = null;
+      renderModernBoard(step);
       return;
     }
 
-    if (step.targetSquare && toSquare !== step.targetSquare) {
-      feedback.textContent = `That is legal, but the challenge is to move to ${step.targetSquare}.`;
-      feedback.classList.add("error");
-      return;
-    }
-
-    currentRookSquare = toSquare;
+    const captured = Boolean(boardPieces[toSquare]);
+    delete boardPieces[fromSquare];
+    boardPieces[toSquare] = "wR";
+    selectedSquare = null;
+    lastMove = [fromSquare, toSquare];
     feedback.textContent = step.successText || data.message;
-    feedback.classList.add("success");
-    drawInteractiveBoard(step);
-    unlockNextButton();
+    sideFeedback.textContent = feedback.textContent;
+    feedback.className = "result success";
+    playSound(captured ? "capture" : "move");
+    unlockNextStep();
+    renderModernBoard(step);
   } catch (error) {
     feedback.textContent = "The coach cannot reach the backend right now.";
-    feedback.classList.add("error");
+    feedback.className = "result error";
+    playSound("illegal");
   }
 }
 
-function renderMoveValidationStep(container, step) {
-  container.innerHTML = `
-    <div class="teaching-card">
-      <h3>${step.title}</h3>
-      <p>${step.body}</p>
-      <form class="move-form" id="lesson-move-form">
-        <label for="lesson-move-input">Your move</label>
-        <div class="input-row">
-          <input id="lesson-move-input" name="move" type="text" placeholder="${step.placeholder || "e2e4"}" required>
-          <button class="button primary" type="submit">Validate</button>
-        </div>
-        <p class="result" id="lesson-move-result" role="status"></p>
-      </form>
-    </div>
-  `;
-
-  const form = document.querySelector("#lesson-move-form");
+async function validateTypedMove(event, step) {
+  event.preventDefault();
   const input = document.querySelector("#lesson-move-input");
-  const result = document.querySelector("#lesson-move-result");
-
-  form.addEventListener("submit", async (event) => {
-    event.preventDefault();
-    result.textContent = "Checking move...";
-    result.className = "result";
-
-    try {
-      const response = await fetch(step.endpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ move: input.value.trim() }),
-      });
-      const data = await response.json();
-      result.textContent = data.san ? `${data.message} Chess notation: ${data.san}` : data.message;
-      result.classList.add(data.is_valid ? "success" : "error");
-      if (data.is_valid) {
-        unlockNextButton();
-      }
-    } catch (error) {
-      result.textContent = "The coach cannot reach the backend right now.";
-      result.classList.add("error");
-    }
-  });
-}
-
-function bindLessonActions(lesson) {
-  const steps = lesson.steps || [];
-  const currentStep = steps[activeStepIndex];
-  const nextButton = document.querySelector("#next-step");
-
-  if (["rook-practice", "rook-challenge", "move-validation"].includes(currentStep.type)) {
-    nextButton.disabled = true;
-  }
-
-  document.querySelector("#previous-step").addEventListener("click", () => {
-    activeStepIndex = Math.max(0, activeStepIndex - 1);
-    savedSteps[lesson.id] = activeStepIndex;
-    saveProgress();
-    renderLessonPlayer();
-  });
-
-  nextButton.addEventListener("click", () => {
-    if (activeStepIndex >= steps.length - 1) {
-      completeLesson(lesson.id);
-      return;
-    }
-
-    activeStepIndex += 1;
-    savedSteps[lesson.id] = activeStepIndex;
-    saveProgress();
-    renderLessonPlayer();
-  });
-
-  document.querySelector("#hint-button").addEventListener("click", () => {
-    const feedback = document.querySelector("#step-feedback");
-    feedback.textContent = hintForStep(currentStep);
-    feedback.className = "result success";
-  });
-}
-
-function unlockNextButton() {
-  const nextButton = document.querySelector("#next-step");
-  if (nextButton) {
-    nextButton.disabled = false;
-  }
-}
-
-function hintForStep(step) {
-  if (step.type === "rook-challenge") {
-    return `The pawn is on ${step.targetSquare}. Stay on the same file as the rook.`;
-  }
-
-  if (step.type === "rook-practice") {
-    return "Try any square on the same row or column as the rook.";
-  }
-
-  if (step.type === "move-validation") {
-    return "Try e2e4 or g1f3. Both are legal first moves.";
-  }
-
-  return "Read the coach note, then move forward when the idea feels clear.";
-}
-
-function completeLesson(lessonId) {
-  completedLessons.add(lessonId);
-  savedSteps[lessonId] = 0;
-  saveProgress();
-  updateGlobalProgress();
-  renderCourseTree();
-  renderRoadmap("#lesson-roadmap");
-
-  const next = nextAvailableLesson();
   const feedback = document.querySelector("#step-feedback");
-  if (feedback) {
-    feedback.textContent = next && next.id !== lessonId
-      ? `Lesson complete. Next up: ${next.title}.`
-      : "Lesson complete. You finished the current path.";
-    feedback.className = "result success";
-  }
-}
-
-async function loadCourse() {
-  const needsCourse = document.querySelector("#course-tree") || document.querySelector("#home-roadmap");
-  if (!needsCourse) {
-    return;
-  }
+  feedback.textContent = "Checking move...";
+  feedback.className = "result";
 
   try {
-    const response = await fetch("/api/course");
-    course = await response.json();
-    setText("#course-title", course.title);
-    setText("#course-description", course.description);
-    activeLessonId = (nextAvailableLesson() || getAllLessons()[0]).id;
-    renderRoadmap("#home-roadmap");
-    renderRoadmap("#lesson-roadmap");
-    renderCourseTree();
-    updateGlobalProgress();
-    renderLessonPlayer();
+    const response = await fetch(step.endpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ move: input.value.trim() }),
+    });
+    const data = await response.json();
+    feedback.textContent = data.san ? `${data.message} Chess notation: ${data.san}` : data.message;
+    feedback.className = `result ${data.is_valid ? "success" : "error"}`;
+    playSound(data.is_valid ? "success" : "illegal");
+    if (data.is_valid) unlockNextStep();
   } catch (error) {
-    const player = document.querySelector("#lesson-player");
-    if (player) {
-      player.innerHTML = "<h2>Course data could not be loaded.</h2><p>Make sure the FastAPI server is running.</p>";
-    }
+    feedback.textContent = "The coach cannot reach the backend right now.";
+    feedback.className = "result error";
   }
 }
 
-loadCourse();
+function bindStepControls(step) {
+  const previous = document.querySelector("#previous-step");
+  const next = document.querySelector("#next-step");
+  const hint = document.querySelector("#hint-button");
+  const interactive = ["rook-practice", "rook-challenge", "move-validation"].includes(step.type);
+  next.disabled = interactive;
+  if (activeStepIndex === activeLesson.steps.length - 1) next.textContent = "Complete Lesson";
+
+  previous.addEventListener("click", () => {
+    activeStepIndex = Math.max(0, activeStepIndex - 1);
+    savedSteps[activeLesson.id] = activeStepIndex;
+    saveProgress();
+    renderLessonStep();
+  });
+
+  next.addEventListener("click", () => {
+    if (activeStepIndex === activeLesson.steps.length - 1) {
+      completedLessons.add(activeLesson.id);
+      savedSteps[activeLesson.id] = 0;
+      saveProgress();
+      playSound("success");
+      document.querySelector("#side-feedback").textContent = "Lesson complete. Your next lesson is unlocked.";
+      updateProgressUI();
+      renderCourseTree();
+      return;
+    }
+    activeStepIndex += 1;
+    savedSteps[activeLesson.id] = activeStepIndex;
+    saveProgress();
+    renderLessonStep();
+  });
+
+  hint.addEventListener("click", () => {
+    const message = step.targetSquare
+      ? `Aim for ${step.targetSquare}. Stay on the same file or rank.`
+      : "Look for a straight rook line or follow the checklist one item at a time.";
+    document.querySelector("#step-feedback").textContent = message;
+    document.querySelector("#side-feedback").textContent = message;
+  });
+}
+
+function unlockNextStep() {
+  const next = document.querySelector("#next-step");
+  if (next) next.disabled = false;
+}
+
+async function init() {
+  const needsCourse = document.querySelector("#course-categories")
+    || document.querySelector("#course-tree")
+    || document.querySelector("#home-roadmap");
+  if (!needsCourse) return;
+
+  const response = await fetch("/api/course");
+  course = await response.json();
+  renderRoadmap("#home-roadmap");
+  renderRoadmap("#lesson-roadmap");
+  updateProgressUI();
+  renderCourseBrowser();
+  renderLessonMode();
+}
+
+init();
