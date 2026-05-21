@@ -5,11 +5,13 @@ FreeMate is a beginner-friendly chess learning web app built with HTML, CSS, Jav
 ## Features
 
 - Homepage with a simple chess learning introduction
-- Lessons page with beginner lesson cards
+- JSON-driven lessons page with categories, skills, lessons, and exercises
 - Navigation bar shared across pages
 - FastAPI backend serving static frontend files
 - API endpoint for validating chess moves
+- API endpoint for the interactive rook movement lesson
 - Move validation powered by `python-chess`
+- Completion tracking in the browser with `localStorage`
 
 ## Project Structure
 
@@ -18,6 +20,8 @@ FreeMate/
 ├── app/
 │   ├── main.py
 │   └── static/
+│       ├── data/
+│       │   └── course.json
 │       ├── index.html
 │       ├── lessons.html
 │       ├── styles.css
@@ -63,6 +67,35 @@ Send a POST request to `/api/validate-move`:
 }
 ```
 
+## Curriculum Data
+
+Course content lives in `app/static/data/course.json`.
+
+The lesson hierarchy is:
+
+```text
+Course
+→ Category
+→ Skill
+→ Lesson
+→ Interactive Exercise
+```
+
+Each lesson can include:
+
+- `difficulty`
+- `ratingRange`
+- `subskills`
+- an `exercise` object
+
+The current starter curriculum includes:
+
+- Rules of the Game
+- Piece Movement
+- Basic Opening Principles
+- Blunder Checks
+- Basic Tactics
+
 Optional custom board positions can be supplied with FEN:
 
 ```json
@@ -71,4 +104,3 @@ Optional custom board positions can be supplied with FEN:
   "fen": "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1"
 }
 ```
-

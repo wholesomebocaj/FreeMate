@@ -1,0 +1,182 @@
+{
+  "id": "freemate-beginner-course",
+  "title": "FreeMate Beginner Chess Course",
+  "description": "A structured path from rules and piece movement through openings, blunder checks, and basic tactics.",
+  "categories": [
+    {
+      "id": "rules-of-the-game",
+      "title": "Rules of the Game",
+      "description": "Learn how the board works, how turns work, and how a chess game ends.",
+      "order": 1,
+      "skills": [
+        {
+          "id": "board-basics",
+          "title": "Board Basics",
+          "subskills": ["Files and ranks", "Square names", "Starting orientation"],
+          "lessons": [
+            {
+              "id": "naming-squares",
+              "title": "Name Every Square",
+              "summary": "Use files and ranks to identify squares like d4, e5, and h8.",
+              "difficulty": "Beginner",
+              "ratingRange": "0-400",
+              "exercise": {
+                "type": "checklist",
+                "prompt": "Before moving pieces, confirm you can name a square by file and rank.",
+                "tasks": ["Find the d-file", "Find rank 4", "Name the square where they meet"]
+              }
+            }
+          ]
+        },
+        {
+          "id": "game-ending-rules",
+          "title": "Game Endings",
+          "subskills": ["Check", "Checkmate", "Stalemate"],
+          "lessons": [
+            {
+              "id": "checkmate-vs-stalemate",
+              "title": "Checkmate vs Stalemate",
+              "summary": "Understand the difference between a forced win and a drawn position.",
+              "difficulty": "Beginner",
+              "ratingRange": "200-600",
+              "exercise": {
+                "type": "checklist",
+                "prompt": "Use the three-question ending check.",
+                "tasks": ["Is the king attacked?", "Does the king have a legal move?", "Can another piece block or capture?"]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "piece-movement",
+      "title": "Piece Movement",
+      "description": "Practice how each piece moves and captures.",
+      "order": 2,
+      "skills": [
+        {
+          "id": "rook-movement",
+          "title": "Rook Movement",
+          "subskills": ["Ranks", "Files", "Straight-line movement"],
+          "lessons": [
+            {
+              "id": "rook-from-d4",
+              "title": "Move the Rook from d4",
+              "summary": "Move the rook horizontally or vertically and avoid diagonal moves.",
+              "difficulty": "Beginner",
+              "ratingRange": "0-500",
+              "exercise": {
+                "type": "rook-movement",
+                "prompt": "Choose a destination square for the rook. The backend validates the move with python-chess.",
+                "startSquare": "d4",
+                "endpoint": "/api/rook-move"
+              }
+            }
+          ]
+        },
+        {
+          "id": "minor-piece-movement",
+          "title": "Minor Piece Movement",
+          "subskills": ["Bishop diagonals", "Knight jumps"],
+          "lessons": [
+            {
+              "id": "bishop-and-knight-shapes",
+              "title": "Bishop Lines and Knight Jumps",
+              "summary": "Separate diagonal movement from L-shaped knight movement.",
+              "difficulty": "Beginner",
+              "ratingRange": "200-700",
+              "exercise": {
+                "type": "checklist",
+                "prompt": "Compare the bishop and knight before choosing a move.",
+                "tasks": ["Bishops stay on one color", "Knights jump in an L shape", "Knights can hop over pieces"]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "basic-opening-principles",
+      "title": "Basic Opening Principles",
+      "description": "Build good habits in the first few moves of the game.",
+      "order": 3,
+      "skills": [
+        {
+          "id": "opening-goals",
+          "title": "Opening Goals",
+          "subskills": ["Control the center", "Develop pieces", "King safety"],
+          "lessons": [
+            {
+              "id": "first-opening-move",
+              "title": "Choose a Legal First Move",
+              "summary": "Practice common first moves that help control the center or develop a piece.",
+              "difficulty": "Beginner",
+              "ratingRange": "300-800",
+              "exercise": {
+                "type": "move-validation",
+                "prompt": "Try a legal first move such as e2e4, d2d4, c2c4, or g1f3.",
+                "endpoint": "/api/validate-move",
+                "placeholder": "e2e4"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "blunder-checks",
+      "title": "Blunder Checks",
+      "description": "Pause before moving so you do not give away pieces for free.",
+      "order": 4,
+      "skills": [
+        {
+          "id": "one-move-safety",
+          "title": "One-Move Safety",
+          "subskills": ["Hanging pieces", "Opponent threats", "King danger"],
+          "lessons": [
+            {
+              "id": "checks-captures-threats",
+              "title": "Checks, Captures, Threats",
+              "summary": "Use a quick scan before every move.",
+              "difficulty": "Beginner",
+              "ratingRange": "500-1000",
+              "exercise": {
+                "type": "checklist",
+                "prompt": "Before making a move, complete this safety scan.",
+                "tasks": ["What checks can my opponent make?", "What captures can my opponent make?", "What threat did my opponent create?"]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "basic-tactics",
+      "title": "Basic Tactics",
+      "description": "Recognize simple patterns that win material or create checkmate threats.",
+      "order": 5,
+      "skills": [
+        {
+          "id": "tactical-patterns",
+          "title": "Tactical Patterns",
+          "subskills": ["Forks", "Pins", "Skewers"],
+          "lessons": [
+            {
+              "id": "find-the-fork-idea",
+              "title": "Spot the Fork Idea",
+              "summary": "A fork attacks two valuable targets at the same time.",
+              "difficulty": "Beginner",
+              "ratingRange": "700-1200",
+              "exercise": {
+                "type": "checklist",
+                "prompt": "Use this pattern check to look for a fork.",
+                "tasks": ["Can one piece attack two targets?", "Is one target the king?", "Can the opponent capture the forking piece?"]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
