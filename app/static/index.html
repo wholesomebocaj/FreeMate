@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FreeMate | Beginner Chess Lessons</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="navbar" aria-label="Main navigation">
+      <a class="brand" href="/">FreeMate</a>
+      <div class="nav-links">
+        <a href="/" aria-current="page">Home</a>
+        <a href="/lessons">Lessons</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <p class="eyebrow">Chess basics, one move at a time</p>
+        <h1>Learn chess without feeling lost.</h1>
+        <p class="hero-copy">
+          FreeMate helps new players understand the board, practice legal moves,
+          and build confidence before their first full game.
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="/lessons">Start lessons</a>
+          <a class="button secondary" href="#move-checker">Check a move</a>
+        </div>
+      </div>
+      <div class="board-preview" aria-label="Simple chess board preview">
+        <div class="chessboard" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <section class="panel" id="move-checker">
+      <div>
+        <p class="eyebrow">Move checker</p>
+        <h2>Try a legal opening move</h2>
+        <p>
+          Type a move in UCI format. For example, try <strong>e2e4</strong>,
+          <strong>d2d4</strong>, or <strong>g1f3</strong>.
+        </p>
+      </div>
+
+      <form class="move-form" id="move-form">
+        <label for="move-input">Move</label>
+        <div class="input-row">
+          <input id="move-input" name="move" type="text" placeholder="e2e4" required>
+          <button class="button primary" type="submit">Validate</button>
+        </div>
+        <p class="result" id="move-result" role="status"></p>
+      </form>
+    </section>
+  </main>
+
+  <script src="/static/script.js"></script>
+</body>
+</html>
+
