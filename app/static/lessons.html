@@ -14,8 +14,8 @@
         <a href="/">Home</a>
         <a href="/lessons" aria-current="page">Lessons</a>
         <a href="/practice">Practice</a>
-        <a href="#puzzles">Puzzles</a>
-        <a href="#progress">Progress</a>
+        <a href="/lessons#puzzles">Puzzles</a>
+        <a href="/lessons#progress">Progress</a>
       </div>
     </nav>
   </header>
@@ -24,40 +24,32 @@
     <section class="course-browser-hero">
       <div>
         <p class="eyebrow">Course library</p>
-        <h1 id="course-title">FreeMate Beginner Chess Course</h1>
-        <p id="course-description">A structured beginner roadmap with guided interactive lessons.</p>
-        <div class="hero-actions">
-          <a class="button primary" id="continue-learning" href="/lesson/rook-from-d4">Continue Learning</a>
-          <a class="button secondary" href="#course-categories">Browse Course</a>
-        </div>
+        <h1>Choose your next course.</h1>
+        <p>Browse structured FreeMate courses first, then open a course dashboard and pick the exact lesson you want to train.</p>
       </div>
       <div class="coach-stats" id="progress">
-        <span id="progress-count">0 of 0 complete</span>
+        <span id="progress-count">0 lessons complete</span>
         <div class="progress-track" aria-hidden="true">
           <div class="progress-fill" id="progress-fill"></div>
         </div>
       </div>
     </section>
 
-    <section class="roadmap-section compact" aria-label="Course roadmap">
-      <div class="roadmap" id="lesson-roadmap"></div>
-    </section>
-
     <section class="continue-panel">
       <div>
         <p class="eyebrow">Continue learning</p>
         <h2 id="continue-title">Your next lesson is ready</h2>
-        <p id="continue-description">Jump back into the next unlocked lesson.</p>
+        <p id="continue-description">Open the course dashboard to continue your path.</p>
       </div>
-      <a class="button primary" id="continue-card-button" href="/lesson/rook-from-d4">Open Lesson</a>
+      <a class="button primary" id="continue-card-button" href="/courses/beginner-chess-course">Continue Course</a>
     </section>
 
-    <section class="course-browser-grid" id="course-categories" aria-label="Course categories"></section>
+    <section class="course-card-grid" id="course-cards" aria-label="Available courses"></section>
 
     <section class="progress-overview" id="progress-overview">
       <div class="mini-dashboard">
         <p class="eyebrow">Progress dashboard</p>
-        <h2>Beginner Roadmap</h2>
+        <h2>FreeMate Path</h2>
         <div class="metric-grid">
           <div>
             <span id="completed-number">0</span>
@@ -65,7 +57,7 @@
           </div>
           <div>
             <span id="course-percent">0%</span>
-            <p>Course complete</p>
+            <p>Beginner course complete</p>
           </div>
         </div>
       </div>

@@ -80,8 +80,26 @@ export class PracticeBoard {
 
     this.element.classList.add("practice-board-component");
     this.ground = Chessground(this.element, this.createGroundConfig());
+    this.installSquareLayer();
 
     queueMicrotask(() => this.emitPositionChange());
+  }
+
+  installSquareLayer() {
+    const container = this.element.querySelector("cg-container");
+    if (!container || container.querySelector(".cg-square-layer")) return;
+
+    const layer = document.createElement("div");
+    layer.className = "cg-square-layer";
+    for (let rank = 8; rank >= 1; rank -= 1) {
+      files.forEach((file) => {
+        const square = document.createElement("span");
+        square.className = (rank + files.indexOf(file)) % 2 === 0 ? "light" : "dark";
+        square.setAttribute("aria-hidden", "true");
+        layer.appendChild(square);
+      });
+    }
+    container.insertBefore(layer, container.firstChild);
   }
 
   createGroundConfig() {

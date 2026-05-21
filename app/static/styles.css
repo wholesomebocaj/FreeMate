@@ -353,6 +353,60 @@ main {
   gap: 20px;
 }
 
+.course-card-grid {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.course-card {
+  background: rgba(31, 41, 55, 0.86);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  box-shadow: var(--shadow);
+  display: grid;
+  gap: 18px;
+  min-height: 320px;
+  padding: 24px;
+  transition: border 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.course-card:hover {
+  border-color: rgba(34, 197, 94, 0.48);
+  box-shadow: 0 0 34px rgba(34, 197, 94, 0.12), var(--shadow);
+  transform: translateY(-2px);
+}
+
+.course-card.is-planned {
+  opacity: 0.82;
+}
+
+.course-card h2 {
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  margin: 0 0 10px;
+}
+
+.course-card p {
+  color: var(--muted);
+  margin: 0;
+}
+
+.course-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.course-card-meta span {
+  background: rgba(249, 250, 251, 0.06);
+  border: 1px solid rgba(249, 250, 251, 0.09);
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 850;
+  padding: 7px 10px;
+}
+
 .course-category-card {
   padding: 22px;
 }
@@ -866,14 +920,30 @@ button.board-square {
 
 .practice-board.cg-wrap cg-board,
 .practice-board-component.cg-wrap cg-board {
-  background-color: #eeeed2;
-  background-image:
-    linear-gradient(45deg, #769656 25%, transparent 25%),
-    linear-gradient(-45deg, #769656 25%, transparent 25%),
-    linear-gradient(45deg, transparent 75%, #769656 75%),
-    linear-gradient(-45deg, transparent 75%, #769656 75%);
-  background-position: 0 0, 0 12.5%, 12.5% -12.5%, -12.5% 0;
-  background-size: 25% 25%;
+  background: transparent;
+  background-image: none;
+  z-index: 1;
+}
+
+.cg-square-layer {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 0;
+}
+
+.cg-square-layer span {
+  min-width: 0;
+}
+
+.cg-square-layer .light {
+  background: #eeeed2;
+}
+
+.cg-square-layer .dark {
+  background: #769656;
 }
 
 .practice-board.cg-wrap cg-board square.move-dest,
@@ -1205,6 +1275,7 @@ input::placeholder {
   .lesson-workspace,
   .coach-header,
   .course-browser-hero,
+  .course-card-grid,
   .practice-header,
   .practice-layout,
   .lesson-mode-shell,

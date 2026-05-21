@@ -86,6 +86,87 @@ function lessonIndex(id) {
   return allLessons().findIndex((lesson) => lesson.id === id);
 }
 
+function availableCourses() {
+  if (!course) return [];
+
+  const categoryById = Object.fromEntries(course.categories.map((category) => [category.id, category]));
+  const courseFromCategory = (id, title, description, difficulty = "Beginner") => ({
+    id,
+    title,
+    description,
+    difficulty,
+    source: "category",
+    categories: categoryById[id] ? [categoryById[id]] : [],
+  });
+
+  return [
+    {
+      id: "beginner-chess-course",
+      title: "Beginner Chess Course",
+      description: course.description,
+      difficulty: "Beginner",
+      source: "full",
+      categories: course.categories,
+    },
+    courseFromCategory(
+      "basic-tactics",
+      "Basic Tactics",
+      "Recognize simple patterns that win material or create checkmate threats.",
+      "Beginner+"
+    ),
+    {
+      id: "checkmate-patterns",
+      title: "Checkmate Patterns",
+      description: "Build pattern recognition for mate in 1 and common beginner checkmates.",
+      difficulty: "Beginner+",
+      source: "planned",
+      categories: [],
+    },
+    courseFromCategory(
+      "basic-opening-principles",
+      "Opening Principles",
+      "Learn calm first moves, center control, development, and king safety.",
+      "Beginner"
+    ),
+    {
+      id: "endgame-basics",
+      title: "Endgame Basics",
+      description: "Learn simple king activity, pawn promotion, and basic winning technique.",
+      difficulty: "Beginner+",
+      source: "planned",
+      categories: [],
+    },
+  ];
+}
+
+function courseById(id) {
+  return availableCourses().find((courseItem) => courseItem.id === id) || availableCourses()[0];
+}
+
+function currentCourseIdFromUrl() {
+  const parts = window.location.pathname.split("/");
+  return parts[1] === "courses" ? parts[2] : "beginner-chess-course";
+}
+
+function courseLessons(courseItem) {
+  return (courseItem?.categories || []).flatMap((category) =>
+    category.skills.flatMap((skill) =>
+      skill.lessons.map((lesson) => ({ ...lesson, category, skill }))
+    )
+  );
+}
+
+function coursePercent(courseItem) {
+  const lessons = courseLessons(courseItem);
+  if (!lessons.length) return 0;
+  return Math.round((lessons.filter((lesson) => completedLessons.has(lesson.id)).length / lessons.length) * 100);
+}
+
+function nextLessonInCourse(courseItem) {
+  const lessons = courseLessons(courseItem);
+  return lessons.find((lesson) => !completedLessons.has(lesson.id) && isUnlocked(lesson)) || lessons[0];
+}
+
 function isUnlocked(lesson) {
   const index = lessonIndex(lesson.id);
   if (index <= 0) return true;
@@ -307,7 +388,11 @@ function renderRoadmap(targetId) {
   if (!target || !course) return;
   target.innerHTML = "";
 
-  course.categories.forEach((category) => {
+  const currentCourse = document.querySelector("#course-detail")
+    ? courseById(currentCourseIdFromUrl())
+    : { categories: course.categories };
+
+  currentCourse.categories.forEach((category) => {
     const lessons = category.skills.flatMap((skill) => skill.lessons);
     const complete = lessons.every((lesson) => completedLessons.has(lesson.id));
     const unlocked = lessons.some((lesson) => isUnlocked(lessonById(lesson.id)));
@@ -318,22 +403,92 @@ function renderRoadmap(targetId) {
   });
 }
 
-function renderCourseBrowser() {
-  const browser = document.querySelector("#course-categories");
+function renderCourseCards() {
+  const browser = document.querySelector("#course-cards");
   if (!browser || !course) return;
 
+  const beginnerCourse = courseById("beginner-chess-course");
   const next = nextLesson();
-  setText("#course-title", course.title);
-  setText("#course-description", course.description);
   if (next) {
-    document.querySelector("#continue-learning").href = `/lesson/${next.id}`;
-    document.querySelector("#continue-card-button").href = `/lesson/${next.id}`;
+    document.querySelector("#continue-card-button").href = `/courses/beginner-chess-course`;
     setText("#continue-title", next.title);
     setText("#continue-description", `${next.category.title} · ${next.skill.title} · ${next.timeMinutes || 5} min`);
   }
 
   browser.innerHTML = "";
-  course.categories.forEach((category) => {
+  availableCourses().forEach((courseItem) => {
+    const lessons = courseLessons(courseItem);
+    const percent = coursePercent(courseItem);
+    const lessonLabel = lessons.length === 1 ? "1 lesson" : `${lessons.length} lessons`;
+    const buttonText = percent > 0 ? "Continue" : courseItem.source === "planned" ? "Preview" : "Start";
+    const card = document.createElement("article");
+    card.className = `course-card ${courseItem.source === "planned" ? "is-planned" : ""}`;
+    card.innerHTML = `
+      <div>
+        <span class="lesson-state">${courseItem.difficulty}</span>
+        <h2>${courseItem.title}</h2>
+        <p>${courseItem.description}</p>
+      </div>
+      <div class="course-card-meta">
+        <span>${lessonLabel}</span>
+        <span>${percent}% complete</span>
+      </div>
+      <div class="lesson-row-progress">
+        <div class="progress-track"><div class="progress-fill" style="width: ${percent}%"></div></div>
+        <span>${percent}%</span>
+      </div>
+      <a class="button primary" href="/courses/${courseItem.id}">${buttonText}</a>
+    `;
+    browser.appendChild(card);
+  });
+
+  setText("#progress-count", `${courseLessons(beginnerCourse).filter((lesson) => completedLessons.has(lesson.id)).length} lessons complete`);
+}
+
+function renderCourseDetail() {
+  const browser = document.querySelector("#course-detail");
+  if (!browser || !course) return;
+
+  const currentCourse = courseById(currentCourseIdFromUrl());
+  const lessonsInCourse = courseLessons(currentCourse);
+  const completeCount = lessonsInCourse.filter((lesson) => completedLessons.has(lesson.id)).length;
+  const percent = coursePercent(currentCourse);
+  const next = nextLessonInCourse(currentCourse);
+
+  setText("#course-title", currentCourse.title);
+  setText("#course-description", currentCourse.description);
+  setText("#progress-count", `${completeCount} of ${lessonsInCourse.length} complete`);
+  document.querySelector("#progress-fill").style.width = `${percent}%`;
+
+  if (next) {
+    document.querySelector("#continue-learning").href = `/lessons/${next.id}`;
+    document.querySelector("#continue-card-button").href = `/lessons/${next.id}`;
+    setText("#continue-title", next.title);
+    setText("#continue-description", `${next.category.title} · ${next.skill.title} · ${next.timeMinutes || 5} min`);
+  } else {
+    document.querySelector("#continue-learning").href = "/lessons";
+    document.querySelector("#continue-card-button").href = "/lessons";
+    setText("#continue-title", "This course is coming soon");
+    setText("#continue-description", "FreeMate will add these lessons after the beginner path is solid.");
+  }
+
+  browser.innerHTML = "";
+
+  if (!currentCourse.categories.length) {
+    browser.innerHTML = `
+      <section class="course-category-card">
+        <div class="category-heading">
+          <p class="eyebrow">Planned course</p>
+          <h2>${currentCourse.title}</h2>
+          <p>This course is part of the FreeMate roadmap. For now, continue with the Beginner Chess Course.</p>
+        </div>
+        <a class="button primary" href="/courses/beginner-chess-course">Open Beginner Course</a>
+      </section>
+    `;
+    return;
+  }
+
+  currentCourse.categories.forEach((category) => {
     const section = document.createElement("section");
     section.className = "course-category-card";
     section.innerHTML = `
@@ -372,7 +527,7 @@ function renderCourseBrowser() {
             <div class="progress-track"><div class="progress-fill" style="width: ${lessonProgress}%"></div></div>
             <span>${lessonProgress}%</span>
           </div>
-          <a class="button ${unlocked ? "primary" : "secondary"}" href="${unlocked ? `/lesson/${lesson.id}` : "#"}">${complete ? "Review" : "Continue"}</a>
+          <a class="button ${unlocked ? "primary" : "secondary"}" href="${unlocked ? `/lessons/${lesson.id}` : "#"}">${complete ? "Review" : "Continue"}</a>
         `;
         list.appendChild(row);
       });
@@ -401,7 +556,7 @@ function renderCourseTree() {
         const unlocked = isUnlocked(lesson);
         const link = document.createElement("a");
         link.className = `tree-lesson ${unlocked ? "" : "is-locked"}`;
-        link.href = unlocked ? `/lesson/${lesson.id}` : "#";
+        link.href = unlocked ? `/lessons/${lesson.id}` : "#";
         link.setAttribute("aria-current", String(activeLesson && lesson.id === activeLesson.id));
         link.innerHTML = `
           <span>${completedLessons.has(lesson.id) ? "Done" : unlocked ? "Open" : "Locked"}</span>
@@ -418,7 +573,9 @@ function renderCourseTree() {
 
 function currentLessonIdFromUrl() {
   const parts = window.location.pathname.split("/");
-  return parts[1] === "lesson" ? parts[2] : null;
+  if (parts[1] === "lessons" && parts[2]) return parts[2];
+  if (parts[1] === "lesson") return parts[2];
+  return null;
 }
 
 function renderLessonMode() {
@@ -644,7 +801,8 @@ function unlockNextStep() {
 }
 
 async function init() {
-  const needsCourse = document.querySelector("#course-categories")
+  const needsCourse = document.querySelector("#course-cards")
+    || document.querySelector("#course-detail")
     || document.querySelector("#course-tree")
     || document.querySelector("#home-roadmap");
   if (!needsCourse) return;
@@ -654,7 +812,8 @@ async function init() {
   renderRoadmap("#home-roadmap");
   renderRoadmap("#lesson-roadmap");
   updateProgressUI();
-  renderCourseBrowser();
+  renderCourseCards();
+  renderCourseDetail();
   renderLessonMode();
 }
 

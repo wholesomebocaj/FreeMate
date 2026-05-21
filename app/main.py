@@ -62,13 +62,23 @@ def lessons_page() -> FileResponse:
     return FileResponse(STATIC_DIR / "lessons.html")
 
 
+@app.get("/courses/{course_id}")
+def course_detail_page(course_id: str) -> FileResponse:
+    return FileResponse(STATIC_DIR / "course.html")
+
+
+@app.get("/lessons/{lesson_id}")
+def lesson_training_page(lesson_id: str) -> FileResponse:
+    return FileResponse(STATIC_DIR / "lesson.html")
+
+
 @app.get("/practice")
 def practice_page() -> FileResponse:
     return FileResponse(STATIC_DIR / "practice.html")
 
 
 @app.get("/lesson/{lesson_id}")
-def lesson_page(lesson_id: str) -> FileResponse:
+def legacy_lesson_page(lesson_id: str) -> FileResponse:
     return FileResponse(STATIC_DIR / "lesson.html")
 
 
