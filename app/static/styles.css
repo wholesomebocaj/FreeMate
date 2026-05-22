@@ -666,6 +666,42 @@ main {
   min-height: 410px;
 }
 
+.lesson-step-body {
+  color: var(--muted);
+  margin: 0 0 10px;
+}
+
+.lesson-step-progress {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  margin: 0 0 14px;
+}
+
+.lesson-step-progress-label {
+  color: rgba(249, 250, 251, 0.72);
+  font-size: 0.86rem;
+  font-weight: 800;
+}
+
+.lesson-step-progress-state {
+  border-radius: 999px;
+  font-size: 0.76rem;
+  font-weight: 900;
+  padding: 5px 10px;
+}
+
+.lesson-step-progress-state.waiting {
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(249, 250, 251, 0.68);
+}
+
+.lesson-step-progress-state.done {
+  background: rgba(34, 197, 94, 0.16);
+  color: #86efac;
+}
+
 .lesson-focus-grid {
   align-items: start;
   display: grid;
@@ -763,11 +799,23 @@ main {
   margin-top: 14px;
 }
 
+.lesson-step-note {
+  color: rgba(249, 250, 251, 0.72);
+  font-size: 0.92rem;
+  margin: 12px 0 0;
+}
+
 .lesson-controls {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
   margin-top: 18px;
+}
+
+.lesson-controls .button:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+  transform: none;
 }
 
 .modern-board {
@@ -914,7 +962,7 @@ button.board-square {
     0 22px 55px rgba(0, 0, 0, 0.5),
     0 0 0 1px rgba(255, 255, 255, 0.08);
   display: block;
-  max-width: min(82vh, 880px);
+  max-width: min(74vh, 760px);
   overflow: hidden;
   position: relative;
   touch-action: none;
@@ -960,6 +1008,52 @@ button.board-square {
 
 .cg-square-layer .dark {
   background: #769656;
+}
+
+.cg-highlight-layer {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  z-index: 1;
+}
+
+.cg-highlight-square {
+  position: relative;
+}
+
+.cg-highlight-square.focus::after,
+.cg-highlight-square.file::after,
+.cg-highlight-square.rank::after,
+.cg-highlight-square.cross::after,
+.cg-highlight-square.target::after {
+  border-radius: 10px;
+  content: "";
+  inset: 12%;
+  position: absolute;
+}
+
+.cg-highlight-square.focus::after {
+  background: rgba(34, 197, 94, 0.18);
+  box-shadow: inset 0 0 0 2px rgba(34, 197, 94, 0.45);
+}
+
+.cg-highlight-square.file::after,
+.cg-highlight-square.rank::after {
+  background: rgba(96, 165, 250, 0.12);
+  box-shadow: inset 0 0 0 2px rgba(96, 165, 250, 0.28);
+}
+
+.cg-highlight-square.cross::after {
+  background: rgba(34, 197, 94, 0.12);
+  box-shadow: inset 0 0 0 2px rgba(34, 197, 94, 0.28);
+}
+
+.cg-highlight-square.target::after {
+  background: rgba(245, 158, 11, 0.18);
+  box-shadow: inset 0 0 0 2px rgba(245, 158, 11, 0.35);
 }
 
 .practice-board.cg-wrap cg-board square.move-dest,

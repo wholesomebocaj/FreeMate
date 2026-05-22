@@ -5,6 +5,21 @@ export const EMPTY_FEN = "8/8/8/8/8/8/8/8 w - - 0 1";
 
 const files = ["a", "b", "c", "d", "e", "f", "g", "h"];
 
+function squareToGrid(square, orientation) {
+  const fileIndex = files.indexOf(square[0]);
+  const rank = Number(square[1]);
+
+  if (fileIndex < 0 || Number.isNaN(rank)) {
+    return { file: 0, rank: 0 };
+  }
+
+  if (orientation === "black") {
+    return { file: 7 - fileIndex, rank: rank - 1 };
+  }
+
+  return { file: fileIndex, rank: 8 - rank };
+}
+
 const fenPieceMap = {
   P: "wP",
   N: "wN",
@@ -73,11 +88,13 @@ export class PracticeBoard {
     this.successMessage = config.successMessage || "";
     this.errorMessage = config.errorMessage || "";
     this.onMove = config.onMove || (() => {});
+    this.onSquareSelect = config.onSquareSelect || (() => {});
     this.onIllegalMove = config.onIllegalMove || (() => {});
     this.onMoveSuccess = config.onMoveSuccess || (() => {});
     this.onMoveError = config.onMoveError || (() => {});
     this.onComplete = config.onComplete || (() => {});
     this.onPositionChange = config.onPositionChange || (() => {});
+    this.highlightSquares = config.highlightSquares || [];
     this.sound = this.enableSounds ? config.sound || new BoardSound() : { play() {} };
 
     this.position = parseFen(this.fen);
@@ -89,6 +106,7 @@ export class PracticeBoard {
     this.element.classList.add("practice-board-component");
     this.ground = Chessground(this.element, this.createGroundConfig());
     this.installSquareLayer();
+    this.installHighlightLayer();
 
     queueMicrotask(() => this.emitPositionChange());
   }
@@ -108,6 +126,15 @@ export class PracticeBoard {
       });
     }
     container.insertBefore(layer, container.firstChild);
+  }
+
+  installHighlightLayer() {
+    const container = this.element.querySelector("cg-container");
+    if (!container || container.querySelector(".cg-highlight-layer")) return;
+
+    const layer = document.createElement("div");
+    layer.className = "cg-highlight-layer";
+    container.appendChild(layer);
   }
 
   createGroundConfig() {
@@ -156,6 +183,7 @@ export class PracticeBoard {
       events: {
         select: (square) => {
           this.handleSelect(square);
+          this.onSquareSelect({ square, fen: this.fen, history: this.history });
         },
       },
     };
@@ -170,6 +198,7 @@ export class PracticeBoard {
     this.highlightLegalMoves = config.highlightLegalMoves ?? this.highlightLegalMoves;
     this.successMessage = config.successMessage || this.successMessage;
     this.errorMessage = config.errorMessage || this.errorMessage;
+    this.highlightSquares = config.highlightSquares || this.highlightSquares;
   }
 
   loadFen(fen, options = {}) {
@@ -206,6 +235,7 @@ export class PracticeBoard {
       orientation: this.orientation,
       movable: { dests: new Map() },
     });
+    this.syncHighlightLayer();
     this.emitPositionChange();
   }
 
@@ -349,6 +379,28 @@ export class PracticeBoard {
     if (options.clearSelection) {
       this.ground.selectSquare(null);
     }
+
+    this.syncHighlightLayer();
+  }
+
+  syncHighlightLayer() {
+    const layer = this.element.querySelector(".cg-highlight-layer");
+    if (!layer) return;
+
+    layer.innerHTML = "";
+    const highlights = Array.isArray(this.highlightSquares) ? this.highlightSquares : [];
+    highlights.forEach((entry) => {
+      const square = typeof entry === "string" ? entry : entry?.square;
+      if (!square) return;
+
+      const marker = document.createElement("span");
+      marker.className = `cg-highlight-square ${typeof entry === "string" ? "focus" : entry.className || "focus"}`;
+      marker.dataset.square = square;
+      const coords = squareToGrid(square, this.orientation);
+      marker.style.gridColumn = String(coords.file + 1);
+      marker.style.gridRow = String(coords.rank + 1);
+      layer.appendChild(marker);
+    });
   }
 
   emitPositionChange() {
