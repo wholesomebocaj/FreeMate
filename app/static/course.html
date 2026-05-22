@@ -56,5 +56,63 @@
   </main>
 
   <script src="/static/script.js"></script>
+  <script type="module">
+    async function ensureCourseVisible() {
+      const detail = document.getElementById("course-detail");
+      if (!detail || detail.children.length) return;
+
+      const response = await fetch("/static/data/courses.json");
+      const courses = await response.json();
+      const course = courses[0];
+
+      document.getElementById("course-title").textContent = course.title;
+      document.getElementById("course-description").textContent = course.description;
+      document.getElementById("continue-learning").href = "/lessons/rook-from-d4";
+      document.getElementById("continue-card-button").href = "/lessons/rook-from-d4";
+      document.getElementById("continue-title").textContent = "Your next lesson is ready";
+      document.getElementById("continue-description").textContent = "Open the first unlocked lesson to continue.";
+
+      detail.innerHTML = course.categories
+        .map(
+          (category) => `
+            <section class="course-category-card">
+              <div class="category-heading">
+                <div>
+                  <p class="eyebrow">Category</p>
+                  <h2>${category.title}</h2>
+                  <p>${category.description}</p>
+                </div>
+              </div>
+              <div class="lesson-row-list">
+                ${category.skills
+                  .flatMap((skill) =>
+                    skill.lessons.map(
+                      (lesson) => `
+                        <article class="lesson-row">
+                          <div class="lesson-row-main">
+                            <span class="lesson-state">${lesson.locked ? "Locked" : "Open"}</span>
+                            <h3>${lesson.title}</h3>
+                            <p>${lesson.summary}</p>
+                          </div>
+                          <div class="lesson-row-meta">
+                            <span>${lesson.difficulty}</span>
+                            <span>${lesson.timeMinutes || 5} min</span>
+                            <span>${lesson.ratingRange}</span>
+                          </div>
+                          <a class="button primary" href="/lessons/${lesson.id}">Open</a>
+                        </article>
+                      `
+                    )
+                  )
+                  .join("")}
+              </div>
+            </section>
+          `
+        )
+        .join("");
+    }
+
+    ensureCourseVisible();
+  </script>
 </body>
 </html>

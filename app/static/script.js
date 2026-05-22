@@ -807,14 +807,30 @@ async function init() {
     || document.querySelector("#home-roadmap");
   if (!needsCourse) return;
 
-  const response = await fetch("/api/course");
-  course = await response.json();
+  course = await loadCourseData();
   renderRoadmap("#home-roadmap");
   renderRoadmap("#lesson-roadmap");
   updateProgressUI();
   renderCourseCards();
   renderCourseDetail();
   renderLessonMode();
+}
+
+async function loadCourseData() {
+  const sources = ["/api/course", "/static/data/courses.json"];
+
+  for (const url of sources) {
+    try {
+      const response = await fetch(url);
+      if (!response.ok) continue;
+      const data = await response.json();
+      return Array.isArray(data) ? data[0] || null : data;
+    } catch (error) {
+      // Try the next source.
+    }
+  }
+
+  return null;
 }
 
 init();

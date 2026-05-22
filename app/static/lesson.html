@@ -70,8 +70,7 @@
                 const pathParts = window.location.pathname.split("/");
                 const lessonId = pathParts[pathParts.length - 1];
 
-                const response = await fetch("/api/course");
-                const courses = await response.json();
+                const courses = await loadCourses();
 
                 let lesson = null;
 
@@ -110,6 +109,24 @@
 
                 renderer.render();
                 renderCourseTree(courses, lessonId);
+            }
+
+            async function loadCourses() {
+                const sources = ["/api/course", "/static/data/courses.json"];
+
+                for (const url of sources) {
+                    try {
+                        const response = await fetch(url);
+                        if (!response.ok) continue;
+                        const data = await response.json();
+                        if (Array.isArray(data)) return data;
+                        return data ? [data] : [];
+                    } catch (error) {
+                        // Try the next source.
+                    }
+                }
+
+                return [];
             }
 
             function renderCourseTree(courses, activeLessonId) {
