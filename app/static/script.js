@@ -224,7 +224,7 @@ function setText(selector, value) {
     if (element) element.textContent = value;
 }
 
-/* Legacy ChessBoard removed. Use PracticeBoard from /static/practice-board.js */
+/* Legacy ChessBoard removed. Use PracticeBoard from /static/components/PracticeBoard.js */
 
 function updateProgressUI() {
     const lessons = allLessons();
