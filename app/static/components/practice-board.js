@@ -60,17 +60,25 @@ export class PracticeBoard {
   constructor(element, config = {}) {
     this.element = element;
     this.mode = config.mode || "free";
-    this.initialFen = normalizeFen(config.initialFen || STARTING_FEN);
+    this.initialFen = normalizeFen(config.initialFen || config.fen || STARTING_FEN);
     this.fen = this.initialFen;
     this.orientation = config.orientation || "white";
+    this.objective = config.objective || "";
     this.allowedMoves = config.allowedMoves || [];
     this.lockToAllowedMoves = Boolean(config.lockToAllowedMoves);
     this.highlightLegalMoves = config.highlightLegalMoves !== false;
     this.solutionMoves = config.solutionMoves || [];
+    this.showCoordinates = config.showCoordinates !== false;
+    this.enableSounds = config.enableSounds !== false;
+    this.successMessage = config.successMessage || "";
+    this.errorMessage = config.errorMessage || "";
     this.onMove = config.onMove || (() => {});
     this.onIllegalMove = config.onIllegalMove || (() => {});
+    this.onMoveSuccess = config.onMoveSuccess || (() => {});
+    this.onMoveError = config.onMoveError || (() => {});
+    this.onComplete = config.onComplete || (() => {});
     this.onPositionChange = config.onPositionChange || (() => {});
-    this.sound = config.sound || new BoardSound();
+    this.sound = this.enableSounds ? config.sound || new BoardSound() : { play() {} };
 
     this.position = parseFen(this.fen);
     this.turn = parseTurn(this.fen);
@@ -107,7 +115,7 @@ export class PracticeBoard {
       fen: this.fen,
       orientation: this.orientation,
       turnColor: this.turn,
-      coordinates: true,
+      coordinates: this.showCoordinates,
       coordinatesOnSquares: false,
       ranksPosition: "left",
       highlight: {
@@ -155,10 +163,13 @@ export class PracticeBoard {
 
   setConfig(config = {}) {
     this.mode = config.mode || this.mode;
+    this.objective = config.objective || this.objective;
     this.allowedMoves = config.allowedMoves || this.allowedMoves;
     this.solutionMoves = config.solutionMoves || this.solutionMoves;
     this.lockToAllowedMoves = config.lockToAllowedMoves ?? this.lockToAllowedMoves;
     this.highlightLegalMoves = config.highlightLegalMoves ?? this.highlightLegalMoves;
+    this.successMessage = config.successMessage || this.successMessage;
+    this.errorMessage = config.errorMessage || this.errorMessage;
   }
 
   loadFen(fen, options = {}) {
@@ -299,17 +310,26 @@ export class PracticeBoard {
     this.history.push({ move, san, fen: this.fen, captured });
     this.pendingSelectionRequest += 1;
 
+    const message = this.successMessage || "Correct. Nice move.";
+    const payload = { move, san, fen: this.fen, history: this.history, captured, message };
+
     this.sound.play(captured ? "capture" : "move");
     this.syncBoard();
-    this.onMove({ move, san, fen: this.fen, history: this.history, captured });
+    this.onMove(payload);
+    this.onMoveSuccess(payload);
+    if (this.mode === "lesson" || this.mode === "puzzle") {
+      this.onComplete(payload);
+    }
     this.emitPositionChange();
   }
 
   rejectMove(move, message) {
+    const feedback = this.errorMessage || message;
     this.pendingSelectionRequest += 1;
     this.sound.play("illegal");
     this.syncBoard({ clearSelection: true });
-    this.onIllegalMove({ move, message });
+    this.onIllegalMove({ move, message: feedback });
+    this.onMoveError({ move, message: feedback });
   }
 
   syncBoard(options = {}) {

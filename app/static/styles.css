@@ -754,6 +754,22 @@ main {
   width: 100%;
 }
 
+.lesson-practice-board {
+  margin: 22px 0;
+  max-width: min(560px, 100%);
+}
+
+.lesson-board-feedback {
+  margin-top: 14px;
+}
+
+.lesson-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
 .modern-board {
   aspect-ratio: 1;
   background: #0f172a;

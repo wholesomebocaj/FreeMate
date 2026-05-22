@@ -4,6 +4,8 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Lesson | FreeMate</title>
+        <link rel="stylesheet" href="/static/vendor/chessground/chessground.base.css" />
+        <link rel="stylesheet" href="/static/vendor/chessground/chessground.cburnett.css" />
         <link rel="stylesheet" href="/static/styles.css" />
     </head>
     <body>
@@ -107,10 +109,50 @@
                 const renderer = new LessonRenderer(lessonPlayer, lesson);
 
                 renderer.render();
+                renderCourseTree(courses, lessonId);
+            }
+
+            function renderCourseTree(courses, activeLessonId) {
+                const tree = document.getElementById("course-tree");
+                if (!tree) return;
+
+                tree.innerHTML = "";
+
+                courses.forEach((course) => {
+                    course.categories.forEach((category) => {
+                        const group = document.createElement("section");
+                        group.className = "tree-category";
+                        group.innerHTML = `<h3>${category.title}</h3>`;
+
+                        category.skills.forEach((skill) => {
+                            const block = document.createElement("div");
+                            block.className = "tree-skill";
+                            block.innerHTML = `<p>${skill.title}</p>`;
+
+                            skill.lessons.forEach((lessonItem) => {
+                                const link = document.createElement("a");
+                                link.className = "tree-lesson";
+                                link.href = `/lessons/${lessonItem.id}`;
+                                link.setAttribute(
+                                    "aria-current",
+                                    String(lessonItem.id === activeLessonId),
+                                );
+                                link.innerHTML = `
+                                    <span>${lessonItem.locked ? "Locked" : "Open"}</span>
+                                    <strong>${lessonItem.title}</strong>
+                                `;
+                                block.appendChild(link);
+                            });
+
+                            group.appendChild(block);
+                        });
+
+                        tree.appendChild(group);
+                    });
+                });
             }
 
             loadLesson();
         </script>
-        <script src="/static/script.js"></script>
     </body>
 </html>
