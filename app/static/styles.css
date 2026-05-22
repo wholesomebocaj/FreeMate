@@ -359,6 +359,85 @@ main {
   grid-template-columns: 1fr;
 }
 
+.bracket-card-grid {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr;
+}
+
+.bracket-course-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.bracket-card {
+  background: rgba(31, 41, 55, 0.86);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  display: grid;
+  gap: 12px;
+  grid-template-columns: minmax(0, 1.4fr) minmax(220px, 0.85fr);
+  padding: 14px 16px;
+}
+
+.bracket-card.is-current {
+  border-color: rgba(34, 197, 94, 0.42);
+  box-shadow: 0 0 28px rgba(34, 197, 94, 0.12), var(--shadow);
+}
+
+.bracket-card-heading {
+  align-items: start;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.bracket-card h2 {
+  font-size: clamp(1.05rem, 1.6vw, 1.4rem);
+  margin: 0 0 6px;
+}
+
+.bracket-card p {
+  color: var(--muted);
+  margin: 0;
+}
+
+.bracket-learn-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.bracket-learn-list span {
+  background: rgba(249, 250, 251, 0.06);
+  border: 1px solid rgba(249, 250, 251, 0.09);
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 0.76rem;
+  font-weight: 850;
+  padding: 5px 9px;
+}
+
+.bracket-card-side {
+  align-content: center;
+  display: grid;
+  gap: 10px;
+  justify-items: end;
+}
+
+.bracket-current-pill {
+  background: rgba(34, 197, 94, 0.12);
+  border: 1px solid rgba(34, 197, 94, 0.22);
+  border-radius: 999px;
+  color: var(--green);
+  font-size: 0.72rem;
+  font-weight: 900;
+  padding: 6px 10px;
+  white-space: nowrap;
+}
+
 .course-card {
   background: rgba(31, 41, 55, 0.86);
   border: 1px solid var(--line);
@@ -371,6 +450,12 @@ main {
   min-height: 0;
   padding: 12px 14px;
   transition: border 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.bracket-course-card {
+  grid-template-columns: 72px minmax(0, 1.25fr) minmax(180px, 0.72fr) auto;
+  min-height: 0;
+  padding: 12px 14px;
 }
 
 .course-card:hover {
@@ -415,6 +500,10 @@ main {
   justify-content: flex-end;
 }
 
+.bracket-course-card .course-card-actions {
+  gap: 8px;
+}
+
 .course-card-thumb {
   align-items: center;
   background: linear-gradient(180deg, rgba(34, 197, 94, 0.22), rgba(59, 130, 246, 0.16));
@@ -428,6 +517,11 @@ main {
   justify-items: center;
   letter-spacing: 0.04em;
   text-align: center;
+}
+
+.bracket-course-card .course-card-thumb {
+  height: 72px;
+  width: 72px;
 }
 
 .course-card-thumb span {
@@ -1493,6 +1587,8 @@ input::placeholder {
   .coach-header,
   .course-browser-hero,
   .course-card-grid,
+  .bracket-card-grid,
+  .bracket-course-grid,
   .practice-header,
   .practice-layout,
   .lesson-mode-shell,
@@ -1534,6 +1630,14 @@ input::placeholder {
       "map";
   }
 
+  .bracket-card {
+    grid-template-columns: 1fr;
+  }
+
+  .bracket-card-side {
+    justify-items: flex-start;
+  }
+
   .lesson-stage {
     grid-area: lesson;
   }
@@ -1554,7 +1658,15 @@ input::placeholder {
     grid-template-columns: 1fr;
   }
 
+  .bracket-card-heading {
+    flex-direction: column;
+  }
+
   .course-card {
+    grid-template-columns: 1fr;
+  }
+
+  .bracket-course-card {
     grid-template-columns: 1fr;
   }
 
@@ -1563,6 +1675,11 @@ input::placeholder {
   }
 
   .course-card-thumb {
+    height: 72px;
+    width: 72px;
+  }
+
+  .bracket-course-card .course-card-thumb {
     height: 72px;
     width: 72px;
   }

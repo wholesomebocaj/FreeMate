@@ -18,6 +18,7 @@ const pieceAssets = {
 const startingFen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
 
 let course = null;
+let brackets = null;
 let completedLessons = loadSet(progressKey);
 let savedSteps = loadObject(stepKey);
 let activeLesson = null;
@@ -78,12 +79,55 @@ function allLessons() {
   );
 }
 
+function allBrackets() {
+  return Array.isArray(brackets) ? brackets : [];
+}
+
 function lessonById(id) {
   return allLessons().find((lesson) => lesson.id === id);
 }
 
 function lessonIndex(id) {
   return allLessons().findIndex((lesson) => lesson.id === id);
+}
+
+function bracketById(id) {
+  return allBrackets().find((bracket) => bracket.id === id || bracket.slug === id);
+}
+
+function bracketLessonIds(bracket) {
+  return [...new Set((bracket?.items || []).flatMap((item) => item.lessonIds || []))];
+}
+
+function bracketItemProgress(item) {
+  const lessonIds = [...new Set(item.lessonIds || [])];
+  if (!lessonIds.length) return 0;
+  const done = lessonIds.filter((lessonId) => completedLessons.has(lessonId)).length;
+  return Math.round((done / lessonIds.length) * 100);
+}
+
+function bracketProgress(bracket) {
+  const lessonIds = bracketLessonIds(bracket);
+  if (!lessonIds.length) return 0;
+  const done = lessonIds.filter((lessonId) => completedLessons.has(lessonId)).length;
+  return Math.round((done / lessonIds.length) * 100);
+}
+
+function nextBracket() {
+  return allBrackets().find((bracket) => bracketProgress(bracket) < 100) || allBrackets()[0];
+}
+
+function nextBracketItem(bracket) {
+  if (!bracket) return null;
+  return (bracket.items || []).find((item) => bracketItemProgress(item) < 100) || bracket.items?.[0] || null;
+}
+
+function currentBracketSlugFromUrl() {
+  const parts = window.location.pathname.split("/");
+  if (parts[1] === "lessons" && parts[2] && !lessonById(parts[2])) {
+    return parts[2];
+  }
+  return null;
 }
 
 function availableCourses() {
@@ -114,28 +158,24 @@ function availableCourses() {
       "Recognize simple patterns that win material or create checkmate threats.",
       "Beginner+"
     ),
-    {
-      id: "checkmate-patterns",
-      title: "Checkmate Patterns",
-      description: "Build pattern recognition for mate in 1 and common beginner checkmates.",
-      difficulty: "Beginner+",
-      source: "planned",
-      categories: [],
-    },
+    courseFromCategory(
+      "checkmate-patterns",
+      "Checkmate Patterns",
+      "Build pattern recognition for mate in 1 and common beginner checkmates.",
+      "Beginner+"
+    ),
     courseFromCategory(
       "basic-opening-principles",
       "Opening Principles",
       "Learn calm first moves, center control, development, and king safety.",
       "Beginner"
     ),
-    {
-      id: "endgame-basics",
-      title: "Endgame Basics",
-      description: "Learn simple king activity, pawn promotion, and basic winning technique.",
-      difficulty: "Beginner+",
-      source: "planned",
-      categories: [],
-    },
+    courseFromCategory(
+      "endgame-basics",
+      "Endgame Basics",
+      "Learn simple king activity, pawn promotion, and basic winning technique.",
+      "Beginner+"
+    ),
   ];
 }
 
@@ -587,6 +627,157 @@ function renderCourseTree() {
   });
 }
 
+function renderBracketOverview() {
+  const browser = document.querySelector("#bracket-cards");
+  if (!browser || !course) return;
+
+  const bracketsList = allBrackets();
+  if (!bracketsList.length) return;
+
+  const next = nextBracket();
+  if (next) {
+    setText("#continue-title", next.title);
+    setText("#continue-description", `${next.range} · ${next.description}`);
+    const continueButton = document.querySelector("#continue-card-button");
+    if (continueButton) continueButton.href = `/lessons/${next.slug}`;
+    setText("#current-focus", next.title);
+    setText("#next-lesson", next.learn?.[0] || next.description);
+    setText("#next-bracket", nextBracket()?.slug === next.slug ? "Next bracket" : "Next up");
+    setText("#next-bracket-description", next.learn?.slice(0, 2).join(" · ") || next.description);
+  }
+
+  browser.innerHTML = "";
+
+  bracketsList.forEach((bracket) => {
+    const percent = bracketProgress(bracket);
+    const courseCount = (bracket.items || []).length;
+    const nextItem = nextBracketItem(bracket);
+    const isCurrent = next && next.id === bracket.id;
+    const card = document.createElement("article");
+    card.className = `bracket-card ${isCurrent ? "is-current" : ""}`;
+    card.innerHTML = `
+      <div class="bracket-card-main">
+        <div class="bracket-card-heading">
+          <div>
+            <span class="lesson-state">${bracket.range}</span>
+            <h2>${bracket.title}</h2>
+            <p>${bracket.description}</p>
+          </div>
+          ${isCurrent ? '<span class="bracket-current-pill">Recommended next</span>' : ""}
+        </div>
+        <div class="bracket-learn-list">
+          ${(bracket.learn || []).map((item) => `<span>${item}</span>`).join("")}
+        </div>
+      </div>
+      <div class="bracket-card-side">
+        <div class="course-card-meta">
+          <span>${courseCount} courses</span>
+          <span>${percent}% complete</span>
+        </div>
+        <div class="lesson-row-progress compact">
+          <div class="progress-track"><div class="progress-fill" style="width: ${percent}%"></div></div>
+          <span>${percent}%</span>
+        </div>
+        <a class="button primary" href="/lessons/${bracket.slug}">${percent > 0 ? "Continue" : "Start"}</a>
+      </div>
+    `;
+    browser.appendChild(card);
+  });
+
+  const overall = allLessons().filter((lesson) => completedLessons.has(lesson.id)).length;
+  const total = allLessons().length;
+  setText("#progress-count", `${overall} lessons complete`);
+  setText("#completed-number", overall);
+  setText("#course-percent", `${total ? Math.round((overall / total) * 100) : 0}%`);
+  const fill = document.querySelector("#progress-fill");
+  if (fill) fill.style.width = `${total ? Math.round((overall / total) * 100) : 0}%`;
+}
+
+function renderBracketDetail() {
+  const browser = document.querySelector("#bracket-courses");
+  if (!browser || !course) return;
+
+  const slug = currentBracketSlugFromUrl();
+  const bracket = bracketById(slug);
+  if (!bracket) return;
+
+  const percent = bracketProgress(bracket);
+  const bracketsList = allBrackets();
+  const currentIndex = bracketsList.findIndex((entry) => entry.id === bracket.id);
+  const next = bracketsList[currentIndex + 1] || nextBracket();
+  const nextItem = nextBracketItem(bracket);
+
+  setText("#bracket-title", bracket.title);
+  setText("#bracket-range", bracket.range);
+  setText("#bracket-description", bracket.description);
+  setText("#bracket-learn", (bracket.learn || []).join(" · "));
+  setText("#progress-count", `${bracketLessonIds(bracket).filter((lessonId) => completedLessons.has(lessonId)).length} of ${bracketLessonIds(bracket).length} complete`);
+  setText("#completed-number", bracketLessonIds(bracket).filter((lessonId) => completedLessons.has(lessonId)).length);
+  setText("#course-percent", `${percent}%`);
+  const fill = document.querySelector("#progress-fill");
+  if (fill) fill.style.width = `${percent}%`;
+
+  if (nextItem) {
+    setText("#continue-title", nextItem.title);
+    setText("#continue-description", nextItem.description);
+    const nextHref = nextItem.href || "/lessons";
+    const continueLearning = document.querySelector("#continue-learning");
+    const continueCardButton = document.querySelector("#continue-card-button");
+    if (continueLearning) continueLearning.href = nextHref;
+    if (continueCardButton) continueCardButton.href = nextHref;
+  }
+
+  if (next) {
+    setText("#next-bracket", next.title);
+    setText("#next-bracket-description", next.description);
+  }
+
+  browser.innerHTML = "";
+
+  (bracket.items || []).forEach((item) => {
+    const itemPercent = bracketItemProgress(item);
+    const courseItem = item.kind === "course" || item.kind === "track"
+      ? courseById(item.courseId || item.id)
+      : null;
+    const title = item.title || courseItem?.title || "Course";
+    const description = item.description || courseItem?.description || "";
+    const actionLabel = item.kind === "preview"
+      ? "Preview"
+      : itemPercent > 0
+        ? "Continue"
+        : "Open";
+    const card = document.createElement("article");
+    card.className = `course-card bracket-course-card ${item.kind === "preview" ? "is-planned" : ""}`;
+    card.innerHTML = `
+      <div class="course-card-thumb" aria-hidden="true">
+        <span>${(item.kind || "COURSE").toUpperCase().slice(0, 3)}</span>
+      </div>
+      <div class="course-card-main">
+        <span class="lesson-state">${item.kind === "preview" ? "Preview" : item.kind === "track" ? "Track" : "Course"}</span>
+        <div>
+          <h2>${title}</h2>
+          <p>${description}</p>
+        </div>
+      </div>
+      <div class="course-card-side">
+        <div class="course-card-meta">
+          <span>${(item.lessonIds || []).length ? `${(item.lessonIds || []).length} lessons` : "Coming soon"}</span>
+          <span>${itemPercent}% complete</span>
+        </div>
+        <div class="lesson-row-progress compact">
+          <div class="progress-track"><div class="progress-fill" style="width: ${itemPercent}%"></div></div>
+          <span>${itemPercent}%</span>
+        </div>
+      </div>
+      <div class="course-card-actions">
+        <a class="button secondary" href="${item.href || "/lessons"}">Open</a>
+        <a class="button primary" href="${item.href || "/lessons"}">${actionLabel}</a>
+      </div>
+    `;
+    browser.appendChild(card);
+  });
+}
+
 function currentLessonIdFromUrl() {
   const parts = window.location.pathname.split("/");
   if (parts[1] === "lessons" && parts[2]) return parts[2];
@@ -817,6 +1008,16 @@ function unlockNextStep() {
 }
 
 async function init() {
+  const needsBracket = document.querySelector("#bracket-cards")
+    || document.querySelector("#bracket-courses");
+  if (needsBracket) {
+    course = await loadCourseData();
+    brackets = await loadBracketData();
+    renderBracketOverview();
+    renderBracketDetail();
+    return;
+  }
+
   const needsCourse = document.querySelector("#course-cards")
     || document.querySelector("#course-detail")
     || document.querySelector("#course-tree")
@@ -847,6 +1048,23 @@ async function loadCourseData() {
   }
 
   return null;
+}
+
+async function loadBracketData() {
+  const sources = ["/api/brackets", "/static/data/brackets.json"];
+
+  for (const url of sources) {
+    try {
+      const response = await fetch(url);
+      if (!response.ok) continue;
+      const data = await response.json();
+      return Array.isArray(data) ? data : [];
+    } catch (error) {
+      // Try the next source.
+    }
+  }
+
+  return [];
 }
 
 init();

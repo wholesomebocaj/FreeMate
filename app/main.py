@@ -11,6 +11,14 @@ from pydantic import BaseModel, Field
 BASE_DIR = Path(__file__).resolve().parent
 STATIC_DIR = BASE_DIR / "static"
 COURSE_PATH = STATIC_DIR / "data" / "courses.json"
+BRACKETS_PATH = STATIC_DIR / "data" / "brackets.json"
+BRACKET_SLUGS = {
+    "beginner",
+    "beginner-plus",
+    "novice",
+    "intermediate",
+    "advanced-beginner",
+}
 
 app = FastAPI(title="FreeMate", version="1.0.0")
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
@@ -62,6 +70,12 @@ def lessons_page() -> FileResponse:
     return FileResponse(STATIC_DIR / "lessons.html")
 
 
+@app.get("/api/brackets")
+def get_brackets() -> JSONResponse:
+    with BRACKETS_PATH.open(encoding="utf-8") as brackets_file:
+        return JSONResponse(json.load(brackets_file))
+
+
 @app.get("/courses/{course_id}")
 def course_detail_page(course_id: str) -> FileResponse:
     return FileResponse(STATIC_DIR / "course.html")
@@ -69,6 +83,8 @@ def course_detail_page(course_id: str) -> FileResponse:
 
 @app.get("/lessons/{lesson_id}")
 def lesson_training_page(lesson_id: str) -> FileResponse:
+    if lesson_id in BRACKET_SLUGS:
+        return FileResponse(STATIC_DIR / "bracket.html")
     return FileResponse(STATIC_DIR / "lesson.html")
 
 
