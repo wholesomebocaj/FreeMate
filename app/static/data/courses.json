@@ -26,9 +26,26 @@
               "coachIntro": "A chess coach always starts with the map. If you can name squares, every later lesson becomes easier.",
               "steps": [
                 {
-                  "type": "explain",
-                  "title": "Think of the board like a map",
-                  "body": "Files are the lettered columns. They help you find a square from left to right."
+                  "type": "board-demo",
+                  "title": "Meet the d-file and rank 4",
+                  "body": "Watch the board light up. The d-file runs vertically, and rank 4 runs horizontally. Their intersection is d4.",
+                  "highlightSquares": [
+                    { "square": "d1", "className": "file" },
+                    { "square": "d2", "className": "file" },
+                    { "square": "d3", "className": "file" },
+                    { "square": "d4", "className": "target" },
+                    { "square": "d5", "className": "file" },
+                    { "square": "d6", "className": "file" },
+                    { "square": "d7", "className": "file" },
+                    { "square": "d8", "className": "file" },
+                    { "square": "a4", "className": "rank" },
+                    { "square": "b4", "className": "rank" },
+                    { "square": "c4", "className": "rank" },
+                    { "square": "e4", "className": "rank" },
+                    { "square": "f4", "className": "rank" },
+                    { "square": "g4", "className": "rank" },
+                    { "square": "h4", "className": "rank" }
+                  ]
                 },
                 {
                   "type": "click-all-squares",
