@@ -1,4 +1,4 @@
-import { PracticeBoard } from "/static/components/practice-board.js";
+import { EMPTY_FEN, PracticeBoard } from "/static/components/practice-board.js";
 
 const files = ["a", "b", "c", "d", "e", "f", "g", "h"];
 const STARTING_FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
@@ -62,7 +62,11 @@ export class LessonRenderer {
         this.renderChecklistStep(wrapper, step);
         break;
 
+      case "board-demo":
       case "highlight-demo":
+      case "move-task":
+      case "capture-task":
+      case "tactic-task":
       case "board-task":
       case "attack-visualization":
       case "guided-puzzle":
@@ -73,6 +77,10 @@ export class LessonRenderer {
         this.renderInteractiveStep(wrapper, step);
         break;
 
+      case "multiple-choice":
+        this.renderMultipleChoiceStep(wrapper, step);
+        break;
+
       default:
         wrapper.innerHTML += `
           <p>Unsupported lesson step type: ${step.type}</p>
@@ -80,13 +88,13 @@ export class LessonRenderer {
     }
 
     const stepIndex = this.currentStepIndex;
-    if (["explain", "highlight-demo", "guided-puzzle", "attack-visualization"].includes(step.type)) {
+    if (["explain", "board-demo", "highlight-demo", "guided-puzzle", "attack-visualization"].includes(step.type)) {
       window.setTimeout(() => {
         if (this.currentStepIndex !== stepIndex) return;
         if (!this.completedSteps.has(stepIndex)) {
           this.markStepComplete(wrapper, step);
         }
-      }, 250);
+      }, 650);
     }
 
     const controls = document.createElement("div");
@@ -153,6 +161,46 @@ export class LessonRenderer {
     this.renderPracticeBoard(wrapper, step, this.getBoardConfig(step));
   }
 
+  renderMultipleChoiceStep(wrapper, step) {
+    const choices = Array.isArray(step.choices) ? step.choices : [];
+    const correctValue = step.correctChoice ?? step.correctAnswer ?? step.answer;
+
+    if (step.board) {
+      this.renderPracticeBoard(wrapper, step, this.getBoardConfig(step));
+    }
+
+    const options = document.createElement("div");
+    options.className = "lesson-choice-grid";
+
+    choices.forEach((choice) => {
+      const value = typeof choice === "string" ? choice : choice.value ?? choice.label;
+      const label = typeof choice === "string" ? choice : choice.label ?? choice.value;
+      const button = document.createElement("button");
+      button.className = "lesson-choice-button";
+      button.type = "button";
+      button.textContent = label;
+      button.onclick = () => {
+        const isCorrect = value === correctValue;
+        this.showBoardFeedback(
+          wrapper,
+          isCorrect
+            ? step.successText || choice.successText || "Correct."
+            : choice.errorText || step.errorText || "Not quite. Try again.",
+          isCorrect ? "success" : "error",
+        );
+        if (isCorrect) {
+          this.playBoardSound(wrapper, "success");
+          this.markStepComplete(wrapper, step);
+        } else {
+          this.playBoardSound(wrapper, "illegal");
+        }
+      };
+      options.appendChild(button);
+    });
+
+    wrapper.appendChild(options);
+  }
+
   renderPracticeBoard(wrapper, step, config) {
     if (!config) return;
 
@@ -161,7 +209,7 @@ export class LessonRenderer {
 
     wrapper.appendChild(boardContainer);
 
-    new PracticeBoard(boardContainer, {
+    const board = new PracticeBoard(boardContainer, {
       ...config,
       mode: "lesson",
       highlightLegalMoves: true,
@@ -184,6 +232,7 @@ export class LessonRenderer {
         }
       },
     });
+    wrapper.__practiceBoard = board;
 
     const note = document.createElement("p");
     note.className = "lesson-step-note";
@@ -192,9 +241,11 @@ export class LessonRenderer {
         ? "Complete every highlighted square to unlock the next step."
         : step.type === "square-click"
           ? "Click the target square to continue."
-          : step.type === "board-task"
+          : ["board-task", "move-task", "capture-task", "tactic-task"].includes(step.type)
             ? "Make the correct board action to continue."
-            : "Complete the interaction to continue.";
+            : step.type === "board-demo"
+              ? "Study the board, then continue when you are ready."
+              : "Complete the interaction to continue.";
     wrapper.appendChild(note);
 
     if (step.type === "click-all-squares") {
@@ -220,6 +271,7 @@ export class LessonRenderer {
         step.successText || config.successMessage || `Correct. ${square.toUpperCase()} is the target square.`,
         "success",
       );
+      this.playBoardSound(wrapper, "success");
       this.markStepComplete(wrapper, step);
       return;
     }
@@ -229,17 +281,28 @@ export class LessonRenderer {
       step.errorText || config.errorMessage || `Try again. Click ${step.targetSquare.toUpperCase()}.`,
       "error",
     );
+    this.playBoardSound(wrapper, "illegal");
   }
 
   handleClickAllSquares(wrapper, step, square, config) {
     const targetSquares = new Set(step.targetSquares || []);
     const progress = wrapper.querySelector("[data-click-all-progress]");
     const done = wrapper.__clickAllDone || (wrapper.__clickAllDone = new Set());
+    const baseHighlights = normalizeHighlightSquares(step.highlightSquares || step.highlights || []);
 
     if (!targetSquares.size) return;
 
     if (targetSquares.has(square)) {
       done.add(square);
+      const board = wrapper.__practiceBoard;
+      if (board) {
+        board.setConfig({
+          highlightSquares: baseHighlights.map((entry) => ({
+            square: entry.square,
+            className: done.has(entry.square) ? "correct" : entry.className,
+          })),
+        });
+      }
       if (progress) {
         progress.textContent = `${done.size}/${targetSquares.size} squares found`;
       }
@@ -249,6 +312,7 @@ export class LessonRenderer {
           step.successText || config.successMessage || "Great job. You found them all.",
           "success",
         );
+        this.playBoardSound(wrapper, "success");
         this.markStepComplete(wrapper, step);
       } else {
         this.showBoardFeedback(
@@ -265,6 +329,7 @@ export class LessonRenderer {
       step.errorText || config.errorMessage || "Not quite. Try another highlighted square.",
       "error",
     );
+    this.playBoardSound(wrapper, "illegal");
   }
 
   markStepComplete(wrapper, step) {
@@ -296,112 +361,136 @@ export class LessonRenderer {
     feedback.className = `lesson-board-feedback result ${type}`;
   }
 
+  playBoardSound(wrapper, type) {
+    const board = wrapper.__practiceBoard;
+    if (board?.sound?.play) {
+      board.sound.play(type);
+    }
+  }
+
   getBoardConfig(step) {
-    const lessonConfigs = {
+    const baseConfig = {
+      initialFen: STARTING_FEN,
+      objective: this.lesson.title,
+      highlightSquares: [],
+      allowedMoves: [],
+      lockToAllowedMoves: false,
+      successMessage: "Correct.",
+      errorMessage: "Try another legal move from this position.",
+      showCoordinates: true,
+      enableSounds: true,
+      orientation: "white",
+    };
+
+    const lessonBases = {
       "naming-squares": {
-        initialFen: STARTING_FEN,
-        objective: "Find d4 on the board.",
-        highlightSquares: [],
-        successMessage: "Exactly. d4 is where the d-file and rank 4 cross.",
-        errorMessage: "Try again. Click the square where file d meets rank 4.",
+        initialFen: EMPTY_FEN,
+        objective: "Find the target square on the board.",
       },
       "rook-from-d4": {
-        initialFen: step.fen || "7k/8/8/8/3R4/8/8/7K w - - 0 1",
-        objective: "Move the rook to a legal straight-line square.",
-        allowedMoves: step.targetSquare
-          ? [`${step.startSquare || "d4"}${step.targetSquare}`]
-          : movesFrom("d4", rookSquares("d4")),
-        lockToAllowedMoves: true,
+        initialFen: "7k/8/8/8/3R4/8/8/7K w - - 0 1",
+        objective: "Move the rook along a rank or file.",
+        allowedMoves: movesFrom("d4", rookSquares("d4")),
+        highlightSquares: rookSquares("d4").map((square) => ({ square, className: "focus" })),
         successMessage: "Correct! Rooks move in straight lines.",
         errorMessage: "Try again. Rooks can only move horizontally or vertically.",
       },
       "bishop-movement": {
         initialFen: "k7/8/8/8/3B4/8/8/7K w - - 0 1",
         objective: "Move the bishop along a diagonal.",
-        highlightSquares: ["a1", "b2", "c3", "e5", "f6", "g7", "h8", "a7", "b6", "c5", "e3", "f2", "g1"],
         allowedMoves: movesFrom("d4", bishopSquares("d4")),
-        lockToAllowedMoves: true,
+        highlightSquares: bishopSquares("d4").map((square) => ({ square, className: "focus" })),
         successMessage: "Correct! Bishops move diagonally.",
         errorMessage: "Try again. Bishops stay on diagonals.",
       },
       "knight-movement": {
         initialFen: "k7/8/8/8/3N4/8/8/7K w - - 0 1",
         objective: "Move the knight in an L shape.",
-        highlightSquares: knightSquares("d4").map((square) => ({ square, className: "target" })),
         allowedMoves: movesFrom("d4", knightSquares("d4")),
-        lockToAllowedMoves: true,
+        highlightSquares: knightSquares("d4").map((square) => ({ square, className: "target" })),
         successMessage: "Correct! Knights jump in an L shape.",
         errorMessage: "Try again. Knights move two squares and then one.",
       },
       "queen-movement": {
         initialFen: "k7/8/8/8/3Q4/8/8/7K w - - 0 1",
         objective: "Move the queen on a straight or diagonal line.",
-        highlightSquares: [...rookSquares("d4"), ...bishopSquares("d4")].map((square) => ({ square, className: "focus" })),
         allowedMoves: movesFrom("d4", queenSquares("d4")),
-        lockToAllowedMoves: true,
+        highlightSquares: queenSquares("d4").map((square) => ({ square, className: "focus" })),
         successMessage: "Correct! Queens combine rook and bishop movement.",
         errorMessage: "Try again. Queens move on ranks, files, or diagonals.",
       },
       "first-opening-move": {
         initialFen: STARTING_FEN,
         objective: "Choose a principled legal first move.",
+        allowedMoves: ["e2e4", "d2d4", "c2c4", "g1f3"],
         highlightSquares: [
           { square: "d4", className: "target" },
           { square: "e4", className: "target" },
           { square: "d5", className: "target" },
           { square: "e5", className: "target" },
         ],
-        allowedMoves: ["e2e4", "d2d4", "c2c4", "g1f3"],
-        lockToAllowedMoves: true,
         successMessage: "Good first move. You are fighting for the center or developing a piece.",
         errorMessage: "Try e2e4, d2d4, c2c4, or g1f3.",
       },
       "checkmate-vs-stalemate": {
-        initialFen: "k7/8/8/8/8/8/5K2/7Q w - - 0 1",
-        objective: "See the difference between a king in check and a king with no legal moves.",
-        highlightSquares: ["h8", "f2", "g2", "h2"].map((square) => ({ square, className: "focus" })),
+        initialFen: "7k/6Q1/5K2/8/8/8/8/8 b - - 0 1",
+        objective: "Identify the type of ending.",
+        successMessage: "Correct.",
+        errorMessage: "Try again.",
       },
       "checks-captures-threats": {
         initialFen: "k7/8/8/3q4/8/8/4K3/8 w - - 0 1",
         objective: "Spot the opponent's forcing move.",
-        highlightSquares: [{ square: "d5", className: "target" }, { square: "e2", className: "focus" }],
+        highlightSquares: [
+          { square: "d5", className: "danger" },
+          { square: "e2", className: "focus" },
+        ],
+        successMessage: "Good. You found the forcing idea.",
+        errorMessage: "Not quite. Try again.",
       },
       "find-the-fork-idea": {
-        initialFen: "k7/8/8/8/3N4/8/4K3/3q4 w - - 0 1",
+        initialFen: "8/6k1/8/8/3N4/4q3/8/K7 w - - 0 1",
         objective: "Notice how one piece can attack two targets at once.",
-        highlightSquares: [{ square: "d4", className: "target" }, { square: "d1", className: "target" }],
+        allowedMoves: ["d4f5"],
+        highlightSquares: [
+          { square: "f5", className: "target" },
+          { square: "g7", className: "danger" },
+          { square: "e3", className: "danger" },
+        ],
+        successMessage: "Nice. That's the kind of move that creates a fork.",
+        errorMessage: "Try again. Look for the move that attacks both targets.",
       },
     };
 
-    if (lessonConfigs[this.lesson.id]) {
-      return lessonConfigs[this.lesson.id];
-    }
+    const base = lessonBases[this.lesson.id] || {};
+    const highlightSquares = normalizeHighlightSquares(step.highlightSquares || step.highlights || base.highlightSquares || []);
+    const allowedMoves = step.allowedMoves
+      || base.allowedMoves
+      || (step.targetSquare && step.startSquare
+        ? [`${step.startSquare}${step.targetSquare}`]
+        : null)
+      || (step.startSquare && (step.highlights || step.highlightSquares)
+        ? movesFrom(step.startSquare, (step.highlights || step.highlightSquares).map
+            ? (step.highlights || step.highlightSquares).map((entry) => (typeof entry === "string" ? entry : entry.square))
+            : [])
+        : []);
 
-    if (step.fen) {
-      const highlightSquares = normalizeHighlightSquares(
-        step.highlightSquares || step.highlights || [],
-      );
-
-      return {
-        initialFen: step.fen,
-        objective: step.title || this.lesson.title,
-        allowedMoves:
-          step.allowedMoves ||
-          (step.highlights && step.startSquare
-            ? movesFrom(step.startSquare, step.highlights)
-            : []),
-        lockToAllowedMoves: Boolean(
-          step.lockToAllowedMoves ||
-            (step.highlights && step.startSquare) ||
-            step.allowedMoves,
-        ),
-        highlightSquares,
-        successMessage: step.successText || "Correct.",
-        errorMessage: "Try another legal move from this position.",
-      };
-    }
-
-    return null;
+    return {
+      ...baseConfig,
+      ...base,
+      initialFen: step.fen || base.initialFen || STARTING_FEN,
+      objective: step.objective || step.title || base.objective || this.lesson.title,
+      highlightSquares,
+      allowedMoves,
+      lockToAllowedMoves: step.lockToAllowedMoves ?? base.lockToAllowedMoves ?? Boolean(allowedMoves.length),
+      successMessage: step.successText || base.successMessage || "Correct.",
+      errorMessage: step.errorText || base.errorMessage || "Try another legal move from this position.",
+      orientation: step.orientation || base.orientation || "white",
+      mode: step.mode || base.mode || "lesson",
+      showCoordinates: step.showCoordinates ?? base.showCoordinates ?? true,
+      enableSounds: step.enableSounds ?? base.enableSounds ?? true,
+      solutionMoves: step.solutionMoves || base.solutionMoves || [],
+    };
   }
 
   renderComplete() {

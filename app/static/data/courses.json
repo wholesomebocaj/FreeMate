@@ -99,41 +99,54 @@
               "coachIntro": "Beginners often mix up checkmate and stalemate. This lesson gives you a simple ending checklist.",
               "steps": [
                 {
-                  "type": "highlight-demo",
-                  "title": "A king under attack is in check",
-                  "body": "The board shows a simple check position. Notice which squares matter around the king."
+                  "type": "explain",
+                  "title": "Know the difference",
+                  "body": "Checkmate means the king is attacked and has no escape. Stalemate means the king is not attacked, but has no legal move."
                 },
                 {
-                  "type": "board-task",
-                  "title": "See the safe squares",
-                  "body": "Click the only safe square or move that keeps the king alive.",
-                  "fen": "7k/8/8/8/8/8/5K2/7Q w - - 0 1",
+                  "type": "multiple-choice",
+                  "title": "Is this checkmate or stalemate?",
+                  "body": "Look at the board and choose the correct ending.",
+                  "board": true,
+                  "fen": "7k/6Q1/5K2/8/8/8/8/8 b - - 0 1",
                   "highlightSquares": [
                     { "square": "h8", "className": "target" },
-                    { "square": "f2", "className": "focus" },
-                    { "square": "g2", "className": "focus" },
-                    { "square": "h2", "className": "focus" }
+                    { "square": "g8", "className": "danger" },
+                    { "square": "h7", "className": "danger" }
                   ],
-                  "allowedMoves": ["h1h8", "f2f1", "f2g1", "f2e2", "f2e1"],
-                  "startSquare": "h1",
-                  "successText": "Good. You recognized the safe idea in the position."
+                  "choices": [
+                    { "label": "Checkmate", "value": "checkmate" },
+                    { "label": "Stalemate", "value": "stalemate" }
+                  ],
+                  "correctChoice": "checkmate",
+                  "successText": "Correct. The king is attacked and has no escape.",
+                  "errorText": "Not quite. This one is checkmate."
                 },
                 {
-                  "type": "attack-visualization",
-                  "title": "Checkmate means no escape",
-                  "body": "A checkmate position leaves the king attacked with no safe square and no block or capture."
+                  "type": "multiple-choice",
+                  "title": "Now spot the stalemate",
+                  "body": "This one is different. The king is not in check, but still cannot move.",
+                  "board": true,
+                  "fen": "7k/5Q2/6K1/8/8/8/8/8 b - - 0 1",
+                  "highlightSquares": [
+                    { "square": "h8", "className": "focus" },
+                    { "square": "g8", "className": "danger" },
+                    { "square": "h7", "className": "danger" }
+                  ],
+                  "choices": [
+                    { "label": "Checkmate", "value": "checkmate" },
+                    { "label": "Stalemate", "value": "stalemate" }
+                  ],
+                  "correctChoice": "stalemate",
+                  "successText": "Correct. The king is stuck, but not in check.",
+                  "errorText": "Not quite. This one is stalemate."
                 },
                 {
                   "type": "guided-puzzle",
-                  "title": "Spot stalemate clues",
-                  "body": "In stalemate, the king is not in check, but has no legal move."
+                  "title": "Remember the difference",
+                  "body": "Checkmate ends the game because the king is attacked. Stalemate ends the game because the king has no move."
                 }
-              ],
-              "exercise": {
-                "type": "checklist",
-                "prompt": "Use the three-question ending check.",
-                "tasks": ["Is the king attacked?", "Does the king have a legal move?", "Can another piece block or capture?"]
-              }
+              ]
             }
           ]
         }
@@ -161,26 +174,57 @@
               "coachIntro": "Rooks are powerful because they control long straight lines. You will see the legal squares, move the rook, then capture a target.",
               "steps": [
                 {
-                  "type": "highlight-demo",
+                  "type": "board-demo",
                   "title": "Rooks travel on ranks and files",
-                  "body": "A rook moves in straight lines only."
+                  "body": "The highlighted squares show every legal rook move from d4."
                 },
                 {
-                  "type": "rook-practice",
+                  "type": "move-task",
                   "title": "Try a rook move",
                   "body": "Move the rook to any highlighted square from d4.",
                   "fen": "7k/8/8/8/3R4/8/8/7K w - - 0 1",
                   "startSquare": "d4",
+                  "highlightSquares": [
+                    { "square": "d1", "className": "focus" },
+                    { "square": "d2", "className": "focus" },
+                    { "square": "d3", "className": "focus" },
+                    { "square": "d5", "className": "focus" },
+                    { "square": "d6", "className": "focus" },
+                    { "square": "d7", "className": "focus" },
+                    { "square": "d8", "className": "focus" },
+                    { "square": "a4", "className": "focus" },
+                    { "square": "b4", "className": "focus" },
+                    { "square": "c4", "className": "focus" },
+                    { "square": "e4", "className": "focus" },
+                    { "square": "f4", "className": "focus" },
+                    { "square": "g4", "className": "focus" },
+                    { "square": "h4", "className": "focus" }
+                  ],
                   "successText": "Nice. That is how a rook travels across a rank or file."
                 },
                 {
-                  "type": "rook-challenge",
+                  "type": "capture-task",
                   "title": "Capture the hanging pawn",
                   "body": "Now capture the loose pawn on d7. The rook must move straight up the d-file.",
                   "fen": "7k/3p4/8/8/3R4/8/8/7K w - - 0 1",
                   "startSquare": "d4",
                   "targetSquare": "d7",
-                  "pieces": [{ "square": "d7", "piece": "p" }],
+                  "allowedMoves": ["d4d7"],
+                  "highlightSquares": [
+                    { "square": "d1", "className": "focus" },
+                    { "square": "d2", "className": "focus" },
+                    { "square": "d3", "className": "focus" },
+                    { "square": "d5", "className": "focus" },
+                    { "square": "d6", "className": "focus" },
+                    { "square": "d7", "className": "target" },
+                    { "square": "a4", "className": "focus" },
+                    { "square": "b4", "className": "focus" },
+                    { "square": "c4", "className": "focus" },
+                    { "square": "e4", "className": "focus" },
+                    { "square": "f4", "className": "focus" },
+                    { "square": "g4", "className": "focus" },
+                    { "square": "h4", "className": "focus" }
+                  ],
                   "successText": "Excellent. You used the rook's file to capture the hanging pawn."
                 }
               ],
@@ -208,16 +252,18 @@
               "locked": true,
               "coachIntro": "Bishops and knights are both minor pieces, but their movement shapes are completely different.",
               "steps": [
-                {"type": "highlight-demo", "title": "Bishops stay on diagonals", "body": "Watch the diagonal lanes radiating from the bishop."},
-                {"type": "board-task", "title": "Move the bishop", "body": "Pick any highlighted diagonal square.", "fen": "k7/8/8/8/3B4/8/8/7K w - - 0 1", "startSquare": "d4", "highlightSquares": ["a1", "b2", "c3", "e5", "f6", "g7", "h8", "a7", "b6", "c5", "e3", "f2", "g1"], "successText": "Nice. The bishop moved diagonally."},
-                {"type": "attack-visualization", "title": "See a diagonal capture", "body": "Bishops capture the same way they move. Try spotting the capture line before you click."}
+                {"type": "board-demo", "title": "Bishops stay on diagonals", "body": "The bishop can only move along diagonal lines, and it stays on the same color square."},
+                {"type": "move-task", "title": "Move the bishop", "body": "Pick any highlighted diagonal square from d4.", "fen": "k7/8/8/8/3B4/8/8/7K w - - 0 1", "startSquare": "d4", "highlightSquares": ["a1", "b2", "c3", "e5", "f6", "g7", "a7", "b6", "c5", "e3", "f2", "g1"], "successText": "Nice. The bishop moved diagonally."},
+                {"type": "capture-task", "title": "Capture on the diagonal", "body": "Now take the pawn on g7 with a diagonal bishop capture.", "fen": "k7/6p1/8/8/3B4/8/8/7K w - - 0 1", "startSquare": "d4", "targetSquare": "g7", "allowedMoves": ["d4g7"], "highlightSquares": ["a1", "b2", "c3", "e5", "f6", "g7", "a7", "b6", "c5", "e3", "f2", "g1"], "successText": "Correct. Bishops capture on diagonals."}
               ],
               "exercise": {
-                "type": "board-task",
-                "prompt": "Move the bishop along one more diagonal square.",
-                "fen": "k7/8/8/8/3B4/8/8/7K w - - 0 1",
-                "startSquare": "d4",
-                "highlightSquares": ["a1", "b2", "c3", "e5", "f6", "g7", "h8", "a7", "b6", "c5", "e3", "f2", "g1"]
+                "type": "multiple-choice",
+                "prompt": "Bishops stay on the same color. Is that true?",
+                "choices": [
+                  { "label": "Yes", "value": "yes" },
+                  { "label": "No", "value": "no" }
+                ],
+                "correctChoice": "yes"
               }
             }
           ]
@@ -237,11 +283,14 @@
               "locked": true,
               "coachIntro": "Knights feel strange at first because they are the only pieces that jump.",
               "steps": [
-                {"type": "highlight-demo", "title": "Knights jump in an L", "body": "The highlighted squares show every legal knight landing square."},
-                {"type": "board-task", "title": "Jump the knight", "body": "Drag the knight to any highlighted landing square.", "fen": "k7/8/8/8/3N4/8/8/7K w - - 0 1", "startSquare": "d4", "highlightSquares": ["b3", "b5", "c2", "c6", "e2", "e6", "f3", "f5"], "successText": "Nice. Knights really do jump like that."},
-                {"type": "guided-puzzle", "title": "Knight capture idea", "body": "Notice how a knight can fork two pieces at once."}
+                {"type": "board-demo", "title": "Knights jump in an L", "body": "The highlighted squares show every legal knight landing square. Nearby pieces do not stop the knight."},
+                {"type": "capture-task", "title": "Jump and capture", "body": "Capture the pawn on f5 with a knight jump.", "fen": "k7/8/8/4Bp2/3N4/8/8/7K w - - 0 1", "startSquare": "d4", "targetSquare": "f5", "allowedMoves": ["d4f5"], "highlightSquares": ["b3", "b5", "c2", "c6", "e2", "e6", "f3", "f5"], "successText": "Nice. The knight jumped over the bishop and captured the pawn."},
+                {"type": "multiple-choice", "title": "Why did that work?", "body": "Choose the reason the knight could make that move.", "choices": [
+                  { "label": "The knight jumps over pieces", "value": "jump" },
+                  { "label": "The bishop moved with it", "value": "bishop" }
+                ], "correctChoice": "jump", "successText": "Exactly. Knights are the only pieces that jump over others.", "errorText": "Not quite. The knight jumps independently."}
               ],
-              "exercise": {"type": "board-task", "prompt": "Make one more legal knight jump.", "fen": "k7/8/8/8/3N4/8/8/7K w - - 0 1", "startSquare": "d4", "highlightSquares": ["b3", "b5", "c2", "c6", "e2", "e6", "f3", "f5"] }
+              "exercise": {"type": "capture-task", "prompt": "Make another knight jump if you want to review.", "fen": "k7/8/8/4Bp2/3N4/8/8/7K w - - 0 1", "startSquare": "d4", "targetSquare": "f5", "allowedMoves": ["d4f5"], "highlightSquares": ["b3", "b5", "c2", "c6", "e2", "e6", "f3", "f5"] }
             }
           ]
         },
@@ -260,11 +309,19 @@
               "locked": true,
               "coachIntro": "The queen is powerful because she combines straight and diagonal movement.",
               "steps": [
-                {"type": "highlight-demo", "title": "Queen combines two patterns", "body": "The queen can move like a rook and a bishop."},
-                {"type": "board-task", "title": "Test a queen move", "body": "Move the queen to any legal straight or diagonal square.", "fen": "k7/8/8/8/3Q4/8/8/7K w - - 0 1", "startSquare": "d4", "highlightSquares": ["d1", "d2", "d3", "d5", "d6", "d7", "d8", "a4", "b4", "c4", "e4", "f4", "g4", "h4", "a1", "b2", "c3", "e5", "f6", "g7", "h8", "a7", "b6", "c5", "e3", "f2", "g1"], "successText": "Correct. The queen combines both movement patterns."},
-                {"type": "attack-visualization", "title": "Queen attack lines", "body": "See both the diagonal and straight lines from the queen."}
+                {"type": "board-demo", "title": "Queen combines two patterns", "body": "The queen moves like a rook and a bishop at the same time."},
+                {"type": "capture-task", "title": "Move like a rook", "body": "Capture the pawn on d7 along the file.", "fen": "k7/3p4/8/8/3Q4/8/8/7K w - - 0 1", "startSquare": "d4", "targetSquare": "d7", "allowedMoves": ["d4d7"], "highlightSquares": ["d1", "d2", "d3", "d5", "d6", "d7", "a4", "b4", "c4", "e4", "f4", "g4", "h4"], "successText": "Correct. The queen can move like a rook."},
+                {"type": "capture-task", "title": "Move like a bishop", "body": "Now capture the pawn on g7 along the diagonal.", "fen": "k7/6p1/8/8/3Q4/8/8/7K w - - 0 1", "startSquare": "d4", "targetSquare": "g7", "allowedMoves": ["d4g7"], "highlightSquares": ["a1", "b2", "c3", "e5", "f6", "g7", "a7", "b6", "c5", "e3", "f2", "g1"], "successText": "Correct. The queen can also move like a bishop."}
               ],
-              "exercise": {"type": "board-task", "prompt": "Make another queen move.", "fen": "k7/8/8/8/3Q4/8/8/7K w - - 0 1", "startSquare": "d4", "highlightSquares": ["d1", "d2", "d3", "d5", "d6", "d7", "d8", "a4", "b4", "c4", "e4", "f4", "g4", "h4", "a1", "b2", "c3", "e5", "f6", "g7", "h8", "a7", "b6", "c5", "e3", "f2", "g1"] }
+              "exercise": {
+                "type": "multiple-choice",
+                "prompt": "The queen combines which two movement patterns?",
+                "choices": [
+                  { "label": "Rook and bishop", "value": "rook-bishop" },
+                  { "label": "Knight and pawn", "value": "knight-pawn" }
+                ],
+                "correctChoice": "rook-bishop"
+              }
             }
           ]
         },
@@ -283,11 +340,32 @@
               "locked": true,
               "coachIntro": "The king is slow, but every move matters because the king can never move into check.",
               "steps": [
-                {"type": "highlight-demo", "title": "Kings move one square", "body": "The king can move one square in any direction."},
-                {"type": "board-task", "title": "Move the king safely", "body": "Choose a safe adjacent square for the king.", "fen": "4k3/8/8/8/8/8/5K2/8 w - - 0 1", "startSquare": "f2", "highlightSquares": ["e1", "e2", "e3", "f1", "g1", "g2", "g3"], "successText": "Good. The king moved one square and stayed safe."},
-                {"type": "guided-puzzle", "title": "Illegal king moves", "body": "A king can never move into check, even if the square looks empty."}
+                {"type": "board-demo", "title": "Kings move one square", "body": "Green squares are safe. Red squares are attacked and not allowed."},
+                {"type": "move-task", "title": "Move the king safely", "body": "Choose a safe adjacent square for the king on e4.", "fen": "k7/8/8/8/4K2r/8/8/8 w - - 0 1", "startSquare": "e4", "allowedMoves": ["e4d3", "e4d5", "e4e3", "e4e5", "e4f3", "e4f5"], "highlightSquares": [
+                  { "square": "d3", "className": "target" },
+                  { "square": "d4", "className": "danger" },
+                  { "square": "d5", "className": "target" },
+                  { "square": "e3", "className": "target" },
+                  { "square": "e5", "className": "target" },
+                  { "square": "f3", "className": "target" },
+                  { "square": "f4", "className": "danger" },
+                  { "square": "f5", "className": "target" }
+                ], "successText": "Good. The king moved one square and stayed safe."},
+                {"type": "multiple-choice", "title": "Can the king move into check?", "body": "Choose the correct rule.", "choices": [
+                  { "label": "Yes, if the square is empty", "value": "yes" },
+                  { "label": "No, the king must stay safe", "value": "no" }
+                ], "correctChoice": "no", "successText": "Correct. The king can never move into check.", "errorText": "Not quite. Empty is not enough if the square is attacked."}
               ],
-              "exercise": {"type": "board-task", "prompt": "Find one more safe king move.", "fen": "4k3/8/8/8/8/8/5K2/8 w - - 0 1", "startSquare": "f2", "highlightSquares": ["e1", "e2", "e3", "f1", "g1", "g2", "g3"] }
+              "exercise": {"type": "move-task", "prompt": "Find one more safe king move.", "fen": "k7/8/8/8/4K2r/8/8/8 w - - 0 1", "startSquare": "e4", "allowedMoves": ["e4d3", "e4d5", "e4e3", "e4e5", "e4f3", "e4f5"], "highlightSquares": [
+                { "square": "d3", "className": "target" },
+                { "square": "d4", "className": "danger" },
+                { "square": "d5", "className": "target" },
+                { "square": "e3", "className": "target" },
+                { "square": "e5", "className": "target" },
+                { "square": "f3", "className": "target" },
+                { "square": "f4", "className": "danger" },
+                { "square": "f5", "className": "target" }
+              ] }
             }
           ]
         },
@@ -306,12 +384,15 @@
               "locked": true,
               "coachIntro": "Pawns look simple, but their movement rules create many beginner mistakes.",
               "steps": [
-                {"type": "highlight-demo", "title": "Pawns move forward", "body": "White pawns go up the board. Black pawns go down."},
-                {"type": "board-task", "title": "Try a pawn move", "body": "Move the pawn one or two squares forward if the path is clear.", "fen": "k7/8/8/8/8/8/3P4/7K w - - 0 1", "startSquare": "d2", "highlightSquares": ["d3", "d4"], "successText": "Good. Pawns move forward like that."},
-                {"type": "attack-visualization", "title": "Pawn captures diagonally", "body": "Pawns capture on the diagonals, not straight ahead."},
-                {"type": "guided-puzzle", "title": "Promotion idea", "body": "A pawn that reaches the last rank becomes a new piece."}
+                {"type": "board-demo", "title": "Pawns move forward", "body": "White pawns move up the board. Black pawns move down the board.", "fen": "k7/8/8/8/8/8/3P4/7K w - - 0 1", "highlightSquares": [
+                  { "square": "d3", "className": "target" },
+                  { "square": "d4", "className": "target" }
+                ]},
+                {"type": "move-task", "title": "Push the pawn", "body": "Move the pawn one or two squares forward if the path is clear.", "fen": "k7/8/8/8/8/8/3P4/7K w - - 0 1", "startSquare": "d2", "allowedMoves": ["d2d3", "d2d4"], "highlightSquares": ["d3", "d4"], "successText": "Good. Pawns move forward like that."},
+                {"type": "capture-task", "title": "Capture diagonally", "body": "Pawns capture on the diagonals, not straight ahead.", "fen": "k7/8/8/5p2/4P3/8/8/7K w - - 0 1", "startSquare": "e4", "targetSquare": "f5", "allowedMoves": ["e4f5"], "highlightSquares": ["f5"], "successText": "Correct. Pawns capture diagonally."},
+                {"type": "move-task", "title": "Promotion preview", "body": "When a pawn reaches the last rank, it promotes.", "fen": "k7/4P3/8/8/8/8/8/7K w - - 0 1", "startSquare": "e7", "allowedMoves": ["e7e8q"], "highlightSquares": ["e8"], "successText": "Great. That pawn promoted on the last rank."}
               ],
-              "exercise": {"type": "board-task", "prompt": "Make one more legal pawn move.", "fen": "k7/8/8/8/8/8/3P4/7K w - - 0 1", "startSquare": "d2", "highlightSquares": ["d3", "d4"] }
+              "exercise": {"type": "capture-task", "prompt": "Capture diagonally or try the promotion preview again.", "fen": "k7/8/8/5p2/4P3/8/8/7K w - - 0 1", "startSquare": "e4", "targetSquare": "f5", "allowedMoves": ["e4f5"], "highlightSquares": ["f5"] }
             }
           ]
         }
@@ -338,16 +419,36 @@
               "locked": true,
               "coachIntro": "Openings are easier when you focus on goals instead of memorizing long move lists.",
               "steps": [
-                {"type": "highlight-demo", "title": "The center matters", "body": "The four center squares are the ones beginners should notice first."},
-                {"type": "board-task", "title": "Play for the center", "body": "Try a good first move that helps control the center.", "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", "allowedMoves": ["e2e4", "d2d4", "c2c4", "g1f3"], "startSquare": "e2", "successText": "Great. That move helps fight for the center or develop a piece."},
-                {"type": "guided-puzzle", "title": "Develop, then attack", "body": "After the first move, your next goal is usually to develop another piece."}
+                {"type": "board-demo", "title": "The center matters", "body": "The four center squares are the ones beginners should watch first.", "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", "highlightSquares": [
+                  { "square": "d4", "className": "target" },
+                  { "square": "e4", "className": "target" },
+                  { "square": "d5", "className": "target" },
+                  { "square": "e5", "className": "target" }
+                ]},
+                {"type": "move-task", "title": "Play for the center", "body": "Try a good first move that helps control the center.", "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1", "allowedMoves": ["e2e4", "d2d4", "c2c4", "g1f3"], "startSquare": "e2", "highlightSquares": [
+                  { "square": "d4", "className": "target" },
+                  { "square": "e4", "className": "target" },
+                  { "square": "d5", "className": "target" },
+                  { "square": "e5", "className": "target" }
+                ], "successText": "Great. That move helps fight for the center or develop a piece."},
+                {"type": "multiple-choice", "title": "What should you usually do next?", "body": "After a good first move, what is usually the best follow-up?", "choices": [
+                  { "label": "Develop a knight or bishop", "value": "develop" },
+                  { "label": "Move the queen out early", "value": "queen" },
+                  { "label": "Move the same pawn again and again", "value": "pawn" }
+                ], "correctChoice": "develop", "successText": "Exactly. Development is the normal next step.", "errorText": "Not quite. Early development is usually the right idea."}
               ],
               "exercise": {
-                "type": "board-task",
+                "type": "move-task",
                 "prompt": "Make a second good opening move from the starting position.",
                 "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
                 "allowedMoves": ["e2e4", "d2d4", "c2c4", "g1f3"],
-                "startSquare": "d2"
+                "startSquare": "d2",
+                "highlightSquares": [
+                  { "square": "d4", "className": "target" },
+                  { "square": "e4", "className": "target" },
+                  { "square": "d5", "className": "target" },
+                  { "square": "e5", "className": "target" }
+                ]
               }
             }
           ]
@@ -375,18 +476,28 @@
               "locked": true,
               "coachIntro": "Most beginner games are decided by one-move mistakes. A short safety scan prevents many of them.",
               "steps": [
-                {"type": "attack-visualization", "title": "Checks first", "body": "Look for forcing moves before you spend time on slow ideas."},
-                {"type": "board-task", "title": "Spot the forcing move", "body": "Click the move that most urgently demands a response.", "fen": "k7/8/8/3q4/8/8/4K3/8 w - - 0 1", "startSquare": "e2", "allowedMoves": ["e2e3", "e2d3", "e2f3", "e2d2", "e2f2"], "highlightSquares": [{ "square": "d5", "className": "target" }, { "square": "e2", "className": "focus" }], "successText": "Good. You found the forcing idea."},
-                {"type": "attack-visualization", "title": "Then captures and threats", "body": "Loose pieces and hanging kings are where beginners lose material."},
-                {"type": "guided-puzzle", "title": "Spot the danger", "body": "Find the move that creates the biggest immediate problem for your opponent."}
+                {"type": "board-demo", "title": "A hanging piece", "body": "A hanging piece is attacked and not ready to be saved.", "fen": "k7/8/8/8/3q4/2N5/4K3/8 w - - 0 1", "highlightSquares": [
+                  { "square": "c3", "className": "danger" },
+                  { "square": "d4", "className": "target" },
+                  { "square": "e2", "className": "focus" }
+                ]},
+                {"type": "square-click", "title": "Click the hanging piece", "body": "Which piece is hanging here?", "fen": "k7/8/8/8/3q4/2N5/4K3/8 w - - 0 1", "targetSquare": "c3", "highlightSquares": [
+                  { "square": "c3", "className": "danger" },
+                  { "square": "d4", "className": "target" }
+                ], "successText": "Correct. The knight on c3 is hanging."},
+                {"type": "move-task", "title": "Save the knight", "body": "Move the knight to a safer square.", "fen": "k7/8/8/8/3q4/2N5/4K3/8 w - - 0 1", "startSquare": "c3", "allowedMoves": ["c3b5"], "highlightSquares": [
+                  { "square": "b5", "className": "target" }
+                ], "successText": "Nice. You moved the knight out of danger."}
               ],
               "exercise": {
-                "type": "board-task",
-                "prompt": "Use the checks, captures, threats scan on the board.",
-                "fen": "k7/8/8/3q4/8/8/4K3/8 w - - 0 1",
-                "startSquare": "e2",
-                "allowedMoves": ["e2e3", "e2d3", "e2f3", "e2d2", "e2f2"],
-                "highlightSquares": [{ "square": "d5", "className": "target" }, { "square": "e2", "className": "focus" }]
+                "type": "square-click",
+                "prompt": "Point to the hanging knight once more.",
+                "fen": "k7/8/8/8/3q4/2N5/4K3/8 w - - 0 1",
+                "targetSquare": "c3",
+                "highlightSquares": [
+                  { "square": "c3", "className": "danger" },
+                  { "square": "d4", "className": "target" }
+                ]
               }
             }
           ]
@@ -414,17 +525,46 @@
               "locked": true,
               "coachIntro": "Tactics are patterns. You do not need magic vision, just a repeatable way to search.",
               "steps": [
-                {"type": "attack-visualization", "title": "A fork hits two targets", "body": "One piece attacks two valuable pieces at once."},
-                {"type": "guided-puzzle", "title": "Find the fork idea", "body": "Look for the move that creates two problems at the same time."},
-                {"type": "board-task", "title": "Test a fork move", "body": "Move the knight to the square that forks the targets if possible.", "fen": "k7/8/8/8/3N4/8/4K3/3q4 w - - 0 1", "startSquare": "d4", "allowedMoves": ["d4f5", "d4e6", "d4c6", "d4b5", "d4b3", "d4c2", "d4e2", "d4f3"], "highlightSquares": ["b3", "b5", "c2", "c6", "e2", "e6", "f3", "f5"], "successText": "Nice. That's the kind of move that creates a fork."}
+                {"type": "board-demo", "title": "A fork hits two targets", "body": "One knight move can attack the king and queen at the same time.", "fen": "8/6k1/8/8/3N4/4q3/8/K7 w - - 0 1", "highlightSquares": [
+                  { "square": "f5", "className": "target" },
+                  { "square": "g7", "className": "danger" },
+                  { "square": "e3", "className": "danger" },
+                  { "square": "b3", "className": "focus" },
+                  { "square": "b5", "className": "focus" },
+                  { "square": "c2", "className": "focus" },
+                  { "square": "c6", "className": "focus" },
+                  { "square": "e2", "className": "focus" },
+                  { "square": "e6", "className": "focus" },
+                  { "square": "f3", "className": "focus" }
+                ]},
+                {"type": "tactic-task", "title": "Find the fork move", "body": "Move the knight to the square that attacks both targets.", "fen": "8/6k1/8/8/3N4/4q3/8/K7 w - - 0 1", "startSquare": "d4", "allowedMoves": ["d4f5"], "highlightSquares": [
+                  { "square": "f5", "className": "target" },
+                  { "square": "g7", "className": "danger" },
+                  { "square": "e3", "className": "danger" },
+                  { "square": "b3", "className": "focus" },
+                  { "square": "b5", "className": "focus" },
+                  { "square": "c2", "className": "focus" },
+                  { "square": "c6", "className": "focus" },
+                  { "square": "e2", "className": "focus" },
+                  { "square": "e6", "className": "focus" },
+                  { "square": "f3", "className": "focus" }
+                ], "successText": "Nice. That's the kind of move that creates a fork."},
+                {"type": "multiple-choice", "title": "Why is a fork strong?", "body": "Choose the best explanation.", "choices": [
+                  { "label": "It attacks two targets at once", "value": "two" },
+                  { "label": "It moves the queen away", "value": "queen" }
+                ], "correctChoice": "two", "successText": "Exactly. The opponent usually cannot save both pieces.", "errorText": "Not quite. A fork works because it hits two targets at once."}
               ],
               "exercise": {
-                "type": "board-task",
+                "type": "tactic-task",
                 "prompt": "Try to make the fork move on the board.",
-                "fen": "k7/8/8/8/3N4/8/4K3/3q4 w - - 0 1",
+                "fen": "8/6k1/8/8/3N4/4q3/8/K7 w - - 0 1",
                 "startSquare": "d4",
-                "allowedMoves": ["d4f5", "d4e6", "d4c6", "d4b5", "d4b3", "d4c2", "d4e2", "d4f3"],
-                "highlightSquares": ["b3", "b5", "c2", "c6", "e2", "e6", "f3", "f5"]
+                "allowedMoves": ["d4f5"],
+                "highlightSquares": [
+                  { "square": "f5", "className": "target" },
+                  { "square": "g7", "className": "danger" },
+                  { "square": "e3", "className": "danger" }
+                ]
               }
             }
           ]

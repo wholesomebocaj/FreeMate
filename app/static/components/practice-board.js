@@ -107,6 +107,8 @@ export class PracticeBoard {
     this.ground = Chessground(this.element, this.createGroundConfig());
     this.installSquareLayer();
     this.installHighlightLayer();
+    this.installSquareClickHandler();
+    this.syncHighlightLayer();
 
     queueMicrotask(() => this.emitPositionChange());
   }
@@ -183,10 +185,27 @@ export class PracticeBoard {
       events: {
         select: (square) => {
           this.handleSelect(square);
-          this.onSquareSelect({ square, fen: this.fen, history: this.history });
         },
       },
     };
+  }
+
+  installSquareClickHandler() {
+    const board = this.element.querySelector("cg-board");
+    if (!board || board.dataset.squareClickHandlerInstalled === "true") return;
+
+    board.dataset.squareClickHandlerInstalled = "true";
+    board.addEventListener("click", (event) => {
+      const squareElement = event.target.closest?.("square");
+      if (!squareElement) return;
+
+      const squareName = Array.from(squareElement.classList).find((className) =>
+        /^[a-h][1-8]$/.test(className),
+      );
+      if (!squareName) return;
+
+      this.onSquareSelect({ square: squareName, fen: this.fen, history: this.history });
+    });
   }
 
   setConfig(config = {}) {
@@ -199,6 +218,7 @@ export class PracticeBoard {
     this.successMessage = config.successMessage || this.successMessage;
     this.errorMessage = config.errorMessage || this.errorMessage;
     this.highlightSquares = config.highlightSquares || this.highlightSquares;
+    this.syncHighlightLayer();
   }
 
   loadFen(fen, options = {}) {
