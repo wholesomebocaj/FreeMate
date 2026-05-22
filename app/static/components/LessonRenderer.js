@@ -72,6 +72,7 @@ export class LessonRenderer {
       case "guided-puzzle":
       case "rook-practice":
       case "rook-challenge":
+      case "click-all-squares":
       case "square-click":
       case "move-validation":
         this.renderInteractiveStep(wrapper, step);

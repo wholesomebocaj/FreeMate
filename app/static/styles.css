@@ -355,19 +355,21 @@ main {
 
 .course-card-grid {
   display: grid;
-  gap: 18px;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  grid-template-columns: 1fr;
 }
 
 .course-card {
   background: rgba(31, 41, 55, 0.86);
   border: 1px solid var(--line);
-  border-radius: 22px;
+  border-radius: 14px;
   box-shadow: var(--shadow);
   display: grid;
-  gap: 18px;
-  min-height: 320px;
-  padding: 24px;
+  gap: 12px;
+  grid-template-columns: 92px minmax(0, 1.35fr) minmax(220px, 0.75fr) auto;
+  align-items: center;
+  min-height: 0;
+  padding: 12px 14px;
   transition: border 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 
@@ -381,14 +383,56 @@ main {
   opacity: 0.82;
 }
 
+.course-card-main {
+  align-items: start;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: auto minmax(0, 1fr);
+}
+
 .course-card h2 {
-  font-size: clamp(1.5rem, 3vw, 2.25rem);
-  margin: 0 0 10px;
+  font-size: clamp(1rem, 1.5vw, 1.35rem);
+  line-height: 1.1;
+  margin: 0 0 6px;
 }
 
 .course-card p {
   color: var(--muted);
   margin: 0;
+}
+
+.course-card-side {
+  display: grid;
+  gap: 8px;
+  align-content: center;
+}
+
+.course-card-actions {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.course-card-thumb {
+  align-items: center;
+  background: linear-gradient(180deg, rgba(34, 197, 94, 0.22), rgba(59, 130, 246, 0.16));
+  border: 1px solid rgba(249, 250, 251, 0.08);
+  border-radius: 12px;
+  color: rgba(249, 250, 251, 0.9);
+  display: grid;
+  font-size: 0.85rem;
+  font-weight: 950;
+  height: 92px;
+  justify-items: center;
+  letter-spacing: 0.04em;
+  text-align: center;
+}
+
+.course-card-thumb span {
+  line-height: 1.1;
+  padding: 0 8px;
 }
 
 .course-card-meta {
@@ -402,35 +446,36 @@ main {
   border: 1px solid rgba(249, 250, 251, 0.09);
   border-radius: 999px;
   color: var(--muted);
-  font-size: 0.82rem;
+  font-size: 0.76rem;
   font-weight: 850;
-  padding: 7px 10px;
+  padding: 5px 8px;
 }
 
 .course-category-card {
-  padding: 22px;
+  padding: 18px 20px;
 }
 
 .category-heading {
   border-bottom: 1px solid var(--line);
-  margin-bottom: 16px;
-  padding-bottom: 16px;
+  margin-bottom: 12px;
+  padding-bottom: 12px;
 }
 
 .lesson-row-list {
   display: grid;
-  gap: 10px;
+  gap: 8px;
 }
 
 .lesson-row {
   align-items: center;
   background: rgba(249, 250, 251, 0.045);
   border: 1px solid var(--line);
-  border-radius: 18px;
+  border-radius: 12px;
   display: grid;
-  gap: 16px;
-  grid-template-columns: minmax(0, 1.35fr) auto minmax(150px, 0.4fr) auto;
-  padding: 16px;
+  gap: 12px;
+  grid-template-columns: minmax(0, 1.45fr) auto minmax(150px, 0.46fr) auto;
+  min-height: 0;
+  padding: 10px 12px;
   transition: border 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 
@@ -449,6 +494,11 @@ main {
   margin: 0;
 }
 
+.lesson-row-main h3 {
+  font-size: 0.96rem;
+  line-height: 1.15;
+}
+
 .lesson-row-main p,
 .lesson-row-progress span {
   color: var(--muted);
@@ -461,10 +511,10 @@ main {
   border-radius: 999px;
   color: var(--green);
   display: inline-flex;
-  font-size: 0.74rem;
+  font-size: 0.7rem;
   font-weight: 900;
   margin-bottom: 8px;
-  padding: 4px 9px;
+  padding: 4px 8px;
   text-transform: uppercase;
 }
 
@@ -482,6 +532,10 @@ main {
   grid-template-columns: 1fr auto;
 }
 
+.lesson-row-progress.compact {
+  min-width: 180px;
+}
+
 .progress-overview {
   display: grid;
   gap: 18px;
@@ -493,7 +547,7 @@ main {
 .progress-track {
   background: rgba(249, 250, 251, 0.08);
   border-radius: 999px;
-  height: 12px;
+  height: 8px;
   overflow: hidden;
 }
 
@@ -503,6 +557,23 @@ main {
   height: 100%;
   transition: width 0.25s ease;
   width: 0;
+}
+
+.course-browser-shell .continue-panel,
+.course-browser-shell .roadmap-section {
+  margin-bottom: 16px;
+}
+
+.course-browser-shell .continue-panel {
+  padding: 16px 18px;
+}
+
+.course-browser-shell .continue-panel h2 {
+  font-size: 1.25rem;
+}
+
+.course-browser-shell .coach-stats {
+  padding: 18px 20px;
 }
 
 .lesson-workspace {
@@ -1481,6 +1552,19 @@ input::placeholder {
   .hero,
   .board-lesson-layout {
     grid-template-columns: 1fr;
+  }
+
+  .course-card {
+    grid-template-columns: 1fr;
+  }
+
+  .course-card-actions {
+    justify-content: flex-start;
+  }
+
+  .course-card-thumb {
+    height: 72px;
+    width: 72px;
   }
 
   .roadmap {

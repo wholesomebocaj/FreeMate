@@ -99,7 +99,11 @@
                             <span>${lesson.timeMinutes || 5} min</span>
                             <span>${lesson.ratingRange}</span>
                           </div>
-                          <a class="button primary" href="/lessons/${lesson.id}">Open</a>
+                          <div class="lesson-row-progress">
+                            <div class="progress-track"><div class="progress-fill" style="width: ${lesson.locked ? 0 : 100}%"></div></div>
+                            <span>${lesson.locked ? "0%" : "100%"}</span>
+                          </div>
+                          <a class="button primary" href="/lessons/${lesson.id}">${lesson.locked ? "Preview" : "Open"}</a>
                         </article>
                       `
                     )

@@ -421,23 +421,39 @@ function renderCourseCards() {
     const percent = coursePercent(courseItem);
     const lessonLabel = lessons.length === 1 ? "1 lesson" : `${lessons.length} lessons`;
     const buttonText = percent > 0 ? "Continue" : courseItem.source === "planned" ? "Preview" : "Start";
+    const coverText = courseItem.title
+      .split(" ")
+      .map((word) => word[0])
+      .join("")
+      .slice(0, 3)
+      .toUpperCase();
     const card = document.createElement("article");
     card.className = `course-card ${courseItem.source === "planned" ? "is-planned" : ""}`;
     card.innerHTML = `
-      <div>
+      <div class="course-card-thumb" aria-hidden="true">
+        <span>${coverText}</span>
+      </div>
+      <div class="course-card-main">
         <span class="lesson-state">${courseItem.difficulty}</span>
-        <h2>${courseItem.title}</h2>
-        <p>${courseItem.description}</p>
+        <div>
+          <h2>${courseItem.title}</h2>
+          <p>${courseItem.description}</p>
+        </div>
       </div>
-      <div class="course-card-meta">
-        <span>${lessonLabel}</span>
-        <span>${percent}% complete</span>
+      <div class="course-card-side">
+        <div class="course-card-meta">
+          <span>${lessonLabel}</span>
+          <span>${percent}% complete</span>
+        </div>
+        <div class="lesson-row-progress compact">
+          <div class="progress-track"><div class="progress-fill" style="width: ${percent}%"></div></div>
+          <span>${percent}%</span>
+        </div>
       </div>
-      <div class="lesson-row-progress">
-        <div class="progress-track"><div class="progress-fill" style="width: ${percent}%"></div></div>
-        <span>${percent}%</span>
+      <div class="course-card-actions">
+        <a class="button secondary" href="/courses/${courseItem.id}">Open</a>
+        <a class="button primary" href="/courses/${courseItem.id}">${buttonText}</a>
       </div>
-      <a class="button primary" href="/courses/${courseItem.id}">${buttonText}</a>
     `;
     browser.appendChild(card);
   });

@@ -195,17 +195,43 @@ export class PracticeBoard {
     if (!board || board.dataset.squareClickHandlerInstalled === "true") return;
 
     board.dataset.squareClickHandlerInstalled = "true";
-    board.addEventListener("click", (event) => {
-      const squareElement = event.target.closest?.("square");
-      if (!squareElement) return;
-
-      const squareName = Array.from(squareElement.classList).find((className) =>
-        /^[a-h][1-8]$/.test(className),
-      );
+    const handleSquareEvent = (event) => {
+      const squareName = this.getSquareFromEvent(event);
       if (!squareName) return;
 
       this.onSquareSelect({ square: squareName, fen: this.fen, history: this.history });
-    });
+    };
+
+    board.addEventListener("click", handleSquareEvent);
+  }
+
+  getSquareFromEvent(event) {
+    const squareElement = event.target?.closest?.("square");
+    if (squareElement) {
+      const squareName = Array.from(squareElement.classList).find((className) =>
+        /^[a-h][1-8]$/.test(className),
+      );
+      if (squareName) return squareName;
+    }
+
+    const board = this.element.querySelector("cg-board");
+    if (!board) return null;
+
+    const rect = board.getBoundingClientRect();
+    if (!rect.width || !rect.height) return null;
+
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+    if (x < 0 || y < 0 || x > rect.width || y > rect.height) return null;
+
+    const fileIndex = Math.min(7, Math.max(0, Math.floor((x / rect.width) * 8)));
+    const rankIndex = Math.min(7, Math.max(0, Math.floor((y / rect.height) * 8)));
+
+    const filesOrder = this.orientation === "white" ? files : [...files].reverse();
+    const file = filesOrder[fileIndex];
+    const rank = this.orientation === "white" ? 8 - rankIndex : rankIndex + 1;
+
+    return `${file}${rank}`;
   }
 
   setConfig(config = {}) {
