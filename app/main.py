@@ -10,7 +10,7 @@ from pydantic import BaseModel, Field
 
 BASE_DIR = Path(__file__).resolve().parent
 STATIC_DIR = BASE_DIR / "static"
-COURSE_PATH = STATIC_DIR / "data" / "course.json"
+COURSE_PATH = STATIC_DIR / "data" / "courses.json"
 
 app = FastAPI(title="FreeMate", version="1.0.0")
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")

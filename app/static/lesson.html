@@ -70,7 +70,7 @@
                 const pathParts = window.location.pathname.split("/");
                 const lessonId = pathParts[pathParts.length - 1];
 
-                const response = await fetch("/static/data/courses.json");
+                const response = await fetch("/api/course");
                 const courses = await response.json();
 
                 let lesson = null;
