@@ -57,20 +57,74 @@
 
   <script src="/static/script.js"></script>
   <script type="module">
+    import {
+      courseLessons,
+      courseProgress,
+      findBracketByCourseId,
+      findCourseById,
+      isCourseLessonUnlocked,
+      loadCurriculumData,
+      nextUnlockedLesson,
+    } from "/static/components/curriculum.js";
+
+    const progressKey = "freemate.completedLessons";
+    const stepKey = "freemate.savedSteps";
+
+    function loadSet(key) {
+      try {
+        return new Set(JSON.parse(localStorage.getItem(key)) || []);
+      } catch (error) {
+        return new Set();
+      }
+    }
+
+    function loadObject(key) {
+      try {
+        return JSON.parse(localStorage.getItem(key)) || {};
+      } catch (error) {
+        return {};
+      }
+    }
+
+    const completedLessons = loadSet(progressKey);
+    const savedSteps = loadObject(stepKey);
+
     async function ensureCourseVisible() {
       const detail = document.getElementById("course-detail");
       if (!detail || detail.children.length) return;
 
-      const response = await fetch("/static/data/courses.json");
-      const courses = await response.json();
-      const course = courses[0];
+      const { courses, brackets } = await loadCurriculumData();
+      const courseId = window.location.pathname.split("/").pop();
+      const course = findCourseById(courses, courseId) || courses[0];
+      if (!course) return;
+
+      const lessons = courseLessons(course);
+      const bracket = findBracketByCourseId(brackets, course.id);
+      const nextLesson = nextUnlockedLesson(course, completedLessons) || lessons[0];
+      const progress = courseProgress(course, completedLessons);
 
       document.getElementById("course-title").textContent = course.title;
       document.getElementById("course-description").textContent = course.description;
-      document.getElementById("continue-learning").href = "/lessons/rook-from-d4";
-      document.getElementById("continue-card-button").href = "/lessons/rook-from-d4";
-      document.getElementById("continue-title").textContent = "Your next lesson is ready";
-      document.getElementById("continue-description").textContent = "Open the first unlocked lesson to continue.";
+      document.getElementById("progress-count").textContent = `${lessons.filter((lesson) => completedLessons.has(lesson.id)).length} of ${lessons.length} complete`;
+      const fill = document.getElementById("progress-fill");
+      if (fill) fill.style.width = `${progress}%`;
+      if (bracket) {
+        const bracketTag = document.createElement("p");
+        bracketTag.className = "eyebrow";
+        bracketTag.textContent = `${bracket.title} · ${bracket.range}`;
+        const hero = document.querySelector(".course-browser-hero > div");
+        if (hero && !hero.querySelector(".course-bracket-tag")) {
+          bracketTag.classList.add("course-bracket-tag");
+          hero.insertBefore(bracketTag, hero.firstChild);
+        }
+      }
+      const nextHref = nextLesson ? `/lessons/${nextLesson.id}` : `/courses/${course.id}`;
+      document.getElementById("continue-learning").href = nextHref;
+      document.getElementById("continue-card-button").href = nextHref;
+      document.getElementById("continue-title").textContent = nextLesson ? nextLesson.title : "You are up to date";
+      document.getElementById("continue-description").textContent = nextLesson
+        ? nextLesson.description || "Open the next unlocked lesson to continue."
+        : "You have completed this course.";
 
       detail.innerHTML = course.categories
         .map(
@@ -86,11 +140,15 @@
               <div class="lesson-row-list">
                 ${category.skills
                   .flatMap((skill) =>
-                    skill.lessons.map(
-                      (lesson) => `
+                    skill.lessons.map((lesson) => {
+                      const unlocked = isCourseLessonUnlocked(course, lesson.id, completedLessons);
+                      const progress = completedLessons.has(lesson.id)
+                        ? 100
+                        : Math.round(((savedSteps[lesson.id] || 0) / (lesson.steps?.length || 1)) * 100);
+                      return `
                         <article class="lesson-row">
                           <div class="lesson-row-main">
-                            <span class="lesson-state">${lesson.locked ? "Locked" : "Open"}</span>
+                            <span class="lesson-state">${completedLessons.has(lesson.id) ? "Done" : unlocked ? "Open" : "Locked"}</span>
                             <h3>${lesson.title}</h3>
                             <p>${lesson.summary}</p>
                           </div>
@@ -100,13 +158,13 @@
                             <span>${lesson.ratingRange}</span>
                           </div>
                           <div class="lesson-row-progress">
-                            <div class="progress-track"><div class="progress-fill" style="width: ${lesson.locked ? 0 : 100}%"></div></div>
-                            <span>${lesson.locked ? "0%" : "100%"}</span>
+                            <div class="progress-track"><div class="progress-fill" style="width: ${progress}%"></div></div>
+                            <span>${progress}%</span>
                           </div>
-                          <a class="button primary" href="/lessons/${lesson.id}">${lesson.locked ? "Preview" : "Open"}</a>
+                          <a class="button ${unlocked ? "primary" : "secondary"}" href="${unlocked ? `/lessons/${lesson.id}` : "#"}">${completedLessons.has(lesson.id) ? "Review" : unlocked ? "Open" : "Locked"}</a>
                         </article>
-                      `
-                    )
+                      `;
+                    })
                   )
                   .join("")}
               </div>

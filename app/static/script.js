@@ -191,7 +191,8 @@ function courseById(id) {
 
 function currentCourseIdFromUrl() {
   const parts = window.location.pathname.split("/");
-  return parts[1] === "courses" ? parts[2] : "beginner-chess-course";
+  if (parts[1] === "courses" || parts[1] === "course") return parts[2];
+  return "beginner-chess-course";
 }
 
 function courseLessons(courseItem) {

@@ -25,8 +25,20 @@
         <main class="lesson-mode-shell">
             <aside class="course-sidebar" aria-label="Course navigation">
                 <div class="sidebar-title">
-                    <p class="eyebrow">Course tree</p>
-                    <h2>Beginner path</h2>
+                    <p class="eyebrow" id="sidebar-bracket-eyebrow">Current bracket</p>
+                    <h2 id="sidebar-bracket-title">Loading bracket...</h2>
+                    <p id="sidebar-bracket-range">Preparing course context.</p>
+                </div>
+                <div class="focus-card lesson-sidebar-course">
+                    <p class="eyebrow">Current course</p>
+                    <h3 id="sidebar-course-title">Loading course...</h3>
+                    <p id="sidebar-course-description">Preparing your lesson list.</p>
+                    <div class="lesson-row-progress compact">
+                        <div class="progress-track" aria-hidden="true">
+                            <div class="progress-fill" id="sidebar-course-progress"></div>
+                        </div>
+                        <span id="sidebar-course-percent">0%</span>
+                    </div>
                 </div>
                 <div class="course-tree" id="course-tree"></div>
             </aside>
@@ -65,29 +77,54 @@
 
         <script type="module">
             import { LessonRenderer } from "/static/components/LessonRenderer.js";
+            import {
+                courseLessons,
+                courseProgress,
+                findBracketByCourseId,
+                findBracketForLesson,
+                findCourseForLesson,
+                isCourseLessonUnlocked,
+                loadCurriculumData,
+                nextUnlockedLesson,
+            } from "/static/components/curriculum.js";
+
+            const progressKey = "freemate.completedLessons";
+            const stepKey = "freemate.savedSteps";
+
+            function loadSet(key) {
+                try {
+                    return new Set(JSON.parse(localStorage.getItem(key)) || []);
+                } catch (error) {
+                    return new Set();
+                }
+            }
+
+            function loadObject(key) {
+                try {
+                    return JSON.parse(localStorage.getItem(key)) || {};
+                } catch (error) {
+                    return {};
+                }
+            }
+
+            const completedLessons = loadSet(progressKey);
+            const savedSteps = loadObject(stepKey);
 
             async function loadLesson() {
                 const pathParts = window.location.pathname.split("/");
                 const lessonId = pathParts[pathParts.length - 1];
 
-                const courses = await loadCourses();
-
-                let lesson = null;
-
-                for (const course of courses) {
-                    for (const category of course.categories) {
-                        for (const skill of category.skills) {
-                            const foundLesson = skill.lessons.find(
-                                (lessonItem) => lessonItem.id === lessonId,
-                            );
-
-                            if (foundLesson) {
-                                lesson = foundLesson;
-                                break;
-                            }
-                        }
-                    }
-                }
+                const { courses, brackets } = await loadCurriculumData();
+                const lessonContext = findCourseForLesson(courses, lessonId);
+                const fallbackCourse = courses[0] || null;
+                const course = lessonContext?.course || fallbackCourse;
+                const currentLessons = courseLessons(course);
+                const lesson =
+                    lessonContext?.lesson ||
+                    currentLessons.find((entry) => entry.id === lessonId) ||
+                    nextUnlockedLesson(course, completedLessons) ||
+                    currentLessons[0] ||
+                    null;
 
                 const lessonPlayer = document.getElementById("lesson-player");
 
@@ -98,75 +135,105 @@
                     return;
                 }
 
-                document.getElementById("lesson-objective").textContent =
-                    lesson.title || "Lesson";
+                const bracket =
+                    findBracketByCourseId(brackets, course?.id) ||
+                    findBracketForLesson(brackets, lesson.id)?.bracket ||
+                    brackets[0] ||
+                    null;
 
-                document.getElementById("lesson-goal").textContent =
-                    lesson.description ||
-                    "Follow the guided steps and complete the lesson.";
+                renderSidebar({
+                    bracket,
+                    course,
+                    lesson,
+                    lessons: currentLessons,
+                });
+                renderLessonHeader({ lesson, course, bracket });
 
                 const renderer = new LessonRenderer(lessonPlayer, lesson);
 
                 renderer.render();
-                renderCourseTree(courses, lessonId);
             }
 
-            async function loadCourses() {
-                const sources = ["/api/course", "/static/data/courses.json"];
-
-                for (const url of sources) {
-                    try {
-                        const response = await fetch(url);
-                        if (!response.ok) continue;
-                        const data = await response.json();
-                        if (Array.isArray(data)) return data;
-                        return data ? [data] : [];
-                    } catch (error) {
-                        // Try the next source.
-                    }
+            function renderLessonHeader({ lesson, course, bracket }) {
+                const bracketTitle = document.getElementById("sidebar-bracket-title");
+                if (bracketTitle) {
+                    bracketTitle.textContent = bracket?.title || "Unknown bracket";
                 }
-
-                return [];
+                const bracketRange = document.getElementById("sidebar-bracket-range");
+                if (bracketRange) {
+                    bracketRange.textContent = bracket ? `${bracket.range} · ${bracket.description}` : "Course context unavailable.";
+                }
+                document.getElementById("lesson-objective").textContent = lesson.title || "Lesson";
+                document.getElementById("lesson-goal").textContent =
+                    lesson.coachIntro ||
+                    lesson.description ||
+                    "Follow the guided steps and complete the lesson.";
             }
 
-            function renderCourseTree(courses, activeLessonId) {
+            function renderSidebar({ bracket, course, lesson, lessons }) {
                 const tree = document.getElementById("course-tree");
                 if (!tree) return;
 
                 tree.innerHTML = "";
 
-                courses.forEach((course) => {
-                    course.categories.forEach((category) => {
-                        const group = document.createElement("section");
-                        group.className = "tree-category";
-                        group.innerHTML = `<h3>${category.title}</h3>`;
+                if (course) {
+                    const coursePercent = lessons.length
+                        ? courseProgress(course, completedLessons)
+                        : 0;
+                    document.getElementById("sidebar-course-title").textContent = course.title || "Current course";
+                    document.getElementById("sidebar-course-description").textContent = course.description || "Follow the guided lesson path for this course.";
+                    document.getElementById("sidebar-course-percent").textContent = `${coursePercent}%`;
+                    const fill = document.getElementById("sidebar-course-progress");
+                    if (fill) fill.style.width = `${coursePercent}%`;
+                }
 
-                        category.skills.forEach((skill) => {
-                            const block = document.createElement("div");
-                            block.className = "tree-skill";
-                            block.innerHTML = `<p>${skill.title}</p>`;
+                const breadcrumb = document.createElement("section");
+                breadcrumb.className = "tree-category";
+                breadcrumb.innerHTML = `
+                    <div class="sidebar-breadcrumb">
+                        <a href="/lessons">${bracket?.title || "Lessons"}</a>
+                        <span>${course?.title || "Current course"}</span>
+                    </div>
+                `;
+                tree.appendChild(breadcrumb);
 
-                            skill.lessons.forEach((lessonItem) => {
-                                const link = document.createElement("a");
-                                link.className = "tree-lesson";
-                                link.href = `/lessons/${lessonItem.id}`;
-                                link.setAttribute(
-                                    "aria-current",
-                                    String(lessonItem.id === activeLessonId),
-                                );
-                                link.innerHTML = `
-                                    <span>${lessonItem.locked ? "Locked" : "Open"}</span>
-                                    <strong>${lessonItem.title}</strong>
-                                `;
-                                block.appendChild(link);
-                            });
+                (course?.categories || []).forEach((category) => {
+                    const group = document.createElement("section");
+                    group.className = "tree-category";
+                    group.innerHTML = `<h3>${category.title}</h3>`;
 
-                            group.appendChild(block);
+                    category.skills.forEach((skill) => {
+                        const block = document.createElement("div");
+                        block.className = "tree-skill";
+                        block.innerHTML = `<p>${skill.title}</p>`;
+
+                        skill.lessons.forEach((lessonItem) => {
+                            const unlocked = isCourseLessonUnlocked(course, lessonItem.id, completedLessons);
+                            const link = document.createElement("a");
+                            link.className = `tree-lesson ${lessonItem.id === lesson.id ? "is-active" : ""} ${lessonItem.locked && !unlocked ? "is-locked" : ""}`;
+                            link.href = unlocked || lessonItem.id === lesson.id ? `/lessons/${lessonItem.id}` : "#";
+                            link.setAttribute("aria-current", lessonItem.id === lesson.id ? "page" : "false");
+                            link.innerHTML = `
+                                <span>${lessonStateLabel(lessonItem.id, course)}</span>
+                                <strong>${lessonItem.title}</strong>
+                            `;
+                            if (!unlocked && lessonItem.id !== lesson.id) {
+                                link.addEventListener("click", (event) => event.preventDefault());
+                            }
+                            block.appendChild(link);
                         });
 
-                        tree.appendChild(group);
+                        group.appendChild(block);
                     });
+
+                    tree.appendChild(group);
                 });
+            }
+
+            function lessonStateLabel(lessonId, course) {
+                if (completedLessons.has(lessonId)) return "Done";
+                if (lessonId === document.location.pathname.split("/").pop()) return "Current";
+                return isCourseLessonUnlocked(course, lessonId, completedLessons) ? "Open" : "Locked";
             }
 
             loadLesson();

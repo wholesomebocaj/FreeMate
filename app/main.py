@@ -81,6 +81,11 @@ def course_detail_page(course_id: str) -> FileResponse:
     return FileResponse(STATIC_DIR / "course.html")
 
 
+@app.get("/course/{course_id}")
+def legacy_course_detail_page(course_id: str) -> FileResponse:
+    return FileResponse(STATIC_DIR / "course.html")
+
+
 @app.get("/lessons/{lesson_id}")
 def lesson_training_page(lesson_id: str) -> FileResponse:
     if lesson_id in BRACKET_SLUGS:

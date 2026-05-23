@@ -753,6 +753,16 @@ main {
   box-shadow: 0 0 24px rgba(34, 197, 94, 0.1);
 }
 
+.tree-lesson.is-active {
+  background: rgba(34, 197, 94, 0.14);
+  border-color: rgba(34, 197, 94, 0.62);
+  box-shadow: 0 0 30px rgba(34, 197, 94, 0.16);
+}
+
+.tree-lesson.is-active strong {
+  color: #f9fafb;
+}
+
 .tree-lesson:disabled {
   color: #6b7280;
   cursor: not-allowed;
@@ -763,6 +773,36 @@ main {
   font-size: 0.74rem;
   font-weight: 900;
   text-transform: uppercase;
+}
+
+.sidebar-breadcrumb {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.sidebar-breadcrumb a,
+.sidebar-breadcrumb span {
+  color: rgba(249, 250, 251, 0.74);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.sidebar-breadcrumb a {
+  color: #86efac;
+}
+
+.lesson-sidebar-course {
+  padding: 18px;
+}
+
+.lesson-sidebar-course h3 {
+  margin: 0 0 8px;
+}
+
+.course-bracket-tag {
+  margin: 0 0 12px;
 }
 
 .coach-panel,
