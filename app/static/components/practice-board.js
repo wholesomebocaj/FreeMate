@@ -102,6 +102,7 @@ export class PracticeBoard {
     this.lastMove = [];
     this.history = [];
     this.pendingSelectionRequest = 0;
+    this.selectedSquare = null;
 
     this.element.classList.add("practice-board-component");
     this.ground = Chessground(this.element, this.createGroundConfig());
@@ -195,14 +196,39 @@ export class PracticeBoard {
     if (!board || board.dataset.squareClickHandlerInstalled === "true") return;
 
     board.dataset.squareClickHandlerInstalled = "true";
-    const handleSquareEvent = (event) => {
+    const handleSquareEvent = async (event) => {
       const squareName = this.getSquareFromEvent(event);
       if (!squareName) return;
 
       this.onSquareSelect({ square: squareName, fen: this.fen, history: this.history });
+      await this.handleClickMove(squareName);
     };
 
     board.addEventListener("click", handleSquareEvent);
+  }
+
+  async handleClickMove(squareName) {
+    const piece = this.position[squareName];
+
+    if (piece) {
+      if (this.selectedSquare === squareName) {
+        this.selectedSquare = null;
+        this.ground.selectSquare(null);
+        this.ground.set({ movable: { dests: new Map() } });
+        return;
+      }
+
+      this.selectedSquare = squareName;
+      this.ground.selectSquare(squareName);
+      await this.handleSelect(squareName);
+      return;
+    }
+
+    if (!this.selectedSquare) return;
+
+    const fromSquare = this.selectedSquare;
+    this.selectedSquare = null;
+    await this.tryMove(fromSquare, squareName);
   }
 
   getSquareFromEvent(event) {
@@ -252,6 +278,7 @@ export class PracticeBoard {
     this.position = parseFen(this.fen);
     this.turn = parseTurn(this.fen);
     this.lastMove = [];
+    this.selectedSquare = null;
     this.pendingSelectionRequest += 1;
 
     if (options.setInitial) {
@@ -319,6 +346,7 @@ export class PracticeBoard {
 
   async tryMove(fromSquare, toSquare, metadata = {}) {
     if (!fromSquare || !toSquare || fromSquare === toSquare) {
+      this.selectedSquare = null;
       this.syncBoard({ clearSelection: true });
       return;
     }
@@ -385,6 +413,7 @@ export class PracticeBoard {
     this.lastMove = [fromSquare, toSquare];
     this.history.push({ move, san, fen: this.fen, captured });
     this.pendingSelectionRequest += 1;
+    this.selectedSquare = null;
 
     const message = this.successMessage || "Correct. Nice move.";
     const payload = { move, san, fen: this.fen, history: this.history, captured, message };
@@ -402,6 +431,7 @@ export class PracticeBoard {
   rejectMove(move, message) {
     const feedback = this.errorMessage || message;
     this.pendingSelectionRequest += 1;
+    this.selectedSquare = null;
     this.sound.play("illegal");
     this.syncBoard({ clearSelection: true });
     this.onIllegalMove({ move, message: feedback });

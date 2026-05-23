@@ -1,0 +1,42 @@
+[
+  {
+    "id": "italian-game",
+    "path": "beginner/italian-game.json"
+  },
+  {
+    "id": "london-system",
+    "path": "beginner/london-system.json"
+  },
+  {
+    "id": "queens-gambit",
+    "path": "beginner/queens-gambit.json"
+  },
+  {
+    "id": "four-knights",
+    "path": "beginner/four-knights.json"
+  },
+  {
+    "id": "scandinavian-defense",
+    "path": "beginner-plus/scandinavian-defense.json"
+  },
+  {
+    "id": "caro-kann",
+    "path": "beginner-plus/caro-kann.json"
+  },
+  {
+    "id": "vienna-game",
+    "path": "beginner-plus/vienna-game.json"
+  },
+  {
+    "id": "french-defense",
+    "path": "intermediate/french-defense.json"
+  },
+  {
+    "id": "sicilian-defense",
+    "path": "intermediate/sicilian-defense.json"
+  },
+  {
+    "id": "kings-indian-defense",
+    "path": "intermediate/kings-indian-defense.json"
+  }
+]

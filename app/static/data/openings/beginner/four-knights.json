@@ -1,0 +1,71 @@
+{
+  "id": "four-knights",
+  "name": "Four Knights Game",
+  "eco": "C47",
+  "difficulty": "Beginner",
+  "bracket": "beginner",
+  "side": "White",
+  "description": "A calm open game where both sides develop knights quickly and fight for central squares.",
+  "moves": [
+    { "uci": "e2e4", "san": "e4", "explanation": "White opens the center and frees the kingside bishop." },
+    { "uci": "e7e5", "san": "e5", "explanation": "Black answers symmetrically." },
+    { "uci": "g1f3", "san": "Nf3", "explanation": "White develops a knight and attacks e5." },
+    { "uci": "b8c6", "san": "Nc6", "explanation": "Black defends e5 with a developing move." },
+    { "uci": "b1c3", "san": "Nc3", "explanation": "White develops the second knight toward the center." },
+    { "uci": "g8f6", "san": "Nf6", "explanation": "Black completes the four-knight setup and attacks e4." }
+  ],
+  "ideas": [
+    "Develop knights before bishops when the center is open.",
+    "Castle early after the kingside bishop moves.",
+    "Watch both central pawns because the knights attack them quickly."
+  ],
+  "commonMistakes": [
+    "Moving the same knight repeatedly in the opening.",
+    "Forgetting that e4 and e5 are both attacked.",
+    "Trading pieces without a reason."
+  ],
+  "tree": {
+    "move": "e2e4",
+    "san": "e4",
+    "responses": [
+      {
+        "move": "e7e5",
+        "san": "e5",
+        "responses": [
+          {
+            "move": "g1f3",
+            "san": "Nf3",
+            "responses": [
+              {
+                "move": "b8c6",
+                "san": "Nc6",
+                "responses": [
+                  {
+                    "move": "b1c3",
+                    "san": "Nc3",
+                    "responses": [
+                      { "move": "g8f6", "san": "Nf6", "responses": [] }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "training": {
+    "mode": "guided-line",
+    "startingFen": "startpos",
+    "sideToTrain": "white"
+  },
+  "spacedRepetition": {
+    "attempts": 0,
+    "mistakes": 0,
+    "accuracy": 0,
+    "completedLines": 0,
+    "confidence": "new",
+    "lastReviewed": null
+  }
+}

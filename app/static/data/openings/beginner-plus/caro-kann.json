@@ -1,0 +1,57 @@
+{
+  "id": "caro-kann",
+  "name": "Caro-Kann Defense",
+  "eco": "B10",
+  "difficulty": "Beginner+",
+  "bracket": "beginner-plus",
+  "side": "Black",
+  "description": "A solid defense to 1.e4 where Black supports a later d5 center break.",
+  "moves": [
+    { "uci": "e2e4", "san": "e4", "explanation": "White takes space in the center." },
+    { "uci": "c7c6", "san": "c6", "explanation": "Black prepares d5 while keeping a sturdy pawn structure." },
+    { "uci": "d2d4", "san": "d4", "explanation": "White builds a broad pawn center." },
+    { "uci": "d7d5", "san": "d5", "explanation": "Black challenges the center with support from the c6 pawn." }
+  ],
+  "ideas": [
+    "Support d5 with the c-pawn.",
+    "Develop the light-squared bishop before locking it in when possible.",
+    "Aim for a solid structure and clear piece development."
+  ],
+  "commonMistakes": [
+    "Playing passively after building the pawn structure.",
+    "Trapping the c8 bishop behind e6 too early.",
+    "Ignoring White's space advantage."
+  ],
+  "tree": {
+    "move": "e2e4",
+    "san": "e4",
+    "responses": [
+      {
+        "move": "c7c6",
+        "san": "c6",
+        "responses": [
+          {
+            "move": "d2d4",
+            "san": "d4",
+            "responses": [
+              { "move": "d7d5", "san": "d5", "responses": [] }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "training": {
+    "mode": "guided-line",
+    "startingFen": "startpos",
+    "sideToTrain": "black"
+  },
+  "spacedRepetition": {
+    "attempts": 0,
+    "mistakes": 0,
+    "accuracy": 0,
+    "completedLines": 0,
+    "confidence": "new",
+    "lastReviewed": null
+  }
+}

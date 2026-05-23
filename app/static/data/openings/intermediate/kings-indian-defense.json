@@ -1,0 +1,71 @@
+{
+  "id": "kings-indian-defense",
+  "name": "King's Indian Defense",
+  "eco": "E60",
+  "difficulty": "Intermediate",
+  "bracket": "intermediate",
+  "side": "Black",
+  "description": "A hypermodern setup where Black lets White build a center, then attacks it with pieces and pawn breaks.",
+  "moves": [
+    { "uci": "d2d4", "san": "d4", "explanation": "White starts with a queen-pawn center." },
+    { "uci": "g8f6", "san": "Nf6", "explanation": "Black develops and watches the central squares." },
+    { "uci": "c2c4", "san": "c4", "explanation": "White gains more queenside and central space." },
+    { "uci": "g7g6", "san": "g6", "explanation": "Black prepares to fianchetto the bishop." },
+    { "uci": "b1c3", "san": "Nc3", "explanation": "White supports the center." },
+    { "uci": "f8g7", "san": "Bg7", "explanation": "Black places the bishop on the long diagonal toward the center." }
+  ],
+  "ideas": [
+    "Let White build a center, then challenge it later.",
+    "Fianchetto the bishop to g7.",
+    "Castle and prepare pawn breaks such as d6 and e5 or c5."
+  ],
+  "commonMistakes": [
+    "Playing passively and never challenging White's center.",
+    "Opening the kingside before the king is safe.",
+    "Forgetting that space disadvantage requires active counterplay."
+  ],
+  "tree": {
+    "move": "d2d4",
+    "san": "d4",
+    "responses": [
+      {
+        "move": "g8f6",
+        "san": "Nf6",
+        "responses": [
+          {
+            "move": "c2c4",
+            "san": "c4",
+            "responses": [
+              {
+                "move": "g7g6",
+                "san": "g6",
+                "responses": [
+                  {
+                    "move": "b1c3",
+                    "san": "Nc3",
+                    "responses": [
+                      { "move": "f8g7", "san": "Bg7", "responses": [] }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "training": {
+    "mode": "guided-line",
+    "startingFen": "startpos",
+    "sideToTrain": "black"
+  },
+  "spacedRepetition": {
+    "attempts": 0,
+    "mistakes": 0,
+    "accuracy": 0,
+    "completedLines": 0,
+    "confidence": "new",
+    "lastReviewed": null
+  }
+}

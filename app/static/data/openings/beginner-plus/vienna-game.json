@@ -1,0 +1,50 @@
+{
+  "id": "vienna-game",
+  "name": "Vienna Game",
+  "eco": "C25",
+  "difficulty": "Beginner+",
+  "bracket": "beginner-plus",
+  "side": "White",
+  "description": "A flexible 1.e4 opening where White develops the queen's knight early and can build attacking chances.",
+  "moves": [
+    { "uci": "e2e4", "san": "e4", "explanation": "White opens the center and frees the kingside bishop." },
+    { "uci": "e7e5", "san": "e5", "explanation": "Black answers with central space." },
+    { "uci": "b1c3", "san": "Nc3", "explanation": "White develops a knight while supporting e4 and preparing flexible plans." }
+  ],
+  "ideas": [
+    "Develop naturally while keeping options open.",
+    "Consider f4 only when it fits the position.",
+    "Avoid launching an attack before your king is safe."
+  ],
+  "commonMistakes": [
+    "Pushing f4 without understanding the opened lines.",
+    "Forgetting to develop the kingside knight.",
+    "Leaving the king in the center too long."
+  ],
+  "tree": {
+    "move": "e2e4",
+    "san": "e4",
+    "responses": [
+      {
+        "move": "e7e5",
+        "san": "e5",
+        "responses": [
+          { "move": "b1c3", "san": "Nc3", "responses": [] }
+        ]
+      }
+    ]
+  },
+  "training": {
+    "mode": "guided-line",
+    "startingFen": "startpos",
+    "sideToTrain": "white"
+  },
+  "spacedRepetition": {
+    "attempts": 0,
+    "mistakes": 0,
+    "accuracy": 0,
+    "completedLines": 0,
+    "confidence": "new",
+    "lastReviewed": null
+  }
+}

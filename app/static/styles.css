@@ -1476,6 +1476,302 @@ button.board-square {
   grid-template-columns: 1fr;
 }
 
+.openings-shell {
+  max-width: 1280px;
+  padding-top: 34px;
+}
+
+.openings-hero {
+  align-items: end;
+  display: grid;
+  gap: 24px;
+  grid-template-columns: 1fr 320px;
+  margin-bottom: 28px;
+}
+
+.openings-hero h1 {
+  font-size: clamp(2.5rem, 5vw, 5.5rem);
+  letter-spacing: 0;
+  line-height: 0.95;
+  margin: 0;
+  max-width: 920px;
+}
+
+.openings-hero p,
+.opening-overview-main p {
+  color: var(--muted);
+  max-width: 760px;
+}
+
+.opening-filter-row {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.opening-filter-row label {
+  align-items: center;
+  color: var(--muted);
+  display: flex;
+  font-weight: 850;
+  gap: 10px;
+}
+
+.opening-filter-row select {
+  background: rgba(31, 41, 55, 0.95);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  color: var(--text);
+  font: inherit;
+  font-weight: 850;
+  padding: 10px 14px;
+}
+
+.opening-list {
+  display: grid;
+  gap: 14px;
+}
+
+.opening-row {
+  align-items: center;
+  background: linear-gradient(180deg, rgba(31, 41, 55, 0.92), rgba(31, 41, 55, 0.78));
+  border: 1px solid rgba(249, 250, 251, 0.08);
+  border-radius: 14px;
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.22);
+  display: grid;
+  gap: 18px;
+  grid-template-columns: 104px 1fr auto;
+  padding: 16px;
+  transition: border-color 180ms ease, transform 180ms ease;
+}
+
+.opening-row:hover {
+  border-color: rgba(34, 197, 94, 0.34);
+  transform: translateY(-2px);
+}
+
+.opening-row-thumb {
+  align-items: center;
+  aspect-ratio: 1;
+  background:
+    linear-gradient(135deg, rgba(238, 238, 210, 0.98) 0 50%, rgba(118, 150, 86, 0.98) 50%),
+    #769656;
+  border-radius: 10px;
+  color: #111827;
+  display: grid;
+  font-size: 1.25rem;
+  font-weight: 950;
+  justify-items: center;
+}
+
+.opening-row-main h2 {
+  font-size: 1.45rem;
+  margin: 0 0 6px;
+}
+
+.opening-row-main p {
+  color: var(--muted);
+  margin: 0;
+}
+
+.opening-row-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.opening-row-meta span,
+.opening-stats-grid span {
+  background: rgba(249, 250, 251, 0.07);
+  border: 1px solid rgba(249, 250, 251, 0.08);
+  border-radius: 999px;
+  color: rgba(249, 250, 251, 0.78);
+  font-size: 0.78rem;
+  font-weight: 850;
+  padding: 7px 10px;
+}
+
+.opening-row-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.opening-overview-grid {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: minmax(0, 1.5fr) minmax(320px, 0.7fr);
+  margin-bottom: 18px;
+}
+
+.opening-overview-main,
+.opening-stats-card,
+.opening-line-card,
+.opening-trainer-panel,
+.opening-trainer-board-card {
+  background: rgba(31, 41, 55, 0.86);
+  border: 1px solid rgba(249, 250, 251, 0.08);
+  border-radius: 18px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.24);
+  padding: 22px;
+}
+
+.opening-overview-main h1 {
+  font-size: clamp(2.4rem, 5vw, 5rem);
+  line-height: 0.95;
+  margin: 0 0 14px;
+}
+
+.opening-overview-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.opening-line-list,
+.opening-next-moves,
+.opening-move-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.opening-line-list {
+  display: grid;
+  gap: 12px;
+}
+
+.opening-line-list li {
+  background: rgba(249, 250, 251, 0.055);
+  border: 1px solid rgba(249, 250, 251, 0.07);
+  border-radius: 12px;
+  display: grid;
+  gap: 4px 12px;
+  grid-template-columns: 34px 68px 1fr;
+  padding: 12px;
+}
+
+.opening-line-list span,
+.opening-move-list span {
+  color: var(--accent);
+  font-weight: 950;
+}
+
+.opening-line-list p {
+  color: var(--muted);
+  grid-column: 3;
+  margin: 0;
+}
+
+.opening-stats-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 14px 0;
+}
+
+.opening-next-moves {
+  display: grid;
+  gap: 8px;
+}
+
+.opening-next-moves li {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.opening-trainer-shell {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: 280px minmax(520px, 1fr) 320px;
+  max-width: 1500px;
+  padding: 22px;
+}
+
+.opening-trainer-panel {
+  align-self: start;
+  position: sticky;
+  top: 86px;
+}
+
+.opening-trainer-panel h2 {
+  margin-top: 0;
+}
+
+.opening-move-list {
+  display: grid;
+  gap: 8px;
+}
+
+.opening-move-list li {
+  align-items: center;
+  background: rgba(249, 250, 251, 0.06);
+  border: 1px solid rgba(249, 250, 251, 0.07);
+  border-radius: 10px;
+  display: grid;
+  gap: 8px;
+  grid-template-columns: 26px 1fr auto;
+  padding: 10px;
+}
+
+.opening-move-list li.active {
+  border-color: rgba(34, 197, 94, 0.55);
+  box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.2);
+}
+
+.opening-move-list li.done {
+  background: rgba(34, 197, 94, 0.12);
+}
+
+.opening-move-list small {
+  color: var(--muted);
+  font-weight: 850;
+}
+
+.opening-trainer-board-card {
+  min-width: 0;
+}
+
+.lesson-title-row.compact h1 {
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+}
+
+.opening-board {
+  margin: 18px auto 0;
+  max-width: min(62vh, 620px);
+}
+
+.opening-note-block {
+  border-top: 1px solid rgba(249, 250, 251, 0.08);
+  margin-top: 18px;
+  padding-top: 18px;
+}
+
+.opening-note-block h3 {
+  margin: 0 0 10px;
+}
+
+.opening-note-block ul,
+.opening-line-card ul {
+  color: var(--muted);
+  display: grid;
+  gap: 8px;
+  margin-bottom: 0;
+  padding-left: 18px;
+}
+
+.lesson-board-feedback.success {
+  color: var(--accent);
+}
+
+.lesson-board-feedback.error {
+  color: #fca5a5;
+}
+
 .fen-form {
   display: grid;
   gap: 12px;
@@ -1661,13 +1957,17 @@ input::placeholder {
   .practice-layout,
   .lesson-mode-shell,
   .progress-overview,
+  .openings-hero,
+  .opening-overview-grid,
+  .opening-trainer-shell,
   .lesson-focus-grid {
     grid-template-columns: 1fr;
   }
 
   .course-sidebar,
   .progress-sidebar,
-  .practice-panel {
+  .practice-panel,
+  .opening-trainer-panel {
     position: static;
   }
 
@@ -1757,9 +2057,28 @@ input::placeholder {
   }
 
   .continue-panel,
-  .lesson-row {
+  .lesson-row,
+  .opening-row {
     align-items: stretch;
     grid-template-columns: 1fr;
+  }
+
+  .opening-row-actions,
+  .opening-overview-actions {
+    justify-content: flex-start;
+  }
+
+  .opening-row-thumb {
+    height: 78px;
+    width: 78px;
+  }
+
+  .opening-line-list li {
+    grid-template-columns: 34px 1fr;
+  }
+
+  .opening-line-list p {
+    grid-column: 1 / -1;
   }
 
   .continue-panel {

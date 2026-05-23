@@ -1,0 +1,43 @@
+{
+  "id": "sicilian-defense",
+  "name": "Sicilian Defense",
+  "eco": "B20",
+  "difficulty": "Intermediate",
+  "bracket": "intermediate",
+  "side": "Black",
+  "description": "A fighting response to 1.e4 where Black challenges the center from the side and creates imbalanced play.",
+  "moves": [
+    { "uci": "e2e4", "san": "e4", "explanation": "White claims central space." },
+    { "uci": "c7c5", "san": "c5", "explanation": "Black attacks the d4 square and creates an asymmetrical position." }
+  ],
+  "ideas": [
+    "Fight for d4 instead of mirroring with e5.",
+    "Develop quickly because the position can open fast.",
+    "Look for queenside counterplay while respecting White's center."
+  ],
+  "commonMistakes": [
+    "Playing too many pawn moves before developing.",
+    "Ignoring White's kingside attacking chances.",
+    "Trading into positions you do not understand yet."
+  ],
+  "tree": {
+    "move": "e2e4",
+    "san": "e4",
+    "responses": [
+      { "move": "c7c5", "san": "c5", "responses": [] }
+    ]
+  },
+  "training": {
+    "mode": "guided-line",
+    "startingFen": "startpos",
+    "sideToTrain": "black"
+  },
+  "spacedRepetition": {
+    "attempts": 0,
+    "mistakes": 0,
+    "accuracy": 0,
+    "completedLines": 0,
+    "confidence": "new",
+    "lastReviewed": null
+  }
+}

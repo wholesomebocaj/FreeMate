@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Opening Trainer | FreeMate</title>
+  <link rel="stylesheet" href="/static/vendor/chessground/chessground.base.css">
+  <link rel="stylesheet" href="/static/vendor/chessground/chessground.cburnett.css">
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body data-opening-page="trainer">
+  <header class="site-header lesson-mode-header">
+    <nav class="navbar" aria-label="Main navigation">
+      <a class="brand" href="/">FreeMate</a>
+      <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/lessons">Lessons</a>
+        <a href="/openings" aria-current="page">Openings</a>
+        <a href="/practice">Practice</a>
+        <a href="/lessons#puzzles">Puzzles</a>
+        <a href="/lessons#progress">Progress</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="opening-trainer-shell">
+    <aside class="opening-trainer-panel">
+      <p class="eyebrow">Opening line</p>
+      <h2 id="trainer-title">Loading</h2>
+      <ol id="trainer-move-list" class="opening-move-list"></ol>
+    </aside>
+
+    <section class="opening-trainer-board-card">
+      <div class="lesson-title-row compact">
+        <div>
+          <p class="eyebrow" id="trainer-kicker">Guided line</p>
+          <h1 id="trainer-prompt">Loading trainer...</h1>
+        </div>
+        <span id="trainer-status" class="lesson-step-progress-state waiting">In progress</span>
+      </div>
+      <div id="opening-board" class="practice-board opening-board" aria-label="Opening trainer chessboard"></div>
+      <p id="trainer-feedback" class="lesson-board-feedback">Make the highlighted opening move.</p>
+    </section>
+
+    <aside class="opening-trainer-panel">
+      <p class="eyebrow">Coach notes</p>
+      <h2 id="trainer-note-title">Current idea</h2>
+      <p id="trainer-explanation">Follow the guided line one move at a time.</p>
+      <div class="opening-note-block">
+        <h3>Key ideas</h3>
+        <ul id="trainer-ideas"></ul>
+      </div>
+      <div class="opening-note-block">
+        <h3>Common mistakes</h3>
+        <ul id="trainer-mistakes"></ul>
+      </div>
+    </aside>
+  </main>
+
+  <script type="module" src="/static/openings.js"></script>
+</body>
+</html>

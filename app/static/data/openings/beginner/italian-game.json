@@ -1,0 +1,65 @@
+{
+  "id": "italian-game",
+  "name": "Italian Game",
+  "eco": "C50",
+  "difficulty": "Beginner",
+  "bracket": "beginner",
+  "side": "White",
+  "description": "A classical beginner opening focused on quick development, center control, and early king safety.",
+  "moves": [
+    { "uci": "e2e4", "san": "e4", "explanation": "White claims central space and opens lines for the bishop and queen." },
+    { "uci": "e7e5", "san": "e5", "explanation": "Black mirrors the center fight and opens their own pieces." },
+    { "uci": "g1f3", "san": "Nf3", "explanation": "The knight develops naturally and attacks the e5 pawn." },
+    { "uci": "b8c6", "san": "Nc6", "explanation": "Black defends e5 while bringing a piece toward the center." },
+    { "uci": "f1c4", "san": "Bc4", "explanation": "The bishop develops to an active diagonal and points at the sensitive f7 square." }
+  ],
+  "ideas": [
+    "Control the center with e4 and piece activity.",
+    "Develop knights and bishops before making extra pawn moves.",
+    "Castle early once the kingside pieces are out.",
+    "Look for pressure on f7, but do not rush attacks without development."
+  ],
+  "commonMistakes": [
+    "Moving the queen out before minor pieces are developed.",
+    "Pushing too many pawns while pieces stay at home.",
+    "Ignoring threats against the e4 pawn."
+  ],
+  "tree": {
+    "move": "e2e4",
+    "san": "e4",
+    "responses": [
+      {
+        "move": "e7e5",
+        "san": "e5",
+        "responses": [
+          {
+            "move": "g1f3",
+            "san": "Nf3",
+            "responses": [
+              {
+                "move": "b8c6",
+                "san": "Nc6",
+                "responses": [
+                  { "move": "f1c4", "san": "Bc4", "responses": [] }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "training": {
+    "mode": "guided-line",
+    "startingFen": "startpos",
+    "sideToTrain": "white"
+  },
+  "spacedRepetition": {
+    "attempts": 0,
+    "mistakes": 0,
+    "accuracy": 0,
+    "completedLines": 0,
+    "confidence": "new",
+    "lastReviewed": null
+  }
+}

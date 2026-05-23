@@ -2,16 +2,21 @@ import json
 from pathlib import Path
 
 import chess
-from fastapi import FastAPI
+import chess.pgn
+from fastapi import FastAPI, HTTPException, Query
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
+
+from app.services.opening_explorer import get_explorer_data
 
 
 BASE_DIR = Path(__file__).resolve().parent
 STATIC_DIR = BASE_DIR / "static"
 COURSE_PATH = STATIC_DIR / "data" / "courses.json"
 BRACKETS_PATH = STATIC_DIR / "data" / "brackets.json"
+OPENINGS_DIR = STATIC_DIR / "data" / "openings"
+OPENINGS_INDEX_PATH = OPENINGS_DIR / "index.json"
 BRACKET_SLUGS = {
     "beginner",
     "beginner-plus",
@@ -60,6 +65,13 @@ class LegalMovesResponse(BaseModel):
     message: str
 
 
+class OpeningMoveRequest(BaseModel):
+    opening_id: str = Field(..., examples=["italian-game"])
+    move: str = Field(..., examples=["e2e4"])
+    move_index: int = Field(default=0, ge=0)
+    played_moves: list[str] = Field(default_factory=list)
+
+
 @app.get("/")
 def homepage() -> FileResponse:
     return FileResponse(STATIC_DIR / "index.html")
@@ -68,6 +80,21 @@ def homepage() -> FileResponse:
 @app.get("/lessons")
 def lessons_page() -> FileResponse:
     return FileResponse(STATIC_DIR / "lessons.html")
+
+
+@app.get("/openings")
+def openings_page() -> FileResponse:
+    return FileResponse(STATIC_DIR / "openings.html")
+
+
+@app.get("/openings/{opening_id}/train")
+def opening_trainer_page(opening_id: str) -> FileResponse:
+    return FileResponse(STATIC_DIR / "opening-trainer.html")
+
+
+@app.get("/openings/{opening_id}")
+def opening_overview_page(opening_id: str) -> FileResponse:
+    return FileResponse(STATIC_DIR / "opening.html")
 
 
 @app.get("/api/brackets")
@@ -107,6 +134,118 @@ def legacy_lesson_page(lesson_id: str) -> FileResponse:
 def get_course() -> JSONResponse:
     with COURSE_PATH.open(encoding="utf-8") as course_file:
         return JSONResponse(json.load(course_file))
+
+
+@app.get("/api/openings")
+def get_openings() -> JSONResponse:
+    openings = [_opening_summary(load_opening_by_id(entry["id"])) for entry in load_opening_index()]
+    return JSONResponse(openings)
+
+
+@app.get("/api/openings/explorer")
+def opening_explorer(
+    database: str = Query(default="lichess", pattern="^(lichess|masters)$"),
+    play: str | None = None,
+    fen: str | None = None,
+    speeds: str | None = None,
+    ratings: str | None = None,
+    moves: int = Query(default=12, ge=0, le=50),
+    topGames: int = Query(default=0, ge=0, le=8),
+    recentGames: int = Query(default=0, ge=0, le=8),
+) -> JSONResponse:
+    data = get_explorer_data(
+        database=database,
+        play=play,
+        fen=fen,
+        speeds=speeds,
+        ratings=ratings,
+        moves=moves,
+        topGames=topGames,
+        recentGames=recentGames,
+    )
+    return JSONResponse(data)
+
+
+@app.get("/api/openings/{opening_id}")
+def get_opening(opening_id: str) -> JSONResponse:
+    opening = load_opening_by_id(opening_id)
+    opening["pgn"] = opening_to_pgn(opening)
+    return JSONResponse(opening)
+
+
+@app.post("/api/openings/validate-move")
+def validate_opening_move(request: OpeningMoveRequest) -> JSONResponse:
+    opening = load_opening_by_id(request.opening_id)
+    line = opening.get("moves", [])
+
+    if request.move_index >= len(line):
+        return JSONResponse(
+            {
+                "is_valid": False,
+                "message": "This opening line is already complete.",
+                "complete": True,
+            }
+        )
+
+    starting_fen = opening.get("training", {}).get("startingFen", "startpos")
+    try:
+        board = chess.Board() if starting_fen == "startpos" else chess.Board(starting_fen)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=f"Opening has an invalid starting FEN: {exc}")
+
+    previous_moves = request.played_moves or [move["uci"] for move in line[: request.move_index]]
+    for previous_move in previous_moves:
+        move = _parse_uci_move(previous_move)
+        if move not in board.legal_moves:
+            return JSONResponse(
+                {
+                    "is_valid": False,
+                    "message": "The training position is out of sync. Reset the line and try again.",
+                    "expected": line[request.move_index],
+                    "fen": board.fen(),
+                }
+            )
+        board.push(move)
+
+    attempted_move = _parse_uci_move(request.move)
+    expected_move = line[request.move_index]["uci"].lower()
+    base_attempt = request.move.strip().lower()[:4]
+
+    if attempted_move not in board.legal_moves:
+        return JSONResponse(
+            {
+                "is_valid": False,
+                "message": "That move is legal in some positions, but not here. Try the highlighted opening move.",
+                "expected": line[request.move_index],
+                "fen": board.fen(),
+            }
+        )
+
+    if request.move.strip().lower() not in {expected_move, expected_move[:4]} and base_attempt != expected_move[:4]:
+        return JSONResponse(
+            {
+                "is_valid": False,
+                "message": f"Good legal move, but this trainer is practicing {line[request.move_index]['san']}.",
+                "expected": line[request.move_index],
+                "fen": board.fen(),
+            }
+        )
+
+    san = board.san(attempted_move)
+    board.push(attempted_move)
+    complete = request.move_index >= len(line) - 1
+
+    return JSONResponse(
+        {
+            "is_valid": True,
+            "message": line[request.move_index].get("explanation", "Correct move."),
+            "move": request.move,
+            "san": san,
+            "resulting_fen": board.fen(),
+            "expected": line[request.move_index],
+            "complete": complete,
+        }
+    )
 
 
 @app.post("/api/validate-move", response_model=MoveResponse)
@@ -214,3 +353,62 @@ def validate_rook_move(request: RookMoveRequest) -> RookMoveResponse:
         is_correct=False,
         message="Incorrect. Rooks move horizontally or vertically, not diagonally.",
     )
+
+
+def load_opening_index() -> list[dict]:
+    with OPENINGS_INDEX_PATH.open(encoding="utf-8") as index_file:
+        return json.load(index_file)
+
+
+def load_opening_by_id(opening_id: str) -> dict:
+    for entry in load_opening_index():
+        if entry["id"] != opening_id:
+            continue
+        opening_path = (OPENINGS_DIR / entry["path"]).resolve()
+        if not opening_path.is_relative_to(OPENINGS_DIR.resolve()):
+            raise HTTPException(status_code=400, detail="Invalid opening path.")
+        with opening_path.open(encoding="utf-8") as opening_file:
+            return json.load(opening_file)
+    raise HTTPException(status_code=404, detail="Opening not found.")
+
+
+def _opening_summary(opening: dict) -> dict:
+    return {
+        "id": opening.get("id"),
+        "name": opening.get("name"),
+        "eco": opening.get("eco"),
+        "difficulty": opening.get("difficulty"),
+        "bracket": opening.get("bracket"),
+        "side": opening.get("side"),
+        "description": opening.get("description"),
+        "moveCount": len(opening.get("moves", [])),
+        "ideas": opening.get("ideas", []),
+        "training": opening.get("training", {}),
+        "spacedRepetition": opening.get("spacedRepetition", {}),
+    }
+
+
+def opening_to_pgn(opening: dict) -> str:
+    game = chess.pgn.Game()
+    game.headers["Event"] = "FreeMate Opening Trainer"
+    game.headers["Opening"] = opening.get("name", "Opening")
+    game.headers["ECO"] = opening.get("eco", "")
+
+    starting_fen = opening.get("training", {}).get("startingFen", "startpos")
+    board = chess.Board() if starting_fen == "startpos" else chess.Board(starting_fen)
+    node = game
+    for move_data in opening.get("moves", []):
+        move = chess.Move.from_uci(move_data["uci"])
+        if move not in board.legal_moves:
+            break
+        node = node.add_variation(move)
+        board.push(move)
+
+    return str(game)
+
+
+def _parse_uci_move(move_text: str) -> chess.Move:
+    try:
+        return chess.Move.from_uci(move_text.strip().lower())
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=f"Move must be UCI, like e2e4: {exc}")
