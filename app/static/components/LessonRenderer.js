@@ -51,7 +51,45 @@ export class LessonRenderer {
         ${this.completedSteps.has(this.currentStepIndex) ? "Completed" : "In progress"}
       </span>
     `;
-    wrapper.appendChild(progress);
+    const controls = document.createElement("div");
+    controls.className = "lesson-controls";
+
+    if (this.currentStepIndex > 0) {
+      const backButton = document.createElement("button");
+      backButton.className = "button secondary";
+      backButton.textContent = "Back";
+      backButton.onclick = () => {
+        this.currentStepIndex--;
+        this.renderStep();
+      };
+
+      controls.appendChild(backButton);
+    }
+
+    const nextButton = document.createElement("button");
+    nextButton.className = "button primary";
+    nextButton.textContent =
+      this.currentStepIndex === this.lesson.steps.length - 1
+        ? "Finish"
+        : "Next";
+    nextButton.disabled = !this.completedSteps.has(this.currentStepIndex);
+    nextButton.title = nextButton.disabled
+      ? "Complete this step to continue"
+      : "";
+
+    nextButton.onclick = () => {
+      if (!this.completedSteps.has(this.currentStepIndex)) return;
+      this.currentStepIndex++;
+      this.renderStep();
+    };
+
+    controls.appendChild(nextButton);
+
+    const headerRow = document.createElement("div");
+    headerRow.className = "lesson-step-header";
+    headerRow.appendChild(progress);
+    headerRow.appendChild(controls);
+    wrapper.appendChild(headerRow);
 
     switch (step.type) {
       case "explain":
@@ -97,42 +135,6 @@ export class LessonRenderer {
         }
       }, 650);
     }
-
-    const controls = document.createElement("div");
-    controls.className = "lesson-controls";
-
-    if (this.currentStepIndex > 0) {
-      const backButton = document.createElement("button");
-      backButton.className = "button secondary";
-      backButton.textContent = "Back";
-      backButton.onclick = () => {
-        this.currentStepIndex--;
-        this.renderStep();
-      };
-
-      controls.appendChild(backButton);
-    }
-
-    const nextButton = document.createElement("button");
-    nextButton.className = "button primary";
-    nextButton.textContent =
-      this.currentStepIndex === this.lesson.steps.length - 1
-        ? "Finish"
-        : "Next";
-    nextButton.disabled = !this.completedSteps.has(this.currentStepIndex);
-    nextButton.title = nextButton.disabled
-      ? "Complete this step to continue"
-      : "";
-
-    nextButton.onclick = () => {
-      if (!this.completedSteps.has(this.currentStepIndex)) return;
-      this.currentStepIndex++;
-      this.renderStep();
-    };
-
-    controls.appendChild(nextButton);
-
-    wrapper.appendChild(controls);
 
     this.container.appendChild(wrapper);
   }

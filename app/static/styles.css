@@ -844,6 +844,19 @@ main {
   margin: 0 0 14px;
 }
 
+.lesson-step-header {
+  align-items: flex-start;
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.lesson-step-header .lesson-step-progress {
+  flex: 1;
+  margin-bottom: 0;
+}
+
 .lesson-step-progress-label {
   color: rgba(249, 250, 251, 0.72);
   font-size: 0.86rem;
@@ -986,6 +999,10 @@ main {
   max-width: min(520px, 100%);
 }
 
+.lesson-step .lesson-practice-board {
+  margin-top: 12px;
+}
+
 .lesson-board-feedback {
   margin-top: 14px;
 }
@@ -1000,13 +1017,24 @@ main {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  margin-top: 18px;
+  justify-content: flex-end;
+  margin-top: 0;
 }
 
 .lesson-controls .button:disabled {
   cursor: not-allowed;
   opacity: 0.4;
   transform: none;
+}
+
+@media (max-width: 900px) {
+  .lesson-step-header {
+    flex-direction: column;
+  }
+
+  .lesson-controls {
+    justify-content: flex-start;
+  }
 }
 
 .modern-board {

@@ -94,7 +94,8 @@
                         "square": "h4",
                         "className": "rank"
                       }
-                    ]
+                    ],
+                    "fen": "8/8/8/8/8/8/8/8 w - - 0 1"
                   },
                   {
                     "type": "click-all-squares",
@@ -144,7 +145,8 @@
                         "className": "file"
                       }
                     ],
-                    "successText": "Nice. You found the entire d-file."
+                    "successText": "Nice. You found the entire d-file.",
+                    "fen": "8/8/8/8/8/8/8/8 w - - 0 1"
                   },
                   {
                     "type": "click-all-squares",
@@ -194,7 +196,8 @@
                         "className": "rank"
                       }
                     ],
-                    "successText": "Great. You found rank 4."
+                    "successText": "Great. You found rank 4.",
+                    "fen": "8/8/8/8/8/8/8/8 w - - 0 1"
                   },
                   {
                     "type": "square-click",
@@ -207,7 +210,8 @@
                         "className": "target"
                       }
                     ],
-                    "successText": "Great. d4 is the intersection of the d-file and rank 4."
+                    "successText": "Great. d4 is the intersection of the d-file and rank 4.",
+                    "fen": "8/8/8/8/8/8/8/8 w - - 0 1"
                   }
                 ],
                 "exercise": {
@@ -313,7 +317,22 @@
                   {
                     "type": "guided-puzzle",
                     "title": "Remember the difference",
-                    "body": "Checkmate ends the game because the king is attacked. Stalemate ends the game because the king has no move."
+                    "body": "Checkmate ends the game because the king is attacked. Stalemate ends the game because the king has no move.",
+                    "fen": "7k/5Q2/6K1/8/8/8/8/8 b - - 0 1",
+                    "highlightSquares": [
+                      {
+                        "square": "h8",
+                        "className": "focus"
+                      },
+                      {
+                        "square": "g8",
+                        "className": "danger"
+                      },
+                      {
+                        "square": "h7",
+                        "className": "danger"
+                      }
+                    ]
                   }
                 ]
               }
@@ -349,7 +368,8 @@
                   {
                     "type": "board-demo",
                     "title": "Rooks travel on ranks and files",
-                    "body": "The highlighted squares show every legal rook move from d4."
+                    "body": "The highlighted squares show every legal rook move from d4.",
+                    "fen": "7k/8/8/8/3R4/8/8/7K w - - 0 1"
                   },
                   {
                     "type": "move-task",
@@ -415,17 +435,33 @@
                         "className": "focus"
                       }
                     ],
-                    "successText": "Nice. That is how a rook travels across a rank or file."
+                    "successText": "Nice. That is how a rook travels across a rank or file.",
+                    "allowedMoves": [
+                      "d4d8",
+                      "d4d7",
+                      "d4d6",
+                      "d4d5",
+                      "d4a4",
+                      "d4b4",
+                      "d4c4",
+                      "d4e4",
+                      "d4f4",
+                      "d4g4",
+                      "d4h4",
+                      "d4d3",
+                      "d4d2",
+                      "d4d1"
+                    ]
                   },
                   {
                     "type": "capture-task",
                     "title": "Capture the hanging pawn",
                     "body": "Now capture the loose pawn on d7. The rook must move straight up the d-file.",
-                    "fen": "7k/3p4/8/8/3R4/8/8/7K w - - 0 1",
+                    "fen": "7k/8/8/8/3R4/8/8/7K w - - 0 1",
                     "startSquare": "d4",
-                    "targetSquare": "d7",
+                    "targetSquare": "d8",
                     "allowedMoves": [
-                      "d4d7"
+                      "d4d8"
                     ],
                     "highlightSquares": [
                       {
@@ -514,7 +550,8 @@
                   {
                     "type": "board-demo",
                     "title": "Bishops stay on diagonals",
-                    "body": "The bishop can only move along diagonal lines, and it stays on the same color square."
+                    "body": "The bishop can only move along diagonal lines, and it stays on the same color square.",
+                    "fen": "k7/8/8/8/3B4/8/8/7K w - - 0 1"
                   },
                   {
                     "type": "move-task",
@@ -536,13 +573,28 @@
                       "f2",
                       "g1"
                     ],
-                    "successText": "Nice. The bishop moved diagonally."
+                    "successText": "Nice. The bishop moved diagonally.",
+                    "allowedMoves": [
+                      "d4e5",
+                      "d4f6",
+                      "d4g7",
+                      "d4h8",
+                      "d4c5",
+                      "d4b6",
+                      "d4a7",
+                      "d4c3",
+                      "d4b2",
+                      "d4a1",
+                      "d4e3",
+                      "d4f2",
+                      "d4g1"
+                    ]
                   },
                   {
                     "type": "capture-task",
                     "title": "Capture on the diagonal",
                     "body": "Now take the pawn on g7 with a diagonal bishop capture.",
-                    "fen": "k7/6p1/8/8/3B4/8/8/7K w - - 0 1",
+                    "fen": "k7/8/8/8/3B4/8/8/7K w - - 0 1",
                     "startSquare": "d4",
                     "targetSquare": "g7",
                     "allowedMoves": [
@@ -604,17 +656,25 @@
                   {
                     "type": "board-demo",
                     "title": "Knights jump in an L",
-                    "body": "The highlighted squares show every legal knight landing square. Nearby pieces do not stop the knight."
+                    "body": "The highlighted squares show every legal knight landing square. Nearby pieces do not stop the knight.",
+                    "fen": "k7/8/8/8/3N4/8/8/7K w - - 0 1"
                   },
                   {
                     "type": "capture-task",
                     "title": "Jump and capture",
                     "body": "Capture the pawn on f5 with a knight jump.",
-                    "fen": "k7/8/8/4Bp2/3N4/8/8/7K w - - 0 1",
+                    "fen": "k7/8/8/8/3N4/8/8/7K w - - 0 1",
                     "startSquare": "d4",
                     "targetSquare": "f5",
                     "allowedMoves": [
-                      "d4f5"
+                      "d4c6",
+                      "d4e6",
+                      "d4f5",
+                      "d4f3",
+                      "d4e2",
+                      "d4c2",
+                      "d4b3",
+                      "d4b5"
                     ],
                     "highlightSquares": [
                       "b3",
@@ -644,7 +704,8 @@
                     ],
                     "correctChoice": "jump",
                     "successText": "Exactly. Knights are the only pieces that jump over others.",
-                    "errorText": "Not quite. The knight jumps independently."
+                    "errorText": "Not quite. The knight jumps independently.",
+                    "fen": "k7/8/8/8/3N4/8/8/7K w - - 0 1"
                   }
                 ],
                 "exercise": {
@@ -692,17 +753,41 @@
                   {
                     "type": "board-demo",
                     "title": "Queen combines two patterns",
-                    "body": "The queen moves like a rook and a bishop at the same time."
+                    "body": "The queen moves like a rook and a bishop at the same time.",
+                    "fen": "k7/8/8/8/3Q4/8/8/7K w - - 0 1"
                   },
                   {
                     "type": "capture-task",
                     "title": "Move like a rook",
                     "body": "Capture the pawn on d7 along the file.",
-                    "fen": "k7/3p4/8/8/3Q4/8/8/7K w - - 0 1",
+                    "fen": "k7/8/8/8/3Q4/8/8/7K w - - 0 1",
                     "startSquare": "d4",
                     "targetSquare": "d7",
                     "allowedMoves": [
-                      "d4d7"
+                      "d4d8",
+                      "d4d7",
+                      "d4d6",
+                      "d4d5",
+                      "d4a4",
+                      "d4b4",
+                      "d4c4",
+                      "d4e4",
+                      "d4f4",
+                      "d4g4",
+                      "d4h4",
+                      "d4e5",
+                      "d4f6",
+                      "d4g7",
+                      "d4h8",
+                      "d4c5",
+                      "d4b6",
+                      "d4a7",
+                      "d4c3",
+                      "d4b2",
+                      "d4a1",
+                      "d4e3",
+                      "d4f2",
+                      "d4g1"
                     ],
                     "highlightSquares": [
                       "d1",
@@ -725,7 +810,7 @@
                     "type": "capture-task",
                     "title": "Move like a bishop",
                     "body": "Now capture the pawn on g7 along the diagonal.",
-                    "fen": "k7/6p1/8/8/3Q4/8/8/7K w - - 0 1",
+                    "fen": "k7/8/8/8/3Q4/8/8/7K w - - 0 1",
                     "startSquare": "d4",
                     "targetSquare": "g7",
                     "allowedMoves": [
@@ -787,21 +872,24 @@
                   {
                     "type": "board-demo",
                     "title": "Kings move one square",
-                    "body": "Green squares are safe. Red squares are attacked and not allowed."
+                    "body": "Green squares are safe. Red squares are attacked and not allowed.",
+                    "fen": "7k/8/8/8/4K3/8/8/7R w - - 0 1"
                   },
                   {
                     "type": "move-task",
                     "title": "Move the king safely",
                     "body": "Choose a safe adjacent square for the king on e4.",
-                    "fen": "k7/8/8/8/4K2r/8/8/8 w - - 0 1",
+                    "fen": "7k/8/8/8/4K3/8/8/7R w - - 0 1",
                     "startSquare": "e4",
                     "allowedMoves": [
-                      "e4d3",
                       "e4d5",
-                      "e4e3",
                       "e4e5",
-                      "e4f3",
-                      "e4f5"
+                      "e4f5",
+                      "e4d4",
+                      "e4f4",
+                      "e4d3",
+                      "e4e3",
+                      "e4f3"
                     ],
                     "highlightSquares": [
                       {
@@ -855,7 +943,8 @@
                     ],
                     "correctChoice": "no",
                     "successText": "Correct. The king can never move into check.",
-                    "errorText": "Not quite. Empty is not enough if the square is attacked."
+                    "errorText": "Not quite. Empty is not enough if the square is attacked.",
+                    "fen": "7k/8/8/8/4K3/8/8/7R w - - 0 1"
                   }
                 ],
                 "exercise": {
@@ -2016,7 +2105,8 @@
                         "className": "focus"
                       }
                     ],
-                    "successText": "Nice. That's the kind of move that creates a fork."
+                    "successText": "Nice. That's the kind of move that creates a fork.",
+                    "targetSquare": "f5"
                   },
                   {
                     "type": "multiple-choice",

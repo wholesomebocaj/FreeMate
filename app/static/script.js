@@ -171,6 +171,12 @@ function availableCourses() {
       "Beginner"
     ),
     courseFromCategory(
+      "blunder-checks",
+      "Blunder Checks",
+      "Pause before every move and scan for hanging pieces and direct threats.",
+      "Beginner+"
+    ),
+    courseFromCategory(
       "endgame-basics",
       "Endgame Basics",
       "Learn simple king activity, pawn promotion, and basic winning technique.",
