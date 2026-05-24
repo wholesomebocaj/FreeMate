@@ -186,12 +186,6 @@ async function initOpeningTrainer() {
   await autoPlayOpponentMoves();
 
   roadmap.addEventListener("click", async (event) => {
-    const section = event.target.closest(".opening-roadmap-section");
-    if (event.target.matches("summary") && section) {
-      rememberSectionState(opening.id, section.dataset.sectionId, section.open);
-      return;
-    }
-
     const moveItem = event.target.closest(".opening-move-list li[data-line-index]");
     if (moveItem && roadmap.contains(moveItem)) {
       event.preventDefault();
@@ -599,72 +593,38 @@ function renderOpeningRoadmap(
   openingId = "",
   progress = {},
 ) {
-  const sections = groupLinesBySection(lines);
-  const openSections = loadOpenSections(openingId);
-  const activeProgress = progressForLine(activeLine, activeIndex, completions, progress);
-  const activeLineMoves = renderSidebarMoveItems(activeLine, {
-    activeIndex,
-    isActiveLine: true,
-    isComplete: Boolean(completions[activeLine.id]?.completed),
-  });
+  const roadmapLines = lines.map((line) => {
+    const isActiveLine = line.id === activeLine.id;
+    const isComplete = Boolean(completions[line.id]?.completed);
+    const lineProgress = progressForLine(line, isActiveLine ? activeIndex : 0, completions, progress);
+    const moves = renderSidebarMoveItems(line, { activeIndex, isActiveLine, isComplete });
+
+    return `
+      <article class="opening-roadmap-entry ${isActiveLine ? "is-active-entry" : ""}">
+        <button
+          class="opening-roadmap-line ${isActiveLine ? "is-active" : ""} ${isComplete ? "is-complete" : ""}"
+          type="button"
+          data-line-id="${line.id}"
+          ${isActiveLine ? 'aria-current="step"' : ""}
+        >
+          <span>
+            <strong>${isComplete ? "✓ " : ""}${line.title}</strong>
+            <em>${isActiveLine ? "Training now" : isComplete ? "Complete" : `${line.moves.length} moves`}</em>
+          </span>
+          <small>${line.description || line.sectionTitle || "Guided response"}</small>
+          <b class="opening-line-meter" aria-hidden="true"><i style="width: ${lineProgress.percent}%"></i></b>
+        </button>
+        <ol class="opening-move-list ${isActiveLine ? "is-active-list" : "is-line-list"}" aria-label="${line.title} move list">
+          ${moves}
+        </ol>
+      </article>
+    `;
+  }).join("");
 
   container.innerHTML = `
-    <section class="opening-roadmap-current" aria-live="polite">
-      <p class="eyebrow">Current branch</p>
-      <h3>${activeLine.title}</h3>
-      <span>${activeLine.sectionTitle || "Opening line"}</span>
-      <div class="opening-sidebar-progress" aria-label="${activeProgress.done} of ${activeProgress.total} moves complete">
-        <i style="width: ${activeProgress.percent}%"></i>
-      </div>
-      <div class="opening-current-move-card">
-        <small>${activeProgress.done}/${activeProgress.total} complete</small>
-        <strong>${activeProgress.done >= activeProgress.total ? "Line complete" : "Active line"}</strong>
-        <ol class="opening-move-list opening-current-line-list is-active-list" aria-label="${activeLine.title} active move list">
-          ${activeLineMoves}
-        </ol>
-      </div>
-    </section>
-    ${sections.map((section) => {
-      const lessons = section.lines.map((line) => {
-        const isActiveLine = line.id === activeLine.id;
-        const isComplete = Boolean(completions[line.id]?.completed);
-        const lineProgress = progressForLine(line, isActiveLine ? activeIndex : 0, completions, progress);
-        const moves = renderSidebarMoveItems(line, { activeIndex, isActiveLine, isComplete });
-
-        return `
-          <article class="opening-roadmap-entry ${isActiveLine ? "is-active-entry" : ""}">
-            <button
-              class="opening-roadmap-line ${isActiveLine ? "is-active" : ""} ${isComplete ? "is-complete" : ""}"
-              type="button"
-              data-line-id="${line.id}"
-              ${isActiveLine ? 'aria-current="step"' : ""}
-            >
-              <span>
-                <strong>${isComplete ? "✓ " : ""}${line.title}</strong>
-                <em>${isActiveLine ? "Training now" : isComplete ? "Complete" : `${line.moves.length} moves`}</em>
-              </span>
-              <small>${line.description || "Guided response"}</small>
-              <b class="opening-line-meter" aria-hidden="true"><i style="width: ${lineProgress.percent}%"></i></b>
-            </button>
-            <ol class="opening-move-list ${isActiveLine ? "is-active-list" : "is-line-list"}" aria-label="${line.title} move list">
-              ${moves}
-            </ol>
-          </article>
-        `;
-      }).join("");
-
-      const isOpen = section.lines.some((line) => line.id === activeLine.id)
-        || openSections[section.id] !== false;
-
-      return `
-        <details class="opening-roadmap-section" data-section-id="${section.id}" ${isOpen ? "open" : ""}>
-          <summary>${section.title}</summary>
-          <div class="opening-roadmap-section-body">
-            ${lessons}
-          </div>
-        </details>
-      `;
-    }).join("")}
+    <div class="opening-roadmap-list" aria-label="Opening training lines">
+      ${roadmapLines}
+    </div>
   `;
 
   const active = container.querySelector(".opening-move-list li.active");
@@ -719,12 +679,12 @@ function progressForLine(line, activeIndex, completions = {}, progress = {}) {
 }
 
 function moveTrackerState(index, activeIndex, isComplete) {
-  if (isComplete || index < activeIndex) {
-    return "done";
-  }
-
   if (index === activeIndex) {
     return "active";
+  }
+
+  if (isComplete || index < activeIndex) {
+    return "done";
   }
 
   return "upcoming";
@@ -807,23 +767,6 @@ function getTrainingLines(opening) {
   return lines.sort((a, b) => Number(b.isMainLine) - Number(a.isMainLine));
 }
 
-function groupLinesBySection(lines) {
-  const groups = [];
-
-  lines.forEach((line) => {
-    let group = groups.find((entry) => entry.id === line.sectionId);
-
-    if (!group) {
-      group = { id: line.sectionId, title: line.sectionTitle, lines: [] };
-      groups.push(group);
-    }
-
-    group.lines.push(line);
-  });
-
-  return groups;
-}
-
 function moveHighlights(uci) {
   return [
     { square: uci.slice(0, 2), className: "focus" },
@@ -845,10 +788,6 @@ function completionKey(openingId) {
 
 function progressKey(openingId) {
   return `freemate-opening-progress:${openingId}`;
-}
-
-function openSectionsKey(openingId) {
-  return `freemate-opening-open-sections:${openingId}`;
 }
 
 function loadBranchCompletions(openingId) {
@@ -876,20 +815,6 @@ function saveOpeningProgress(openingId, progress) {
     activeLineId: progress.activeLineId,
     lines: progress.lines || {},
   }));
-}
-
-function loadOpenSections(openingId) {
-  try {
-    return JSON.parse(localStorage.getItem(openSectionsKey(openingId))) || {};
-  } catch (error) {
-    return {};
-  }
-}
-
-function rememberSectionState(openingId, sectionId, wasOpenBeforeToggle) {
-  const sections = loadOpenSections(openingId);
-  sections[sectionId] = !wasOpenBeforeToggle;
-  localStorage.setItem(openSectionsKey(openingId), JSON.stringify(sections));
 }
 
 function shouldIgnoreTrainerKeydown(target) {
