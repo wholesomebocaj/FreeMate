@@ -333,20 +333,49 @@ function renderOpeningRow(opening) {
 function renderOpeningRoadmap(container, lines, activeLine, activeIndex, playedMoves, completions = {}, openingId = "") {
   const sections = groupLinesBySection(lines);
   const openSections = loadOpenSections(openingId);
-  container.innerHTML = sections.map((section) => {
+  const activeProgress = progressForLine(activeLine, activeIndex, completions);
+  const currentMove = activeLine.moves[activeIndex];
+  const nextMove = activeLine.moves[activeIndex + 1];
+
+  container.innerHTML = `
+    <section class="opening-roadmap-current" aria-live="polite">
+      <p class="eyebrow">Current branch</p>
+      <h3>${activeLine.title}</h3>
+      <span>${activeLine.sectionTitle || "Opening line"}</span>
+      <div class="opening-sidebar-progress" aria-label="${activeProgress.done} of ${activeProgress.total} moves complete">
+        <i style="width: ${activeProgress.percent}%"></i>
+      </div>
+      <div class="opening-current-move-card">
+        <small>${activeProgress.done}/${activeProgress.total} complete</small>
+        <strong>${currentMove ? `Now: ${currentMove.san}` : "Line complete"}</strong>
+        <span>${nextMove ? `Next: ${nextMove.san}` : "Pick another branch when ready."}</span>
+      </div>
+    </section>
+    ${sections.map((section) => {
     const lessons = section.lines.map((line) => {
       const isActiveLine = line.id === activeLine.id;
       const isComplete = Boolean(completions[line.id]?.completed);
-      const moves = line.moves.map((move, index) => {
-        const state = isComplete || (isActiveLine && index < playedMoves.length) ? "done" : isActiveLine && index === activeIndex ? "active" : "";
-        return `<li class="${state}" data-line-index="${index}"><span>${index + 1}</span><strong>${move.san}</strong><small>${move.title || move.uci}</small></li>`;
-      }).join("");
+      const lineProgress = progressForLine(line, isActiveLine ? activeIndex : 0, completions);
+      const moves = isActiveLine ? line.moves.map((move, index) => {
+        const state = moveTrackerState(index, activeIndex, isComplete);
+        return `
+          <li class="${state}" data-line-index="${index}">
+            <span class="move-state-icon" aria-hidden="true">${moveStateIcon(state)}</span>
+            <strong>${move.san}</strong>
+            <small>${move.title || move.uci}</small>
+          </li>
+        `;
+      }).join("") : "";
       return `
-        <button class="opening-roadmap-line ${isActiveLine ? "is-active" : ""} ${isComplete ? "is-complete" : ""}" type="button" data-line-id="${line.id}">
-          <span>${isComplete ? "✓ " : ""}${line.title}</span>
+        <button class="opening-roadmap-line ${isActiveLine ? "is-active" : ""} ${isComplete ? "is-complete" : ""}" type="button" data-line-id="${line.id}" ${isActiveLine ? 'aria-current="step"' : ""}>
+          <span>
+            <strong>${isComplete ? "✓ " : ""}${line.title}</strong>
+            <em>${isActiveLine ? "Training now" : isComplete ? "Complete" : `${line.moves.length} moves`}</em>
+          </span>
           <small>${line.description || "Guided response"}</small>
+          <b class="opening-line-meter" aria-hidden="true"><i style="width: ${lineProgress.percent}%"></i></b>
         </button>
-        <ol class="opening-move-list">${moves}</ol>
+        ${isActiveLine ? `<ol class="opening-move-list" aria-label="${line.title} move progress">${moves}</ol>` : ""}
       `;
     }).join("");
     const isOpen = section.lines.some((line) => line.id === activeLine.id) || openSections[section.id] !== false;
@@ -356,10 +385,35 @@ function renderOpeningRoadmap(container, lines, activeLine, activeIndex, playedM
         ${lessons}
       </details>
     `;
-  }).join("");
+  }).join("")}
+  `;
 
   const active = container.querySelector(".opening-move-list li.active");
   active?.scrollIntoView?.({ block: "nearest", behavior: "smooth" });
+  const activeLineButton = container.querySelector(".opening-roadmap-line.is-active");
+  activeLineButton?.scrollIntoView?.({ block: "nearest", behavior: "smooth" });
+}
+
+function progressForLine(line, activeIndex, completions = {}) {
+  const total = line.moves.length || 0;
+  const done = completions[line.id]?.completed ? total : Math.max(0, Math.min(activeIndex, total));
+  return {
+    done,
+    total,
+    percent: total ? Math.round((done / total) * 100) : 0,
+  };
+}
+
+function moveTrackerState(index, activeIndex, isComplete) {
+  if (isComplete || index < activeIndex) return "done";
+  if (index === activeIndex) return "active";
+  return "upcoming";
+}
+
+function moveStateIcon(state) {
+  if (state === "done") return "✓";
+  if (state === "active") return "→";
+  return "•";
 }
 
 function getTrainingLines(opening) {
