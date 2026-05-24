@@ -109,6 +109,16 @@ async function initOpeningTrainer() {
   const lineStateCache = new Map();
   const lineStateRequests = new Map();
   let roadmapRendered = false;
+  let lineProgressSaveTimer = null;
+  let lastBoardSyncKey = "";
+  let lastBoardConfigKey = "";
+  let lastPromptText = "";
+  let lastKickerText = "";
+  let lastStatusText = "";
+  let lastExplanationText = "";
+  let lastNoteTitleText = "";
+  let lastFeedbackText = "";
+  let currentLastMove = [];
 
   title.textContent = opening.name;
   ideas.innerHTML = opening.ideas.map((idea) => `<li>${idea}</li>`).join("");
@@ -151,18 +161,19 @@ async function initOpeningTrainer() {
       });
 
       if (!validation.is_valid) {
-        feedback.textContent = validation.message;
+        setText(feedback, validation.message);
         feedback.className = "lesson-board-feedback error";
         queueActiveLineForReview();
-        board.loadFen(currentFen, { clearHistory: false });
+        syncBoardPosition({ silent: true, animate: false });
         return;
       }
 
       playedMoves.push(activeLine.moves[moveIndex].uci);
       currentFen = validation.resulting_fen;
+      currentLastMove = [move.slice(0, 2), move.slice(2, 4)];
       boardElement.classList.add("opening-board-correct");
       setTimeout(() => boardElement.classList.remove("opening-board-correct"), 520);
-      feedback.textContent = validation.message;
+      setText(feedback, validation.message);
       feedback.className = "lesson-board-feedback success";
       moveIndex += 1;
 
@@ -170,7 +181,7 @@ async function initOpeningTrainer() {
         markBranchComplete(activeLine.id);
       }
 
-      saveLineProgress();
+      saveLineProgress(true);
       renderTrainerState({ syncBoard: false });
       await wait(timings.userSettle);
       await autoPlayOpponentMoves();
@@ -180,7 +191,7 @@ async function initOpeningTrainer() {
       void boardElement.offsetWidth;
       boardElement.classList.add("opening-board-shake");
       setTimeout(() => boardElement.classList.remove("opening-board-shake"), 420);
-      feedback.textContent = message || "Try the highlighted opening move.";
+      setText(feedback, message || "Try the highlighted opening move.");
       feedback.className = "lesson-board-feedback error";
       queueActiveLineForReview();
     },
@@ -271,14 +282,14 @@ async function initOpeningTrainer() {
 
     status.textContent = "Loading";
     status.className = "lesson-step-progress-state waiting";
-    noteTitle.textContent = activeLine.title;
-    explanation.textContent = activeLine.description || "Follow the branch one move at a time.";
-    feedback.textContent = moveIndex >= activeLine.moves.length
+    setText(noteTitle, activeLine.title);
+    setText(explanation, activeLine.description || "Follow the branch one move at a time.");
+    setText(feedback, moveIndex >= activeLine.moves.length
       ? "Branch complete. The final position has been restored."
-      : "Branch loaded. Follow the coach prompts.";
+      : "Branch loaded. Follow the coach prompts.");
     feedback.className = "lesson-board-feedback";
 
-    board.setConfig({ allowedMoves: [], highlightSquares: [] });
+    applyBoardConfig({ allowedMoves: [], highlightSquares: [] });
     renderTrainerState({ syncBoard: true, forceRoadmapRender: true, scrollRoadmap: true });
     await autoPlayOpponentMoves();
   }
@@ -291,18 +302,18 @@ async function initOpeningTrainer() {
 
     await ensureLineStateCache(activeLine);
     applyCachedLineState(activeLine, boundedIndex);
-    saveLineProgress();
-    renderTrainerState({ syncBoard: true });
+    scheduleLineProgressSave();
+    renderTrainerState({ syncBoard: true, historyNavigation: true });
 
     if (boundedIndex <= 0) {
-      feedback.textContent = `Returned to the start of ${activeLine.title}.`;
+      setText(feedback, `Returned to the start of ${activeLine.title}.`);
     } else if (boundedIndex >= activeLine.moves.length) {
-      feedback.textContent = `Jumped to the end of ${activeLine.title}.`;
+      setText(feedback, `Jumped to the end of ${activeLine.title}.`);
     } else {
       const jumpMove = activeLine.moves[Math.max(0, boundedIndex - 1)];
-      feedback.textContent = jumpMove
+      setText(feedback, jumpMove
         ? `Jumped to ${jumpMove.san}.`
-        : `Jumped within ${activeLine.title}.`;
+        : `Jumped within ${activeLine.title}.`);
     }
 
     feedback.className = "lesson-board-feedback";
@@ -312,11 +323,11 @@ async function initOpeningTrainer() {
     while (moveIndex < activeLine.moves.length && !isUserMove(moveIndex, trainSide)) {
       const reply = activeLine.moves[moveIndex];
 
-      status.textContent = "Coach move";
-      prompt.textContent = `${reply.san} is the reply`;
-      noteTitle.textContent = `Opponent plays ${reply.san}`;
-      explanation.textContent = reply.explanation;
-      board.setConfig({ allowedMoves: [], highlightSquares: moveHighlights(reply.uci) });
+      setText(status, "Coach move");
+      setText(prompt, `${reply.san} is the reply`);
+      setText(noteTitle, `Opponent plays ${reply.san}`);
+      setText(explanation, reply.explanation);
+      applyBoardConfig({ allowedMoves: [], highlightSquares: moveHighlights(reply.uci) });
       renderTrainerState({ syncBoard: false });
 
       await wait(timings.userSettle);
@@ -334,13 +345,14 @@ async function initOpeningTrainer() {
 
       playedMoves.push(reply.uci);
       currentFen = data.resulting_fen;
+      currentLastMove = [reply.uci.slice(0, 2), reply.uci.slice(2, 4)];
       moveIndex += 1;
 
       if (moveIndex >= activeLine.moves.length) {
         markBranchComplete(activeLine.id);
       }
 
-      saveLineProgress();
+      saveLineProgress(true);
       renderTrainerState({ syncBoard: false });
       await wait(timings.opponentSettle);
     }
@@ -348,7 +360,12 @@ async function initOpeningTrainer() {
     renderTrainerState({ syncBoard: false });
   }
 
-  function renderTrainerState({ syncBoard = false, forceRoadmapRender = false, scrollRoadmap = false } = {}) {
+  function renderTrainerState({
+    syncBoard = false,
+    forceRoadmapRender = false,
+    scrollRoadmap = false,
+    historyNavigation = false,
+  } = {}) {
     if (forceRoadmapRender || !roadmapRendered) {
       renderOpeningRoadmap(
         roadmap,
@@ -374,18 +391,21 @@ async function initOpeningTrainer() {
     }
 
     if (moveIndex >= activeLine.moves.length) {
-      prompt.textContent = "Line complete.";
-      kicker.textContent = `${activeLine.title} · ${playedMoves.length}/${activeLine.moves.length}`;
-      noteTitle.textContent = "Training complete";
-      explanation.textContent = activeLine.completionMessage
-        || "Great work. You handled this real-game branch. Pick another branch in the roadmap when you are ready.";
-      feedback.textContent = "Branch complete.";
+      setText(prompt, "Line complete.");
+      setText(kicker, `${activeLine.title} · ${playedMoves.length}/${activeLine.moves.length}`);
+      setText(noteTitle, "Training complete");
+      setText(
+        explanation,
+        activeLine.completionMessage
+          || "Great work. You handled this real-game branch. Pick another branch in the roadmap when you are ready.",
+      );
+      setText(feedback, "Branch complete.");
       feedback.className = "lesson-board-feedback success";
-      status.textContent = "Complete";
+      setText(status, "Complete");
       status.className = "lesson-step-progress-state done";
-      board.setConfig({ allowedMoves: [], highlightSquares: [] });
-      if (syncBoard && board.fen !== currentFen) {
-        board.loadFen(currentFen, { clearHistory: true });
+      applyBoardConfig({ allowedMoves: [], highlightSquares: [] });
+      if (syncBoard) {
+        syncBoardPosition({ silent: historyNavigation, animate: false });
       }
       return;
     }
@@ -393,20 +413,20 @@ async function initOpeningTrainer() {
     const expected = activeLine.moves[moveIndex];
     const userTurn = isUserMove(moveIndex, trainSide);
 
-    kicker.textContent = `${activeLine.title} · move ${moveIndex + 1} of ${activeLine.moves.length}`;
-    if (syncBoard && board.fen !== currentFen) {
-      board.loadFen(currentFen, { clearHistory: true });
+    setText(kicker, `${activeLine.title} · move ${moveIndex + 1} of ${activeLine.moves.length}`);
+    if (syncBoard) {
+      syncBoardPosition({ silent: historyNavigation, animate: false });
     }
 
     if (!userTurn) {
-      prompt.textContent = `Review ${expected.san}`;
-      noteTitle.textContent = `Opponent plays ${expected.san}`;
-      explanation.textContent = expected.explanation
+      setText(prompt, `Review ${expected.san}`);
+      setText(noteTitle, `Opponent plays ${expected.san}`);
+      setText(explanation, expected.explanation
         || activeLine.description
-        || "Step through the line with the sidebar or arrow keys.";
-      status.textContent = "Preview";
+        || "Step through the line with the sidebar or arrow keys.");
+      setText(status, "Preview");
       status.className = "lesson-step-progress-state waiting";
-      board.setConfig({
+      applyBoardConfig({
         mode: "lesson",
         allowedMoves: [],
         lockToAllowedMoves: true,
@@ -416,14 +436,14 @@ async function initOpeningTrainer() {
       return;
     }
 
-    prompt.textContent = `Play ${expected.san}`;
-    noteTitle.textContent = `Why ${expected.san}?`;
-    explanation.textContent = expected.explanation
+    setText(prompt, `Play ${expected.san}`);
+    setText(noteTitle, `Why ${expected.san}?`);
+    setText(explanation, expected.explanation
       || activeLine.description
-      || "Make the recommended beginner move.";
-    status.textContent = "Your move";
+      || "Make the recommended beginner move.");
+    setText(status, "Your move");
     status.className = "lesson-step-progress-state waiting";
-    board.setConfig({
+    applyBoardConfig({
       mode: "lesson",
       allowedMoves: [expected.uci],
       lockToAllowedMoves: true,
@@ -518,6 +538,7 @@ async function initOpeningTrainer() {
       moveIndex: 0,
       fen,
       playedMoves: [],
+      lastMove: [],
       expectedMove: line.moves[0] || null,
     };
 
@@ -545,6 +566,7 @@ async function initOpeningTrainer() {
         moveIndex: index + 1,
         fen,
         playedMoves: played,
+        lastMove: [move.uci.slice(0, 2), move.uci.slice(2, 4)],
         expectedMove: line.moves[index + 1] || null,
       };
     }
@@ -564,6 +586,7 @@ async function initOpeningTrainer() {
     moveIndex = state.moveIndex;
     playedMoves = [...state.playedMoves];
     currentFen = state.fen;
+    currentLastMove = [...(state.lastMove || [])];
   }
 
   function resetLineState() {
@@ -572,9 +595,15 @@ async function initOpeningTrainer() {
     currentFen = opening.training.startingFen === "startpos"
       ? STARTING_FEN
       : opening.training.startingFen;
+    currentLastMove = [];
   }
 
-  function saveLineProgress() {
+  function saveLineProgress(immediate = true) {
+    if (!immediate) {
+      scheduleLineProgressSave();
+      return;
+    }
+
     openingProgress = {
       ...openingProgress,
       activeLineId: activeLine.id,
@@ -591,6 +620,64 @@ async function initOpeningTrainer() {
     };
 
     saveOpeningProgress(opening.id, openingProgress);
+  }
+
+  function scheduleLineProgressSave() {
+    window.clearTimeout(lineProgressSaveTimer);
+    lineProgressSaveTimer = window.setTimeout(() => {
+      saveLineProgress(true);
+    }, 120);
+  }
+
+  function syncBoardPosition({ silent = false, animate = false } = {}) {
+    const syncKey = `${currentFen}|${currentLastMove.join(",")}|${silent ? "silent" : "loud"}|${animate ? "anim" : "noanim"}`;
+    if (syncKey === lastBoardSyncKey) {
+      return;
+    }
+    lastBoardSyncKey = syncKey;
+    board.syncFen(currentFen, {
+      lastMove: currentLastMove,
+      silent,
+      animate,
+    });
+  }
+
+  function applyBoardConfig(config = {}) {
+    const nextConfig = {
+      mode: config.mode || "lesson",
+      allowedMoves: config.allowedMoves || [],
+      lockToAllowedMoves: config.lockToAllowedMoves ?? true,
+      highlightLegalMoves: config.highlightLegalMoves ?? true,
+      successMessage: config.successMessage || "",
+      errorMessage: config.errorMessage || "",
+      highlightSquares: config.highlightSquares || [],
+      animationDuration: config.animationDuration || 520,
+    };
+    const nextKey = JSON.stringify([
+      nextConfig.mode,
+      nextConfig.lockToAllowedMoves,
+      nextConfig.highlightLegalMoves,
+      nextConfig.successMessage,
+      nextConfig.errorMessage,
+      nextConfig.animationDuration,
+      nextConfig.allowedMoves,
+      nextConfig.highlightSquares,
+    ]);
+
+    if (nextKey === lastBoardConfigKey) {
+      return;
+    }
+
+    lastBoardConfigKey = nextKey;
+    board.setConfig(nextConfig);
+  }
+
+  function setText(node, value) {
+    if (!node) return;
+    const nextValue = value == null ? "" : String(value);
+    if (node.textContent !== nextValue) {
+      node.textContent = nextValue;
+    }
   }
 }
 

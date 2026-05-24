@@ -299,6 +299,46 @@ export class PracticeBoard {
     this.emitPositionChange();
   }
 
+  syncFen(fen, options = {}) {
+    this.fen = normalizeFen(fen);
+    this.engine = createChessEngine(this.fen);
+    this.position = parseFen(this.fen);
+    this.turn = parseTurn(this.fen);
+    this.lastMove = Array.isArray(options.lastMove) ? options.lastMove : [];
+    this.pendingSelectionRequest += 1;
+
+    if (options.clearSelection !== false) {
+      this.selectedSquare = null;
+    }
+
+    this.ground.set({
+      fen: this.fen,
+      turnColor: this.turn,
+      lastMove: this.lastMove,
+      animation: {
+        enabled: Boolean(options.animate),
+        duration: options.animate ? this.animationDuration : 0,
+      },
+      movable: {
+        color: "both",
+        dests: new Map(),
+        free: true,
+        rookCastle: true,
+        showDests: true,
+      },
+    });
+
+    if (options.clearSelection !== false) {
+      this.ground.selectSquare(null);
+    }
+
+    this.syncHighlightLayer();
+
+    if (!options.silent) {
+      this.emitPositionChange();
+    }
+  }
+
   reset() {
     this.loadFen(this.initialFen, { clearHistory: true });
   }
@@ -512,6 +552,10 @@ export class PracticeBoard {
       fen: this.fen,
       turnColor: this.turn,
       lastMove,
+      animation: {
+        enabled: true,
+        duration: this.animationDuration,
+      },
       movable: {
         color: "both",
         dests: new Map(),
