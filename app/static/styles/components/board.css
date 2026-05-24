@@ -1,0 +1,331 @@
+/* components/board.css */
+.board-preview {
+    display: grid;
+    justify-items: center;
+}
+
+.chessboard,
+.lesson-board {
+    aspect-ratio: 1;
+    border: 10px solid #0f172a;
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    max-width: 560px;
+    overflow: hidden;
+    width: 100%;
+}
+
+.chessboard::before {
+    background: conic-gradient(
+            #d6c29a 25%,
+            #6d8a63 0 50%,
+            #d6c29a 0 75%,
+            #6d8a63 0
+        )
+        0 0 / 25% 25%;
+    content: "";
+    grid-column: 1 / -1;
+    grid-row: 1 / -1;
+}
+
+.modern-board {
+    aspect-ratio: 1;
+    background: #0f172a;
+    border: 10px solid #0f172a;
+    border-radius: 22px;
+    box-shadow: var(--shadow);
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    max-width: min(620px, 100%);
+    overflow: hidden;
+    touch-action: none;
+    width: 100%;
+}
+
+.board-square {
+    align-items: center;
+    border: 0;
+    display: flex;
+    justify-content: center;
+    min-height: 0;
+    padding: 0;
+    position: relative;
+}
+
+button.board-square {
+    cursor: pointer;
+}
+
+.board-square.light {
+    background: #eeeed2;
+}
+.board-square.dark {
+    background: #769656;
+}
+
+.board-square.legal::after {
+    background: rgba(20, 85, 30, 0.32);
+    border: 0;
+    border-radius: 999px;
+    content: "";
+    height: 28%;
+    position: absolute;
+    width: 28%;
+    z-index: 1;
+}
+
+.board-square.occupied.legal::after {
+    background: transparent;
+    border: 5px solid rgba(20, 85, 30, 0.32);
+    height: 82%;
+    width: 82%;
+}
+
+.board-square.selected {
+    box-shadow: inset 0 0 0 999px rgba(246, 246, 105, 0.36);
+}
+.board-square.last-move {
+    box-shadow: inset 0 0 0 999px rgba(246, 246, 105, 0.26);
+}
+
+.board-square.target-square::before {
+    border: 4px solid rgba(34, 197, 94, 0.85);
+    border-radius: 14px;
+    content: "";
+    inset: 8px;
+    position: absolute;
+    z-index: 1;
+}
+
+.piece-img {
+    cursor: grab;
+    filter: drop-shadow(0 6px 6px rgba(0, 0, 0, 0.32));
+    height: 91%;
+    object-fit: contain;
+    position: relative;
+    transition:
+        transform 0.12s ease,
+        filter 0.12s ease;
+    user-select: none;
+    width: 91%;
+    z-index: 2;
+}
+
+.piece-img:hover {
+    filter: drop-shadow(0 9px 9px rgba(0, 0, 0, 0.38));
+    transform: scale(1.035);
+}
+.piece-img:active {
+    cursor: grabbing;
+    transform: scale(1.08);
+}
+
+/* practice board / chessground integration */
+.practice-board,
+.practice-board-component {
+    aspect-ratio: 1;
+    background: #2b3327;
+    border: 0;
+    border-radius: 8px;
+    box-shadow:
+        0 22px 55px rgba(0, 0, 0, 0.5),
+        0 0 0 1px rgba(255, 255, 255, 0.08);
+    display: block;
+    max-width: min(68vh, 700px);
+    overflow: hidden;
+    position: relative;
+    touch-action: none;
+    width: 100%;
+}
+
+.cg-square-layer,
+.cg-highlight-layer {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    inset: 0;
+    pointer-events: none;
+    position: absolute;
+    z-index: 0;
+}
+
+.cg-square-layer span {
+    min-width: 0;
+}
+
+.cg-square-layer .light {
+    background: #eeeed2;
+}
+
+.cg-square-layer .dark {
+    background: #769656;
+}
+
+.cg-highlight-layer {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(8, 1fr);
+    inset: 0;
+    pointer-events: none;
+    position: absolute;
+    z-index: 1;
+}
+
+.cg-highlight-square {
+    position: relative;
+}
+
+.cg-highlight-square.focus::after,
+.cg-highlight-square.file::after,
+.cg-highlight-square.rank::after,
+.cg-highlight-square.cross::after,
+.cg-highlight-square.target::after {
+    border-radius: 10px;
+    content: "";
+    inset: 12%;
+    position: absolute;
+}
+
+.cg-highlight-square.focus::after {
+    background: rgba(34, 197, 94, 0.18);
+    box-shadow: inset 0 0 0 2px rgba(34, 197, 94, 0.45);
+}
+
+.cg-highlight-square.file::after,
+.cg-highlight-square.rank::after {
+    background: rgba(96, 165, 250, 0.12);
+    box-shadow: inset 0 0 0 2px rgba(96, 165, 250, 0.28);
+}
+
+.cg-highlight-square.cross::after {
+    background: rgba(34, 197, 94, 0.12);
+    box-shadow: inset 0 0 0 2px rgba(34, 197, 94, 0.28);
+}
+
+.cg-highlight-square.target::after {
+    background: rgba(245, 158, 11, 0.18);
+    box-shadow: inset 0 0 0 2px rgba(245, 158, 11, 0.35);
+}
+
+.cg-highlight-square.correct::after {
+    background: rgba(34, 197, 94, 0.24);
+    box-shadow: inset 0 0 0 2px rgba(34, 197, 94, 0.55);
+}
+
+.cg-highlight-square.danger::after {
+    background: rgba(248, 113, 113, 0.2);
+    box-shadow: inset 0 0 0 2px rgba(248, 113, 113, 0.42);
+}
+
+.practice-board.cg-wrap cg-board square.move-dest,
+.practice-board-component.cg-wrap cg-board square.move-dest {
+    background: radial-gradient(rgba(20, 85, 30, 0.38) 19%, transparent 20%);
+}
+
+.practice-board.cg-wrap cg-board square.oc.move-dest,
+.practice-board-component.cg-wrap cg-board square.oc.move-dest {
+    background: radial-gradient(
+        transparent 0%,
+        transparent 74%,
+        rgba(20, 85, 30, 0.36) 75%
+    );
+}
+
+.practice-board.cg-wrap cg-board square.move-dest:hover,
+.practice-board-component.cg-wrap cg-board square.move-dest:hover {
+    background: rgba(20, 85, 30, 0.28);
+}
+
+.practice-board.cg-wrap cg-board square.selected,
+.practice-board-component.cg-wrap cg-board square.selected {
+    background-color: rgba(246, 246, 105, 0.36);
+}
+
+.practice-board.cg-wrap cg-board square.last-move,
+.practice-board-component.cg-wrap cg-board square.last-move {
+    background-color: rgba(246, 246, 105, 0.28);
+}
+
+.practice-board.cg-wrap piece,
+.practice-board-component.cg-wrap piece {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 98%;
+    filter: drop-shadow(0 6px 6px rgba(0, 0, 0, 0.36));
+}
+
+.practice-board.cg-wrap piece.dragging,
+.practice-board-component.cg-wrap piece.dragging {
+    cursor: grabbing;
+    filter: drop-shadow(0 12px 12px rgba(0, 0, 0, 0.42));
+}
+
+.practice-board.cg-wrap piece.ghost,
+.practice-board-component.cg-wrap piece.ghost {
+    opacity: 0.35;
+}
+
+.practice-board.cg-wrap coords,
+.practice-board-component.cg-wrap coords {
+    font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+    font-size: clamp(0.55rem, 1vw, 0.72rem);
+    font-weight: 900;
+    line-height: 1;
+    opacity: 0.82;
+    pointer-events: none;
+    text-transform: lowercase;
+    z-index: 5;
+}
+
+.practice-board.cg-wrap coords.ranks,
+.practice-board-component.cg-wrap coords.ranks {
+    height: 100%;
+    left: 4px;
+    top: 0;
+    width: 14px;
+}
+
+.practice-board.cg-wrap coords.ranks.left,
+.practice-board-component.cg-wrap coords.ranks.left {
+    align-items: stretch;
+    left: 4px;
+}
+
+.practice-board.cg-wrap coords.files,
+.practice-board-component.cg-wrap coords.files {
+    bottom: 3px;
+    height: 12px;
+    left: 0;
+    text-align: right;
+    width: 100%;
+}
+
+.practice-board.cg-wrap coords.ranks coord,
+.practice-board-component.cg-wrap coords.ranks coord {
+    box-sizing: border-box;
+    padding-top: 4px;
+    transform: none;
+}
+
+.practice-board.cg-wrap coords.files coord,
+.practice-board-component.cg-wrap coords.files coord {
+    box-sizing: border-box;
+    padding-right: 5px;
+}
+
+.practice-board.cg-wrap coords coord:nth-child(odd),
+.practice-board-component.cg-wrap coords coord:nth-child(odd) {
+    color: rgba(238, 238, 210, 0.86);
+}
+
+.practice-board.cg-wrap coords coord:nth-child(even),
+.practice-board-component.cg-wrap coords coord:nth-child(even) {
+    color: rgba(39, 53, 32, 0.74);
+}

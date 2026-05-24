@@ -1,0 +1,23 @@
+/* layout/sidebar.css */
+.course-sidebar,
+.progress-sidebar,
+.lesson-notes,
+.practice-panel,
+.opening-trainer-panel {
+    display: grid;
+    gap: 16px;
+    position: sticky;
+    top: 88px;
+}
+
+.course-sidebar {
+    max-height: calc(100vh - 110px);
+    overflow: auto;
+    padding: 18px;
+}
+
+.practice-panel .focus-card {
+    border-radius: 16px;
+    box-shadow: 0 16px 44px rgba(0, 0, 0, 0.24);
+    padding: 16px;
+}

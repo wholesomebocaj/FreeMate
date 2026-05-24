@@ -1,0 +1,48 @@
+/* pages/review.css */
+.review-shell {
+    max-width: 1180px;
+}
+
+.review-hero {
+    align-items: center;
+    display: grid;
+    gap: 24px;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    margin-bottom: 28px;
+}
+
+.review-hero h1 {
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    letter-spacing: 0;
+    line-height: 0.95;
+    margin: 0;
+}
+
+.review-hero p {
+    color: var(--muted);
+    font-size: 1.08rem;
+    max-width: 680px;
+}
+
+.review-list {
+    display: grid;
+    gap: 14px;
+}
+
+.review-meta,
+.review-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.review-meta span {
+    background: rgba(249, 250, 251, 0.08);
+    border-radius: 999px;
+    color: var(--muted);
+    font-size: 0.82rem;
+    font-weight: 800;
+    padding: 5px 10px;
+    text-transform: capitalize;
+}

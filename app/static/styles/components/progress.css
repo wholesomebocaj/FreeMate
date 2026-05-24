@@ -1,0 +1,94 @@
+/* components/progress.css */
+.roadmap-section {
+    background: rgba(31, 41, 55, 0.78);
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    box-shadow: var(--shadow);
+    padding: 24px;
+}
+
+.roadmap-section.compact {
+    margin-bottom: 20px;
+    padding: 16px;
+}
+
+.roadmap {
+    display: grid;
+    gap: 12px;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.roadmap-item {
+    align-items: center;
+    background: var(--panel-soft);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    color: var(--muted);
+    display: flex;
+    font-weight: 850;
+    min-height: 82px;
+    padding: 14px;
+    position: relative;
+}
+
+.roadmap-item::before {
+    border-radius: 999px;
+    display: inline-grid;
+    flex: 0 0 auto;
+    font-size: 0.8rem;
+    height: 28px;
+    margin-right: 10px;
+    place-items: center;
+    width: 28px;
+}
+
+.roadmap-item.complete {
+    color: var(--text);
+}
+
+.roadmap-item.complete::before {
+    background: var(--green);
+    color: #052e16;
+    content: "✓";
+}
+
+.roadmap-item.current {
+    border-color: rgba(34, 197, 94, 0.65);
+    box-shadow: 0 0 28px rgba(34, 197, 94, 0.14);
+    color: var(--text);
+}
+
+.roadmap-item.current::before {
+    background: rgba(34, 197, 94, 0.16);
+    color: var(--green);
+    content: "→";
+}
+
+.roadmap-item.locked::before {
+    background: rgba(249, 250, 251, 0.08);
+    color: var(--muted);
+    content: "×";
+}
+
+.progress-overview {
+    display: grid;
+    gap: 18px;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin-top: 22px;
+    padding: 18px;
+}
+
+.progress-track {
+    background: rgba(249, 250, 251, 0.08);
+    border-radius: 999px;
+    height: 8px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    background: var(--green);
+    border-radius: inherit;
+    height: 100%;
+    transition: width 0.25s ease;
+    width: 0;
+}

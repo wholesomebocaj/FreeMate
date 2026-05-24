@@ -1,0 +1,40 @@
+/* components/forms.css */
+.fen-form {
+    display: grid;
+    gap: 12px;
+}
+
+.fen-form label,
+.move-form label {
+    color: var(--text);
+    font-weight: 850;
+}
+
+.move-form {
+    display: grid;
+    gap: 12px;
+    margin-top: 18px;
+}
+
+input {
+    background: rgba(249, 250, 251, 0.08);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    color: var(--text);
+    flex: 1;
+    min-height: 46px;
+    min-width: 0;
+    padding: 10px 12px;
+}
+
+.result {
+    color: var(--muted);
+    font-weight: 850;
+    min-height: 28px;
+}
+.result.success {
+    color: var(--green);
+}
+.result.error {
+    color: var(--red);
+}

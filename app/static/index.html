@@ -1,59 +1,66 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FreeMate | Beginner Chess Lessons</title>
-  <link rel="stylesheet" href="/static/styles.css">
-</head>
-<body>
-  <header class="site-header">
-    <nav class="navbar" aria-label="Main navigation">
-      <a class="brand" href="/">FreeMate</a>
-      <div class="nav-links">
-        <a href="/" aria-current="page">Home</a>
-        <a href="/lessons">Lessons</a>
-        <a href="/openings">Openings</a>
-        <a href="/practice">Practice</a>
-        <a href="/review">Review</a>
-        <a href="/lessons#progress">Progress</a>
-      </div>
-    </nav>
-  </header>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>FreeMate | Beginner Chess Lessons</title>
+        <link rel="stylesheet" href="/static/styles/main.css" />
+    </head>
+    <body>
+        <header class="site-header">
+            <nav class="navbar" aria-label="Main navigation">
+                <a class="brand" href="/">FreeMate</a>
+                <div class="nav-links">
+                    <a href="/" aria-current="page">Home</a>
+                    <a href="/lessons">Lessons</a>
+                    <a href="/openings">Openings</a>
+                    <a href="/practice">Practice</a>
+                    <a href="/review">Review</a>
+                    <a href="/lessons#progress">Progress</a>
+                </div>
+            </nav>
+        </header>
 
-  <main class="home-shell">
-    <section class="hero home-hero">
-      <div class="hero-content">
-        <p class="eyebrow">Beginner chess coaching</p>
-        <h1>Learn chess the right way.</h1>
-        <p class="hero-copy">
-          Free structured lessons for beginners.
-        </p>
-        <div class="hero-actions">
-          <a class="button primary" href="/lessons">Start Learning</a>
-          <a class="button secondary" href="/lessons">Continue Learning</a>
-        </div>
-      </div>
-      <div class="board-preview" aria-label="Simple chess board preview">
-        <div class="chessboard" aria-hidden="true"></div>
-      </div>
-    </section>
+        <main class="home-shell">
+            <section class="hero home-hero">
+                <div class="hero-content">
+                    <p class="eyebrow">Beginner chess coaching</p>
+                    <h1>Learn chess the right way.</h1>
+                    <p class="hero-copy">
+                        Free structured lessons for beginners.
+                    </p>
+                    <div class="hero-actions">
+                        <a class="button primary" href="/lessons"
+                            >Start Learning</a
+                        >
+                        <a class="button secondary" href="/lessons"
+                            >Continue Learning</a
+                        >
+                    </div>
+                </div>
+                <div
+                    class="board-preview"
+                    aria-label="Simple chess board preview"
+                >
+                    <div class="chessboard" aria-hidden="true"></div>
+                </div>
+            </section>
 
-    <section class="roadmap-section" aria-labelledby="roadmap-title">
-      <div class="section-heading">
-        <p class="eyebrow">Roadmap</p>
-        <h2 id="roadmap-title">What should I learn next?</h2>
-      </div>
-      <div class="roadmap" id="home-roadmap">
-        <div class="roadmap-item complete">Rules of Chess</div>
-        <div class="roadmap-item complete">Piece Movement</div>
-        <div class="roadmap-item current">Opening Principles</div>
-        <div class="roadmap-item locked">Basic Tactics</div>
-        <div class="roadmap-item locked">Mate in 1</div>
-      </div>
-    </section>
-  </main>
+            <section class="roadmap-section" aria-labelledby="roadmap-title">
+                <div class="section-heading">
+                    <p class="eyebrow">Roadmap</p>
+                    <h2 id="roadmap-title">What should I learn next?</h2>
+                </div>
+                <div class="roadmap" id="home-roadmap">
+                    <div class="roadmap-item complete">Rules of Chess</div>
+                    <div class="roadmap-item complete">Piece Movement</div>
+                    <div class="roadmap-item current">Opening Principles</div>
+                    <div class="roadmap-item locked">Basic Tactics</div>
+                    <div class="roadmap-item locked">Mate in 1</div>
+                </div>
+            </section>
+        </main>
 
-  <script src="/static/script.js"></script>
-</body>
+        <script src="/static/script.js"></script>
+    </body>
 </html>

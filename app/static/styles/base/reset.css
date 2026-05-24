@@ -1,0 +1,4 @@
+/* base/reset.css — minimal reset and box-sizing */
+* {
+    box-sizing: border-box;
+}

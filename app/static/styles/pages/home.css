@@ -1,0 +1,51 @@
+/* pages/home.css */
+.home-shell {
+    max-width: 1180px;
+}
+
+.hero {
+    align-items: center;
+    display: grid;
+    gap: 48px;
+    grid-template-columns: 1fr 0.8fr;
+    min-height: 520px;
+}
+
+.home-hero {
+    text-align: left;
+}
+
+.hero h1,
+.coach-header h1 {
+    font-size: clamp(3rem, 7vw, 6.5rem);
+    letter-spacing: 0;
+    line-height: 0.95;
+    margin: 0;
+}
+
+.hero-copy,
+.coach-header p,
+.section-heading p {
+    color: var(--muted);
+    font-size: 1.2rem;
+    max-width: 680px;
+}
+
+.eyebrow {
+    color: var(--green);
+    font-size: 0.78rem;
+    font-weight: 900;
+    letter-spacing: 0;
+    margin: 0 0 10px;
+    text-transform: uppercase;
+}
+
+.section-heading {
+    margin-bottom: 18px;
+}
+
+.section-heading h2 {
+    font-size: clamp(1.8rem, 3vw, 3rem);
+    line-height: 1.05;
+    margin: 0;
+}

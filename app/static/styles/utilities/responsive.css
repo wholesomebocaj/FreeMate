@@ -1,0 +1,168 @@
+/* utilities/responsive.css */
+@media (max-width: 1120px) {
+    .lesson-workspace,
+    .coach-header,
+    .course-browser-hero,
+    .course-card-grid,
+    .bracket-card-grid,
+    .bracket-course-grid,
+    .practice-header,
+    .practice-layout,
+    .lesson-mode-shell,
+    .progress-overview,
+    .openings-hero,
+    .opening-overview-grid,
+    .opening-trainer-shell,
+    .lesson-focus-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .course-sidebar,
+    .progress-sidebar,
+    .practice-panel,
+    .opening-trainer-panel {
+        position: static;
+    }
+
+    .lesson-workspace {
+        grid-template-areas:
+            "lesson"
+            "map"
+            "progress";
+    }
+
+    .course-sidebar {
+        grid-area: map;
+        max-height: none;
+    }
+
+    .coach-panel {
+        grid-area: lesson;
+    }
+
+    .progress-sidebar {
+        grid-area: progress;
+    }
+
+    .lesson-mode-shell {
+        grid-template-areas:
+            "lesson"
+            "notes"
+            "map";
+    }
+
+    .bracket-card {
+        grid-template-columns: 1fr;
+    }
+
+    .bracket-card-side {
+        justify-items: flex-start;
+    }
+
+    .lesson-stage {
+        grid-area: lesson;
+    }
+
+    .lesson-notes {
+        grid-area: notes;
+        position: static;
+    }
+}
+
+@media (max-width: 820px) {
+    main {
+        padding: 24px 16px 44px;
+    }
+
+    .hero,
+    .board-lesson-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .bracket-card-heading {
+        flex-direction: column;
+    }
+
+    .course-card,
+    .bracket-course-card {
+        grid-template-columns: 1fr;
+    }
+
+    .course-card-actions {
+        justify-content: flex-start;
+    }
+
+    .course-card-thumb,
+    .bracket-course-card .course-card-thumb {
+        height: 72px;
+        width: 72px;
+    }
+
+    .roadmap {
+        grid-template-columns: 1fr;
+    }
+
+    .continue-panel,
+    .lesson-row,
+    .opening-row {
+        align-items: stretch;
+        grid-template-columns: 1fr;
+    }
+
+    .opening-row-actions,
+    .opening-overview-actions {
+        justify-content: flex-start;
+    }
+
+    .opening-row-thumb {
+        height: 78px;
+        width: 78px;
+    }
+
+    .opening-line-list li {
+        grid-template-columns: 34px 1fr;
+    }
+
+    .opening-line-list p {
+        grid-column: 1 / -1;
+    }
+
+    .continue-panel {
+        flex-direction: column;
+    }
+
+    .lesson-row-meta {
+        justify-content: flex-start;
+    }
+
+    .lesson-title-row h1,
+    .lesson-title-row h2 {
+        font-size: 2.25rem;
+    }
+}
+
+@media (max-width: 560px) {
+    .navbar,
+    .nav-links,
+    .input-row,
+    .lesson-actions {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .nav-links a,
+    .button {
+        text-align: center;
+        width: 100%;
+    }
+
+    .coach-panel,
+    .roadmap-section,
+    .course-sidebar,
+    .practice-board-wrap,
+    .mini-dashboard,
+    .focus-card {
+        border-radius: 18px;
+        padding: 16px;
+    }
+}

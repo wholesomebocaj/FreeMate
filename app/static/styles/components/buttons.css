@@ -1,0 +1,43 @@
+/* components/buttons.css */
+.button {
+    align-items: center;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    cursor: pointer;
+    display: inline-flex;
+    font-weight: 850;
+    justify-content: center;
+    min-height: 46px;
+    padding: 11px 18px;
+    transition:
+        transform 0.2s ease,
+        border 0.2s ease,
+        background 0.2s ease,
+        opacity 0.2s ease;
+}
+
+.button:hover {
+    transform: translateY(-1px);
+}
+
+.button:disabled {
+    cursor: not-allowed;
+    opacity: 0.45;
+    transform: none;
+}
+
+.button.primary {
+    background: var(--green);
+    color: #052e16;
+    box-shadow: 0 14px 34px rgba(34, 197, 94, 0.25);
+}
+
+.button.primary:hover {
+    background: #4ade80;
+}
+
+.button.secondary {
+    background: rgba(249, 250, 251, 0.06);
+    border-color: var(--line);
+    color: var(--text);
+}

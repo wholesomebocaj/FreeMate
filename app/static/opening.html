@@ -1,33 +1,37 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Opening | FreeMate</title>
-  <link rel="stylesheet" href="/static/styles.css">
-</head>
-<body data-opening-page="overview">
-  <header class="site-header">
-    <nav class="navbar" aria-label="Main navigation">
-      <a class="brand" href="/">FreeMate</a>
-      <div class="nav-links">
-        <a href="/">Home</a>
-        <a href="/lessons">Lessons</a>
-        <a href="/openings" aria-current="page">Openings</a>
-        <a href="/practice">Practice</a>
-        <a href="/review">Review</a>
-        <a href="/lessons#progress">Progress</a>
-      </div>
-    </nav>
-  </header>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Opening | FreeMate</title>
+        <link rel="stylesheet" href="/static/styles/main.css" />
+    </head>
+    <body data-opening-page="overview">
+        <header class="site-header">
+            <nav class="navbar" aria-label="Main navigation">
+                <a class="brand" href="/">FreeMate</a>
+                <div class="nav-links">
+                    <a href="/">Home</a>
+                    <a href="/lessons">Lessons</a>
+                    <a href="/openings" aria-current="page">Openings</a>
+                    <a href="/practice">Practice</a>
+                    <a href="/review">Review</a>
+                    <a href="/lessons#progress">Progress</a>
+                </div>
+            </nav>
+        </header>
 
-  <main class="openings-shell">
-    <section id="opening-overview" class="opening-overview" aria-live="polite">
-      <p class="eyebrow">Opening overview</p>
-      <h1>Loading opening...</h1>
-    </section>
-  </main>
+        <main class="openings-shell">
+            <section
+                id="opening-overview"
+                class="opening-overview"
+                aria-live="polite"
+            >
+                <p class="eyebrow">Opening overview</p>
+                <h1>Loading opening...</h1>
+            </section>
+        </main>
 
-  <script type="module" src="/static/openings.js"></script>
-</body>
+        <script type="module" src="/static/openings.js"></script>
+    </body>
 </html>

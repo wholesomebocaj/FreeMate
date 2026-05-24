@@ -1,135 +1,164 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Course | FreeMate</title>
-  <link rel="stylesheet" href="/static/styles.css">
-</head>
-<body>
-  <header class="site-header">
-    <nav class="navbar" aria-label="Main navigation">
-      <a class="brand" href="/">FreeMate</a>
-      <div class="nav-links">
-        <a href="/">Home</a>
-        <a href="/lessons">Lessons</a>
-        <a href="/openings">Openings</a>
-        <a href="/practice">Practice</a>
-        <a href="/review">Review</a>
-        <a href="/lessons#progress">Progress</a>
-      </div>
-    </nav>
-  </header>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Course | FreeMate</title>
+        <link rel="stylesheet" href="/static/styles/main.css" />
+    </head>
+    <body>
+        <header class="site-header">
+            <nav class="navbar" aria-label="Main navigation">
+                <a class="brand" href="/">FreeMate</a>
+                <div class="nav-links">
+                    <a href="/">Home</a>
+                    <a href="/lessons">Lessons</a>
+                    <a href="/openings">Openings</a>
+                    <a href="/practice">Practice</a>
+                    <a href="/review">Review</a>
+                    <a href="/lessons#progress">Progress</a>
+                </div>
+            </nav>
+        </header>
 
-  <main class="course-browser-shell">
-    <section class="course-browser-hero">
-      <div>
-        <p class="eyebrow">Course dashboard</p>
-        <h1 id="course-title">Loading course...</h1>
-        <p id="course-description">Preparing your lesson list.</p>
-        <div class="hero-actions">
-          <a class="button primary" id="continue-learning" href="#">Continue Learning</a>
-          <a class="button secondary" href="/lessons">All Courses</a>
-        </div>
-      </div>
-      <div class="coach-stats">
-        <span id="progress-count">0 of 0 complete</span>
-        <div class="progress-track" aria-hidden="true">
-          <div class="progress-fill" id="progress-fill"></div>
-        </div>
-      </div>
-    </section>
+        <main class="course-browser-shell">
+            <section class="course-browser-hero">
+                <div>
+                    <p class="eyebrow">Course dashboard</p>
+                    <h1 id="course-title">Loading course...</h1>
+                    <p id="course-description">Preparing your lesson list.</p>
+                    <div class="hero-actions">
+                        <a
+                            class="button primary"
+                            id="continue-learning"
+                            href="#"
+                            >Continue Learning</a
+                        >
+                        <a class="button secondary" href="/lessons"
+                            >All Courses</a
+                        >
+                    </div>
+                </div>
+                <div class="coach-stats">
+                    <span id="progress-count">0 of 0 complete</span>
+                    <div class="progress-track" aria-hidden="true">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                </div>
+            </section>
 
-    <section class="roadmap-section compact" aria-label="Course roadmap">
-      <div class="roadmap" id="lesson-roadmap"></div>
-    </section>
+            <section
+                class="roadmap-section compact"
+                aria-label="Course roadmap"
+            >
+                <div class="roadmap" id="lesson-roadmap"></div>
+            </section>
 
-    <section class="continue-panel">
-      <div>
-        <p class="eyebrow">Continue learning</p>
-        <h2 id="continue-title">Your next lesson is ready</h2>
-        <p id="continue-description">Jump back into the next unlocked lesson.</p>
-      </div>
-      <a class="button primary" id="continue-card-button" href="#">Open Lesson</a>
-    </section>
+            <section class="continue-panel">
+                <div>
+                    <p class="eyebrow">Continue learning</p>
+                    <h2 id="continue-title">Your next lesson is ready</h2>
+                    <p id="continue-description">
+                        Jump back into the next unlocked lesson.
+                    </p>
+                </div>
+                <a class="button primary" id="continue-card-button" href="#"
+                    >Open Lesson</a
+                >
+            </section>
 
-    <section class="course-browser-grid" id="course-detail" aria-label="Course lesson list"></section>
-  </main>
+            <section
+                class="course-browser-grid"
+                id="course-detail"
+                aria-label="Course lesson list"
+            ></section>
+        </main>
 
-  <script src="/static/script.js"></script>
-  <script type="module">
-    import {
-      courseLessons,
-      courseProgress,
-      findBracketByCourseId,
-      findCourseById,
-      isCourseLessonUnlocked,
-      loadCurriculumData,
-      nextUnlockedLesson,
-    } from "/static/components/curriculum.js";
+        <script src="/static/script.js"></script>
+        <script type="module">
+            import {
+                courseLessons,
+                courseProgress,
+                findBracketByCourseId,
+                findCourseById,
+                isCourseLessonUnlocked,
+                loadCurriculumData,
+                nextUnlockedLesson,
+            } from "/static/components/curriculum.js";
 
-    const progressKey = "freemate.completedLessons";
-    const stepKey = "freemate.savedSteps";
+            const progressKey = "freemate.completedLessons";
+            const stepKey = "freemate.savedSteps";
 
-    function loadSet(key) {
-      try {
-        return new Set(JSON.parse(localStorage.getItem(key)) || []);
-      } catch (error) {
-        return new Set();
-      }
-    }
+            function loadSet(key) {
+                try {
+                    return new Set(JSON.parse(localStorage.getItem(key)) || []);
+                } catch (error) {
+                    return new Set();
+                }
+            }
 
-    function loadObject(key) {
-      try {
-        return JSON.parse(localStorage.getItem(key)) || {};
-      } catch (error) {
-        return {};
-      }
-    }
+            function loadObject(key) {
+                try {
+                    return JSON.parse(localStorage.getItem(key)) || {};
+                } catch (error) {
+                    return {};
+                }
+            }
 
-    const completedLessons = loadSet(progressKey);
-    const savedSteps = loadObject(stepKey);
+            const completedLessons = loadSet(progressKey);
+            const savedSteps = loadObject(stepKey);
 
-    async function ensureCourseVisible() {
-      const detail = document.getElementById("course-detail");
-      if (!detail || detail.children.length) return;
+            async function ensureCourseVisible() {
+                const detail = document.getElementById("course-detail");
+                if (!detail || detail.children.length) return;
 
-      const { courses, brackets } = await loadCurriculumData();
-      const courseId = window.location.pathname.split("/").pop();
-      const course = findCourseById(courses, courseId) || courses[0];
-      if (!course) return;
+                const { courses, brackets } = await loadCurriculumData();
+                const courseId = window.location.pathname.split("/").pop();
+                const course = findCourseById(courses, courseId) || courses[0];
+                if (!course) return;
 
-      const lessons = courseLessons(course);
-      const bracket = findBracketByCourseId(brackets, course.id);
-      const nextLesson = nextUnlockedLesson(course, completedLessons) || lessons[0];
-      const progress = courseProgress(course, completedLessons);
+                const lessons = courseLessons(course);
+                const bracket = findBracketByCourseId(brackets, course.id);
+                const nextLesson =
+                    nextUnlockedLesson(course, completedLessons) || lessons[0];
+                const progress = courseProgress(course, completedLessons);
 
-      document.getElementById("course-title").textContent = course.title;
-      document.getElementById("course-description").textContent = course.description;
-      document.getElementById("progress-count").textContent = `${lessons.filter((lesson) => completedLessons.has(lesson.id)).length} of ${lessons.length} complete`;
-      const fill = document.getElementById("progress-fill");
-      if (fill) fill.style.width = `${progress}%`;
-      if (bracket) {
-        const bracketTag = document.createElement("p");
-        bracketTag.className = "eyebrow";
-        bracketTag.textContent = `${bracket.title} · ${bracket.range}`;
-        const hero = document.querySelector(".course-browser-hero > div");
-        if (hero && !hero.querySelector(".course-bracket-tag")) {
-          bracketTag.classList.add("course-bracket-tag");
-          hero.insertBefore(bracketTag, hero.firstChild);
-        }
-      }
-      const nextHref = nextLesson ? `/lessons/${nextLesson.id}` : `/courses/${course.id}`;
-      document.getElementById("continue-learning").href = nextHref;
-      document.getElementById("continue-card-button").href = nextHref;
-      document.getElementById("continue-title").textContent = nextLesson ? nextLesson.title : "You are up to date";
-      document.getElementById("continue-description").textContent = nextLesson
-        ? nextLesson.description || "Open the next unlocked lesson to continue."
-        : "You have completed this course.";
+                document.getElementById("course-title").textContent =
+                    course.title;
+                document.getElementById("course-description").textContent =
+                    course.description;
+                document.getElementById("progress-count").textContent =
+                    `${lessons.filter((lesson) => completedLessons.has(lesson.id)).length} of ${lessons.length} complete`;
+                const fill = document.getElementById("progress-fill");
+                if (fill) fill.style.width = `${progress}%`;
+                if (bracket) {
+                    const bracketTag = document.createElement("p");
+                    bracketTag.className = "eyebrow";
+                    bracketTag.textContent = `${bracket.title} · ${bracket.range}`;
+                    const hero = document.querySelector(
+                        ".course-browser-hero > div",
+                    );
+                    if (hero && !hero.querySelector(".course-bracket-tag")) {
+                        bracketTag.classList.add("course-bracket-tag");
+                        hero.insertBefore(bracketTag, hero.firstChild);
+                    }
+                }
+                const nextHref = nextLesson
+                    ? `/lessons/${nextLesson.id}`
+                    : `/courses/${course.id}`;
+                document.getElementById("continue-learning").href = nextHref;
+                document.getElementById("continue-card-button").href = nextHref;
+                document.getElementById("continue-title").textContent =
+                    nextLesson ? nextLesson.title : "You are up to date";
+                document.getElementById("continue-description").textContent =
+                    nextLesson
+                        ? nextLesson.description ||
+                          "Open the next unlocked lesson to continue."
+                        : "You have completed this course.";
 
-      detail.innerHTML = course.categories
-        .map(
-          (category) => `
+                detail.innerHTML = course.categories
+                    .map(
+                        (category) => `
             <section class="course-category-card">
               <div class="category-heading">
                 <div>
@@ -140,13 +169,21 @@
               </div>
               <div class="lesson-row-list">
                 ${category.skills
-                  .flatMap((skill) =>
-                    skill.lessons.map((lesson) => {
-                      const unlocked = isCourseLessonUnlocked(course, lesson.id, completedLessons);
-                      const progress = completedLessons.has(lesson.id)
-                        ? 100
-                        : Math.round(((savedSteps[lesson.id] || 0) / (lesson.steps?.length || 1)) * 100);
-                      return `
+                    .flatMap((skill) =>
+                        skill.lessons.map((lesson) => {
+                            const unlocked = isCourseLessonUnlocked(
+                                course,
+                                lesson.id,
+                                completedLessons,
+                            );
+                            const progress = completedLessons.has(lesson.id)
+                                ? 100
+                                : Math.round(
+                                      ((savedSteps[lesson.id] || 0) /
+                                          (lesson.steps?.length || 1)) *
+                                          100,
+                                  );
+                            return `
                         <article class="lesson-row">
                           <div class="lesson-row-main">
                             <span class="lesson-state">${completedLessons.has(lesson.id) ? "Done" : unlocked ? "Open" : "Locked"}</span>
@@ -165,17 +202,17 @@
                           <a class="button ${unlocked ? "primary" : "secondary"}" href="${unlocked ? `/lessons/${lesson.id}` : "#"}">${completedLessons.has(lesson.id) ? "Review" : unlocked ? "Open" : "Locked"}</a>
                         </article>
                       `;
-                    })
-                  )
-                  .join("")}
+                        }),
+                    )
+                    .join("")}
               </div>
             </section>
-          `
-        )
-        .join("");
-    }
+          `,
+                    )
+                    .join("");
+            }
 
-    ensureCourseVisible();
-  </script>
-</body>
+            ensureCourseVisible();
+        </script>
+    </body>
 </html>

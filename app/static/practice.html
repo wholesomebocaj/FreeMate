@@ -1,88 +1,126 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Practice | FreeMate</title>
-  <link rel="stylesheet" href="/static/vendor/chessground/chessground.base.css">
-  <link rel="stylesheet" href="/static/vendor/chessground/chessground.cburnett.css">
-  <link rel="stylesheet" href="/static/styles.css">
-</head>
-<body>
-  <header class="site-header">
-    <nav class="navbar" aria-label="Main navigation">
-      <a class="brand" href="/">FreeMate</a>
-      <div class="nav-links">
-        <a href="/">Home</a>
-        <a href="/lessons">Lessons</a>
-        <a href="/openings">Openings</a>
-        <a href="/practice" aria-current="page">Practice</a>
-        <a href="/review">Review</a>
-        <a href="/lessons#progress">Progress</a>
-      </div>
-    </nav>
-  </header>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Practice | FreeMate</title>
+        <link
+            rel="stylesheet"
+            href="/static/vendor/chessground/chessground.base.css"
+        />
+        <link
+            rel="stylesheet"
+            href="/static/vendor/chessground/chessground.cburnett.css"
+        />
+        <link rel="stylesheet" href="/static/styles/main.css" />
+    </head>
+    <body>
+        <header class="site-header">
+            <nav class="navbar" aria-label="Main navigation">
+                <a class="brand" href="/">FreeMate</a>
+                <div class="nav-links">
+                    <a href="/">Home</a>
+                    <a href="/lessons">Lessons</a>
+                    <a href="/openings">Openings</a>
+                    <a href="/practice" aria-current="page">Practice</a>
+                    <a href="/review">Review</a>
+                    <a href="/lessons#progress">Progress</a>
+                </div>
+            </nav>
+        </header>
 
-  <main class="practice-shell">
-    <section class="practice-header">
-      <div>
-        <p class="eyebrow">Practice board</p>
-        <h1>Free board practice.</h1>
-        <p>Move both sides, test legal moves, load custom positions, and use this board as the foundation for future lessons and puzzles.</p>
-      </div>
-      <div class="coach-stats">
-        <span id="practice-status">White to move</span>
-        <div class="progress-track" aria-hidden="true">
-          <div class="progress-fill" style="width: 100%"></div>
-        </div>
-      </div>
-    </section>
+        <main class="practice-shell">
+            <section class="practice-header">
+                <div>
+                    <p class="eyebrow">Practice board</p>
+                    <h1>Free board practice.</h1>
+                    <p>
+                        Move both sides, test legal moves, load custom
+                        positions, and use this board as the foundation for
+                        future lessons and puzzles.
+                    </p>
+                </div>
+                <div class="coach-stats">
+                    <span id="practice-status">White to move</span>
+                    <div class="progress-track" aria-hidden="true">
+                        <div class="progress-fill" style="width: 100%"></div>
+                    </div>
+                </div>
+            </section>
 
-    <section class="practice-layout">
-      <div class="practice-board-wrap">
-        <div id="practice-board" class="practice-board" aria-label="Interactive practice chessboard"></div>
-      </div>
+            <section class="practice-layout">
+                <div class="practice-board-wrap">
+                    <div
+                        id="practice-board"
+                        class="practice-board"
+                        aria-label="Interactive practice chessboard"
+                    ></div>
+                </div>
 
-      <aside class="practice-panel" aria-label="Practice controls">
-        <div class="focus-card practice-info-card">
-          <p class="eyebrow">Practice Mode</p>
-          <h2>Free Play</h2>
-          <div class="practice-info-grid">
-            <div>
-              <span>Current turn</span>
-              <strong id="practice-turn">White</strong>
-            </div>
-            <div>
-              <span>Last move</span>
-              <strong id="last-move">None</strong>
-            </div>
-          </div>
-        </div>
+                <aside class="practice-panel" aria-label="Practice controls">
+                    <div class="focus-card practice-info-card">
+                        <p class="eyebrow">Practice Mode</p>
+                        <h2>Free Play</h2>
+                        <div class="practice-info-grid">
+                            <div>
+                                <span>Current turn</span>
+                                <strong id="practice-turn">White</strong>
+                            </div>
+                            <div>
+                                <span>Last move</span>
+                                <strong id="last-move">None</strong>
+                            </div>
+                        </div>
+                    </div>
 
-        <div class="focus-card">
-          <p class="eyebrow">Controls</p>
-          <div class="practice-actions">
-            <button class="button primary" type="button" id="reset-board">Reset</button>
-            <button class="button secondary" type="button" id="flip-board">Flip Board</button>
-            <button class="button secondary" type="button" id="clear-board">Clear Board</button>
-          </div>
-        </div>
+                    <div class="focus-card">
+                        <p class="eyebrow">Controls</p>
+                        <div class="practice-actions">
+                            <button
+                                class="button primary"
+                                type="button"
+                                id="reset-board"
+                            >
+                                Reset
+                            </button>
+                            <button
+                                class="button secondary"
+                                type="button"
+                                id="flip-board"
+                            >
+                                Flip Board
+                            </button>
+                            <button
+                                class="button secondary"
+                                type="button"
+                                id="clear-board"
+                            >
+                                Clear Board
+                            </button>
+                        </div>
+                    </div>
 
-        <form class="focus-card fen-form" id="fen-form">
-          <label for="fen-input">Load FEN</label>
-          <textarea id="fen-input" rows="4" spellcheck="false"></textarea>
-          <button class="button primary" type="submit">Load Position</button>
-          <p class="result" id="fen-feedback" role="status"></p>
-        </form>
+                    <form class="focus-card fen-form" id="fen-form">
+                        <label for="fen-input">Load FEN</label>
+                        <textarea
+                            id="fen-input"
+                            rows="4"
+                            spellcheck="false"
+                        ></textarea>
+                        <button class="button primary" type="submit">
+                            Load Position
+                        </button>
+                        <p class="result" id="fen-feedback" role="status"></p>
+                    </form>
 
-        <div class="focus-card">
-          <p class="eyebrow">Move history</p>
-          <ol class="move-history" id="move-history"></ol>
-        </div>
-      </aside>
-    </section>
-  </main>
+                    <div class="focus-card">
+                        <p class="eyebrow">Move history</p>
+                        <ol class="move-history" id="move-history"></ol>
+                    </div>
+                </aside>
+            </section>
+        </main>
 
-  <script type="module" src="/static/practice.js"></script>
-</body>
+        <script type="module" src="/static/practice.js"></script>
+    </body>
 </html>

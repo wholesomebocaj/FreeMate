@@ -1,80 +1,98 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lessons | FreeMate</title>
-  <link rel="stylesheet" href="/static/styles.css">
-</head>
-<body>
-  <header class="site-header">
-    <nav class="navbar" aria-label="Main navigation">
-      <a class="brand" href="/">FreeMate</a>
-      <div class="nav-links">
-        <a href="/">Home</a>
-        <a href="/lessons" aria-current="page">Lessons</a>
-        <a href="/openings">Openings</a>
-        <a href="/practice">Practice</a>
-        <a href="/review">Review</a>
-        <a href="/lessons#progress">Progress</a>
-      </div>
-    </nav>
-  </header>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Lessons | FreeMate</title>
+        <link rel="stylesheet" href="/static/styles/main.css" />
+    </head>
+    <body>
+        <header class="site-header">
+            <nav class="navbar" aria-label="Main navigation">
+                <a class="brand" href="/">FreeMate</a>
+                <div class="nav-links">
+                    <a href="/">Home</a>
+                    <a href="/lessons" aria-current="page">Lessons</a>
+                    <a href="/openings">Openings</a>
+                    <a href="/practice">Practice</a>
+                    <a href="/review">Review</a>
+                    <a href="/lessons#progress">Progress</a>
+                </div>
+            </nav>
+        </header>
 
-  <main class="course-browser-shell">
-    <section class="course-browser-hero">
-      <div>
-        <p class="eyebrow">Skill brackets</p>
-        <h1>Choose your learning level.</h1>
-        <p>FreeMate groups lessons by skill bracket so you can see what fits you now and what opens up next.</p>
-      </div>
-      <div class="coach-stats" id="progress">
-        <span id="progress-count">0 lessons complete</span>
-        <div class="progress-track" aria-hidden="true">
-          <div class="progress-fill" id="progress-fill"></div>
-        </div>
-      </div>
-    </section>
+        <main class="course-browser-shell">
+            <section class="course-browser-hero">
+                <div>
+                    <p class="eyebrow">Skill brackets</p>
+                    <h1>Choose your learning level.</h1>
+                    <p>
+                        FreeMate groups lessons by skill bracket so you can see
+                        what fits you now and what opens up next.
+                    </p>
+                </div>
+                <div class="coach-stats" id="progress">
+                    <span id="progress-count">0 lessons complete</span>
+                    <div class="progress-track" aria-hidden="true">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                </div>
+            </section>
 
-    <section class="continue-panel">
-      <div>
-        <p class="eyebrow">Recommended next</p>
-        <h2 id="continue-title">Beginner</h2>
-        <p id="continue-description">Start with the bracket that matches your current level.</p>
-      </div>
-      <a class="button primary" id="continue-card-button" href="/lessons/beginner">Continue</a>
-    </section>
+            <section class="continue-panel">
+                <div>
+                    <p class="eyebrow">Recommended next</p>
+                    <h2 id="continue-title">Beginner</h2>
+                    <p id="continue-description">
+                        Start with the bracket that matches your current level.
+                    </p>
+                </div>
+                <a
+                    class="button primary"
+                    id="continue-card-button"
+                    href="/lessons/beginner"
+                    >Continue</a
+                >
+            </section>
 
-    <section class="bracket-card-grid" id="bracket-cards" aria-label="Skill brackets"></section>
+            <section
+                class="bracket-card-grid"
+                id="bracket-cards"
+                aria-label="Skill brackets"
+            ></section>
 
-    <section class="progress-overview" id="progress-overview">
-      <div class="mini-dashboard">
-        <p class="eyebrow">Progress dashboard</p>
-        <h2>FreeMate Path</h2>
-        <div class="metric-grid">
-          <div>
-            <span id="completed-number">0</span>
-            <p>Lessons completed</p>
-          </div>
-          <div>
-            <span id="course-percent">0%</span>
-            <p>Overall course complete</p>
-          </div>
-        </div>
-      </div>
-      <div class="focus-card">
-        <p class="eyebrow">Current bracket</p>
-        <h3 id="current-focus">Beginner</h3>
-        <p id="next-lesson">Learn the board before moving up the ladder.</p>
-      </div>
-      <div class="focus-card" id="puzzles">
-        <p class="eyebrow">Next up</p>
-        <h3 id="next-bracket">Beginner+</h3>
-        <p id="next-bracket-description">The next bracket unlocks as you move forward.</p>
-      </div>
-    </section>
-  </main>
+            <section class="progress-overview" id="progress-overview">
+                <div class="mini-dashboard">
+                    <p class="eyebrow">Progress dashboard</p>
+                    <h2>FreeMate Path</h2>
+                    <div class="metric-grid">
+                        <div>
+                            <span id="completed-number">0</span>
+                            <p>Lessons completed</p>
+                        </div>
+                        <div>
+                            <span id="course-percent">0%</span>
+                            <p>Overall course complete</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="focus-card">
+                    <p class="eyebrow">Current bracket</p>
+                    <h3 id="current-focus">Beginner</h3>
+                    <p id="next-lesson">
+                        Learn the board before moving up the ladder.
+                    </p>
+                </div>
+                <div class="focus-card" id="puzzles">
+                    <p class="eyebrow">Next up</p>
+                    <h3 id="next-bracket">Beginner+</h3>
+                    <p id="next-bracket-description">
+                        The next bracket unlocks as you move forward.
+                    </p>
+                </div>
+            </section>
+        </main>
 
-  <script src="/static/script.js"></script>
-</body>
+        <script src="/static/script.js"></script>
+    </body>
 </html>

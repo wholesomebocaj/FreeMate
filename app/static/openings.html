@@ -1,64 +1,71 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Opening Trainer | FreeMate</title>
-  <link rel="stylesheet" href="/static/styles.css">
-</head>
-<body data-opening-page="browser">
-  <header class="site-header">
-    <nav class="navbar" aria-label="Main navigation">
-      <a class="brand" href="/">FreeMate</a>
-      <div class="nav-links">
-        <a href="/">Home</a>
-        <a href="/lessons">Lessons</a>
-        <a href="/openings" aria-current="page">Openings</a>
-        <a href="/practice">Practice</a>
-        <a href="/review">Review</a>
-        <a href="/lessons#progress">Progress</a>
-      </div>
-    </nav>
-  </header>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Opening Trainer | FreeMate</title>
+        <link rel="stylesheet" href="/static/styles/main.css" />
+    </head>
+    <body data-opening-page="browser">
+        <header class="site-header">
+            <nav class="navbar" aria-label="Main navigation">
+                <a class="brand" href="/">FreeMate</a>
+                <div class="nav-links">
+                    <a href="/">Home</a>
+                    <a href="/lessons">Lessons</a>
+                    <a href="/openings" aria-current="page">Openings</a>
+                    <a href="/practice">Practice</a>
+                    <a href="/review">Review</a>
+                    <a href="/lessons#progress">Progress</a>
+                </div>
+            </nav>
+        </header>
 
-  <main class="openings-shell">
-    <section class="openings-hero">
-      <div>
-        <p class="eyebrow">Opening trainer</p>
-        <h1>Build your first opening repertoire.</h1>
-        <p>Practice real beginner lines with guided moves, coach notes, and Lichess explorer stats when available.</p>
-      </div>
-      <div class="coach-stats">
-        <span id="opening-count">Loading openings</span>
-        <div class="progress-track" aria-hidden="true">
-          <div class="progress-fill" style="width: 35%"></div>
-        </div>
-      </div>
-    </section>
+        <main class="openings-shell">
+            <section class="openings-hero">
+                <div>
+                    <p class="eyebrow">Opening trainer</p>
+                    <h1>Build your first opening repertoire.</h1>
+                    <p>
+                        Practice real beginner lines with guided moves, coach
+                        notes, and Lichess explorer stats when available.
+                    </p>
+                </div>
+                <div class="coach-stats">
+                    <span id="opening-count">Loading openings</span>
+                    <div class="progress-track" aria-hidden="true">
+                        <div class="progress-fill" style="width: 35%"></div>
+                    </div>
+                </div>
+            </section>
 
-    <section class="opening-filter-row" aria-label="Opening filters">
-      <label>
-        Side
-        <select id="opening-side-filter">
-          <option value="all">All sides</option>
-          <option value="White">White</option>
-          <option value="Black">Black</option>
-        </select>
-      </label>
-      <label>
-        Difficulty
-        <select id="opening-difficulty-filter">
-          <option value="all">All levels</option>
-          <option value="Beginner">Beginner</option>
-          <option value="Beginner+">Beginner+</option>
-          <option value="Intermediate">Intermediate</option>
-        </select>
-      </label>
-    </section>
+            <section class="opening-filter-row" aria-label="Opening filters">
+                <label>
+                    Side
+                    <select id="opening-side-filter">
+                        <option value="all">All sides</option>
+                        <option value="White">White</option>
+                        <option value="Black">Black</option>
+                    </select>
+                </label>
+                <label>
+                    Difficulty
+                    <select id="opening-difficulty-filter">
+                        <option value="all">All levels</option>
+                        <option value="Beginner">Beginner</option>
+                        <option value="Beginner+">Beginner+</option>
+                        <option value="Intermediate">Intermediate</option>
+                    </select>
+                </label>
+            </section>
 
-    <section id="opening-list" class="opening-list" aria-live="polite"></section>
-  </main>
+            <section
+                id="opening-list"
+                class="opening-list"
+                aria-live="polite"
+            ></section>
+        </main>
 
-  <script type="module" src="/static/openings.js"></script>
-</body>
+        <script type="module" src="/static/openings.js"></script>
+    </body>
 </html>

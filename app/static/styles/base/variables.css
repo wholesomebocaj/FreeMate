@@ -1,0 +1,16 @@
+/* base/variables.css — shared design tokens */
+:root {
+    --bg: #111827;
+    --panel: #1f2937;
+    --panel-soft: #263244;
+    --panel-deep: #0b1220;
+    --accent: #86efac;
+    --text: #f9fafb;
+    --muted: #9ca3af;
+    --line: rgba(249, 250, 251, 0.1);
+    --green: #22c55e;
+    --green-dark: #16a34a;
+    --gold: #facc15;
+    --red: #f87171;
+    --shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+}

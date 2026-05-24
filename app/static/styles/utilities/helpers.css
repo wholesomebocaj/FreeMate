@@ -1,0 +1,11 @@
+/* utilities/helpers.css */
+.hero-actions,
+.lesson-actions,
+.input-row,
+.opening-overview-actions,
+.opening-row-actions,
+.practice-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}

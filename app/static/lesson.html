@@ -4,9 +4,15 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Lesson | FreeMate</title>
-        <link rel="stylesheet" href="/static/vendor/chessground/chessground.base.css" />
-        <link rel="stylesheet" href="/static/vendor/chessground/chessground.cburnett.css" />
-        <link rel="stylesheet" href="/static/styles.css" />
+        <link
+            rel="stylesheet"
+            href="/static/vendor/chessground/chessground.base.css"
+        />
+        <link
+            rel="stylesheet"
+            href="/static/vendor/chessground/chessground.cburnett.css"
+        />
+        <link rel="stylesheet" href="/static/styles/main.css" />
     </head>
     <body>
         <header class="site-header lesson-mode-header">
@@ -26,17 +32,24 @@
         <main class="lesson-mode-shell">
             <aside class="course-sidebar" aria-label="Course navigation">
                 <div class="sidebar-title">
-                    <p class="eyebrow" id="sidebar-bracket-eyebrow">Current bracket</p>
+                    <p class="eyebrow" id="sidebar-bracket-eyebrow">
+                        Current bracket
+                    </p>
                     <h2 id="sidebar-bracket-title">Loading bracket...</h2>
                     <p id="sidebar-bracket-range">Preparing course context.</p>
                 </div>
                 <div class="focus-card lesson-sidebar-course">
                     <p class="eyebrow">Current course</p>
                     <h3 id="sidebar-course-title">Loading course...</h3>
-                    <p id="sidebar-course-description">Preparing your lesson list.</p>
+                    <p id="sidebar-course-description">
+                        Preparing your lesson list.
+                    </p>
                     <div class="lesson-row-progress compact">
                         <div class="progress-track" aria-hidden="true">
-                            <div class="progress-fill" id="sidebar-course-progress"></div>
+                            <div
+                                class="progress-fill"
+                                id="sidebar-course-progress"
+                            ></div>
                         </div>
                         <span id="sidebar-course-percent">0%</span>
                     </div>
@@ -113,7 +126,10 @@
             const savedSteps = loadObject(stepKey);
 
             function saveProgress() {
-                localStorage.setItem(progressKey, JSON.stringify([...completedLessons]));
+                localStorage.setItem(
+                    progressKey,
+                    JSON.stringify([...completedLessons]),
+                );
                 localStorage.setItem(stepKey, JSON.stringify(savedSteps));
             }
 
@@ -157,39 +173,51 @@
                 renderLessonHeader({ lesson, course, bracket });
 
                 const renderer = new LessonRenderer(lessonPlayer, lesson);
-                window.addEventListener("freemate:lesson-complete", (event) => {
-                    if (event.detail?.lessonId !== lesson.id) return;
-                    completedLessons.add(lesson.id);
-                    savedSteps[lesson.id] = 0;
-                    saveProgress();
-                    recordReviewSuccess({
-                        type: "lesson",
-                        id: lesson.id,
-                        title: lesson.title,
-                        subtitle: course?.title || "Lesson review",
-                        href: `/lessons/${lesson.id}`,
-                    });
-                    renderSidebar({
-                        bracket,
-                        course,
-                        lesson,
-                        lessons: currentLessons,
-                    });
-                }, { once: true });
+                window.addEventListener(
+                    "freemate:lesson-complete",
+                    (event) => {
+                        if (event.detail?.lessonId !== lesson.id) return;
+                        completedLessons.add(lesson.id);
+                        savedSteps[lesson.id] = 0;
+                        saveProgress();
+                        recordReviewSuccess({
+                            type: "lesson",
+                            id: lesson.id,
+                            title: lesson.title,
+                            subtitle: course?.title || "Lesson review",
+                            href: `/lessons/${lesson.id}`,
+                        });
+                        renderSidebar({
+                            bracket,
+                            course,
+                            lesson,
+                            lessons: currentLessons,
+                        });
+                    },
+                    { once: true },
+                );
 
                 renderer.render();
             }
 
             function renderLessonHeader({ lesson, course, bracket }) {
-                const bracketTitle = document.getElementById("sidebar-bracket-title");
+                const bracketTitle = document.getElementById(
+                    "sidebar-bracket-title",
+                );
                 if (bracketTitle) {
-                    bracketTitle.textContent = bracket?.title || "Unknown bracket";
+                    bracketTitle.textContent =
+                        bracket?.title || "Unknown bracket";
                 }
-                const bracketRange = document.getElementById("sidebar-bracket-range");
+                const bracketRange = document.getElementById(
+                    "sidebar-bracket-range",
+                );
                 if (bracketRange) {
-                    bracketRange.textContent = bracket ? `${bracket.range} · ${bracket.description}` : "Course context unavailable.";
+                    bracketRange.textContent = bracket
+                        ? `${bracket.range} · ${bracket.description}`
+                        : "Course context unavailable.";
                 }
-                document.getElementById("lesson-objective").textContent = lesson.title || "Lesson";
+                document.getElementById("lesson-objective").textContent =
+                    lesson.title || "Lesson";
                 document.getElementById("lesson-goal").textContent =
                     lesson.coachIntro ||
                     lesson.description ||
@@ -206,10 +234,20 @@
                     const coursePercent = lessons.length
                         ? courseProgress(course, completedLessons)
                         : 0;
-                    document.getElementById("sidebar-course-title").textContent = course.title || "Current course";
-                    document.getElementById("sidebar-course-description").textContent = course.description || "Follow the guided lesson path for this course.";
-                    document.getElementById("sidebar-course-percent").textContent = `${coursePercent}%`;
-                    const fill = document.getElementById("sidebar-course-progress");
+                    document.getElementById(
+                        "sidebar-course-title",
+                    ).textContent = course.title || "Current course";
+                    document.getElementById(
+                        "sidebar-course-description",
+                    ).textContent =
+                        course.description ||
+                        "Follow the guided lesson path for this course.";
+                    document.getElementById(
+                        "sidebar-course-percent",
+                    ).textContent = `${coursePercent}%`;
+                    const fill = document.getElementById(
+                        "sidebar-course-progress",
+                    );
                     if (fill) fill.style.width = `${coursePercent}%`;
                 }
 
@@ -234,17 +272,29 @@
                         block.innerHTML = `<p>${skill.title}</p>`;
 
                         skill.lessons.forEach((lessonItem) => {
-                            const unlocked = isCourseLessonUnlocked(course, lessonItem.id, completedLessons);
+                            const unlocked = isCourseLessonUnlocked(
+                                course,
+                                lessonItem.id,
+                                completedLessons,
+                            );
                             const link = document.createElement("a");
                             link.className = `tree-lesson ${lessonItem.id === lesson.id ? "is-active" : ""} ${lessonItem.locked && !unlocked ? "is-locked" : ""}`;
-                            link.href = unlocked || lessonItem.id === lesson.id ? `/lessons/${lessonItem.id}` : "#";
-                            link.setAttribute("aria-current", lessonItem.id === lesson.id ? "page" : "false");
+                            link.href =
+                                unlocked || lessonItem.id === lesson.id
+                                    ? `/lessons/${lessonItem.id}`
+                                    : "#";
+                            link.setAttribute(
+                                "aria-current",
+                                lessonItem.id === lesson.id ? "page" : "false",
+                            );
                             link.innerHTML = `
                                 <span>${lessonStateLabel(lessonItem.id, course)}</span>
                                 <strong>${lessonItem.title}</strong>
                             `;
                             if (!unlocked && lessonItem.id !== lesson.id) {
-                                link.addEventListener("click", (event) => event.preventDefault());
+                                link.addEventListener("click", (event) =>
+                                    event.preventDefault(),
+                                );
                             }
                             block.appendChild(link);
                         });
@@ -258,8 +308,15 @@
 
             function lessonStateLabel(lessonId, course) {
                 if (completedLessons.has(lessonId)) return "Done";
-                if (lessonId === document.location.pathname.split("/").pop()) return "Current";
-                return isCourseLessonUnlocked(course, lessonId, completedLessons) ? "Open" : "Locked";
+                if (lessonId === document.location.pathname.split("/").pop())
+                    return "Current";
+                return isCourseLessonUnlocked(
+                    course,
+                    lessonId,
+                    completedLessons,
+                )
+                    ? "Open"
+                    : "Locked";
             }
 
             loadLesson();
