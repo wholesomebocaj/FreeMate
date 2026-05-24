@@ -189,11 +189,40 @@ async function initOpeningTrainer() {
       return;
     }
 
-    const button = event.target.closest("[data-line-id]");
+    const moveItem = event.target.closest(".opening-move-list li[data-line-index]");
+    if (moveItem && roadmap.contains(moveItem)) {
+      event.preventDefault();
+      await jumpToMoveIndex(Number(moveItem.dataset.lineIndex));
+      return;
+    }
+
+    const button = event.target.closest(".opening-roadmap-line[data-line-id]");
     if (!button) return;
     const nextLine = trainingLines.find((line) => line.id === button.dataset.lineId);
     if (!nextLine || nextLine.id === activeLine.id) return;
     await loadBranch(nextLine);
+  });
+
+  roadmap.addEventListener("keydown", async (event) => {
+    const moveItem = event.target.closest(".opening-move-list li[data-line-index]");
+    if (!moveItem || !roadmap.contains(moveItem)) return;
+    if (event.key !== "Enter" && event.key !== " ") return;
+    event.preventDefault();
+    await jumpToMoveIndex(Number(moveItem.dataset.lineIndex));
+  });
+
+  document.addEventListener("keydown", async (event) => {
+    if (event.defaultPrevented || shouldIgnoreTrainerKeydown(event.target)) return;
+    if (event.key === "ArrowLeft") {
+      event.preventDefault();
+      await jumpToMoveIndex(moveIndex - 1);
+      return;
+    }
+
+    if (event.key === "ArrowRight") {
+      event.preventDefault();
+      await jumpToMoveIndex(moveIndex + 1);
+    }
   });
 
   async function loadBranch(nextLine) {
@@ -213,6 +242,24 @@ async function initOpeningTrainer() {
     board.loadFen(currentFen, { clearHistory: true });
     renderTrainerState();
     await autoPlayOpponentMoves();
+  }
+
+  async function jumpToMoveIndex(nextIndex) {
+    const boundedIndex = Math.max(0, Math.min(Number(nextIndex) || 0, activeLine.moves.length));
+    if (boundedIndex === moveIndex) return;
+
+    await rebuildLineState(activeLine, boundedIndex);
+    saveLineProgress();
+    renderTrainerState();
+
+    if (boundedIndex <= 0) {
+      feedback.textContent = `Returned to the start of ${activeLine.title}.`;
+    } else if (boundedIndex >= activeLine.moves.length) {
+      feedback.textContent = `Jumped to the end of ${activeLine.title}.`;
+    } else {
+      feedback.textContent = `Jumped to ${activeLine.moves[boundedIndex].san}.`;
+    }
+    feedback.className = "lesson-board-feedback";
   }
 
   async function autoPlayOpponentMoves() {
@@ -264,13 +311,32 @@ async function initOpeningTrainer() {
     }
 
     const expected = activeLine.moves[moveIndex];
-    prompt.textContent = `Play ${expected.san}`;
+    const userTurn = isUserMove(moveIndex, trainSide);
+
     kicker.textContent = `${activeLine.title} · move ${moveIndex + 1} of ${activeLine.moves.length}`;
+    board.loadFen(currentFen, { clearHistory: false });
+
+    if (!userTurn) {
+      prompt.textContent = `Review ${expected.san}`;
+      noteTitle.textContent = `Opponent plays ${expected.san}`;
+      explanation.textContent = expected.explanation || activeLine.description || "Step through the line with the sidebar or arrow keys.";
+      status.textContent = "Preview";
+      status.className = "lesson-step-progress-state waiting";
+      board.setConfig({
+        mode: "lesson",
+        allowedMoves: [],
+        lockToAllowedMoves: true,
+        highlightSquares: moveHighlights(expected.uci),
+        animationDuration: 520,
+      });
+      return;
+    }
+
+    prompt.textContent = `Play ${expected.san}`;
     noteTitle.textContent = `Why ${expected.san}?`;
     explanation.textContent = expected.explanation || activeLine.description || "Make the recommended beginner move.";
     status.textContent = "Your move";
     status.className = "lesson-step-progress-state waiting";
-    board.loadFen(currentFen, { clearHistory: false });
     board.setConfig({
       mode: "lesson",
       allowedMoves: [expected.uci],
@@ -461,7 +527,14 @@ function renderOpeningRoadmap(container, lines, activeLine, activeIndex, playedM
       const moves = isActiveLine ? line.moves.map((move, index) => {
         const state = moveTrackerState(index, activeIndex, isComplete);
         return `
-          <li class="${state}" data-line-index="${index}">
+          <li
+            class="${state}"
+            data-line-id="${line.id}"
+            data-line-index="${index}"
+            role="button"
+            tabindex="0"
+            aria-label="Jump to ${move.san}"
+          >
             <span class="move-state-icon" aria-hidden="true">${moveStateIcon(state)}</span>
             <strong>${move.san}</strong>
             <small>${move.title || move.uci}</small>
@@ -656,6 +729,11 @@ function rememberSectionState(openingId, sectionId, wasOpenBeforeToggle) {
   const sections = loadOpenSections(openingId);
   sections[sectionId] = !wasOpenBeforeToggle;
   localStorage.setItem(openSectionsKey(openingId), JSON.stringify(sections));
+}
+
+function shouldIgnoreTrainerKeydown(target) {
+  if (!(target instanceof HTMLElement)) return false;
+  return Boolean(target.closest("input, textarea, select, [contenteditable='true']"));
 }
 
 function getOpeningId() {
