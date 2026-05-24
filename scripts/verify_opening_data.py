@@ -51,6 +51,45 @@ REFERENCE_FAMILIES = {
     "vienna": "Vienna",
 }
 
+SEMANTIC_PROFILES = {
+    "italian-game": {
+        "mainline_branch": "main-line",
+        "mainline_prefix": ["e2e4", "e7e5", "g1f3", "b8c6", "f1c4"],
+        "branches": {
+            "main-line": {
+                "expected_prefix": ["e2e4", "e7e5", "g1f3", "b8c6", "f1c4"],
+                "expected_family": "Italian",
+                "forbidden_text": [],
+            },
+            "final-review": {
+                "expected_prefix": ["e2e4", "e7e5", "g1f3", "b8c6", "f1c4"],
+                "expected_family": "Italian",
+                "forbidden_text": [],
+            },
+            "vs-sicilian": {
+                "expected_prefix": ["e2e4", "c7c5"],
+                "expected_family": "Sicilian",
+                "forbidden_text": ["after the italian setup", "prepare c3 d4 or pressure on f7"],
+            },
+            "vs-caro-kann": {
+                "expected_prefix": ["e2e4", "c7c6"],
+                "expected_family": "Caro-Kann",
+                "forbidden_text": ["after the italian setup", "prepare c3 d4 or pressure on f7"],
+            },
+            "vs-french": {
+                "expected_prefix": ["e2e4", "e7e6"],
+                "expected_family": "French",
+                "forbidden_text": ["after the italian setup", "prepare c3 d4 or pressure on f7"],
+            },
+            "vs-scandinavian": {
+                "expected_prefix": ["e2e4", "d7d5"],
+                "expected_family": "Scandinavian",
+                "forbidden_text": ["after the italian setup", "prepare c3 d4 or pressure on f7"],
+            },
+        },
+    }
+}
+
 
 @dataclass(frozen=True)
 class ReferenceEntry:
@@ -223,11 +262,18 @@ def verify_opening(
     starting_fen = opening.get("training", {}).get("startingFen", "startpos")
     sections = opening.get("sections", [])
     main_refs: list[ReferenceEntry] = []
+    branch_records: dict[str, dict[str, Any]] = {}
 
     for section_index, section in enumerate(sections):
         for branch_index, branch in enumerate(section.get("branches") or section.get("lessons") or []):
             stats["branches"] += 1
             branch_path = f"{source}.sections[{section_index}].branches[{branch_index}]"
+            branch_id = str(branch.get("id", f"branch-{section_index}-{branch_index}"))
+            branch_records[branch_id] = {
+                "path": branch_path,
+                "branch": branch,
+                "moves": branch_uci_moves(branch),
+            }
             branch_stats, branch_refs, branch_changed = verify_branch(
                 branch_path,
                 branch,
@@ -245,6 +291,7 @@ def verify_opening(
             verify_branch_label(branch_path, branch, branch_refs, findings)
 
     verify_opening_identity(source, opening, main_refs, findings)
+    verify_semantic_profile(source, opening, branch_records, references, findings)
     return changed, stats
 
 
@@ -340,11 +387,124 @@ def verify_branch_label(branch_path: str, branch: dict[str, Any], refs: list[Ref
 
 
 def expected_family_from_branch(branch: dict[str, Any]) -> str | None:
-    haystack = normalize_name(" ".join(str(branch.get(key, "")) for key in ("id", "title", "description")))
+    primary = normalize_name(" ".join(str(branch.get(key, "")) for key in ("id", "title")))
+    for key, label in REFERENCE_FAMILIES.items():
+        if key in primary:
+            return label
+    haystack = normalize_name(str(branch.get("description", "")))
     for key, label in REFERENCE_FAMILIES.items():
         if key in haystack:
             return label
     return None
+
+
+def branch_uci_moves(branch: dict[str, Any]) -> list[str]:
+    return [str(move.get("uci", "")).lower() for move in branch.get("moves", [])]
+
+
+def verify_semantic_profile(
+    source: str,
+    opening: dict[str, Any],
+    branch_records: dict[str, dict[str, Any]],
+    references: dict[str, list[ReferenceEntry]],
+    findings: list[Finding],
+) -> None:
+    profile = SEMANTIC_PROFILES.get(str(opening.get("id", "")))
+    if not profile:
+        return
+
+    mainline_branch_id = profile.get("mainline_branch")
+    if mainline_branch_id:
+        record = branch_records.get(mainline_branch_id)
+        if not record:
+            findings.append(Finding("ERROR", source, f"Semantic profile expects main line branch '{mainline_branch_id}', but it is missing."))
+        else:
+            expected = profile.get("mainline_prefix", [])
+            verify_expected_prefix(record["path"], record["moves"], expected, findings, "main line checkpoint")
+
+    for branch_id, branch_profile in profile.get("branches", {}).items():
+        record = branch_records.get(branch_id)
+        if not record:
+            findings.append(Finding("WARN", source, f"Semantic profile expects branch '{branch_id}', but it is missing."))
+            continue
+
+        moves = record["moves"]
+        expected_prefix = branch_profile.get("expected_prefix", [])
+        verify_expected_prefix(record["path"], moves, expected_prefix, findings, "branch attachment")
+
+        expected_family = branch_profile.get("expected_family")
+        if expected_family and expected_prefix and moves[: len(expected_prefix)] == expected_prefix:
+            refs = references_after_moves(expected_prefix, references)
+            if refs and not any(family_matches_name(expected_family, entry.name) for entry in refs):
+                findings.append(
+                    Finding(
+                        "WARN",
+                        record["path"],
+                        f"Expected '{expected_family}' after curated prefix {format_line(expected_prefix)}, but reference data shows: {summarize_refs(refs)}",
+                    )
+                )
+
+        text = semantic_text(record["branch"])
+        for forbidden in branch_profile.get("forbidden_text", []):
+            if forbidden in text:
+                findings.append(
+                    Finding(
+                        "WARN",
+                        record["path"],
+                        f"Coach text may be mismatched for this branch: found '{forbidden}'.",
+                    )
+                )
+
+
+def verify_expected_prefix(branch_path: str, moves: list[str], expected: list[str], findings: list[Finding], label: str) -> None:
+    if not expected:
+        return
+    actual = moves[: len(expected)]
+    if actual != expected:
+        expected_fen = fen_after_moves(expected[:-1]) if len(expected) > 1 else chess.Board().fen()
+        findings.append(
+            Finding(
+                "ERROR",
+                branch_path,
+                f"Unexpected {label}. Expected prefix {format_line(expected)}, found {format_line(actual)}. Parent FEN before divergence: {expected_fen}",
+            )
+        )
+
+
+def references_after_moves(moves: list[str], references: dict[str, list[ReferenceEntry]]) -> list[ReferenceEntry]:
+    board = chess.Board()
+    for uci in moves:
+        move = chess.Move.from_uci(uci)
+        if move not in board.legal_moves:
+            return []
+        board.push(move)
+    return lookup_references(board, references)
+
+
+def fen_after_moves(moves: list[str]) -> str:
+    board = chess.Board()
+    for uci in moves:
+        move = chess.Move.from_uci(uci)
+        if move not in board.legal_moves:
+            break
+        board.push(move)
+    return board.fen()
+
+
+def semantic_text(branch: dict[str, Any]) -> str:
+    chunks = [
+        str(branch.get("title", "")),
+        str(branch.get("description", "")),
+        " ".join(str(note) for note in branch.get("coachingNotes", [])),
+    ]
+    for move in branch.get("moves", []):
+        chunks.append(str(move.get("title", "")))
+        chunks.append(str(move.get("explanation", "")))
+    return normalize_name(" ".join(chunks))
+
+
+def format_line(moves: list[str]) -> str:
+    return ", ".join(moves) if moves else "none"
 
 
 def lookup_references(board: chess.Board, references: dict[str, list[ReferenceEntry]]) -> list[ReferenceEntry]:
