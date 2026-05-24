@@ -1,3 +1,4 @@
+import { Chess } from "/static/vendor/chessjs/chess.js";
 import { Chessground } from "/static/vendor/chessground/chessground.min.js";
 
 export const STARTING_FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
@@ -98,6 +99,7 @@ export class PracticeBoard {
     this.animationDuration = config.animationDuration || 180;
     this.sound = this.enableSounds ? config.sound || new BoardSound() : { play() {} };
 
+    this.engine = createChessEngine(this.fen);
     this.position = parseFen(this.fen);
     this.turn = parseTurn(this.fen);
     this.lastMove = [];
@@ -215,7 +217,7 @@ export class PracticeBoard {
       if (this.selectedSquare === squareName) {
         this.selectedSquare = null;
         this.ground.selectSquare(null);
-        this.ground.set({ movable: { dests: new Map() } });
+        this.ground.set({ movable: { color: "both", free: true, dests: new Map() } });
         return;
       }
 
@@ -278,6 +280,7 @@ export class PracticeBoard {
 
   loadFen(fen, options = {}) {
     this.fen = normalizeFen(fen);
+    this.engine = createChessEngine(this.fen);
     this.position = parseFen(this.fen);
     this.turn = parseTurn(this.fen);
     this.lastMove = [];
@@ -309,42 +312,27 @@ export class PracticeBoard {
     this.pendingSelectionRequest += 1;
     this.ground.set({
       orientation: this.orientation,
-      movable: { dests: new Map() },
+      movable: { color: "both", free: true, dests: new Map() },
     });
     this.syncHighlightLayer();
     this.emitPositionChange();
   }
 
   async handleSelect(square) {
-    const requestId = ++this.pendingSelectionRequest;
-
     if (!this.highlightLegalMoves || !this.position[square]) {
-      this.ground.set({ movable: { dests: new Map() } });
+      this.ground.set({ movable: { color: "both", free: true, dests: new Map() } });
       return;
     }
 
-    const legalSquares = await this.fetchLegalSquares(square);
-    if (requestId !== this.pendingSelectionRequest) return;
+    const legalSquares = this.getLocalLegalSquares(square);
 
     this.ground.set({
       movable: {
+        color: "both",
+        free: true,
         dests: legalSquares.length ? new Map([[square, legalSquares]]) : new Map(),
       },
     });
-  }
-
-  async fetchLegalSquares(square) {
-    try {
-      const response = await fetch("/api/legal-moves", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ fen: this.fen, from_square: square }),
-      });
-      const data = await response.json();
-      return data.legal_squares || [];
-    } catch (error) {
-      return [];
-    }
   }
 
   async tryMove(fromSquare, toSquare, metadata = {}) {
@@ -361,69 +349,54 @@ export class PracticeBoard {
       return;
     }
 
-    const captured = Boolean(this.position[toSquare]) || Boolean(metadata.captured);
-
-    try {
-      const response = await fetch("/api/validate-move", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ move, fen: this.fen }),
-      });
-      const data = await response.json();
-
-      if (!data.is_valid) {
-        this.rejectMove(move, data.message);
-        return;
-      }
-
-      this.applyValidatedMove({
-        fromSquare,
-        toSquare,
-        move,
-        san: data.san,
-        resultingFen: data.resulting_fen,
-        captured: captured || (data.san || "").includes("x"),
-      });
-    } catch (error) {
-      this.rejectMove(move, "The move validator is unavailable.");
+    const localResult = this.validateLocalMove(fromSquare, toSquare, metadata);
+    if (!localResult.isValid) {
+      this.rejectMove(move, localResult.message);
+      return;
     }
+
+    this.applyValidatedMove({
+      fromSquare,
+      toSquare,
+      move: localResult.move,
+      san: localResult.san,
+      resultingFen: localResult.resultingFen,
+      captured: localResult.captured,
+    });
   }
 
   async playMove(move, options = {}) {
     const cleanMove = move.trim().toLowerCase();
     const fromSquare = cleanMove.slice(0, 2);
     const toSquare = cleanMove.slice(2, 4);
-    const captured = Boolean(this.position[toSquare]);
 
-    try {
-      const response = await fetch("/api/validate-move", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ move: cleanMove, fen: this.fen }),
-      });
-      const data = await response.json();
+    const localResult = this.validateLocalMove(fromSquare, toSquare, {
+      promotion: cleanMove[4],
+    });
 
-      if (!data.is_valid) {
-        this.rejectMove(cleanMove, data.message);
-        return { isValid: false, message: data.message };
-      }
-
-      this.applyValidatedMove({
-        fromSquare,
-        toSquare,
-        move: cleanMove,
-        san: data.san,
-        resultingFen: data.resulting_fen,
-        captured: captured || (data.san || "").includes("x"),
-        suppressCallbacks: Boolean(options.suppressCallbacks),
-        suppressComplete: Boolean(options.suppressComplete),
-      });
-
-      return { isValid: true, ...data };
-    } catch (error) {
-      this.rejectMove(cleanMove, "The move validator is unavailable.");
-      return { isValid: false, message: "The move validator is unavailable." };
+    if (!localResult.isValid) {
+      this.rejectMove(cleanMove, localResult.message);
+      return { isValid: false, is_valid: false, message: localResult.message };
     }
+
+    this.applyValidatedMove({
+      fromSquare,
+      toSquare,
+      move: localResult.move,
+      san: localResult.san,
+      resultingFen: localResult.resultingFen,
+      captured: localResult.captured,
+      suppressCallbacks: Boolean(options.suppressCallbacks),
+      suppressComplete: Boolean(options.suppressComplete),
+    });
+
+    return {
+      isValid: true,
+      is_valid: true,
+      san: localResult.san,
+      resulting_fen: localResult.resultingFen,
+      move: localResult.move,
+    };
   }
 
   buildMove(fromSquare, toSquare) {
@@ -446,8 +419,60 @@ export class PracticeBoard {
     return true;
   }
 
+  getLocalLegalSquares(square) {
+    if (!this.engine || !this.position[square]) return [];
+
+    const moves = this.engine.moves({ square, verbose: true }) || [];
+    return unique(
+      moves
+        .map((move) => `${move.to}`)
+        .filter((toSquare) => this.isConfiguredMoveAllowed(this.buildMove(square, toSquare))),
+    );
+  }
+
+  validateLocalMove(fromSquare, toSquare, metadata = {}) {
+    if (!this.engine) {
+      return { isValid: false, message: "This board position cannot be validated locally." };
+    }
+
+    const legalMoves = this.engine.moves({ square: fromSquare, verbose: true }) || [];
+    const moveInfo = legalMoves.find((move) => move.to === toSquare);
+
+    if (!moveInfo) {
+      return { isValid: false, message: "That move is not legal." };
+    }
+
+    const promotion = metadata.promotion || moveInfo.promotion || undefined;
+    const move = `${fromSquare}${toSquare}${promotion || ""}`;
+
+    if (!this.isConfiguredMoveAllowed(move)) {
+      return { isValid: false, message: "That move is not part of this exercise." };
+    }
+
+    const result = this.engine.move({
+      from: fromSquare,
+      to: toSquare,
+      ...(promotion ? { promotion } : {}),
+    });
+
+    if (!result) {
+      return { isValid: false, message: "That move is not legal." };
+    }
+
+    const captured = Boolean(result.captured || metadata.captured);
+
+    return {
+      isValid: true,
+      move,
+      san: result.san,
+      resultingFen: this.engine.fen(),
+      captured,
+    };
+  }
+
   applyValidatedMove({ fromSquare, toSquare, move, san, resultingFen, captured, suppressCallbacks, suppressComplete }) {
     this.fen = normalizeFen(resultingFen || this.fen);
+    this.engine = createChessEngine(this.fen);
     this.position = parseFen(this.fen);
     this.turn = parseTurn(this.fen);
     this.lastMove = [fromSquare, toSquare];
@@ -491,6 +516,8 @@ export class PracticeBoard {
         color: "both",
         dests: new Map(),
         free: true,
+        rookCastle: true,
+        showDests: true,
       },
     });
 
@@ -572,6 +599,18 @@ export function parseFen(fen) {
 
 function parseTurn(fen) {
   return normalizeFen(fen).split(" ")[1] === "b" ? "black" : "white";
+}
+
+function createChessEngine(fen) {
+  try {
+    return new Chess(fen);
+  } catch (error) {
+    return null;
+  }
+}
+
+function unique(values) {
+  return [...new Set(values)];
 }
 
 function normalizeFen(fen) {
