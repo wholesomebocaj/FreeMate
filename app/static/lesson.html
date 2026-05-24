@@ -17,7 +17,7 @@
                     <a href="/lessons">Lessons</a>
                     <a href="/openings">Openings</a>
                     <a href="/practice">Practice</a>
-                    <a href="/lessons#puzzles">Puzzles</a>
+                    <a href="/review">Review</a>
                     <a href="/lessons#progress">Progress</a>
                 </div>
             </nav>
@@ -78,6 +78,7 @@
 
         <script type="module">
             import { LessonRenderer } from "/static/components/LessonRenderer.js";
+            import { recordReviewSuccess } from "/static/components/review-store.js";
             import {
                 courseLessons,
                 courseProgress,
@@ -110,6 +111,11 @@
 
             const completedLessons = loadSet(progressKey);
             const savedSteps = loadObject(stepKey);
+
+            function saveProgress() {
+                localStorage.setItem(progressKey, JSON.stringify([...completedLessons]));
+                localStorage.setItem(stepKey, JSON.stringify(savedSteps));
+            }
 
             async function loadLesson() {
                 const pathParts = window.location.pathname.split("/");
@@ -151,6 +157,25 @@
                 renderLessonHeader({ lesson, course, bracket });
 
                 const renderer = new LessonRenderer(lessonPlayer, lesson);
+                window.addEventListener("freemate:lesson-complete", (event) => {
+                    if (event.detail?.lessonId !== lesson.id) return;
+                    completedLessons.add(lesson.id);
+                    savedSteps[lesson.id] = 0;
+                    saveProgress();
+                    recordReviewSuccess({
+                        type: "lesson",
+                        id: lesson.id,
+                        title: lesson.title,
+                        subtitle: course?.title || "Lesson review",
+                        href: `/lessons/${lesson.id}`,
+                    });
+                    renderSidebar({
+                        bracket,
+                        course,
+                        lesson,
+                        lessons: currentLessons,
+                    });
+                }, { once: true });
 
                 renderer.render();
             }

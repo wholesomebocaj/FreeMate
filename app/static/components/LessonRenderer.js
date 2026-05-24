@@ -1,4 +1,5 @@
 import { EMPTY_FEN, PracticeBoard } from "/static/components/practice-board.js";
+import { recordReviewFailure } from "/static/components/review-store.js";
 
 const files = ["a", "b", "c", "d", "e", "f", "g", "h"];
 const STARTING_FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
@@ -196,6 +197,7 @@ export class LessonRenderer {
           this.markStepComplete(wrapper, step);
         } else {
           this.playBoardSound(wrapper, "illegal");
+          this.recordFailure(step);
         }
       };
       options.appendChild(button);
@@ -228,6 +230,7 @@ export class LessonRenderer {
       },
       onMoveError: ({ message }) => {
         this.showBoardFeedback(wrapper, message, "error");
+        this.recordFailure(step);
       },
       onComplete: () => {
         if (step.type !== "square-click" && step.type !== "click-all-squares") {
@@ -285,6 +288,7 @@ export class LessonRenderer {
       "error",
     );
     this.playBoardSound(wrapper, "illegal");
+    this.recordFailure(step);
   }
 
   handleClickAllSquares(wrapper, step, square, config) {
@@ -333,6 +337,7 @@ export class LessonRenderer {
       "error",
     );
     this.playBoardSound(wrapper, "illegal");
+    this.recordFailure(step);
   }
 
   markStepComplete(wrapper, step) {
@@ -503,6 +508,22 @@ export class LessonRenderer {
         <p>Great work. Continue to the next lesson.</p>
       </div>
     `;
+    window.dispatchEvent(new CustomEvent("freemate:lesson-complete", {
+      detail: {
+        lessonId: this.lesson.id,
+        title: this.lesson.title,
+      },
+    }));
+  }
+
+  recordFailure(step) {
+    recordReviewFailure({
+      type: "lesson",
+      id: this.lesson.id,
+      title: this.lesson.title,
+      subtitle: step?.title ? `Missed: ${step.title}` : "Lesson practice",
+      href: `/lessons/${this.lesson.id}`,
+    });
   }
 }
 

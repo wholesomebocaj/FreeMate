@@ -3,7 +3,7 @@
     "id": "beginner",
     "slug": "beginner",
     "title": "Beginner",
-    "range": "0–100",
+    "range": "0\u2013100",
     "description": "Learn the board, the pieces, and the first habits that keep your games stable.",
     "learn": [
       "Rules of the game",
@@ -18,41 +18,28 @@
         "courseId": "beginner-chess-course",
         "title": "Beginner Chess Course",
         "description": "Board setup, square names, piece movement, and the first rules every beginner needs.",
-        "href": "/courses/beginner-chess-course",
-        "lessonIds": [
-          "naming-squares",
-          "checkmate-vs-stalemate",
-          "rook-from-d4",
-          "bishop-movement",
-          "knight-movement",
-          "queen-movement",
-          "king-movement",
-          "pawn-movement"
-        ]
+        "href": "/courses/beginner-chess-course"
       },
       {
         "id": "point-value-of-pieces",
         "kind": "preview",
         "title": "Point Value of Pieces",
         "description": "Learn which pieces are worth more and why trades matter.",
-        "href": "/courses/beginner-chess-course",
-        "lessonIds": []
+        "href": "/courses/beginner-chess-course"
       },
       {
         "id": "very-basic-opening-principles",
         "kind": "preview",
         "title": "Very Basic Opening Principles",
         "description": "Control the center, develop pieces, and castle before move 10.",
-        "href": "/courses/basic-opening-principles",
-        "lessonIds": []
+        "href": "/courses/basic-opening-principles"
       },
       {
         "id": "types-of-pieces",
         "kind": "preview",
         "title": "Types of Pieces",
         "description": "Understand pawns, minor pieces, major pieces, and how they move together.",
-        "href": "/courses/beginner-chess-course",
-        "lessonIds": []
+        "href": "/courses/beginner-chess-course"
       }
     ]
   },
@@ -60,7 +47,7 @@
     "id": "beginner-plus",
     "slug": "beginner-plus",
     "title": "Beginner+",
-    "range": "100–400",
+    "range": "100\u2013400",
     "description": "Connect the opening, tactical, and safety ideas that make beginner games feel less random.",
     "learn": [
       "Opening principles",
@@ -70,54 +57,35 @@
     ],
     "items": [
       {
-        "id": "opening-principles-course",
+        "id": "basic-opening-principles",
         "kind": "course",
         "courseId": "basic-opening-principles",
         "title": "Opening Principles",
         "description": "Control the center, develop pieces, castle early, and avoid queen adventures.",
-        "href": "/courses/basic-opening-principles",
-        "lessonIds": [
-          "control-the-center",
-          "develop-your-pieces",
-          "castle-early",
-          "queen-too-early",
-          "connect-your-rooks"
-        ]
+        "href": "/courses/basic-opening-principles"
       },
       {
-        "id": "basic-tactics-course",
+        "id": "basic-tactics",
         "kind": "course",
         "courseId": "basic-tactics",
         "title": "Basic Tactics",
         "description": "Forks, pins, skewers, discovered attacks, and removing the defender.",
-        "href": "/courses/basic-tactics",
-        "lessonIds": [
-          "find-the-fork-idea",
-          "pinning-a-piece",
-          "skewer-the-queen",
-          "discovered-attacks",
-          "remove-the-defender",
-          "hanging-pieces"
-        ]
+        "href": "/courses/basic-tactics"
       },
       {
-        "id": "blunder-checks-course",
+        "id": "blunder-checks",
         "kind": "course",
         "courseId": "blunder-checks",
         "title": "Blunder Checks",
         "description": "Pause before moving and scan for hanging pieces, checks, captures, and threats.",
-        "href": "/courses/blunder-checks",
-        "lessonIds": [
-          "checks-captures-threats"
-        ]
+        "href": "/courses/blunder-checks"
       },
       {
         "id": "one-move-tactics",
         "kind": "preview",
         "title": "1 Move Tactics",
         "description": "Spot forks, pins, and checkmating ideas that win material immediately.",
-        "href": "/courses/basic-tactics",
-        "lessonIds": []
+        "href": "/courses/basic-tactics"
       }
     ]
   },
@@ -125,7 +93,7 @@
     "id": "novice",
     "slug": "novice",
     "title": "Novice",
-    "range": "400–600",
+    "range": "400\u2013600",
     "description": "Move beyond basic moves and start seeing the patterns that decide games.",
     "learn": [
       "Forks and pins",
@@ -135,51 +103,40 @@
     ],
     "items": [
       {
-        "id": "checkmate-patterns-course",
+        "id": "checkmate-patterns",
         "kind": "course",
         "courseId": "checkmate-patterns",
         "title": "Checkmate Patterns",
         "description": "Mate in 1, back-rank mates, queen-and-king mates, and smothered mate ideas.",
-        "href": "/courses/checkmate-patterns",
-        "lessonIds": [
-          "mate-in-one-basics",
-          "back-rank-mate",
-          "ladder-mate-basics",
-          "queen-and-king-mate",
-          "smothered-mate-intro"
-        ]
+        "href": "/courses/checkmate-patterns"
       },
       {
         "id": "forks-and-pins",
         "kind": "preview",
         "title": "Forks and Pins",
         "description": "Knight forks, pawn forks, queen forks, bishop pins, and rook pins.",
-        "href": "/courses/basic-tactics",
-        "lessonIds": []
+        "href": "/courses/basic-tactics"
       },
       {
         "id": "tactical-awareness",
         "kind": "preview",
         "title": "Tactical Awareness",
         "description": "Discovered checks, discovered attacks, deflection, overloaded defender, and skewers.",
-        "href": "/courses/basic-tactics",
-        "lessonIds": []
+        "href": "/courses/basic-tactics"
       },
       {
         "id": "mating-patterns",
         "kind": "preview",
         "title": "Mating Patterns",
         "description": "Back rank mate, ladder mate, Legal's mate, smothered mate, and other classic nets.",
-        "href": "/courses/checkmate-patterns",
-        "lessonIds": []
+        "href": "/courses/checkmate-patterns"
       },
       {
         "id": "basic-endgames",
         "kind": "preview",
         "title": "Basic Endgames",
         "description": "King activity, passed pawns, opposition, king and pawn endings, and simple rook mates.",
-        "href": "/courses/endgame-basics",
-        "lessonIds": []
+        "href": "/courses/endgame-basics"
       }
     ]
   },
@@ -187,7 +144,7 @@
     "id": "intermediate",
     "slug": "intermediate",
     "title": "Intermediate",
-    "range": "600–900",
+    "range": "600\u2013900",
     "description": "Build deeper endgame technique, calculation habits, and long-term planning.",
     "learn": [
       "Endgame technique",
@@ -197,51 +154,40 @@
     ],
     "items": [
       {
-        "id": "endgame-basics-course",
+        "id": "endgame-basics",
         "kind": "course",
         "courseId": "endgame-basics",
         "title": "Endgame Basics",
         "description": "King activity, promotion, opposition, passed pawns, and basic winning technique.",
-        "href": "/courses/endgame-basics",
-        "lessonIds": [
-          "opposition",
-          "king-activity",
-          "pawn-promotion",
-          "passed-pawns-and-support",
-          "basic-rook-mate-technique"
-        ]
+        "href": "/courses/endgame-basics"
       },
       {
         "id": "king-and-pawn-endgames",
         "kind": "preview",
         "title": "King and Pawn Endgames",
         "description": "Opposition, king in the box, winning and drawing king+pawn endings, and zugzwang ideas.",
-        "href": "/courses/endgame-basics",
-        "lessonIds": []
+        "href": "/courses/endgame-basics"
       },
       {
         "id": "rook-endgames",
         "kind": "preview",
         "title": "Rook Endgames",
         "description": "Cutting off the king, Lucena, Philidor, and rook technique with a pawn on the board.",
-        "href": "/courses/endgame-basics",
-        "lessonIds": []
+        "href": "/courses/endgame-basics"
       },
       {
         "id": "pawn-structures",
         "kind": "preview",
         "title": "Pawn Structures",
         "description": "Pawn islands, chains, isolated pawns, doubled pawns, backward pawns, and passed pawns.",
-        "href": "/practice",
-        "lessonIds": []
+        "href": "/practice"
       },
       {
         "id": "intermediate-tactics",
         "kind": "preview",
         "title": "Intermediate Tactics",
         "description": "Mate in 2, mate in 3, double checks, and short combinations that require calculation.",
-        "href": "/practice",
-        "lessonIds": []
+        "href": "/practice"
       }
     ]
   },
@@ -249,7 +195,7 @@
     "id": "advanced-beginner",
     "slug": "advanced-beginner",
     "title": "Advanced Beginner",
-    "range": "900–1200",
+    "range": "900\u20131200",
     "description": "Explore the ideas that start to matter once you stop hanging pieces and start planning real games.",
     "learn": [
       "Positional play",
@@ -263,32 +209,28 @@
         "kind": "preview",
         "title": "Positional Play",
         "description": "Holes, outposts, weak squares, good vs bad bishops, and dominated knights.",
-        "href": "/practice",
-        "lessonIds": []
+        "href": "/practice"
       },
       {
         "id": "candidate-moves",
         "kind": "preview",
         "title": "Candidate Moves",
         "description": "Compare a few serious moves instead of the first move you notice.",
-        "href": "/practice",
-        "lessonIds": []
+        "href": "/practice"
       },
       {
         "id": "opening-repertoires",
         "kind": "preview",
         "title": "Opening Repertoires",
         "description": "Start building a personal opening path for both colors.",
-        "href": "/practice",
-        "lessonIds": []
+        "href": "/practice"
       },
       {
         "id": "analyzing-games",
         "kind": "preview",
         "title": "Analyzing Your Games",
         "description": "Learn to review mistakes, compare plans, and improve your next game.",
-        "href": "/practice",
-        "lessonIds": []
+        "href": "/practice"
       }
     ]
   }

@@ -8,6 +8,13 @@ from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
+from app.services.content_validator import (
+    ContentValidationError,
+    raise_for_issues,
+    validate_curriculum_data,
+    validate_opening_data,
+    validate_opening_index,
+)
 from app.services.opening_explorer import get_explorer_data
 
 
@@ -100,8 +107,8 @@ def opening_overview_page(opening_id: str) -> FileResponse:
 
 @app.get("/api/brackets")
 def get_brackets() -> JSONResponse:
-    with BRACKETS_PATH.open(encoding="utf-8") as brackets_file:
-        return JSONResponse(json.load(brackets_file))
+    _, brackets = load_curriculum_data()
+    return JSONResponse(brackets)
 
 
 @app.get("/courses/{course_id}")
@@ -126,6 +133,11 @@ def practice_page() -> FileResponse:
     return FileResponse(STATIC_DIR / "practice.html")
 
 
+@app.get("/review")
+def review_page() -> FileResponse:
+    return FileResponse(STATIC_DIR / "review.html")
+
+
 @app.get("/lesson/{lesson_id}")
 def legacy_lesson_page(lesson_id: str) -> FileResponse:
     return FileResponse(STATIC_DIR / "lesson.html")
@@ -133,8 +145,8 @@ def legacy_lesson_page(lesson_id: str) -> FileResponse:
 
 @app.get("/api/course")
 def get_course() -> JSONResponse:
-    with COURSE_PATH.open(encoding="utf-8") as course_file:
-        return JSONResponse(json.load(course_file))
+    courses, _ = load_curriculum_data()
+    return JSONResponse(courses)
 
 
 @app.get("/api/openings")
@@ -358,7 +370,12 @@ def validate_rook_move(request: RookMoveRequest) -> RookMoveResponse:
 
 def load_opening_index() -> list[dict]:
     with OPENINGS_INDEX_PATH.open(encoding="utf-8") as index_file:
-        return json.load(index_file)
+        index = json.load(index_file)
+    try:
+        raise_for_issues(validate_opening_index(index, OPENINGS_DIR))
+    except ContentValidationError as exc:
+        raise _content_validation_http_error(exc) from exc
+    return index
 
 
 def load_opening_by_id(opening_id: str) -> dict:
@@ -369,8 +386,38 @@ def load_opening_by_id(opening_id: str) -> dict:
         if not opening_path.is_relative_to(OPENINGS_DIR.resolve()):
             raise HTTPException(status_code=400, detail="Invalid opening path.")
         with opening_path.open(encoding="utf-8") as opening_file:
-            return json.load(opening_file)
+            opening = json.load(opening_file)
+        try:
+            raise_for_issues(validate_opening_data(opening, source=f"openings/{entry['path']}"))
+        except ContentValidationError as exc:
+            raise _content_validation_http_error(exc) from exc
+        return opening
     raise HTTPException(status_code=404, detail="Opening not found.")
+
+
+def load_curriculum_data() -> tuple[list[dict], list[dict]]:
+    with COURSE_PATH.open(encoding="utf-8") as course_file:
+        courses = json.load(course_file)
+    with BRACKETS_PATH.open(encoding="utf-8") as brackets_file:
+        brackets = json.load(brackets_file)
+    try:
+        raise_for_issues(validate_curriculum_data(courses, brackets))
+    except ContentValidationError as exc:
+        raise _content_validation_http_error(exc) from exc
+    return courses, brackets
+
+
+def _content_validation_http_error(exc: ContentValidationError) -> HTTPException:
+    issues = [str(issue) for issue in exc.issues[:25]]
+    if len(exc.issues) > 25:
+        issues.append(f"...and {len(exc.issues) - 25} more issues.")
+    return HTTPException(
+        status_code=500,
+        detail={
+            "message": "FreeMate content validation failed.",
+            "issues": issues,
+        },
+    )
 
 
 def prepare_opening(opening: dict) -> dict:

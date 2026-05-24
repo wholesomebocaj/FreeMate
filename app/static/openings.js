@@ -1,4 +1,5 @@
 import { PracticeBoard, STARTING_FEN } from "/static/components/practice-board.js";
+import { recordReviewFailure, recordReviewSuccess } from "/static/components/review-store.js";
 
 const page = document.body.dataset.openingPage;
 const openingId = getOpeningId();
@@ -113,7 +114,10 @@ async function initOpeningTrainer() {
   const trainingLines = getTrainingLines(opening);
   let branchCompletions = loadBranchCompletions(opening.id);
   let openingProgress = loadOpeningProgress(opening.id);
-  let activeLine = trainingLines.find((line) => line.id === openingProgress.activeLineId) || trainingLines[0];
+  const requestedLineId = new URLSearchParams(window.location.search).get("line");
+  let activeLine = trainingLines.find((line) => line.id === requestedLineId)
+    || trainingLines.find((line) => line.id === openingProgress.activeLineId)
+    || trainingLines[0];
   let moveIndex = 0;
   let currentFen = opening.training.startingFen === "startpos" ? STARTING_FEN : opening.training.startingFen;
   let playedMoves = [];
@@ -145,6 +149,7 @@ async function initOpeningTrainer() {
       if (!validation.is_valid) {
         feedback.textContent = validation.message;
         feedback.className = "lesson-board-feedback error";
+        queueActiveLineForReview();
         board.loadFen(currentFen, { clearHistory: false });
         return;
       }
@@ -171,6 +176,7 @@ async function initOpeningTrainer() {
       setTimeout(() => boardElement.classList.remove("opening-board-shake"), 420);
       feedback.textContent = message || "Try the highlighted opening move.";
       feedback.className = "lesson-board-feedback error";
+      queueActiveLineForReview();
     },
   });
 
@@ -282,6 +288,25 @@ async function initOpeningTrainer() {
       completedAt: new Date().toISOString(),
     };
     saveBranchCompletions(opening.id, branchCompletions);
+    recordReviewSuccess({
+      type: "opening",
+      id: opening.id,
+      branchId: lineId,
+      title: `${opening.name}: ${activeLine.title}`,
+      subtitle: opening.name,
+      href: `/openings/${opening.id}/train?line=${encodeURIComponent(lineId)}`,
+    });
+  }
+
+  function queueActiveLineForReview() {
+    recordReviewFailure({
+      type: "opening",
+      id: opening.id,
+      branchId: activeLine.id,
+      title: `${opening.name}: ${activeLine.title}`,
+      subtitle: activeLine.description || opening.name,
+      href: `/openings/${opening.id}/train?line=${encodeURIComponent(activeLine.id)}`,
+    });
   }
 
   async function restoreLineState(line) {

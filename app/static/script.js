@@ -71,16 +71,15 @@ function playSound(type) {
 }
 
 function allLessons() {
-  if (!course) return [];
-  return course.categories.flatMap((category) =>
-    category.skills.flatMap((skill) =>
-      skill.lessons.map((lesson) => ({ ...lesson, category, skill }))
-    )
-  );
+  return allCourses().flatMap((courseItem) => courseLessons(courseItem));
 }
 
 function allBrackets() {
   return Array.isArray(brackets) ? brackets : [];
+}
+
+function allCourses() {
+  return Array.isArray(course) ? course : course ? [course] : [];
 }
 
 function lessonById(id) {
@@ -96,14 +95,20 @@ function bracketById(id) {
 }
 
 function bracketLessonIds(bracket) {
-  return [...new Set((bracket?.items || []).flatMap((item) => item.lessonIds || []))];
+  return [...new Set((bracket?.items || []).flatMap((item) => itemLessonIds(item)))];
 }
 
 function bracketItemProgress(item) {
-  const lessonIds = [...new Set(item.lessonIds || [])];
+  const lessonIds = [...new Set(itemLessonIds(item))];
   if (!lessonIds.length) return 0;
   const done = lessonIds.filter((lessonId) => completedLessons.has(lessonId)).length;
   return Math.round((done / lessonIds.length) * 100);
+}
+
+function itemLessonIds(item) {
+  if (item?.lessonIds?.length) return item.lessonIds;
+  if (!item?.courseId) return [];
+  return courseLessons(courseById(item.courseId)).map((lesson) => lesson.id);
 }
 
 function bracketProgress(bracket) {
@@ -131,58 +136,7 @@ function currentBracketSlugFromUrl() {
 }
 
 function availableCourses() {
-  if (!course) return [];
-
-  const categoryById = Object.fromEntries(course.categories.map((category) => [category.id, category]));
-  const courseFromCategory = (id, title, description, difficulty = "Beginner") => ({
-    id,
-    title,
-    description,
-    difficulty,
-    source: "category",
-    categories: categoryById[id] ? [categoryById[id]] : [],
-  });
-
-  return [
-    {
-      id: "beginner-chess-course",
-      title: "Beginner Chess Course",
-      description: course.description,
-      difficulty: "Beginner",
-      source: "full",
-      categories: course.categories,
-    },
-    courseFromCategory(
-      "basic-tactics",
-      "Basic Tactics",
-      "Recognize simple patterns that win material or create checkmate threats.",
-      "Beginner+"
-    ),
-    courseFromCategory(
-      "checkmate-patterns",
-      "Checkmate Patterns",
-      "Build pattern recognition for mate in 1 and common beginner checkmates.",
-      "Beginner+"
-    ),
-    courseFromCategory(
-      "basic-opening-principles",
-      "Opening Principles",
-      "Learn calm first moves, center control, development, and king safety.",
-      "Beginner"
-    ),
-    courseFromCategory(
-      "blunder-checks",
-      "Blunder Checks",
-      "Pause before every move and scan for hanging pieces and direct threats.",
-      "Beginner+"
-    ),
-    courseFromCategory(
-      "endgame-basics",
-      "Endgame Basics",
-      "Learn simple king activity, pawn promotion, and basic winning technique.",
-      "Beginner+"
-    ),
-  ];
+  return allCourses();
 }
 
 function courseById(id) {
@@ -197,8 +151,8 @@ function currentCourseIdFromUrl() {
 
 function courseLessons(courseItem) {
   return (courseItem?.categories || []).flatMap((category) =>
-    category.skills.flatMap((skill) =>
-      skill.lessons.map((lesson) => ({ ...lesson, category, skill }))
+    (category.skills || []).flatMap((skill) =>
+      (skill.lessons || []).map((lesson) => ({ ...lesson, category, skill, course: courseItem }))
     )
   );
 }
@@ -437,7 +391,7 @@ function renderRoadmap(targetId) {
 
   const currentCourse = document.querySelector("#course-detail")
     ? courseById(currentCourseIdFromUrl())
-    : { categories: course.categories };
+    : { categories: allCourses().flatMap((courseItem) => courseItem.categories || []) };
 
   currentCourse.categories.forEach((category) => {
     const lessons = category.skills.flatMap((skill) => skill.lessons);
@@ -605,7 +559,8 @@ function renderCourseTree() {
   if (!tree || !course) return;
   tree.innerHTML = "";
 
-  course.categories.forEach((category) => {
+  const activeCourse = activeLesson?.course || courseById(currentCourseIdFromUrl()) || availableCourses()[0];
+  (activeCourse?.categories || []).forEach((category) => {
     const group = document.createElement("section");
     group.className = "tree-category";
     group.innerHTML = `<h3>${category.title}</h3>`;
@@ -1048,13 +1003,13 @@ async function loadCourseData() {
       const response = await fetch(url);
       if (!response.ok) continue;
       const data = await response.json();
-      return Array.isArray(data) ? data[0] || null : data;
+      return Array.isArray(data) ? data : data ? [data] : [];
     } catch (error) {
       // Try the next source.
     }
   }
 
-  return null;
+  return [];
 }
 
 async function loadBracketData() {
@@ -1065,13 +1020,24 @@ async function loadBracketData() {
       const response = await fetch(url);
       if (!response.ok) continue;
       const data = await response.json();
-      return Array.isArray(data) ? data : [];
+      return hydrateBrackets(Array.isArray(data) ? data : []);
     } catch (error) {
       // Try the next source.
     }
   }
 
   return [];
+}
+
+function hydrateBrackets(bracketsList) {
+  return (bracketsList || []).map((bracket) => ({
+    ...bracket,
+    items: (bracket.items || []).map((item) => ({
+      ...item,
+      href: item.href || (item.courseId ? `/courses/${item.courseId}` : undefined),
+      lessonIds: item.lessonIds?.length ? item.lessonIds : itemLessonIds(item),
+    })),
+  }));
 }
 
 init();

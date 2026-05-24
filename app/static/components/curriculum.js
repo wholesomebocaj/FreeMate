@@ -6,10 +6,11 @@ export async function loadCurriculumData() {
     loadJsonArray(COURSE_SOURCES),
     loadJsonArray(BRACKET_SOURCES),
   ]);
+  const normalizedCourses = normalizeCourses(courses);
 
   return {
-    courses,
-    brackets,
+    courses: normalizedCourses,
+    brackets: hydrateBrackets(brackets, normalizedCourses),
   };
 }
 
@@ -56,6 +57,27 @@ export function findBracketForLesson(brackets, lessonId) {
     }
   }
   return null;
+}
+
+export function hydrateBrackets(brackets, courses) {
+  return (brackets || []).map((bracket) => ({
+    ...bracket,
+    items: (bracket.items || []).map((item) => hydrateBracketItem(item, courses)),
+  }));
+}
+
+function hydrateBracketItem(item, courses) {
+  if (!item?.courseId) return { ...item, lessonIds: item.lessonIds || [] };
+  const course = findCourseById(courses, item.courseId);
+  return {
+    ...item,
+    href: item.href || `/courses/${item.courseId}`,
+    lessonIds: course ? courseLessons(course).map((lesson) => lesson.id) : [],
+  };
+}
+
+function normalizeCourses(courses) {
+  return (courses || []).filter((course) => course?.id && Array.isArray(course.categories));
 }
 
 export function courseProgress(course, completedLessons) {

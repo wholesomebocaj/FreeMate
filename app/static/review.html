@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Review Today | FreeMate</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="navbar" aria-label="Main navigation">
+      <a class="brand" href="/">FreeMate</a>
+      <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/lessons">Lessons</a>
+        <a href="/openings">Openings</a>
+        <a href="/practice">Practice</a>
+        <a href="/review" aria-current="page">Review</a>
+        <a href="/lessons#progress">Progress</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="review-shell">
+    <section class="review-hero">
+      <div>
+        <p class="eyebrow">Review today</p>
+        <h1>A short loop for shaky spots.</h1>
+        <p>FreeMate keeps missed lessons and opening branches here so you can clean them up without grinding.</p>
+      </div>
+      <div class="coach-stats">
+        <span id="review-count">Loading review queue</span>
+        <div class="progress-track" aria-hidden="true">
+          <div class="progress-fill" id="review-fill"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="review-list" id="review-list" aria-live="polite"></section>
+  </main>
+
+  <script type="module" src="/static/review.js"></script>
+</body>
+</html>
