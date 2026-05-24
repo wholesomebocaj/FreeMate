@@ -111,12 +111,15 @@ async function initOpeningTrainer() {
   mistakes.innerHTML = opening.commonMistakes.map((mistake) => `<li>${mistake}</li>`).join("");
 
   const trainingLines = getTrainingLines(opening);
-  let activeLine = trainingLines[0];
+  let branchCompletions = loadBranchCompletions(opening.id);
+  let openingProgress = loadOpeningProgress(opening.id);
+  let activeLine = trainingLines.find((line) => line.id === openingProgress.activeLineId) || trainingLines[0];
   let moveIndex = 0;
   let currentFen = opening.training.startingFen === "startpos" ? STARTING_FEN : opening.training.startingFen;
   let playedMoves = [];
-  let branchCompletions = loadBranchCompletions(opening.id);
   const trainSide = opening.training.sideToTrain || "white";
+
+  await restoreLineState(activeLine);
 
   const board = new PracticeBoard(boardElement, {
     mode: "lesson",
@@ -156,6 +159,7 @@ async function initOpeningTrainer() {
       if (moveIndex >= activeLine.moves.length) {
         markBranchComplete(activeLine.id);
       }
+      saveLineProgress();
       renderTrainerState();
       await wait(timings.userSettle);
       await autoPlayOpponentMoves();
@@ -188,14 +192,16 @@ async function initOpeningTrainer() {
 
   async function loadBranch(nextLine) {
     activeLine = nextLine;
-    moveIndex = 0;
-    playedMoves = [];
-    currentFen = opening.training.startingFen === "startpos" ? STARTING_FEN : opening.training.startingFen;
+    openingProgress.activeLineId = activeLine.id;
+    saveOpeningProgress(opening.id, openingProgress);
+    await restoreLineState(activeLine);
     status.textContent = "Loading";
     status.className = "lesson-step-progress-state waiting";
     noteTitle.textContent = activeLine.title;
     explanation.textContent = activeLine.description || "Follow the branch one move at a time.";
-    feedback.textContent = "Branch loaded. Follow the coach prompts.";
+    feedback.textContent = moveIndex >= activeLine.moves.length
+      ? "Branch complete. The final position has been restored."
+      : "Branch loaded. Follow the coach prompts.";
     feedback.className = "lesson-board-feedback";
     board.setConfig({ allowedMoves: [], highlightSquares: [] });
     board.loadFen(currentFen, { clearHistory: true });
@@ -227,6 +233,7 @@ async function initOpeningTrainer() {
       if (moveIndex >= activeLine.moves.length) {
         markBranchComplete(activeLine.id);
       }
+      saveLineProgress();
       renderTrainerState();
       await wait(timings.opponentSettle);
     }
@@ -234,7 +241,7 @@ async function initOpeningTrainer() {
   }
 
   function renderTrainerState() {
-    renderOpeningRoadmap(roadmap, trainingLines, activeLine, moveIndex, playedMoves, branchCompletions, opening.id);
+    renderOpeningRoadmap(roadmap, trainingLines, activeLine, moveIndex, playedMoves, branchCompletions, opening.id, openingProgress);
 
     if (moveIndex >= activeLine.moves.length) {
       prompt.textContent = "Line complete.";
@@ -275,6 +282,76 @@ async function initOpeningTrainer() {
       completedAt: new Date().toISOString(),
     };
     saveBranchCompletions(opening.id, branchCompletions);
+  }
+
+  async function restoreLineState(line) {
+    const saved = normalizeSavedLineState(openingProgress.lines?.[line.id], line);
+    if (saved) {
+      moveIndex = saved.moveIndex;
+      playedMoves = saved.playedMoves;
+      currentFen = saved.currentFen;
+      return;
+    }
+
+    if (branchCompletions[line.id]?.completed) {
+      await rebuildLineState(line, line.moves.length);
+      saveLineProgress();
+      return;
+    }
+
+    resetLineState();
+  }
+
+  async function rebuildLineState(line, targetIndex) {
+    resetLineState();
+    const target = Math.max(0, Math.min(targetIndex, line.moves.length));
+    for (let index = 0; index < target; index += 1) {
+      const move = line.moves[index];
+      const validation = await fetchJson("/api/openings/validate-move", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          opening_id: opening.id,
+          move: move.uci,
+          line_id: line.id,
+          move_index: index,
+          played_moves: playedMoves,
+        }),
+      });
+
+      if (!validation.is_valid) {
+        resetLineState();
+        return;
+      }
+
+      playedMoves.push(move.uci);
+      currentFen = validation.resulting_fen;
+      moveIndex = index + 1;
+    }
+  }
+
+  function resetLineState() {
+    moveIndex = 0;
+    playedMoves = [];
+    currentFen = opening.training.startingFen === "startpos" ? STARTING_FEN : opening.training.startingFen;
+  }
+
+  function saveLineProgress() {
+    openingProgress = {
+      ...openingProgress,
+      activeLineId: activeLine.id,
+      lines: {
+        ...(openingProgress.lines || {}),
+        [activeLine.id]: {
+          moveIndex,
+          playedMoves: [...playedMoves],
+          currentFen,
+          completed: moveIndex >= activeLine.moves.length,
+          updatedAt: new Date().toISOString(),
+        },
+      },
+    };
+    saveOpeningProgress(opening.id, openingProgress);
   }
 }
 
@@ -330,7 +407,7 @@ function renderOpeningRow(opening) {
   `;
 }
 
-function renderOpeningRoadmap(container, lines, activeLine, activeIndex, playedMoves, completions = {}, openingId = "") {
+function renderOpeningRoadmap(container, lines, activeLine, activeIndex, playedMoves, completions = {}, openingId = "", progress = {}) {
   const sections = groupLinesBySection(lines);
   const openSections = loadOpenSections(openingId);
   const activeProgress = progressForLine(activeLine, activeIndex, completions);
@@ -355,7 +432,7 @@ function renderOpeningRoadmap(container, lines, activeLine, activeIndex, playedM
     const lessons = section.lines.map((line) => {
       const isActiveLine = line.id === activeLine.id;
       const isComplete = Boolean(completions[line.id]?.completed);
-      const lineProgress = progressForLine(line, isActiveLine ? activeIndex : 0, completions);
+      const lineProgress = progressForLine(line, isActiveLine ? activeIndex : 0, completions, progress);
       const moves = isActiveLine ? line.moves.map((move, index) => {
         const state = moveTrackerState(index, activeIndex, isComplete);
         return `
@@ -394,9 +471,12 @@ function renderOpeningRoadmap(container, lines, activeLine, activeIndex, playedM
   activeLineButton?.scrollIntoView?.({ block: "nearest", behavior: "smooth" });
 }
 
-function progressForLine(line, activeIndex, completions = {}) {
+function progressForLine(line, activeIndex, completions = {}, progress = {}) {
   const total = line.moves.length || 0;
-  const done = completions[line.id]?.completed ? total : Math.max(0, Math.min(activeIndex, total));
+  const savedIndex = progress.lines?.[line.id]?.moveIndex;
+  const done = completions[line.id]?.completed
+    ? total
+    : Math.max(0, Math.min(Number.isInteger(savedIndex) ? savedIndex : activeIndex, total));
   return {
     done,
     total,
@@ -414,6 +494,22 @@ function moveStateIcon(state) {
   if (state === "done") return "✓";
   if (state === "active") return "→";
   return "•";
+}
+
+function normalizeSavedLineState(saved, line) {
+  if (!saved || !Array.isArray(saved.playedMoves)) return null;
+  const moveIndex = Math.max(0, Math.min(saved.moveIndex || 0, line.moves.length));
+  const playedMoves = saved.playedMoves.slice(0, moveIndex);
+  const expectedMoves = line.moves.slice(0, moveIndex).map((move) => move.uci);
+  const isInSync = expectedMoves.every((move, index) => playedMoves[index] === move);
+
+  if (!isInSync || !saved.currentFen) return null;
+
+  return {
+    moveIndex,
+    playedMoves,
+    currentFen: saved.currentFen,
+  };
 }
 
 function getTrainingLines(opening) {
@@ -488,6 +584,10 @@ function completionKey(openingId) {
   return `freemate-opening-completions:${openingId}`;
 }
 
+function progressKey(openingId) {
+  return `freemate-opening-progress:${openingId}`;
+}
+
 function openSectionsKey(openingId) {
   return `freemate-opening-open-sections:${openingId}`;
 }
@@ -502,6 +602,21 @@ function loadBranchCompletions(openingId) {
 
 function saveBranchCompletions(openingId, completions) {
   localStorage.setItem(completionKey(openingId), JSON.stringify(completions));
+}
+
+function loadOpeningProgress(openingId) {
+  try {
+    return JSON.parse(localStorage.getItem(progressKey(openingId))) || { lines: {} };
+  } catch (error) {
+    return { lines: {} };
+  }
+}
+
+function saveOpeningProgress(openingId, progress) {
+  localStorage.setItem(progressKey(openingId), JSON.stringify({
+    activeLineId: progress.activeLineId,
+    lines: progress.lines || {},
+  }));
 }
 
 function loadOpenSections(openingId) {
