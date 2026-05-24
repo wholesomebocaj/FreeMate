@@ -1,0 +1,6 @@
+[submodule "data/openings/raw/lichess-chess-openings"]
+	path = data/openings/raw/lichess-chess-openings
+	url = https://github.com/lichess-org/chess-openings
+[submodule "data/openings/raw/eco-json"]
+	path = data/openings/raw/eco-json
+	url = https://github.com/hayatbiralem/eco.json
