@@ -106,6 +106,9 @@ async function initOpeningTrainer() {
     userSettle: 250,
     opponentSettle: 220,
   };
+  const lineStateCache = new Map();
+  const lineStateRequests = new Map();
+  let roadmapRendered = false;
 
   title.textContent = opening.name;
   ideas.innerHTML = opening.ideas.map((idea) => `<li>${idea}</li>`).join("");
@@ -168,7 +171,7 @@ async function initOpeningTrainer() {
       }
 
       saveLineProgress();
-      renderTrainerState();
+      renderTrainerState({ syncBoard: false });
       await wait(timings.userSettle);
       await autoPlayOpponentMoves();
     },
@@ -263,6 +266,7 @@ async function initOpeningTrainer() {
     activeLine = nextLine;
     openingProgress.activeLineId = activeLine.id;
     saveOpeningProgress(opening.id, openingProgress);
+    await ensureLineStateCache(activeLine);
     await restoreLineState(activeLine);
 
     status.textContent = "Loading";
@@ -275,8 +279,7 @@ async function initOpeningTrainer() {
     feedback.className = "lesson-board-feedback";
 
     board.setConfig({ allowedMoves: [], highlightSquares: [] });
-    board.loadFen(currentFen, { clearHistory: true });
-    renderTrainerState();
+    renderTrainerState({ syncBoard: true, forceRoadmapRender: true, scrollRoadmap: true });
     await autoPlayOpponentMoves();
   }
 
@@ -286,9 +289,10 @@ async function initOpeningTrainer() {
       return;
     }
 
-    await rebuildLineState(activeLine, boundedIndex);
+    await ensureLineStateCache(activeLine);
+    applyCachedLineState(activeLine, boundedIndex);
     saveLineProgress();
-    renderTrainerState();
+    renderTrainerState({ syncBoard: true });
 
     if (boundedIndex <= 0) {
       feedback.textContent = `Returned to the start of ${activeLine.title}.`;
@@ -313,7 +317,7 @@ async function initOpeningTrainer() {
       noteTitle.textContent = `Opponent plays ${reply.san}`;
       explanation.textContent = reply.explanation;
       board.setConfig({ allowedMoves: [], highlightSquares: moveHighlights(reply.uci) });
-      renderTrainerState();
+      renderTrainerState({ syncBoard: false });
 
       await wait(timings.userSettle);
 
@@ -337,24 +341,37 @@ async function initOpeningTrainer() {
       }
 
       saveLineProgress();
-      renderTrainerState();
+      renderTrainerState({ syncBoard: false });
       await wait(timings.opponentSettle);
     }
 
-    renderTrainerState();
+    renderTrainerState({ syncBoard: false });
   }
 
-  function renderTrainerState() {
-    renderOpeningRoadmap(
-      roadmap,
-      trainingLines,
-      activeLine,
-      moveIndex,
-      playedMoves,
-      branchCompletions,
-      opening.id,
-      openingProgress,
-    );
+  function renderTrainerState({ syncBoard = false, forceRoadmapRender = false, scrollRoadmap = false } = {}) {
+    if (forceRoadmapRender || !roadmapRendered) {
+      renderOpeningRoadmap(
+        roadmap,
+        trainingLines,
+        activeLine,
+        moveIndex,
+        playedMoves,
+        branchCompletions,
+        opening.id,
+        openingProgress,
+        { scrollRoadmap },
+      );
+      roadmapRendered = true;
+    } else {
+      syncOpeningRoadmapState(
+        roadmap,
+        trainingLines,
+        activeLine,
+        moveIndex,
+        branchCompletions,
+        openingProgress,
+      );
+    }
 
     if (moveIndex >= activeLine.moves.length) {
       prompt.textContent = "Line complete.";
@@ -367,7 +384,9 @@ async function initOpeningTrainer() {
       status.textContent = "Complete";
       status.className = "lesson-step-progress-state done";
       board.setConfig({ allowedMoves: [], highlightSquares: [] });
-      board.loadFen(currentFen, { clearHistory: false });
+      if (syncBoard && board.fen !== currentFen) {
+        board.loadFen(currentFen, { clearHistory: true });
+      }
       return;
     }
 
@@ -375,7 +394,9 @@ async function initOpeningTrainer() {
     const userTurn = isUserMove(moveIndex, trainSide);
 
     kicker.textContent = `${activeLine.title} · move ${moveIndex + 1} of ${activeLine.moves.length}`;
-    board.loadFen(currentFen, { clearHistory: false });
+    if (syncBoard && board.fen !== currentFen) {
+      board.loadFen(currentFen, { clearHistory: true });
+    }
 
     if (!userTurn) {
       prompt.textContent = `Review ${expected.san}`;
@@ -443,29 +464,64 @@ async function initOpeningTrainer() {
   }
 
   async function restoreLineState(line) {
+    const cache = await ensureLineStateCache(line);
     const saved = normalizeSavedLineState(openingProgress.lines?.[line.id], line);
 
     if (saved) {
-      moveIndex = saved.moveIndex;
-      playedMoves = saved.playedMoves;
-      currentFen = saved.currentFen;
+      applyCachedLineState(line, saved.moveIndex, cache);
       return;
     }
 
     if (branchCompletions[line.id]?.completed) {
-      await rebuildLineState(line, line.moves.length);
+      applyCachedLineState(line, line.moves.length, cache);
       saveLineProgress();
       return;
     }
 
-    resetLineState();
+    applyCachedLineState(line, 0, cache);
   }
 
-  async function rebuildLineState(line, targetIndex) {
-    resetLineState();
-    const target = Math.max(0, Math.min(targetIndex, line.moves.length));
+  async function ensureLineStateCache(line) {
+    if (lineStateCache.has(line.id)) {
+      return lineStateCache.get(line.id);
+    }
 
-    for (let index = 0; index < target; index += 1) {
+    if (lineStateRequests.has(line.id)) {
+      return lineStateRequests.get(line.id);
+    }
+
+    const request = buildLineStateCache(line)
+      .then((cache) => {
+        lineStateCache.set(line.id, cache);
+        lineStateRequests.delete(line.id);
+        return cache;
+      })
+      .catch((error) => {
+        lineStateRequests.delete(line.id);
+        throw error;
+      });
+
+    lineStateRequests.set(line.id, request);
+    return request;
+  }
+
+  async function buildLineStateCache(line) {
+    const states = [];
+    const startFen = opening.training.startingFen === "startpos"
+      ? STARTING_FEN
+      : opening.training.startingFen;
+
+    let fen = startFen;
+    let played = [];
+
+    states[0] = {
+      moveIndex: 0,
+      fen,
+      playedMoves: [],
+      expectedMove: line.moves[0] || null,
+    };
+
+    for (let index = 0; index < line.moves.length; index += 1) {
       const move = line.moves[index];
       const validation = await fetchJson("/api/openings/validate-move", {
         method: "POST",
@@ -475,19 +531,39 @@ async function initOpeningTrainer() {
           move: move.uci,
           line_id: line.id,
           move_index: index,
-          played_moves: playedMoves,
+          played_moves: played,
         }),
       });
 
       if (!validation.is_valid) {
-        resetLineState();
-        return;
+        throw new Error(validation.message || `Could not precompute ${line.title}.`);
       }
 
-      playedMoves.push(move.uci);
-      currentFen = validation.resulting_fen;
-      moveIndex = index + 1;
+      fen = validation.resulting_fen;
+      played = [...played, move.uci];
+      states[index + 1] = {
+        moveIndex: index + 1,
+        fen,
+        playedMoves: played,
+        expectedMove: line.moves[index + 1] || null,
+      };
     }
+
+    return { states };
+  }
+
+  function applyCachedLineState(line, targetIndex, cache = lineStateCache.get(line.id)) {
+    const boundedIndex = Math.max(0, Math.min(targetIndex, line.moves.length));
+    const state = cache?.states?.[boundedIndex];
+
+    if (!state) {
+      resetLineState();
+      return;
+    }
+
+    moveIndex = state.moveIndex;
+    playedMoves = [...state.playedMoves];
+    currentFen = state.fen;
   }
 
   function resetLineState() {
@@ -592,6 +668,7 @@ function renderOpeningRoadmap(
   completions = {},
   openingId = "",
   progress = {},
+  options = {},
 ) {
   const roadmapLines = lines.map((line) => {
     const isActiveLine = line.id === activeLine.id;
@@ -600,7 +677,7 @@ function renderOpeningRoadmap(
     const moves = renderSidebarMoveItems(line, { activeIndex, isActiveLine, isComplete });
 
     return `
-      <article class="opening-roadmap-entry ${isActiveLine ? "is-active-entry" : ""}">
+      <article class="opening-roadmap-entry ${isActiveLine ? "is-active-entry" : ""}" data-line-id="${line.id}">
         <button
           class="opening-roadmap-line ${isActiveLine ? "is-active" : ""} ${isComplete ? "is-complete" : ""}"
           type="button"
@@ -627,11 +704,64 @@ function renderOpeningRoadmap(
     </div>
   `;
 
-  const active = container.querySelector(".opening-move-list li.active");
-  active?.scrollIntoView?.({ block: "nearest", behavior: "smooth" });
+  if (options.scrollRoadmap) {
+    const active = container.querySelector(".opening-move-list li.active");
+    active?.scrollIntoView?.({ block: "nearest", behavior: "smooth" });
 
-  const activeLineButton = container.querySelector(".opening-roadmap-line.is-active");
-  activeLineButton?.scrollIntoView?.({ block: "nearest", behavior: "smooth" });
+    const activeLineButton = container.querySelector(".opening-roadmap-line.is-active");
+    activeLineButton?.scrollIntoView?.({ block: "nearest", behavior: "smooth" });
+  }
+}
+
+function syncOpeningRoadmapState(container, lines, activeLine, activeIndex, completions = {}, progress = {}) {
+  const entries = container.querySelectorAll(".opening-roadmap-entry");
+  entries.forEach((entry) => {
+    const lineId = entry.dataset.lineId;
+    const line = lines.find((candidate) => candidate.id === lineId);
+    if (!line) return;
+
+    const isActiveLine = line.id === activeLine.id;
+    const isComplete = Boolean(completions[line.id]?.completed);
+    const lineProgress = progressForLine(line, isActiveLine ? activeIndex : 0, completions, progress);
+    const button = entry.querySelector(".opening-roadmap-line");
+    const title = entry.querySelector(".opening-roadmap-line strong");
+    const status = entry.querySelector(".opening-roadmap-line em");
+    const meter = entry.querySelector(".opening-line-meter i");
+    const moveItems = entry.querySelectorAll(".opening-move-list li");
+
+    if (button) {
+      button.classList.toggle("is-active", isActiveLine);
+      button.classList.toggle("is-complete", isComplete);
+      if (isActiveLine) {
+        button.setAttribute("aria-current", "step");
+      } else {
+        button.removeAttribute("aria-current");
+      }
+    }
+
+    if (title) {
+      title.textContent = `${isComplete ? "✓ " : ""}${line.title}`;
+    }
+
+    if (status) {
+      status.textContent = isActiveLine ? "Training now" : isComplete ? "Complete" : `${line.moves.length} moves`;
+    }
+
+    if (meter) {
+      meter.style.width = `${lineProgress.percent}%`;
+    }
+
+    moveItems.forEach((item, index) => {
+      const state = isActiveLine
+        ? moveTrackerState(index, activeIndex, isComplete)
+        : (isComplete ? "done" : "upcoming");
+      item.className = state;
+      const icon = item.querySelector(".move-state-icon");
+      if (icon) {
+        icon.textContent = moveStateIcon(state);
+      }
+    });
+  });
 }
 
 function renderSidebarMoveItems(line, { activeIndex = 0, isActiveLine = false, isComplete = false } = {}) {
@@ -712,14 +842,13 @@ function normalizeSavedLineState(saved, line) {
   const expectedMoves = line.moves.slice(0, moveIndex).map((move) => move.uci);
   const isInSync = expectedMoves.every((move, index) => playedMoves[index] === move);
 
-  if (!isInSync || !saved.currentFen) {
+  if (!isInSync) {
     return null;
   }
 
   return {
     moveIndex,
     playedMoves,
-    currentFen: saved.currentFen,
   };
 }
 
