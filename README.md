@@ -1,106 +1,298 @@
 # FreeMate
 
-FreeMate is a beginner-friendly chess learning web app built with HTML, CSS, JavaScript, and Python FastAPI.
+FreeMate is an interactive chess learning platform built to make high-quality chess education completely free and beginner friendly.
 
-## Features
+Inspired by platforms like Chessable, Chess.com, and Lichess, FreeMate focuses on guided learning, structured progression, interactive lessons, and playable opening repertoires without paywalls or overwhelming theory.
 
-- Homepage with a simple chess learning introduction
-- JSON-driven lessons page with categories, skills, lessons, and exercises
-- Navigation bar shared across pages
-- FastAPI backend serving static frontend files
-- API endpoint for validating chess moves
-- API endpoint for the interactive rook movement lesson
-- Move validation powered by `python-chess`
-- Completion tracking in the browser with `localStorage`
+The goal is simple:
 
-## Project Structure
+> Teach players what to do, why they are doing it, and how to survive real games.
 
-```text
-FreeMate/
-├── app/
-│   ├── main.py
-│   └── static/
-│       ├── data/
-│       │   └── course.json
-│       ├── index.html
-│       ├── lessons.html
-│       ├── styles.css
-│       └── script.js
-├── requirements.txt
-└── README.md
+---
+
+# Features
+
+## Interactive Lessons
+
+* Step-by-step beginner lessons
+* Visual board demonstrations
+* Guided move validation
+* Progression-based learning
+* Interactive board tasks
+* Tactical exercises
+* Checkmate training
+* Opening principles
+* Endgame basics
+
+---
+
+## Opening Trainer
+
+A fully playable opening training system inspired by Chessable-style repertoires.
+
+Features include:
+
+* Branching opening trees
+* Main lines and opponent responses
+* Interactive move training
+* Coach explanations
+* Move-by-move guidance
+* Common beginner mistakes
+* Progress tracking
+* Playable variations
+* Auto-play opponent responses
+* Smooth board animations
+
+---
+
+## Beginner-Focused Teaching
+
+FreeMate prioritizes:
+
+* understanding over memorization
+* practical chess plans
+* beginner confidence
+* simple explanations
+* real-game usability
+
+The platform teaches:
+
+* what moves do
+* why they are played
+* what each side is trying to achieve
+* what plans come next after the opening
+
+---
+
+# Tech Stack
+
+## Frontend
+
+* HTML
+* CSS
+* JavaScript
+
+## Backend
+
+* Python
+* FastAPI
+
+## Chess Systems
+
+* Chessground
+* python-chess
+* Lichess Opening Explorer API
+
+---
+
+# Current Learning Systems
+
+## Beginner Courses
+
+* Board Basics
+* Piece Movement
+* Legal Moves
+* Checkmate vs Stalemate
+* Basic Tactics
+* Opening Principles
+* Endgame Basics
+
+---
+
+## Opening Repertoires
+
+### White
+
+* Italian Game
+* London System
+* Queen’s Gambit
+* Vienna Game
+* Four Knights Game
+* Scotch Game
+* English Opening
+* King’s Indian Attack
+* Jobava London
+
+### Black
+
+* Scandinavian Defense
+* Caro-Kann Defense
+* French Defense
+* Sicilian Defense
+* King’s Indian Defense
+* Pirc Defense
+* Slav Defense
+* Nimzo-Indian Defense
+* Modern Defense
+
+---
+
+# Opening Training Philosophy
+
+FreeMate does not try to force users to memorize long engine lines.
+
+Instead, the opening trainer focuses on:
+
+* center control
+* development
+* king safety
+* practical plans
+* common reactions
+* realistic beginner positions
+
+Example structure:
+
+```text id="mjlwmv"
+Main Line
+├── If opponent plays c5
+├── If opponent plays e6
+├── If opponent plays d5
+└── Common mistakes
 ```
 
-## Setup
+The system teaches:
 
-1. Create and activate a virtual environment:
+> “If your opponent does this, here’s the practical beginner response.”
 
-```bash
+---
+
+# Interactive Board System
+
+All lessons and openings use a shared interactive PracticeBoard system with:
+
+* drag-and-drop movement
+* click-to-move support
+* move validation
+* highlighted squares
+* guided interactions
+* sounds
+* animations
+* lesson restrictions
+* playable training lines
+
+---
+
+# Progression System
+
+Lessons are grouped into skill brackets:
+
+* Beginner (0–100)
+* Beginner+ (100–400)
+* Novice (400–600)
+* Intermediate (600–900)
+* Advanced Beginner (900–1200)
+
+The goal is to create a structured learning journey instead of a flat course list.
+
+---
+
+# Open Source Chess Data
+
+FreeMate uses open chess resources including:
+
+* Lichess Opening Explorer
+* ECO opening data
+* PGN move trees
+* python-chess
+
+All educational explanations and lesson flows are original and beginner-focused.
+
+---
+
+# Running Locally
+
+## 1. Clone the repository
+
+```bash id="2lrq90"
+git clone https://github.com/wholesomebocaj/FreeMate.git
+cd FreeMate
+```
+
+---
+
+## 2. Create virtual environment
+
+```bash id="p6r17c"
 python -m venv .venv
+```
+
+Activate it:
+
+### Mac/Linux
+
+```bash id="yeg0b6"
 source .venv/bin/activate
 ```
 
-2. Install dependencies:
+### Windows
 
-```bash
+```bash id="73j5v8"
+.venv\Scripts\activate
+```
+
+---
+
+## 3. Install dependencies
+
+```bash id="jv3fb5"
 pip install -r requirements.txt
 ```
 
-3. Run the server:
+---
 
-```bash
-uvicorn app.main:app --reload
+## 4. Start the server
+
+```bash id="9cc8q0"
+python app/main.py
 ```
 
-4. Open the app:
+---
 
-```text
-http://127.0.0.1:8000
+## 5. Open in browser
+
+```text id="h0xg5d"
+http://localhost:8000
 ```
 
-## Move Validation API
+---
 
-Send a POST request to `/api/validate-move`:
+# Roadmap
 
-```json
-{
-  "move": "e2e4"
-}
-```
+Planned features:
 
-## Curriculum Data
+* Spaced repetition opening review
+* Puzzle rating system
+* User accounts
+* Progress sync
+* Stockfish analysis
+* Game review tools
+* Adaptive training
+* AI coaching
+* Daily lessons
+* Real-game import analysis
+* Mobile responsiveness improvements
+* Achievement/progression systems
 
-Course content lives in `app/static/data/course.json`.
+---
 
-The lesson hierarchy is:
+# Vision
 
-```text
-Course
-→ Category
-→ Skill
-→ Lesson
-→ Interactive Exercise
-```
+FreeMate aims to become:
 
-Each lesson can include:
+* a genuinely free chess learning platform
+* beginner friendly
+* modern and interactive
+* educational without being overwhelming
+* an alternative to expensive chess learning subscriptions
 
-- `difficulty`
-- `ratingRange`
-- `subskills`
-- an `exercise` object
+Core philosophy:
 
-The current starter curriculum includes:
+> Learn chess with understanding, not memorization.
 
-- Rules of the Game
-- Piece Movement
-- Basic Opening Principles
-- Blunder Checks
-- Basic Tactics
+---
 
-Optional custom board positions can be supplied with FEN:
+# License
 
-```json
-{
-  "move": "g1f3",
-  "fen": "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1"
-}
-```
+This project uses open chess data and open-source libraries where applicable.
+
+Educational content and lesson systems are original to FreeMate.
