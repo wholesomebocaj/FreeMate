@@ -20,48 +20,86 @@
               "uci": "e2e4",
               "san": "e4",
               "title": "Start with e4",
-              "explanation": "Open the center and piece lines."
+              "explanation": "Open the center and piece lines. e4 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Four Knights usually becomes a calm development race: castle, complete pieces, and avoid unnecessary pawn grabs."
             },
             {
               "uci": "e7e5",
               "san": "e5",
               "title": "Black mirrors",
-              "explanation": "An open game begins."
+              "explanation": "An open game begins. e5 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Four Knights usually becomes a calm development race: castle, complete pieces, and avoid unnecessary pawn grabs."
             },
             {
               "uci": "g1f3",
               "san": "Nf3",
               "title": "Develop with pressure",
-              "explanation": "Attack e5 and prepare castling."
+              "explanation": "Attack e5 and prepare castling. Nf3 develops a knight to f3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
             },
             {
               "uci": "b8c6",
               "san": "Nc6",
               "title": "Black defends",
-              "explanation": "Black develops and protects e5."
+              "explanation": "Black develops and protects e5. Nc6 develops a knight to c6. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
             },
             {
               "uci": "b1c3",
               "san": "Nc3",
               "title": "Second knight",
-              "explanation": "Develop the other knight and support central squares."
+              "explanation": "Develop the other knight and support central squares. Nc3 develops a knight to c3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
             },
             {
               "uci": "g8f6",
               "san": "Nf6",
               "title": "Four knights",
-              "explanation": "Black develops the final knight and attacks e4."
+              "explanation": "Black develops the final knight and attacks e4. Nf6 develops a knight to f6. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "f1b5",
+              "san": "Bb5",
+              "title": "Develop to b5",
+              "explanation": "Bb5 develops a bishop to b5. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "f8b4",
+              "san": "Bb4",
+              "title": "Develop to b4",
+              "explanation": "Bb4 develops a bishop to b4. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "e1g1",
+              "san": "O-O",
+              "title": "Get the king safe",
+              "explanation": "O-O moves the king to safety and brings the rook closer to the center. This is usually the moment when the opening becomes an early middlegame plan: The Four Knights usually becomes a calm development race: castle, complete pieces, and avoid unnecessary pawn grabs."
+            },
+            {
+              "uci": "e8g8",
+              "san": "O-O",
+              "title": "Get the king safe",
+              "explanation": "O-O moves the king to safety and brings the rook closer to the center. This is usually the moment when the opening becomes an early middlegame plan: The Four Knights usually becomes a calm development race: castle, complete pieces, and avoid unnecessary pawn grabs."
+            },
+            {
+              "uci": "d2d3",
+              "san": "d3",
+              "title": "Shape the center",
+              "explanation": "d3 clarifies the pawn structure. Central moves should claim space, challenge a pawn, or prepare a break. The Four Knights usually becomes a calm development race: castle, complete pieces, and avoid unnecessary pawn grabs."
+            },
+            {
+              "uci": "d7d6",
+              "san": "d6",
+              "title": "Shape the center",
+              "explanation": "d6 clarifies the pawn structure. Central moves should claim space, challenge a pawn, or prepare a break. The Four Knights usually becomes a calm development race: castle, complete pieces, and avoid unnecessary pawn grabs."
             }
           ],
           "isMainLine": true,
           "hints": [
-            "Start by recognizing e4.",
-            "The target response in this branch is Nf6.",
-            "Use the highlighted move and keep the plan simple."
+            "Follow the highlighted move and say the idea out loud.",
+            "After each move, check king safety, center control, and piece activity.",
+            "When a trade appears, ask what file opens and which piece improves next."
           ],
           "coachingNotes": [
             "Develop all knights toward the center.",
-            "Black develops the final knight and attacks e4."
+            "The Four Knights usually becomes a calm development race: castle, complete pieces, and avoid unnecessary pawn grabs.",
+            "Good trades usually remove an active enemy piece, open a useful file, or simplify once your king is safe.",
+            "After the opening, do not drift: improve your worst piece, connect rooks, and look for one clear pawn break."
           ],
           "completion": {
             "attempts": 0,
@@ -84,41 +122,85 @@
               "uci": "e2e4",
               "san": "e4",
               "title": "Start with e4",
-              "explanation": "Take central space."
+              "explanation": "Take central space. e4 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Four Knights usually becomes a calm development race: castle, complete pieces, and avoid unnecessary pawn grabs."
             },
             {
               "uci": "e7e5",
               "san": "e5",
               "title": "Black mirrors",
-              "explanation": "Both sides have central pawns."
+              "explanation": "Both sides have central pawns. e5 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Four Knights usually becomes a calm development race: castle, complete pieces, and avoid unnecessary pawn grabs."
             },
             {
               "uci": "g1f3",
               "san": "Nf3",
               "title": "Attack e5",
-              "explanation": "Develop and create pressure."
+              "explanation": "Develop and create pressure. Nf3 develops a knight to f3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
             },
             {
               "uci": "g8f6",
               "san": "Nf6",
               "title": "Black attacks e4",
-              "explanation": "Black counterattacks instead of defending e5."
+              "explanation": "Black counterattacks instead of defending e5. Nf6 develops a knight to f6. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
             },
             {
               "uci": "b1c3",
               "san": "Nc3",
               "title": "Recommended: develop and defend",
-              "explanation": "Nc3 defends e4 and keeps development smooth."
+              "explanation": "Nc3 defends e4 and keeps development smooth. Nc3 develops a knight to c3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "f8b4",
+              "san": "Bb4",
+              "title": "Develop to b4",
+              "explanation": "Bb4 develops a bishop to b4. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "f1b5",
+              "san": "Bb5",
+              "title": "Develop to b5",
+              "explanation": "Bb5 develops a bishop to b5. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "e8g8",
+              "san": "O-O",
+              "title": "Get the king safe",
+              "explanation": "O-O moves the king to safety and brings the rook closer to the center. This is usually the moment when the opening becomes an early middlegame plan: The Four Knights usually becomes a calm development race: castle, complete pieces, and avoid unnecessary pawn grabs."
+            },
+            {
+              "uci": "e1g1",
+              "san": "O-O",
+              "title": "Get the king safe",
+              "explanation": "O-O moves the king to safety and brings the rook closer to the center. This is usually the moment when the opening becomes an early middlegame plan: The Four Knights usually becomes a calm development race: castle, complete pieces, and avoid unnecessary pawn grabs."
+            },
+            {
+              "uci": "d7d6",
+              "san": "d6",
+              "title": "Shape the center",
+              "explanation": "d6 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Four Knights usually becomes a calm development race: castle, complete pieces, and avoid unnecessary pawn grabs."
+            },
+            {
+              "uci": "d2d3",
+              "san": "d3",
+              "title": "Shape the center",
+              "explanation": "d3 clarifies the pawn structure. Central moves should claim space, challenge a pawn, or prepare a break. The Four Knights usually becomes a calm development race: castle, complete pieces, and avoid unnecessary pawn grabs."
+            },
+            {
+              "uci": "c8g4",
+              "san": "Bg4",
+              "title": "Develop to g4",
+              "explanation": "Bg4 improves a piece and adds control over important squares. Developed pieces create threats naturally, so you do not need to force an attack before castling."
             }
           ],
           "hints": [
-            "Start by recognizing e4.",
-            "The target response in this branch is Nc3.",
-            "Use the highlighted move and keep the plan simple."
+            "Follow the highlighted move and say the idea out loud.",
+            "After each move, check king safety, center control, and piece activity.",
+            "When a trade appears, ask what file opens and which piece improves next."
           ],
           "coachingNotes": [
             "If Black attacks e4 early, defend by developing.",
-            "Nc3 defends e4 and keeps development smooth."
+            "The Four Knights usually becomes a calm development race: castle, complete pieces, and avoid unnecessary pawn grabs.",
+            "Good trades usually remove an active enemy piece, open a useful file, or simplify once your king is safe.",
+            "After the opening, do not drift: improve your worst piece, connect rooks, and look for one clear pawn break."
           ],
           "completion": {
             "attempts": 0,
@@ -141,41 +223,85 @@
               "uci": "e2e4",
               "san": "e4",
               "title": "Start with e4",
-              "explanation": "Claim the center."
+              "explanation": "Claim the center. e4 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Four Knights usually becomes a calm development race: castle, complete pieces, and avoid unnecessary pawn grabs."
             },
             {
               "uci": "e7e5",
               "san": "e5",
               "title": "Black mirrors",
-              "explanation": "Open game."
+              "explanation": "Open game. e5 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Four Knights usually becomes a calm development race: castle, complete pieces, and avoid unnecessary pawn grabs."
             },
             {
               "uci": "g1f3",
               "san": "Nf3",
               "title": "Develop",
-              "explanation": "Attack e5."
+              "explanation": "Attack e5. Nf3 develops a knight to f3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
             },
             {
               "uci": "f8c5",
               "san": "Bc5",
               "title": "Black develops bishop",
-              "explanation": "Black points at f2 and develops actively."
+              "explanation": "Black points at f2 and develops actively. Bc5 develops a bishop to c5. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
             },
             {
               "uci": "b1c3",
               "san": "Nc3",
               "title": "Recommended: develop",
-              "explanation": "Nc3 adds central control and keeps the Four Knights plan intact."
+              "explanation": "Nc3 adds central control and keeps the Four Knights plan intact. Nc3 develops a knight to c3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "d7d6",
+              "san": "d6",
+              "title": "Shape the center",
+              "explanation": "d6 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Four Knights usually becomes a calm development race: castle, complete pieces, and avoid unnecessary pawn grabs."
+            },
+            {
+              "uci": "f1b5",
+              "san": "Bb5+",
+              "title": "Develop to b5",
+              "explanation": "Bb5+ develops a bishop to b5. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "b8c6",
+              "san": "Nc6",
+              "title": "Develop to c6",
+              "explanation": "Nc6 develops a knight to c6. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "e1g1",
+              "san": "O-O",
+              "title": "Get the king safe",
+              "explanation": "O-O moves the king to safety and brings the rook closer to the center. This is usually the moment when the opening becomes an early middlegame plan: The Four Knights usually becomes a calm development race: castle, complete pieces, and avoid unnecessary pawn grabs."
+            },
+            {
+              "uci": "c8g4",
+              "san": "Bg4",
+              "title": "Develop to g4",
+              "explanation": "Bg4 develops a bishop to g4. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "d2d3",
+              "san": "d3",
+              "title": "Shape the center",
+              "explanation": "d3 clarifies the pawn structure. Central moves should claim space, challenge a pawn, or prepare a break. The Four Knights usually becomes a calm development race: castle, complete pieces, and avoid unnecessary pawn grabs."
+            },
+            {
+              "uci": "a7a6",
+              "san": "a6",
+              "title": "Improve with a6",
+              "explanation": "a6 is a quiet improving move. Quiet moves matter when they finish development, prevent counterplay, or prepare a clear next plan."
             }
           ],
           "hints": [
-            "Start by recognizing e4.",
-            "The target response in this branch is Nc3.",
-            "Use the highlighted move and keep the plan simple."
+            "Follow the highlighted move and say the idea out loud.",
+            "After each move, check king safety, center control, and piece activity.",
+            "When a trade appears, ask what file opens and which piece improves next."
           ],
           "coachingNotes": [
             "If Black develops the bishop, continue normally.",
-            "Nc3 adds central control and keeps the Four Knights plan intact."
+            "The Four Knights usually becomes a calm development race: castle, complete pieces, and avoid unnecessary pawn grabs.",
+            "Good trades usually remove an active enemy piece, open a useful file, or simplify once your king is safe.",
+            "After the opening, do not drift: improve your worst piece, connect rooks, and look for one clear pawn break."
           ],
           "completion": {
             "attempts": 0,
@@ -198,47 +324,85 @@
               "uci": "e2e4",
               "san": "e4",
               "title": "Open",
-              "explanation": "Start in the center."
+              "explanation": "Start in the center. e4 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Four Knights usually becomes a calm development race: castle, complete pieces, and avoid unnecessary pawn grabs."
             },
             {
               "uci": "e7e5",
               "san": "e5",
               "title": "Mirror",
-              "explanation": "Open game."
+              "explanation": "Open game. e5 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Four Knights usually becomes a calm development race: castle, complete pieces, and avoid unnecessary pawn grabs."
             },
             {
               "uci": "g1f3",
               "san": "Nf3",
               "title": "Knight",
-              "explanation": "Develop."
+              "explanation": "Develop. Nf3 develops a knight to f3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
             },
             {
               "uci": "b8c6",
               "san": "Nc6",
               "title": "Black knight",
-              "explanation": "Recognize defense."
+              "explanation": "Recognize defense. Nc6 develops a knight to c6. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
             },
             {
               "uci": "b1c3",
               "san": "Nc3",
               "title": "Second knight",
-              "explanation": "Develop again."
+              "explanation": "Develop again. Nc3 develops a knight to c3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
             },
             {
               "uci": "g8f6",
               "san": "Nf6",
               "title": "Four knights",
-              "explanation": "Complete setup."
+              "explanation": "Complete setup. Nf6 develops a knight to f6. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "f1b5",
+              "san": "Bb5",
+              "title": "Develop to b5",
+              "explanation": "Bb5 develops a bishop to b5. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "f8b4",
+              "san": "Bb4",
+              "title": "Develop to b4",
+              "explanation": "Bb4 develops a bishop to b4. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "e1g1",
+              "san": "O-O",
+              "title": "Get the king safe",
+              "explanation": "O-O moves the king to safety and brings the rook closer to the center. This is usually the moment when the opening becomes an early middlegame plan: The Four Knights usually becomes a calm development race: castle, complete pieces, and avoid unnecessary pawn grabs."
+            },
+            {
+              "uci": "e8g8",
+              "san": "O-O",
+              "title": "Get the king safe",
+              "explanation": "O-O moves the king to safety and brings the rook closer to the center. This is usually the moment when the opening becomes an early middlegame plan: The Four Knights usually becomes a calm development race: castle, complete pieces, and avoid unnecessary pawn grabs."
+            },
+            {
+              "uci": "d2d3",
+              "san": "d3",
+              "title": "Shape the center",
+              "explanation": "d3 clarifies the pawn structure. Central moves should claim space, challenge a pawn, or prepare a break. The Four Knights usually becomes a calm development race: castle, complete pieces, and avoid unnecessary pawn grabs."
+            },
+            {
+              "uci": "d7d6",
+              "san": "d6",
+              "title": "Shape the center",
+              "explanation": "d6 clarifies the pawn structure. Central moves should claim space, challenge a pawn, or prepare a break. The Four Knights usually becomes a calm development race: castle, complete pieces, and avoid unnecessary pawn grabs."
             }
           ],
           "hints": [
-            "Start by recognizing e4.",
-            "The target response in this branch is Nf6.",
-            "Use the highlighted move and keep the plan simple."
+            "Follow the highlighted move and say the idea out loud.",
+            "After each move, check king safety, center control, and piece activity.",
+            "When a trade appears, ask what file opens and which piece improves next."
           ],
           "coachingNotes": [
             "Replay the main Four Knights setup.",
-            "Complete setup."
+            "The Four Knights usually becomes a calm development race: castle, complete pieces, and avoid unnecessary pawn grabs.",
+            "Good trades usually remove an active enemy piece, open a useful file, or simplify once your king is safe.",
+            "After the opening, do not drift: improve your worst piece, connect rooks, and look for one clear pawn break."
           ],
           "completion": {
             "attempts": 0,
@@ -252,12 +416,18 @@
   "ideas": [
     "Develop knights before making attacks.",
     "Use development to defend central pawns.",
-    "Stay calm when Black changes move order."
+    "Stay calm when Black changes move order.",
+    "The Four Knights usually becomes a calm development race: castle, complete pieces, and avoid unnecessary pawn grabs.",
+    "Trade only when it improves your position, removes danger, or opens a useful file.",
+    "By move 8-12, you should know your early middlegame plan: safe king, active pieces, and one central break."
   ],
   "commonMistakes": [
     "Moving one knight repeatedly.",
     "Forgetting e4 is attacked.",
-    "Trading pieces without a reason."
+    "Trading pieces without a reason.",
+    "Stopping after memorized moves and playing without a plan.",
+    "Trading automatically without asking what improves afterward.",
+    "Starting an attack before castling or finishing development."
   ],
   "tree": {},
   "training": {

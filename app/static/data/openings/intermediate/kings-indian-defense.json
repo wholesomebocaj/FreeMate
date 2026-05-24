@@ -20,48 +20,86 @@
               "uci": "d2d4",
               "san": "d4",
               "title": "White starts d4",
-              "explanation": "White controls central squares."
+              "explanation": "White controls central squares. d4 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The King Indian reaches a tense center: Black castles, then strikes with e5 or c5 after development."
             },
             {
               "uci": "g8f6",
               "san": "Nf6",
               "title": "Watch the center",
-              "explanation": "Nf6 develops and pressures e4 without occupying the center yet."
+              "explanation": "Nf6 develops and pressures e4 without occupying the center yet. Nf6 develops a knight to f6. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
             },
             {
               "uci": "c2c4",
               "san": "c4",
               "title": "White expands",
-              "explanation": "White gains more space."
+              "explanation": "White gains more space. c4 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The King Indian reaches a tense center: Black castles, then strikes with e5 or c5 after development."
             },
             {
               "uci": "g7g6",
               "san": "g6",
               "title": "Prepare bishop",
-              "explanation": "g6 prepares a bishop on g7 to pressure the long diagonal."
+              "explanation": "g6 prepares a bishop on g7 to pressure the long diagonal. g6 is a practical improving move for Black. In real games, keep asking: is my king safe, are my pieces active, and what central pawn break comes next?"
             },
             {
               "uci": "b1c3",
               "san": "Nc3",
               "title": "White supports center",
-              "explanation": "White reinforces central control."
+              "explanation": "White reinforces central control. Nc3 develops a knight to c3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
             },
             {
               "uci": "f8g7",
               "san": "Bg7",
               "title": "Fianchetto",
-              "explanation": "Bg7 activates the bishop. Next plans include castling and central breaks."
+              "explanation": "Bg7 activates the bishop. Next plans include castling and central breaks. Bg7 develops a bishop to g7. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "e2e4",
+              "san": "e4",
+              "title": "Shape the center",
+              "explanation": "e4 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The King Indian reaches a tense center: Black castles, then strikes with e5 or c5 after development."
+            },
+            {
+              "uci": "e8g8",
+              "san": "O-O",
+              "title": "Get the king safe",
+              "explanation": "O-O moves the king to safety and brings the rook closer to the center. This is usually the moment when the opening becomes an early middlegame plan: The King Indian reaches a tense center: Black castles, then strikes with e5 or c5 after development."
+            },
+            {
+              "uci": "g1f3",
+              "san": "Nf3",
+              "title": "Develop to f3",
+              "explanation": "Nf3 develops a knight to f3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "d7d6",
+              "san": "d6",
+              "title": "Shape the center",
+              "explanation": "d6 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The King Indian reaches a tense center: Black castles, then strikes with e5 or c5 after development."
+            },
+            {
+              "uci": "c1e3",
+              "san": "Be3",
+              "title": "Develop to e3",
+              "explanation": "Be3 improves a piece and adds control over important squares. Developed pieces create threats naturally, so you do not need to force an attack before castling."
+            },
+            {
+              "uci": "e7e5",
+              "san": "e5",
+              "title": "Shape the center",
+              "explanation": "e5 clarifies the pawn structure. Central moves should claim space, challenge a pawn, or prepare a break. The King Indian reaches a tense center: Black castles, then strikes with e5 or c5 after development."
             }
           ],
           "isMainLine": true,
           "hints": [
-            "Start by recognizing d4.",
-            "The target response in this branch is Bg7.",
-            "Use the highlighted move and keep the plan simple."
+            "Follow the highlighted move and say the idea out loud.",
+            "After each move, check king safety, center control, and piece activity.",
+            "When a trade appears, ask what file opens and which piece improves next."
           ],
           "coachingNotes": [
             "Learn the default King's Indian starting structure.",
-            "Bg7 activates the bishop. Next plans include castling and central breaks."
+            "The King Indian reaches a tense center: Black castles, then strikes with e5 or c5 after development.",
+            "Good trades usually remove an active enemy piece, open a useful file, or simplify once your king is safe.",
+            "After the opening, do not drift: improve your worst piece, connect rooks, and look for one clear pawn break."
           ],
           "completion": {
             "attempts": 0,
@@ -84,35 +122,85 @@
               "uci": "d2d4",
               "san": "d4",
               "title": "White starts",
-              "explanation": "White takes center."
+              "explanation": "White takes center. d4 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The King Indian reaches a tense center: Black castles, then strikes with e5 or c5 after development."
             },
             {
               "uci": "g8f6",
               "san": "Nf6",
               "title": "Develop",
-              "explanation": "Black watches e4."
+              "explanation": "Black watches e4. Nf6 develops a knight to f6. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
             },
             {
               "uci": "g1f3",
               "san": "Nf3",
               "title": "White develops",
-              "explanation": "White supports the center and prepares castling."
+              "explanation": "White supports the center and prepares castling. Nf3 develops a knight to f3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
             },
             {
               "uci": "g7g6",
               "san": "g6",
               "title": "Recommended: prepare Bg7",
-              "explanation": "Keep the King's Indian setup. Do not rush pawn breaks before castling."
+              "explanation": "Keep the King's Indian setup. Do not rush pawn breaks before castling. g6 is a practical improving move for Black. In real games, keep asking: is my king safe, are my pieces active, and what central pawn break comes next?"
+            },
+            {
+              "uci": "b1c3",
+              "san": "Nc3",
+              "title": "Develop to c3",
+              "explanation": "Nc3 develops a knight to c3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "f8g7",
+              "san": "Bg7",
+              "title": "Develop to g7",
+              "explanation": "Bg7 develops a bishop to g7. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "e2e4",
+              "san": "e4",
+              "title": "Shape the center",
+              "explanation": "e4 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The King Indian reaches a tense center: Black castles, then strikes with e5 or c5 after development."
+            },
+            {
+              "uci": "e8g8",
+              "san": "O-O",
+              "title": "Get the king safe",
+              "explanation": "O-O moves the king to safety and brings the rook closer to the center. This is usually the moment when the opening becomes an early middlegame plan: The King Indian reaches a tense center: Black castles, then strikes with e5 or c5 after development."
+            },
+            {
+              "uci": "f1e2",
+              "san": "Be2",
+              "title": "Develop to e2",
+              "explanation": "Be2 develops a bishop to e2. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "d7d6",
+              "san": "d6",
+              "title": "Shape the center",
+              "explanation": "d6 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The King Indian reaches a tense center: Black castles, then strikes with e5 or c5 after development."
+            },
+            {
+              "uci": "e1g1",
+              "san": "O-O",
+              "title": "Get the king safe",
+              "explanation": "O-O gets the king safe and brings a rook closer to the center. This is the bridge from opening to middlegame: now look for your worst piece, your safest trade, and your best pawn break."
+            },
+            {
+              "uci": "e7e5",
+              "san": "e5",
+              "title": "Shape the center",
+              "explanation": "e5 clarifies the pawn structure. Central moves should claim space, challenge a pawn, or prepare a break. The King Indian reaches a tense center: Black castles, then strikes with e5 or c5 after development."
             }
           ],
           "hints": [
-            "Start by recognizing d4.",
-            "The target response in this branch is g6.",
-            "Use the highlighted move and keep the plan simple."
+            "Follow the highlighted move and say the idea out loud.",
+            "After each move, check king safety, center control, and piece activity.",
+            "When a trade appears, ask what file opens and which piece improves next."
           ],
           "coachingNotes": [
             "If White develops quietly, continue the fianchetto.",
-            "Keep the King's Indian setup. Do not rush pawn breaks before castling."
+            "The King Indian reaches a tense center: Black castles, then strikes with e5 or c5 after development.",
+            "Good trades usually remove an active enemy piece, open a useful file, or simplify once your king is safe.",
+            "After the opening, do not drift: improve your worst piece, connect rooks, and look for one clear pawn break."
           ],
           "completion": {
             "attempts": 0,
@@ -135,35 +223,85 @@
               "uci": "d2d4",
               "san": "d4",
               "title": "White starts",
-              "explanation": "White takes space."
+              "explanation": "White takes space. d4 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The King Indian reaches a tense center: Black castles, then strikes with e5 or c5 after development."
             },
             {
               "uci": "g8f6",
               "san": "Nf6",
               "title": "Develop",
-              "explanation": "Black pressures e4."
+              "explanation": "Black pressures e4. Nf6 develops a knight to f6. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
             },
             {
               "uci": "e2e4",
               "san": "e4",
               "title": "White builds center",
-              "explanation": "White creates a strong pawn duo."
+              "explanation": "White creates a strong pawn duo. e4 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The King Indian reaches a tense center: Black castles, then strikes with e5 or c5 after development."
             },
             {
               "uci": "d7d6",
               "san": "d6",
               "title": "Recommended: support and prepare",
-              "explanation": "d6 controls e5 and prepares castling and later central counterplay."
+              "explanation": "d6 controls e5 and prepares castling and later central counterplay. d6 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The King Indian reaches a tense center: Black castles, then strikes with e5 or c5 after development."
+            },
+            {
+              "uci": "b1c3",
+              "san": "Nc3",
+              "title": "Develop to c3",
+              "explanation": "Nc3 develops a knight to c3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "g7g6",
+              "san": "g6",
+              "title": "Improve with g6",
+              "explanation": "g6 is a practical improving move for Black. In real games, keep asking: is my king safe, are my pieces active, and what central pawn break comes next?"
+            },
+            {
+              "uci": "g1f3",
+              "san": "Nf3",
+              "title": "Develop to f3",
+              "explanation": "Nf3 develops a knight to f3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "f8g7",
+              "san": "Bg7",
+              "title": "Develop to g7",
+              "explanation": "Bg7 develops a bishop to g7. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "f1e2",
+              "san": "Be2",
+              "title": "Develop to e2",
+              "explanation": "Be2 develops a bishop to e2. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "e8g8",
+              "san": "O-O",
+              "title": "Get the king safe",
+              "explanation": "O-O moves the king to safety and brings the rook closer to the center. This is usually the moment when the opening becomes an early middlegame plan: The King Indian reaches a tense center: Black castles, then strikes with e5 or c5 after development."
+            },
+            {
+              "uci": "e1g1",
+              "san": "O-O",
+              "title": "Get the king safe",
+              "explanation": "O-O gets the king safe and brings a rook closer to the center. This is the bridge from opening to middlegame: now look for your worst piece, your safest trade, and your best pawn break."
+            },
+            {
+              "uci": "e7e5",
+              "san": "e5",
+              "title": "Shape the center",
+              "explanation": "e5 clarifies the pawn structure. Central moves should claim space, challenge a pawn, or prepare a break. The King Indian reaches a tense center: Black castles, then strikes with e5 or c5 after development."
             }
           ],
           "hints": [
-            "Start by recognizing d4.",
-            "The target response in this branch is d6.",
-            "Use the highlighted move and keep the plan simple."
+            "Follow the highlighted move and say the idea out loud.",
+            "After each move, check king safety, center control, and piece activity.",
+            "When a trade appears, ask what file opens and which piece improves next."
           ],
           "coachingNotes": [
             "If White builds a huge center, finish development.",
-            "d6 controls e5 and prepares castling and later central counterplay."
+            "The King Indian reaches a tense center: Black castles, then strikes with e5 or c5 after development.",
+            "Good trades usually remove an active enemy piece, open a useful file, or simplify once your king is safe.",
+            "After the opening, do not drift: improve your worst piece, connect rooks, and look for one clear pawn break."
           ],
           "completion": {
             "attempts": 0,
@@ -186,47 +324,85 @@
               "uci": "d2d4",
               "san": "d4",
               "title": "White center",
-              "explanation": "Recognize d4."
+              "explanation": "Recognize d4. d4 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The King Indian reaches a tense center: Black castles, then strikes with e5 or c5 after development."
             },
             {
               "uci": "g8f6",
               "san": "Nf6",
               "title": "Develop",
-              "explanation": "Pressure center."
+              "explanation": "Pressure center. Nf6 develops a knight to f6. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
             },
             {
               "uci": "c2c4",
               "san": "c4",
               "title": "White expands",
-              "explanation": "Accept space."
+              "explanation": "Accept space. c4 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The King Indian reaches a tense center: Black castles, then strikes with e5 or c5 after development."
             },
             {
               "uci": "g7g6",
               "san": "g6",
               "title": "Prepare",
-              "explanation": "Ready Bg7."
+              "explanation": "Ready Bg7. g6 is a practical improving move for Black. In real games, keep asking: is my king safe, are my pieces active, and what central pawn break comes next?"
             },
             {
               "uci": "b1c3",
               "san": "Nc3",
               "title": "Support",
-              "explanation": "White develops."
+              "explanation": "White develops. Nc3 develops a knight to c3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
             },
             {
               "uci": "f8g7",
               "san": "Bg7",
               "title": "Bishop",
-              "explanation": "Complete setup."
+              "explanation": "Complete setup. Bg7 develops a bishop to g7. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "e2e4",
+              "san": "e4",
+              "title": "Shape the center",
+              "explanation": "e4 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The King Indian reaches a tense center: Black castles, then strikes with e5 or c5 after development."
+            },
+            {
+              "uci": "e8g8",
+              "san": "O-O",
+              "title": "Get the king safe",
+              "explanation": "O-O moves the king to safety and brings the rook closer to the center. This is usually the moment when the opening becomes an early middlegame plan: The King Indian reaches a tense center: Black castles, then strikes with e5 or c5 after development."
+            },
+            {
+              "uci": "g1f3",
+              "san": "Nf3",
+              "title": "Develop to f3",
+              "explanation": "Nf3 develops a knight to f3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "d7d6",
+              "san": "d6",
+              "title": "Shape the center",
+              "explanation": "d6 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The King Indian reaches a tense center: Black castles, then strikes with e5 or c5 after development."
+            },
+            {
+              "uci": "c1e3",
+              "san": "Be3",
+              "title": "Develop to e3",
+              "explanation": "Be3 improves a piece and adds control over important squares. Developed pieces create threats naturally, so you do not need to force an attack before castling."
+            },
+            {
+              "uci": "e7e5",
+              "san": "e5",
+              "title": "Shape the center",
+              "explanation": "e5 clarifies the pawn structure. Central moves should claim space, challenge a pawn, or prepare a break. The King Indian reaches a tense center: Black castles, then strikes with e5 or c5 after development."
             }
           ],
           "hints": [
-            "Start by recognizing d4.",
-            "The target response in this branch is Bg7.",
-            "Use the highlighted move and keep the plan simple."
+            "Follow the highlighted move and say the idea out loud.",
+            "After each move, check king safety, center control, and piece activity.",
+            "When a trade appears, ask what file opens and which piece improves next."
           ],
           "coachingNotes": [
             "Practice the fianchetto setup.",
-            "Complete setup."
+            "The King Indian reaches a tense center: Black castles, then strikes with e5 or c5 after development.",
+            "Good trades usually remove an active enemy piece, open a useful file, or simplify once your king is safe.",
+            "After the opening, do not drift: improve your worst piece, connect rooks, and look for one clear pawn break."
           ],
           "completion": {
             "attempts": 0,
@@ -240,12 +416,18 @@
   "ideas": [
     "Control the center with pieces before pawns.",
     "Fianchetto the bishop to g7.",
-    "Castle, then challenge White's center."
+    "Castle, then challenge White's center.",
+    "The King Indian reaches a tense center: Black castles, then strikes with e5 or c5 after development.",
+    "Trade only when it improves your position, removes danger, or opens a useful file.",
+    "By move 8-12, you should know your early middlegame plan: safe king, active pieces, and one central break."
   ],
   "commonMistakes": [
     "Never challenging White's center.",
     "Opening the kingside before castling.",
-    "Forgetting the bishop needs the long diagonal."
+    "Forgetting the bishop needs the long diagonal.",
+    "Stopping after memorized moves and playing without a plan.",
+    "Trading automatically without asking what improves afterward.",
+    "Starting an attack before castling or finishing development."
   ],
   "tree": {},
   "training": {

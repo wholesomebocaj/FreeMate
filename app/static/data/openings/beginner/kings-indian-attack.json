@@ -20,41 +20,85 @@
               "uci": "g1f3",
               "san": "Nf3",
               "title": "Develop first",
-              "explanation": "Nf3 develops, controls central squares, and keeps the setup flexible."
+              "explanation": "Nf3 develops, controls central squares, and keeps the setup flexible. Nf3 develops a knight to f3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
             },
             {
               "uci": "d7d5",
               "san": "d5",
               "title": "Black takes center",
-              "explanation": "Black claims central space."
+              "explanation": "Black claims central space. d5 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The King Indian Attack is a setup: castle first, then prepare e4 or kingside pressure when the center is stable."
             },
             {
               "uci": "g2g3",
               "san": "g3",
               "title": "Prepare the bishop",
-              "explanation": "g3 opens a safe home for the bishop and supports castling."
+              "explanation": "g3 opens a safe home for the bishop and supports castling. g3 is a practical improving move for White. In real games, keep asking: is my king safe, are my pieces active, and what central pawn break comes next?"
             },
             {
               "uci": "g8f6",
               "san": "Nf6",
               "title": "Black develops",
-              "explanation": "Black improves a knight and controls e4."
+              "explanation": "Black improves a knight and controls e4. Nf6 develops a knight to f6. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
             },
             {
               "uci": "f1g2",
               "san": "Bg2",
               "title": "Fianchetto",
-              "explanation": "Bg2 puts the bishop on the long diagonal and prepares king safety."
+              "explanation": "Bg2 puts the bishop on the long diagonal and prepares king safety. Bg2 develops a bishop to g2. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "e7e6",
+              "san": "e6",
+              "title": "Shape the center",
+              "explanation": "e6 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The King Indian Attack is a setup: castle first, then prepare e4 or kingside pressure when the center is stable."
+            },
+            {
+              "uci": "e1g1",
+              "san": "O-O",
+              "title": "Get the king safe",
+              "explanation": "O-O moves the king to safety and brings the rook closer to the center. This is usually the moment when the opening becomes an early middlegame plan: The King Indian Attack is a setup: castle first, then prepare e4 or kingside pressure when the center is stable."
+            },
+            {
+              "uci": "f8e7",
+              "san": "Be7",
+              "title": "Develop to e7",
+              "explanation": "Be7 develops a bishop to e7. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "d2d3",
+              "san": "d3",
+              "title": "Shape the center",
+              "explanation": "d3 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The King Indian Attack is a setup: castle first, then prepare e4 or kingside pressure when the center is stable."
+            },
+            {
+              "uci": "e8g8",
+              "san": "O-O",
+              "title": "Get the king safe",
+              "explanation": "O-O moves the king to safety and brings the rook closer to the center. This is usually the moment when the opening becomes an early middlegame plan: The King Indian Attack is a setup: castle first, then prepare e4 or kingside pressure when the center is stable."
+            },
+            {
+              "uci": "b1d2",
+              "san": "Nbd2",
+              "title": "Develop to d2",
+              "explanation": "Nbd2 improves a piece and adds control over important squares. Developed pieces create threats naturally, so you do not need to force an attack before castling."
+            },
+            {
+              "uci": "c7c5",
+              "san": "c5",
+              "title": "Shape the center",
+              "explanation": "c5 clarifies the pawn structure. Central moves should claim space, challenge a pawn, or prepare a break. The King Indian Attack is a setup: castle first, then prepare e4 or kingside pressure when the center is stable."
             }
           ],
           "hints": [
-            "Start by recognizing Nf3.",
-            "The key training move in this branch is Bg2.",
-            "Follow the highlighted move and keep your plan simple."
+            "Follow the highlighted move and say the idea out loud.",
+            "After each move, check king safety, center control, and piece activity.",
+            "When a trade appears, ask what file opens and which piece improves next."
           ],
           "coachingNotes": [
             "Build the Nf3-g3-Bg2 setup against a normal Black response.",
-            "Bg2 puts the bishop on the long diagonal and prepares king safety."
+            "The King Indian Attack is a setup: castle first, then prepare e4 or kingside pressure when the center is stable.",
+            "Good trades usually remove an active enemy piece, open a useful file, or simplify once your king is safe.",
+            "After the opening, do not drift: improve your worst piece, connect rooks, and look for one clear pawn break."
           ],
           "completion": {
             "attempts": 0,
@@ -78,29 +122,85 @@
               "uci": "g1f3",
               "san": "Nf3",
               "title": "Develop",
-              "explanation": "Start with a flexible knight."
+              "explanation": "Start with a flexible knight. Nf3 develops a knight to f3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
             },
             {
               "uci": "c7c5",
               "san": "c5",
               "title": "Black challenges",
-              "explanation": "Black grabs space from the side."
+              "explanation": "Black grabs space from the side. c5 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The King Indian Attack is a setup: castle first, then prepare e4 or kingside pressure when the center is stable."
             },
             {
               "uci": "g2g3",
               "san": "g3",
               "title": "Recommended: prepare Bg2",
-              "explanation": "Keep the setup. The bishop will help control central dark squares."
+              "explanation": "Keep the setup. The bishop will help control central dark squares. g3 is a practical improving move for White. In real games, keep asking: is my king safe, are my pieces active, and what central pawn break comes next?"
+            },
+            {
+              "uci": "d7d5",
+              "san": "d5",
+              "title": "Shape the center",
+              "explanation": "d5 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The King Indian Attack is a setup: castle first, then prepare e4 or kingside pressure when the center is stable."
+            },
+            {
+              "uci": "f1g2",
+              "san": "Bg2",
+              "title": "Develop to g2",
+              "explanation": "Bg2 develops a bishop to g2. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "g8f6",
+              "san": "Nf6",
+              "title": "Develop to f6",
+              "explanation": "Nf6 develops a knight to f6. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "e1g1",
+              "san": "O-O",
+              "title": "Get the king safe",
+              "explanation": "O-O moves the king to safety and brings the rook closer to the center. This is usually the moment when the opening becomes an early middlegame plan: The King Indian Attack is a setup: castle first, then prepare e4 or kingside pressure when the center is stable."
+            },
+            {
+              "uci": "e7e6",
+              "san": "e6",
+              "title": "Shape the center",
+              "explanation": "e6 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The King Indian Attack is a setup: castle first, then prepare e4 or kingside pressure when the center is stable."
+            },
+            {
+              "uci": "d2d3",
+              "san": "d3",
+              "title": "Shape the center",
+              "explanation": "d3 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The King Indian Attack is a setup: castle first, then prepare e4 or kingside pressure when the center is stable."
+            },
+            {
+              "uci": "f8e7",
+              "san": "Be7",
+              "title": "Develop to e7",
+              "explanation": "Be7 develops a bishop to e7. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "b1d2",
+              "san": "Nbd2",
+              "title": "Develop to d2",
+              "explanation": "Nbd2 improves a piece and adds control over important squares. Developed pieces create threats naturally, so you do not need to force an attack before castling."
+            },
+            {
+              "uci": "e8g8",
+              "san": "O-O",
+              "title": "Get the king safe",
+              "explanation": "O-O gets the king safe and brings a rook closer to the center. This is the bridge from opening to middlegame: now look for your worst piece, your safest trade, and your best pawn break."
             }
           ],
           "hints": [
-            "Start by recognizing Nf3.",
-            "The key training move in this branch is g3.",
-            "Follow the highlighted move and keep your plan simple."
+            "Follow the highlighted move and say the idea out loud.",
+            "After each move, check king safety, center control, and piece activity.",
+            "When a trade appears, ask what file opens and which piece improves next."
           ],
           "coachingNotes": [
             "If Black challenges the center with c5, continue calmly.",
-            "Keep the setup. The bishop will help control central dark squares."
+            "The King Indian Attack is a setup: castle first, then prepare e4 or kingside pressure when the center is stable.",
+            "Good trades usually remove an active enemy piece, open a useful file, or simplify once your king is safe.",
+            "After the opening, do not drift: improve your worst piece, connect rooks, and look for one clear pawn break."
           ],
           "completion": {
             "attempts": 0,
@@ -123,29 +223,85 @@
               "uci": "g1f3",
               "san": "Nf3",
               "title": "Develop",
-              "explanation": "Control central squares."
+              "explanation": "Control central squares. Nf3 develops a knight to f3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
             },
             {
               "uci": "e7e6",
               "san": "e6",
               "title": "Black prepares",
-              "explanation": "Black supports d5 and opens the bishop."
+              "explanation": "Black supports d5 and opens the bishop. e6 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The King Indian Attack is a setup: castle first, then prepare e4 or kingside pressure when the center is stable."
             },
             {
               "uci": "g2g3",
               "san": "g3",
               "title": "Recommended: prepare Bg2",
-              "explanation": "g3 keeps White's king safe and builds the standard structure."
+              "explanation": "g3 keeps White's king safe and builds the standard structure. g3 is a practical improving move for White. In real games, keep asking: is my king safe, are my pieces active, and what central pawn break comes next?"
+            },
+            {
+              "uci": "d7d5",
+              "san": "d5",
+              "title": "Shape the center",
+              "explanation": "d5 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The King Indian Attack is a setup: castle first, then prepare e4 or kingside pressure when the center is stable."
+            },
+            {
+              "uci": "f1g2",
+              "san": "Bg2",
+              "title": "Develop to g2",
+              "explanation": "Bg2 develops a bishop to g2. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "g8f6",
+              "san": "Nf6",
+              "title": "Develop to f6",
+              "explanation": "Nf6 develops a knight to f6. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "e1g1",
+              "san": "O-O",
+              "title": "Get the king safe",
+              "explanation": "O-O moves the king to safety and brings the rook closer to the center. This is usually the moment when the opening becomes an early middlegame plan: The King Indian Attack is a setup: castle first, then prepare e4 or kingside pressure when the center is stable."
+            },
+            {
+              "uci": "f8e7",
+              "san": "Be7",
+              "title": "Develop to e7",
+              "explanation": "Be7 develops a bishop to e7. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "d2d3",
+              "san": "d3",
+              "title": "Shape the center",
+              "explanation": "d3 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The King Indian Attack is a setup: castle first, then prepare e4 or kingside pressure when the center is stable."
+            },
+            {
+              "uci": "e8g8",
+              "san": "O-O",
+              "title": "Get the king safe",
+              "explanation": "O-O moves the king to safety and brings the rook closer to the center. This is usually the moment when the opening becomes an early middlegame plan: The King Indian Attack is a setup: castle first, then prepare e4 or kingside pressure when the center is stable."
+            },
+            {
+              "uci": "b1d2",
+              "san": "Nbd2",
+              "title": "Develop to d2",
+              "explanation": "Nbd2 improves a piece and adds control over important squares. Developed pieces create threats naturally, so you do not need to force an attack before castling."
+            },
+            {
+              "uci": "c7c5",
+              "san": "c5",
+              "title": "Shape the center",
+              "explanation": "c5 clarifies the pawn structure. Central moves should claim space, challenge a pawn, or prepare a break. The King Indian Attack is a setup: castle first, then prepare e4 or kingside pressure when the center is stable."
             }
           ],
           "hints": [
-            "Start by recognizing Nf3.",
-            "The key training move in this branch is g3.",
-            "Follow the highlighted move and keep your plan simple."
+            "Follow the highlighted move and say the idea out loud.",
+            "After each move, check king safety, center control, and piece activity.",
+            "When a trade appears, ask what file opens and which piece improves next."
           ],
           "coachingNotes": [
             "If Black prepares d5, build your reliable setup.",
-            "g3 keeps White's king safe and builds the standard structure."
+            "The King Indian Attack is a setup: castle first, then prepare e4 or kingside pressure when the center is stable.",
+            "Good trades usually remove an active enemy piece, open a useful file, or simplify once your king is safe.",
+            "After the opening, do not drift: improve your worst piece, connect rooks, and look for one clear pawn break."
           ],
           "completion": {
             "attempts": 0,
@@ -168,41 +324,85 @@
               "uci": "g1f3",
               "san": "Nf3",
               "title": "Develop",
-              "explanation": "Start with a knight."
+              "explanation": "Start with a knight. Nf3 develops a knight to f3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
             },
             {
               "uci": "d7d5",
               "san": "d5",
               "title": "Black center",
-              "explanation": "Black takes space."
+              "explanation": "Black takes space. d5 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The King Indian Attack is a setup: castle first, then prepare e4 or kingside pressure when the center is stable."
             },
             {
               "uci": "g2g3",
               "san": "g3",
               "title": "Prepare bishop",
-              "explanation": "Build the setup."
+              "explanation": "Build the setup. g3 is a practical improving move for White. In real games, keep asking: is my king safe, are my pieces active, and what central pawn break comes next?"
             },
             {
               "uci": "c8g4",
               "san": "Bg4",
               "title": "Black pins",
-              "explanation": "Black pins the knight to the queen."
+              "explanation": "Black pins the knight to the queen. Bg4 develops a bishop to g4. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
             },
             {
               "uci": "f1g2",
               "san": "Bg2",
               "title": "Recommended: develop",
-              "explanation": "Finish the fianchetto. You can deal with the pin later after castling."
+              "explanation": "Finish the fianchetto. You can deal with the pin later after castling. Bg2 develops a bishop to g2. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "g8f6",
+              "san": "Nf6",
+              "title": "Develop to f6",
+              "explanation": "Nf6 develops a knight to f6. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "e1g1",
+              "san": "O-O",
+              "title": "Get the king safe",
+              "explanation": "O-O moves the king to safety and brings the rook closer to the center. This is usually the moment when the opening becomes an early middlegame plan: The King Indian Attack is a setup: castle first, then prepare e4 or kingside pressure when the center is stable."
+            },
+            {
+              "uci": "e7e6",
+              "san": "e6",
+              "title": "Shape the center",
+              "explanation": "e6 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The King Indian Attack is a setup: castle first, then prepare e4 or kingside pressure when the center is stable."
+            },
+            {
+              "uci": "d2d3",
+              "san": "d3",
+              "title": "Shape the center",
+              "explanation": "d3 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The King Indian Attack is a setup: castle first, then prepare e4 or kingside pressure when the center is stable."
+            },
+            {
+              "uci": "f8e7",
+              "san": "Be7",
+              "title": "Develop to e7",
+              "explanation": "Be7 develops a bishop to e7. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "b1d2",
+              "san": "Nbd2",
+              "title": "Develop to d2",
+              "explanation": "Nbd2 improves a piece and adds control over important squares. Developed pieces create threats naturally, so you do not need to force an attack before castling."
+            },
+            {
+              "uci": "e8g8",
+              "san": "O-O",
+              "title": "Get the king safe",
+              "explanation": "O-O gets the king safe and brings a rook closer to the center. This is the bridge from opening to middlegame: now look for your worst piece, your safest trade, and your best pawn break."
             }
           ],
           "hints": [
-            "Start by recognizing Nf3.",
-            "The key training move in this branch is Bg2.",
-            "Follow the highlighted move and keep your plan simple."
+            "Follow the highlighted move and say the idea out loud.",
+            "After each move, check king safety, center control, and piece activity.",
+            "When a trade appears, ask what file opens and which piece improves next."
           ],
           "coachingNotes": [
             "If Black pins the knight, develop and prepare to ask the bishop a question later.",
-            "Finish the fianchetto. You can deal with the pin later after castling."
+            "The King Indian Attack is a setup: castle first, then prepare e4 or kingside pressure when the center is stable.",
+            "Good trades usually remove an active enemy piece, open a useful file, or simplify once your king is safe.",
+            "After the opening, do not drift: improve your worst piece, connect rooks, and look for one clear pawn break."
           ],
           "completion": {
             "attempts": 0,
@@ -225,41 +425,85 @@
               "uci": "g1f3",
               "san": "Nf3",
               "title": "Knight",
-              "explanation": "Develop."
+              "explanation": "Develop. Nf3 develops a knight to f3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
             },
             {
               "uci": "d7d5",
               "san": "d5",
               "title": "Black center",
-              "explanation": "Recognize space."
+              "explanation": "Recognize space. d5 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The King Indian Attack is a setup: castle first, then prepare e4 or kingside pressure when the center is stable."
             },
             {
               "uci": "g2g3",
               "san": "g3",
               "title": "Prepare",
-              "explanation": "Ready Bg2."
+              "explanation": "Ready Bg2. g3 is a practical improving move for White. In real games, keep asking: is my king safe, are my pieces active, and what central pawn break comes next?"
             },
             {
               "uci": "g8f6",
               "san": "Nf6",
               "title": "Black develops",
-              "explanation": "Continue."
+              "explanation": "Continue. Nf6 develops a knight to f6. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
             },
             {
               "uci": "f1g2",
               "san": "Bg2",
               "title": "Bishop",
-              "explanation": "Fianchetto."
+              "explanation": "Fianchetto. Bg2 develops a bishop to g2. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "e7e6",
+              "san": "e6",
+              "title": "Shape the center",
+              "explanation": "e6 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The King Indian Attack is a setup: castle first, then prepare e4 or kingside pressure when the center is stable."
+            },
+            {
+              "uci": "e1g1",
+              "san": "O-O",
+              "title": "Get the king safe",
+              "explanation": "O-O moves the king to safety and brings the rook closer to the center. This is usually the moment when the opening becomes an early middlegame plan: The King Indian Attack is a setup: castle first, then prepare e4 or kingside pressure when the center is stable."
+            },
+            {
+              "uci": "f8e7",
+              "san": "Be7",
+              "title": "Develop to e7",
+              "explanation": "Be7 develops a bishop to e7. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "d2d3",
+              "san": "d3",
+              "title": "Shape the center",
+              "explanation": "d3 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The King Indian Attack is a setup: castle first, then prepare e4 or kingside pressure when the center is stable."
+            },
+            {
+              "uci": "e8g8",
+              "san": "O-O",
+              "title": "Get the king safe",
+              "explanation": "O-O moves the king to safety and brings the rook closer to the center. This is usually the moment when the opening becomes an early middlegame plan: The King Indian Attack is a setup: castle first, then prepare e4 or kingside pressure when the center is stable."
+            },
+            {
+              "uci": "b1d2",
+              "san": "Nbd2",
+              "title": "Develop to d2",
+              "explanation": "Nbd2 improves a piece and adds control over important squares. Developed pieces create threats naturally, so you do not need to force an attack before castling."
+            },
+            {
+              "uci": "c7c5",
+              "san": "c5",
+              "title": "Shape the center",
+              "explanation": "c5 clarifies the pawn structure. Central moves should claim space, challenge a pawn, or prepare a break. The King Indian Attack is a setup: castle first, then prepare e4 or kingside pressure when the center is stable."
             }
           ],
           "hints": [
-            "Start by recognizing Nf3.",
-            "The key training move in this branch is Bg2.",
-            "Follow the highlighted move and keep your plan simple."
+            "Follow the highlighted move and say the idea out loud.",
+            "After each move, check king safety, center control, and piece activity.",
+            "When a trade appears, ask what file opens and which piece improves next."
           ],
           "coachingNotes": [
             "Replay the KIA setup.",
-            "Fianchetto."
+            "The King Indian Attack is a setup: castle first, then prepare e4 or kingside pressure when the center is stable.",
+            "Good trades usually remove an active enemy piece, open a useful file, or simplify once your king is safe.",
+            "After the opening, do not drift: improve your worst piece, connect rooks, and look for one clear pawn break."
           ],
           "completion": {
             "attempts": 0,
@@ -273,12 +517,18 @@
   "ideas": [
     "Build a reliable setup regardless of Black's moves.",
     "Fianchetto the bishop for king safety.",
-    "Prepare central pawn breaks later."
+    "Prepare central pawn breaks later.",
+    "The King Indian Attack is a setup: castle first, then prepare e4 or kingside pressure when the center is stable.",
+    "Trade only when it improves your position, removes danger, or opens a useful file.",
+    "By move 8-12, you should know your early middlegame plan: safe king, active pieces, and one central break."
   ],
   "commonMistakes": [
     "Attacking before castling.",
     "Forgetting the bishop belongs on g2.",
-    "Reacting emotionally to pins instead of developing."
+    "Reacting emotionally to pins instead of developing.",
+    "Stopping after memorized moves and playing without a plan.",
+    "Trading automatically without asking what improves afterward.",
+    "Starting an attack before castling or finishing development."
   ],
   "tree": {},
   "training": {

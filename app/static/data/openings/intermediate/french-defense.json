@@ -20,36 +20,86 @@
               "uci": "e2e4",
               "san": "e4",
               "title": "White claims center",
-              "explanation": "White takes space and opens lines."
+              "explanation": "White takes space and opens lines. e4 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The French teaches pawn chains: Black attacks the base with c5, while White uses space and piece activity."
             },
             {
               "uci": "e7e6",
               "san": "e6",
               "title": "Prepare d5",
-              "explanation": "e6 supports d5 and builds the French pawn chain."
+              "explanation": "e6 supports d5 and builds the French pawn chain. e6 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The French teaches pawn chains: Black attacks the base with c5, while White uses space and piece activity."
             },
             {
               "uci": "d2d4",
               "san": "d4",
               "title": "White expands",
-              "explanation": "White creates a big pawn center."
+              "explanation": "White creates a big pawn center. d4 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The French teaches pawn chains: Black attacks the base with c5, while White uses space and piece activity."
             },
             {
               "uci": "d7d5",
               "san": "d5",
               "title": "Challenge center",
-              "explanation": "d5 attacks e4 with support. This is the core French idea."
+              "explanation": "d5 attacks e4 with support. This is the core French idea. d5 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The French teaches pawn chains: Black attacks the base with c5, while White uses space and piece activity."
+            },
+            {
+              "uci": "e4e5",
+              "san": "e5",
+              "title": "Shape the center",
+              "explanation": "e5 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The French teaches pawn chains: Black attacks the base with c5, while White uses space and piece activity."
+            },
+            {
+              "uci": "c7c5",
+              "san": "c5",
+              "title": "Shape the center",
+              "explanation": "c5 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The French teaches pawn chains: Black attacks the base with c5, while White uses space and piece activity."
+            },
+            {
+              "uci": "b1c3",
+              "san": "Nc3",
+              "title": "Develop to c3",
+              "explanation": "Nc3 develops a knight to c3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "b8c6",
+              "san": "Nc6",
+              "title": "Develop to c6",
+              "explanation": "Nc6 develops a knight to c6. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "g1f3",
+              "san": "Nf3",
+              "title": "Develop to f3",
+              "explanation": "Nf3 develops a knight to f3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "g8e7",
+              "san": "Nge7",
+              "title": "Develop to e7",
+              "explanation": "Nge7 develops a knight to e7. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "h2h3",
+              "san": "h3",
+              "title": "Improve with h3",
+              "explanation": "h3 is a quiet improving move. Quiet moves matter when they finish development, prevent counterplay, or prepare a clear next plan."
+            },
+            {
+              "uci": "c5d4",
+              "san": "cxd4",
+              "title": "Trade or capture on d4",
+              "explanation": "cxd4 introduces a practical trade. Before trading, ask what improves afterward: an open file, a safer king, a damaged pawn structure, or the removal of an active enemy piece."
             }
           ],
           "isMainLine": true,
           "hints": [
-            "Start by recognizing e4.",
-            "The target response in this branch is d5.",
-            "Use the highlighted move and keep the plan simple."
+            "Follow the highlighted move and say the idea out loud.",
+            "After each move, check king safety, center control, and piece activity.",
+            "When a trade appears, ask what file opens and which piece improves next."
           ],
           "coachingNotes": [
             "Learn the core French structure.",
-            "d5 attacks e4 with support. This is the core French idea."
+            "The French teaches pawn chains: Black attacks the base with c5, while White uses space and piece activity.",
+            "Good trades usually remove an active enemy piece, open a useful file, or simplify once your king is safe.",
+            "After the opening, do not drift: improve your worst piece, connect rooks, and look for one clear pawn break."
           ],
           "completion": {
             "attempts": 0,
@@ -72,35 +122,85 @@
               "uci": "e2e4",
               "san": "e4",
               "title": "White starts",
-              "explanation": "White takes space."
+              "explanation": "White takes space. e4 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The French teaches pawn chains: Black attacks the base with c5, while White uses space and piece activity."
             },
             {
               "uci": "e7e6",
               "san": "e6",
               "title": "Prepare",
-              "explanation": "Support d5."
+              "explanation": "Support d5. e6 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The French teaches pawn chains: Black attacks the base with c5, while White uses space and piece activity."
             },
             {
               "uci": "b1c3",
               "san": "Nc3",
               "title": "White defends",
-              "explanation": "White develops and supports e4."
+              "explanation": "White develops and supports e4. Nc3 develops a knight to c3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
             },
             {
               "uci": "d7d5",
               "san": "d5",
               "title": "Recommended: challenge",
-              "explanation": "d5 attacks the center anyway. Black should not delay the central break."
+              "explanation": "d5 attacks the center anyway. Black should not delay the central break. d5 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The French teaches pawn chains: Black attacks the base with c5, while White uses space and piece activity."
+            },
+            {
+              "uci": "e4e5",
+              "san": "e5",
+              "title": "Shape the center",
+              "explanation": "e5 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The French teaches pawn chains: Black attacks the base with c5, while White uses space and piece activity."
+            },
+            {
+              "uci": "c7c5",
+              "san": "c5",
+              "title": "Shape the center",
+              "explanation": "c5 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The French teaches pawn chains: Black attacks the base with c5, while White uses space and piece activity."
+            },
+            {
+              "uci": "g1f3",
+              "san": "Nf3",
+              "title": "Develop to f3",
+              "explanation": "Nf3 develops a knight to f3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "b8c6",
+              "san": "Nc6",
+              "title": "Develop to c6",
+              "explanation": "Nc6 develops a knight to c6. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "f1d3",
+              "san": "Bd3",
+              "title": "Develop to d3",
+              "explanation": "Bd3 develops a bishop to d3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "g8e7",
+              "san": "Nge7",
+              "title": "Develop to e7",
+              "explanation": "Nge7 develops a knight to e7. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "e1g1",
+              "san": "O-O",
+              "title": "Get the king safe",
+              "explanation": "O-O gets the king safe and brings a rook closer to the center. This is the bridge from opening to middlegame: now look for your worst piece, your safest trade, and your best pawn break."
+            },
+            {
+              "uci": "h7h6",
+              "san": "h6",
+              "title": "Improve with h6",
+              "explanation": "h6 is a quiet improving move. Quiet moves matter when they finish development, prevent counterplay, or prepare a clear next plan."
             }
           ],
           "hints": [
-            "Start by recognizing e4.",
-            "The target response in this branch is d5.",
-            "Use the highlighted move and keep the plan simple."
+            "Follow the highlighted move and say the idea out loud.",
+            "After each move, check king safety, center control, and piece activity.",
+            "When a trade appears, ask what file opens and which piece improves next."
           ],
           "coachingNotes": [
             "If White defends e4 with Nc3, continue pressure.",
-            "d5 attacks the center anyway. Black should not delay the central break."
+            "The French teaches pawn chains: Black attacks the base with c5, while White uses space and piece activity.",
+            "Good trades usually remove an active enemy piece, open a useful file, or simplify once your king is safe.",
+            "After the opening, do not drift: improve your worst piece, connect rooks, and look for one clear pawn break."
           ],
           "completion": {
             "attempts": 0,
@@ -123,35 +223,85 @@
               "uci": "e2e4",
               "san": "e4",
               "title": "White starts",
-              "explanation": "White controls the center."
+              "explanation": "White controls the center. e4 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The French teaches pawn chains: Black attacks the base with c5, while White uses space and piece activity."
             },
             {
               "uci": "e7e6",
               "san": "e6",
               "title": "Prepare",
-              "explanation": "Black prepares d5."
+              "explanation": "Black prepares d5. e6 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The French teaches pawn chains: Black attacks the base with c5, while White uses space and piece activity."
             },
             {
               "uci": "g1f3",
               "san": "Nf3",
               "title": "White develops",
-              "explanation": "White improves a knight and supports d4."
+              "explanation": "White improves a knight and supports d4. Nf3 develops a knight to f3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
             },
             {
               "uci": "d7d5",
               "san": "d5",
               "title": "Recommended: strike",
-              "explanation": "Black challenges e4 and keeps the French plan simple."
+              "explanation": "Black challenges e4 and keeps the French plan simple. d5 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The French teaches pawn chains: Black attacks the base with c5, while White uses space and piece activity."
+            },
+            {
+              "uci": "e4e5",
+              "san": "e5",
+              "title": "Shape the center",
+              "explanation": "e5 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The French teaches pawn chains: Black attacks the base with c5, while White uses space and piece activity."
+            },
+            {
+              "uci": "c7c5",
+              "san": "c5",
+              "title": "Shape the center",
+              "explanation": "c5 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The French teaches pawn chains: Black attacks the base with c5, while White uses space and piece activity."
+            },
+            {
+              "uci": "b1c3",
+              "san": "Nc3",
+              "title": "Develop to c3",
+              "explanation": "Nc3 develops a knight to c3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "b8c6",
+              "san": "Nc6",
+              "title": "Develop to c6",
+              "explanation": "Nc6 develops a knight to c6. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "f1d3",
+              "san": "Bd3",
+              "title": "Develop to d3",
+              "explanation": "Bd3 develops a bishop to d3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "g8e7",
+              "san": "Nge7",
+              "title": "Develop to e7",
+              "explanation": "Nge7 develops a knight to e7. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "e1g1",
+              "san": "O-O",
+              "title": "Get the king safe",
+              "explanation": "O-O gets the king safe and brings a rook closer to the center. This is the bridge from opening to middlegame: now look for your worst piece, your safest trade, and your best pawn break."
+            },
+            {
+              "uci": "h7h6",
+              "san": "h6",
+              "title": "Improve with h6",
+              "explanation": "h6 is a quiet improving move. Quiet moves matter when they finish development, prevent counterplay, or prepare a clear next plan."
             }
           ],
           "hints": [
-            "Start by recognizing e4.",
-            "The target response in this branch is d5.",
-            "Use the highlighted move and keep the plan simple."
+            "Follow the highlighted move and say the idea out loud.",
+            "After each move, check king safety, center control, and piece activity.",
+            "When a trade appears, ask what file opens and which piece improves next."
           ],
           "coachingNotes": [
             "If White develops first, still claim the French center.",
-            "Black challenges e4 and keeps the French plan simple."
+            "The French teaches pawn chains: Black attacks the base with c5, while White uses space and piece activity.",
+            "Good trades usually remove an active enemy piece, open a useful file, or simplify once your king is safe.",
+            "After the opening, do not drift: improve your worst piece, connect rooks, and look for one clear pawn break."
           ],
           "completion": {
             "attempts": 0,
@@ -174,35 +324,85 @@
               "uci": "e2e4",
               "san": "e4",
               "title": "White center",
-              "explanation": "Recognize e4."
+              "explanation": "Recognize e4. e4 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The French teaches pawn chains: Black attacks the base with c5, while White uses space and piece activity."
             },
             {
               "uci": "e7e6",
               "san": "e6",
               "title": "Prepare",
-              "explanation": "Support d5."
+              "explanation": "Support d5. e6 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The French teaches pawn chains: Black attacks the base with c5, while White uses space and piece activity."
             },
             {
               "uci": "d2d4",
               "san": "d4",
               "title": "White expands",
-              "explanation": "Now challenge."
+              "explanation": "Now challenge. d4 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The French teaches pawn chains: Black attacks the base with c5, while White uses space and piece activity."
             },
             {
               "uci": "d7d5",
               "san": "d5",
               "title": "Break",
-              "explanation": "Attack e4."
+              "explanation": "Attack e4. d5 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The French teaches pawn chains: Black attacks the base with c5, while White uses space and piece activity."
+            },
+            {
+              "uci": "e4e5",
+              "san": "e5",
+              "title": "Shape the center",
+              "explanation": "e5 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The French teaches pawn chains: Black attacks the base with c5, while White uses space and piece activity."
+            },
+            {
+              "uci": "c7c5",
+              "san": "c5",
+              "title": "Shape the center",
+              "explanation": "c5 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The French teaches pawn chains: Black attacks the base with c5, while White uses space and piece activity."
+            },
+            {
+              "uci": "b1c3",
+              "san": "Nc3",
+              "title": "Develop to c3",
+              "explanation": "Nc3 develops a knight to c3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "b8c6",
+              "san": "Nc6",
+              "title": "Develop to c6",
+              "explanation": "Nc6 develops a knight to c6. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "g1f3",
+              "san": "Nf3",
+              "title": "Develop to f3",
+              "explanation": "Nf3 develops a knight to f3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "g8e7",
+              "san": "Nge7",
+              "title": "Develop to e7",
+              "explanation": "Nge7 develops a knight to e7. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "h2h3",
+              "san": "h3",
+              "title": "Improve with h3",
+              "explanation": "h3 is a quiet improving move. Quiet moves matter when they finish development, prevent counterplay, or prepare a clear next plan."
+            },
+            {
+              "uci": "c5d4",
+              "san": "cxd4",
+              "title": "Trade or capture on d4",
+              "explanation": "cxd4 introduces a practical trade. Before trading, ask what improves afterward: an open file, a safer king, a damaged pawn structure, or the removal of an active enemy piece."
             }
           ],
           "hints": [
-            "Start by recognizing e4.",
-            "The target response in this branch is d5.",
-            "Use the highlighted move and keep the plan simple."
+            "Follow the highlighted move and say the idea out loud.",
+            "After each move, check king safety, center control, and piece activity.",
+            "When a trade appears, ask what file opens and which piece improves next."
           ],
           "coachingNotes": [
             "Practice e6 and d5.",
-            "Attack e4."
+            "The French teaches pawn chains: Black attacks the base with c5, while White uses space and piece activity.",
+            "Good trades usually remove an active enemy piece, open a useful file, or simplify once your king is safe.",
+            "After the opening, do not drift: improve your worst piece, connect rooks, and look for one clear pawn break."
           ],
           "completion": {
             "attempts": 0,
@@ -216,12 +416,18 @@
   "ideas": [
     "Prepare d5 with e6.",
     "Challenge White's center before it rolls forward.",
-    "Look for c5 later as a second break."
+    "Look for c5 later as a second break.",
+    "The French teaches pawn chains: Black attacks the base with c5, while White uses space and piece activity.",
+    "Trade only when it improves your position, removes danger, or opens a useful file.",
+    "By move 8-12, you should know your early middlegame plan: safe king, active pieces, and one central break."
   ],
   "commonMistakes": [
     "Never freeing the c8 bishop.",
     "Forgetting the c5 counterbreak.",
-    "Playing passively after building the pawn chain."
+    "Playing passively after building the pawn chain.",
+    "Stopping after memorized moves and playing without a plan.",
+    "Trading automatically without asking what improves afterward.",
+    "Starting an attack before castling or finishing development."
   ],
   "tree": {},
   "training": {

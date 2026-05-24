@@ -20,30 +20,86 @@
               "uci": "d2d4",
               "san": "d4",
               "title": "Start with d4",
-              "explanation": "Controls e5 and c5, opens the c1 bishop, and gives White a stable central base."
+              "explanation": "Controls e5 and c5, opens the c1 bishop, and gives White a stable central base. d4 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. After the London setup, keep the dark-square bishop active, castle, and aim for steady central pressure rather than a rushed attack."
             },
             {
               "uci": "d7d5",
               "san": "d5",
               "title": "Black mirrors",
-              "explanation": "Black also takes central space. The position is stable enough for a setup approach."
+              "explanation": "Black also takes central space. The position is stable enough for a setup approach. d5 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. After the London setup, keep the dark-square bishop active, castle, and aim for steady central pressure rather than a rushed attack."
             },
             {
               "uci": "c1f4",
               "san": "Bf4",
               "title": "Develop bishop outside",
-              "explanation": "Bf4 develops the bishop before e3 can block it. This is the key London habit."
+              "explanation": "Bf4 develops the bishop before e3 can block it. This is the key London habit. Bf4 develops a bishop to f4. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "g8f6",
+              "san": "Nf6",
+              "title": "Develop to f6",
+              "explanation": "Nf6 develops a knight to f6. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "g1f3",
+              "san": "Nf3",
+              "title": "Develop to f3",
+              "explanation": "Nf3 develops a knight to f3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "e7e6",
+              "san": "e6",
+              "title": "Shape the center",
+              "explanation": "e6 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. After the London setup, keep the dark-square bishop active, castle, and aim for steady central pressure rather than a rushed attack."
+            },
+            {
+              "uci": "e2e3",
+              "san": "e3",
+              "title": "Shape the center",
+              "explanation": "e3 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. After the London setup, keep the dark-square bishop active, castle, and aim for steady central pressure rather than a rushed attack."
+            },
+            {
+              "uci": "f8d6",
+              "san": "Bd6",
+              "title": "Develop to d6",
+              "explanation": "Bd6 develops a bishop to d6. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "f1d3",
+              "san": "Bd3",
+              "title": "Develop to d3",
+              "explanation": "Bd3 develops a bishop to d3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "e8g8",
+              "san": "O-O",
+              "title": "Get the king safe",
+              "explanation": "O-O moves the king to safety and brings the rook closer to the center. This is usually the moment when the opening becomes an early middlegame plan: After the London setup, keep the dark-square bishop active, castle, and aim for steady central pressure rather than a rushed attack."
+            },
+            {
+              "uci": "e1g1",
+              "san": "O-O",
+              "title": "Get the king safe",
+              "explanation": "O-O gets the king safe and brings a rook closer to the center. This is the bridge from opening to middlegame: now look for your worst piece, your safest trade, and your best pawn break."
+            },
+            {
+              "uci": "c7c5",
+              "san": "c5",
+              "title": "Shape the center",
+              "explanation": "c5 clarifies the pawn structure. Central moves should claim space, challenge a pawn, or prepare a break. After the London setup, keep the dark-square bishop active, castle, and aim for steady central pressure rather than a rushed attack."
             }
           ],
           "isMainLine": true,
           "hints": [
-            "Start by recognizing d4.",
-            "The target response in this branch is Bf4.",
-            "Use the highlighted move and keep the plan simple."
+            "Follow the highlighted move and say the idea out loud.",
+            "After each move, check king safety, center control, and piece activity.",
+            "When a trade appears, ask what file opens and which piece improves next."
           ],
           "coachingNotes": [
             "Learn the basic London starting pattern.",
-            "Bf4 develops the bishop before e3 can block it. This is the key London habit."
+            "After the London setup, keep the dark-square bishop active, castle, and aim for steady central pressure rather than a rushed attack.",
+            "Good trades usually remove an active enemy piece, open a useful file, or simplify once your king is safe.",
+            "After the opening, do not drift: improve your worst piece, connect rooks, and look for one clear pawn break."
           ],
           "completion": {
             "attempts": 0,
@@ -66,29 +122,85 @@
               "uci": "d2d4",
               "san": "d4",
               "title": "Start with d4",
-              "explanation": "Take central space."
+              "explanation": "Take central space. d4 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. After the London setup, keep the dark-square bishop active, castle, and aim for steady central pressure rather than a rushed attack."
             },
             {
               "uci": "g8f6",
               "san": "Nf6",
               "title": "Black develops",
-              "explanation": "Black controls e4 and d5 with a knight."
+              "explanation": "Black controls e4 and d5 with a knight. Nf6 develops a knight to f6. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
             },
             {
               "uci": "c1f4",
               "san": "Bf4",
               "title": "Recommended: Bf4",
-              "explanation": "Develop the bishop outside the pawn chain and keep the setup simple."
+              "explanation": "Develop the bishop outside the pawn chain and keep the setup simple. Bf4 develops a bishop to f4. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "e7e6",
+              "san": "e6",
+              "title": "Shape the center",
+              "explanation": "e6 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. After the London setup, keep the dark-square bishop active, castle, and aim for steady central pressure rather than a rushed attack."
+            },
+            {
+              "uci": "g1f3",
+              "san": "Nf3",
+              "title": "Develop to f3",
+              "explanation": "Nf3 develops a knight to f3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "f8d6",
+              "san": "Bd6",
+              "title": "Develop to d6",
+              "explanation": "Bd6 develops a bishop to d6. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "e2e3",
+              "san": "e3",
+              "title": "Shape the center",
+              "explanation": "e3 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. After the London setup, keep the dark-square bishop active, castle, and aim for steady central pressure rather than a rushed attack."
+            },
+            {
+              "uci": "e8g8",
+              "san": "O-O",
+              "title": "Get the king safe",
+              "explanation": "O-O moves the king to safety and brings the rook closer to the center. This is usually the moment when the opening becomes an early middlegame plan: After the London setup, keep the dark-square bishop active, castle, and aim for steady central pressure rather than a rushed attack."
+            },
+            {
+              "uci": "f1d3",
+              "san": "Bd3",
+              "title": "Develop to d3",
+              "explanation": "Bd3 develops a bishop to d3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "c7c5",
+              "san": "c5",
+              "title": "Shape the center",
+              "explanation": "c5 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. After the London setup, keep the dark-square bishop active, castle, and aim for steady central pressure rather than a rushed attack."
+            },
+            {
+              "uci": "e1g1",
+              "san": "O-O",
+              "title": "Get the king safe",
+              "explanation": "O-O gets the king safe and brings a rook closer to the center. This is the bridge from opening to middlegame: now look for your worst piece, your safest trade, and your best pawn break."
+            },
+            {
+              "uci": "b8c6",
+              "san": "Nc6",
+              "title": "Develop to c6",
+              "explanation": "Nc6 improves a piece and adds control over important squares. Developed pieces create threats naturally, so you do not need to force an attack before castling."
             }
           ],
           "hints": [
-            "Start by recognizing d4.",
-            "The target response in this branch is Bf4.",
-            "Use the highlighted move and keep the plan simple."
+            "Follow the highlighted move and say the idea out loud.",
+            "After each move, check king safety, center control, and piece activity.",
+            "When a trade appears, ask what file opens and which piece improves next."
           ],
           "coachingNotes": [
             "If Black develops a knight, continue the London setup.",
-            "Develop the bishop outside the pawn chain and keep the setup simple."
+            "After the London setup, keep the dark-square bishop active, castle, and aim for steady central pressure rather than a rushed attack.",
+            "Good trades usually remove an active enemy piece, open a useful file, or simplify once your king is safe.",
+            "After the opening, do not drift: improve your worst piece, connect rooks, and look for one clear pawn break."
           ],
           "completion": {
             "attempts": 0,
@@ -111,29 +223,85 @@
               "uci": "d2d4",
               "san": "d4",
               "title": "Start with d4",
-              "explanation": "Build the center."
+              "explanation": "Build the center. d4 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. After the London setup, keep the dark-square bishop active, castle, and aim for steady central pressure rather than a rushed attack."
             },
             {
               "uci": "c7c5",
               "san": "c5",
               "title": "Black challenges",
-              "explanation": "Black attacks d4 from the side."
+              "explanation": "Black attacks d4 from the side. c5 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. After the London setup, keep the dark-square bishop active, castle, and aim for steady central pressure rather than a rushed attack."
             },
             {
               "uci": "e2e3",
               "san": "e3",
               "title": "Recommended: support and develop",
-              "explanation": "e3 supports the center and opens the f1 bishop. Keep developing instead of grabbing pawns too soon."
+              "explanation": "e3 supports the center and opens the f1 bishop. Keep developing instead of grabbing pawns too soon. e3 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. After the London setup, keep the dark-square bishop active, castle, and aim for steady central pressure rather than a rushed attack."
+            },
+            {
+              "uci": "g8f6",
+              "san": "Nf6",
+              "title": "Develop to f6",
+              "explanation": "Nf6 develops a knight to f6. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "g1f3",
+              "san": "Nf3",
+              "title": "Develop to f3",
+              "explanation": "Nf3 develops a knight to f3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "e7e6",
+              "san": "e6",
+              "title": "Shape the center",
+              "explanation": "e6 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. After the London setup, keep the dark-square bishop active, castle, and aim for steady central pressure rather than a rushed attack."
+            },
+            {
+              "uci": "f1d3",
+              "san": "Bd3",
+              "title": "Develop to d3",
+              "explanation": "Bd3 develops a bishop to d3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "f8d6",
+              "san": "Bd6",
+              "title": "Develop to d6",
+              "explanation": "Bd6 develops a bishop to d6. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "e1g1",
+              "san": "O-O",
+              "title": "Get the king safe",
+              "explanation": "O-O moves the king to safety and brings the rook closer to the center. This is usually the moment when the opening becomes an early middlegame plan: After the London setup, keep the dark-square bishop active, castle, and aim for steady central pressure rather than a rushed attack."
+            },
+            {
+              "uci": "e8g8",
+              "san": "O-O",
+              "title": "Get the king safe",
+              "explanation": "O-O moves the king to safety and brings the rook closer to the center. This is usually the moment when the opening becomes an early middlegame plan: After the London setup, keep the dark-square bishop active, castle, and aim for steady central pressure rather than a rushed attack."
+            },
+            {
+              "uci": "b1d2",
+              "san": "Nbd2",
+              "title": "Develop to d2",
+              "explanation": "Nbd2 improves a piece and adds control over important squares. Developed pieces create threats naturally, so you do not need to force an attack before castling."
+            },
+            {
+              "uci": "b8c6",
+              "san": "Nc6",
+              "title": "Develop to c6",
+              "explanation": "Nc6 improves a piece and adds control over important squares. Developed pieces create threats naturally, so you do not need to force an attack before castling."
             }
           ],
           "hints": [
-            "Start by recognizing d4.",
-            "The target response in this branch is e3.",
-            "Use the highlighted move and keep the plan simple."
+            "Follow the highlighted move and say the idea out loud.",
+            "After each move, check king safety, center control, and piece activity.",
+            "When a trade appears, ask what file opens and which piece improves next."
           ],
           "coachingNotes": [
             "If Black attacks d4 with c5, support the center.",
-            "e3 supports the center and opens the f1 bishop. Keep developing instead of grabbing pawns too soon."
+            "After the London setup, keep the dark-square bishop active, castle, and aim for steady central pressure rather than a rushed attack.",
+            "Good trades usually remove an active enemy piece, open a useful file, or simplify once your king is safe.",
+            "After the opening, do not drift: improve your worst piece, connect rooks, and look for one clear pawn break."
           ],
           "completion": {
             "attempts": 0,
@@ -156,29 +324,85 @@
               "uci": "d2d4",
               "san": "d4",
               "title": "Start with d4",
-              "explanation": "Take space."
+              "explanation": "Take space. d4 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. After the London setup, keep the dark-square bishop active, castle, and aim for steady central pressure rather than a rushed attack."
             },
             {
               "uci": "g7g6",
               "san": "g6",
               "title": "Black prepares Bg7",
-              "explanation": "Black wants long diagonal pressure."
+              "explanation": "Black wants long diagonal pressure. g6 is a practical improving move for Black. In real games, keep asking: is my king safe, are my pieces active, and what central pawn break comes next?"
             },
             {
               "uci": "c1f4",
               "san": "Bf4",
               "title": "Recommended: keep the setup",
-              "explanation": "Bf4 develops before e3 and keeps your plan consistent."
+              "explanation": "Bf4 develops before e3 and keeps your plan consistent. Bf4 develops a bishop to f4. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "g8f6",
+              "san": "Nf6",
+              "title": "Develop to f6",
+              "explanation": "Nf6 develops a knight to f6. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "g1f3",
+              "san": "Nf3",
+              "title": "Develop to f3",
+              "explanation": "Nf3 develops a knight to f3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "e7e6",
+              "san": "e6",
+              "title": "Shape the center",
+              "explanation": "e6 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. After the London setup, keep the dark-square bishop active, castle, and aim for steady central pressure rather than a rushed attack."
+            },
+            {
+              "uci": "e2e3",
+              "san": "e3",
+              "title": "Shape the center",
+              "explanation": "e3 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. After the London setup, keep the dark-square bishop active, castle, and aim for steady central pressure rather than a rushed attack."
+            },
+            {
+              "uci": "f8d6",
+              "san": "Bd6",
+              "title": "Develop to d6",
+              "explanation": "Bd6 develops a bishop to d6. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "f1d3",
+              "san": "Bd3",
+              "title": "Develop to d3",
+              "explanation": "Bd3 develops a bishop to d3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "e8g8",
+              "san": "O-O",
+              "title": "Get the king safe",
+              "explanation": "O-O moves the king to safety and brings the rook closer to the center. This is usually the moment when the opening becomes an early middlegame plan: After the London setup, keep the dark-square bishop active, castle, and aim for steady central pressure rather than a rushed attack."
+            },
+            {
+              "uci": "e1g1",
+              "san": "O-O",
+              "title": "Get the king safe",
+              "explanation": "O-O gets the king safe and brings a rook closer to the center. This is the bridge from opening to middlegame: now look for your worst piece, your safest trade, and your best pawn break."
+            },
+            {
+              "uci": "c7c5",
+              "san": "c5",
+              "title": "Shape the center",
+              "explanation": "c5 clarifies the pawn structure. Central moves should claim space, challenge a pawn, or prepare a break. After the London setup, keep the dark-square bishop active, castle, and aim for steady central pressure rather than a rushed attack."
             }
           ],
           "hints": [
-            "Start by recognizing d4.",
-            "The target response in this branch is Bf4.",
-            "Use the highlighted move and keep the plan simple."
+            "Follow the highlighted move and say the idea out loud.",
+            "After each move, check king safety, center control, and piece activity.",
+            "When a trade appears, ask what file opens and which piece improves next."
           ],
           "coachingNotes": [
             "If Black prepares a bishop on g7, build normally.",
-            "Bf4 develops before e3 and keeps your plan consistent."
+            "After the London setup, keep the dark-square bishop active, castle, and aim for steady central pressure rather than a rushed attack.",
+            "Good trades usually remove an active enemy piece, open a useful file, or simplify once your king is safe.",
+            "After the opening, do not drift: improve your worst piece, connect rooks, and look for one clear pawn break."
           ],
           "completion": {
             "attempts": 0,
@@ -201,29 +425,85 @@
               "uci": "d2d4",
               "san": "d4",
               "title": "Central base",
-              "explanation": "Control the center."
+              "explanation": "Control the center. d4 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. After the London setup, keep the dark-square bishop active, castle, and aim for steady central pressure rather than a rushed attack."
             },
             {
               "uci": "d7d5",
               "san": "d5",
               "title": "Black mirrors",
-              "explanation": "Recognize symmetry."
+              "explanation": "Recognize symmetry. d5 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. After the London setup, keep the dark-square bishop active, castle, and aim for steady central pressure rather than a rushed attack."
             },
             {
               "uci": "c1f4",
               "san": "Bf4",
               "title": "Bishop out",
-              "explanation": "Develop before e3."
+              "explanation": "Develop before e3. Bf4 develops a bishop to f4. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "g8f6",
+              "san": "Nf6",
+              "title": "Develop to f6",
+              "explanation": "Nf6 develops a knight to f6. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "g1f3",
+              "san": "Nf3",
+              "title": "Develop to f3",
+              "explanation": "Nf3 develops a knight to f3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "e7e6",
+              "san": "e6",
+              "title": "Shape the center",
+              "explanation": "e6 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. After the London setup, keep the dark-square bishop active, castle, and aim for steady central pressure rather than a rushed attack."
+            },
+            {
+              "uci": "e2e3",
+              "san": "e3",
+              "title": "Shape the center",
+              "explanation": "e3 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. After the London setup, keep the dark-square bishop active, castle, and aim for steady central pressure rather than a rushed attack."
+            },
+            {
+              "uci": "f8d6",
+              "san": "Bd6",
+              "title": "Develop to d6",
+              "explanation": "Bd6 develops a bishop to d6. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "f1d3",
+              "san": "Bd3",
+              "title": "Develop to d3",
+              "explanation": "Bd3 develops a bishop to d3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "e8g8",
+              "san": "O-O",
+              "title": "Get the king safe",
+              "explanation": "O-O moves the king to safety and brings the rook closer to the center. This is usually the moment when the opening becomes an early middlegame plan: After the London setup, keep the dark-square bishop active, castle, and aim for steady central pressure rather than a rushed attack."
+            },
+            {
+              "uci": "e1g1",
+              "san": "O-O",
+              "title": "Get the king safe",
+              "explanation": "O-O gets the king safe and brings a rook closer to the center. This is the bridge from opening to middlegame: now look for your worst piece, your safest trade, and your best pawn break."
+            },
+            {
+              "uci": "c7c5",
+              "san": "c5",
+              "title": "Shape the center",
+              "explanation": "c5 clarifies the pawn structure. Central moves should claim space, challenge a pawn, or prepare a break. After the London setup, keep the dark-square bishop active, castle, and aim for steady central pressure rather than a rushed attack."
             }
           ],
           "hints": [
-            "Start by recognizing d4.",
-            "The target response in this branch is Bf4.",
-            "Use the highlighted move and keep the plan simple."
+            "Follow the highlighted move and say the idea out loud.",
+            "After each move, check king safety, center control, and piece activity.",
+            "When a trade appears, ask what file opens and which piece improves next."
           ],
           "coachingNotes": [
             "Replay the default London start.",
-            "Develop before e3."
+            "After the London setup, keep the dark-square bishop active, castle, and aim for steady central pressure rather than a rushed attack.",
+            "Good trades usually remove an active enemy piece, open a useful file, or simplify once your king is safe.",
+            "After the opening, do not drift: improve your worst piece, connect rooks, and look for one clear pawn break."
           ],
           "completion": {
             "attempts": 0,
@@ -237,12 +517,18 @@
   "ideas": [
     "Default plan: d4, Bf4, e3, Nf3, Bd3, castle.",
     "Keep the bishop outside the pawn chain.",
-    "Against deviations, continue development calmly."
+    "Against deviations, continue development calmly.",
+    "After the London setup, keep the dark-square bishop active, castle, and aim for steady central pressure rather than a rushed attack.",
+    "Trade only when it improves your position, removes danger, or opens a useful file.",
+    "By move 8-12, you should know your early middlegame plan: safe king, active pieces, and one central break."
   ],
   "commonMistakes": [
     "Playing e3 before Bf4.",
     "Attacking before castling.",
-    "Forgetting Black can challenge d4 with c5."
+    "Forgetting Black can challenge d4 with c5.",
+    "Stopping after memorized moves and playing without a plan.",
+    "Trading automatically without asking what improves afterward.",
+    "Starting an attack before castling or finishing development."
   ],
   "tree": {},
   "training": {

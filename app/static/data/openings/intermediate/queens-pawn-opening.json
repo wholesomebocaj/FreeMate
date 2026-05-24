@@ -20,41 +20,85 @@
               "uci": "d2d4",
               "san": "d4",
               "title": "Start with d4",
-              "explanation": "Control e5 and c5."
+              "explanation": "Control e5 and c5. d4 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Queen Pawn Opening stays flexible: build a healthy center, develop, castle, then decide whether c4 or e4 is best."
             },
             {
               "uci": "g8f6",
               "san": "Nf6",
               "title": "Black develops",
-              "explanation": "Black controls e4 and d5."
+              "explanation": "Black controls e4 and d5. Nf6 develops a knight to f6. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
             },
             {
               "uci": "g1f3",
               "san": "Nf3",
               "title": "Develop safely",
-              "explanation": "Nf3 supports d4 and prepares castling."
+              "explanation": "Nf3 supports d4 and prepares castling. Nf3 develops a knight to f3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
             },
             {
               "uci": "e7e6",
               "san": "e6",
               "title": "Black prepares",
-              "explanation": "Black supports d5 and opens the bishop."
+              "explanation": "Black supports d5 and opens the bishop. e6 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Queen Pawn Opening stays flexible: build a healthy center, develop, castle, then decide whether c4 or e4 is best."
             },
             {
               "uci": "e2e3",
               "san": "e3",
               "title": "Solid setup",
-              "explanation": "e3 supports d4 and opens the f1 bishop. White stays flexible."
+              "explanation": "e3 supports d4 and opens the f1 bishop. White stays flexible. e3 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Queen Pawn Opening stays flexible: build a healthy center, develop, castle, then decide whether c4 or e4 is best."
+            },
+            {
+              "uci": "d7d5",
+              "san": "d5",
+              "title": "Shape the center",
+              "explanation": "d5 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Queen Pawn Opening stays flexible: build a healthy center, develop, castle, then decide whether c4 or e4 is best."
+            },
+            {
+              "uci": "f1d3",
+              "san": "Bd3",
+              "title": "Develop to d3",
+              "explanation": "Bd3 develops a bishop to d3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "f8e7",
+              "san": "Be7",
+              "title": "Develop to e7",
+              "explanation": "Be7 develops a bishop to e7. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "e1g1",
+              "san": "O-O",
+              "title": "Get the king safe",
+              "explanation": "O-O moves the king to safety and brings the rook closer to the center. This is usually the moment when the opening becomes an early middlegame plan: The Queen Pawn Opening stays flexible: build a healthy center, develop, castle, then decide whether c4 or e4 is best."
+            },
+            {
+              "uci": "e8g8",
+              "san": "O-O",
+              "title": "Get the king safe",
+              "explanation": "O-O moves the king to safety and brings the rook closer to the center. This is usually the moment when the opening becomes an early middlegame plan: The Queen Pawn Opening stays flexible: build a healthy center, develop, castle, then decide whether c4 or e4 is best."
+            },
+            {
+              "uci": "c2c4",
+              "san": "c4",
+              "title": "Shape the center",
+              "explanation": "c4 clarifies the pawn structure. Central moves should claim space, challenge a pawn, or prepare a break. The Queen Pawn Opening stays flexible: build a healthy center, develop, castle, then decide whether c4 or e4 is best."
+            },
+            {
+              "uci": "c7c5",
+              "san": "c5",
+              "title": "Shape the center",
+              "explanation": "c5 clarifies the pawn structure. Central moves should claim space, challenge a pawn, or prepare a break. The Queen Pawn Opening stays flexible: build a healthy center, develop, castle, then decide whether c4 or e4 is best."
             }
           ],
           "hints": [
-            "Start by recognizing d4.",
-            "The key training move in this branch is e3.",
-            "Follow the highlighted move and keep your plan simple."
+            "Follow the highlighted move and say the idea out loud.",
+            "After each move, check king safety, center control, and piece activity.",
+            "When a trade appears, ask what file opens and which piece improves next."
           ],
           "coachingNotes": [
             "Learn a calm d4 setup that can transpose into many queen-pawn openings.",
-            "e3 supports d4 and opens the f1 bishop. White stays flexible."
+            "The Queen Pawn Opening stays flexible: build a healthy center, develop, castle, then decide whether c4 or e4 is best.",
+            "Good trades usually remove an active enemy piece, open a useful file, or simplify once your king is safe.",
+            "After the opening, do not drift: improve your worst piece, connect rooks, and look for one clear pawn break."
           ],
           "completion": {
             "attempts": 0,
@@ -78,29 +122,85 @@
               "uci": "d2d4",
               "san": "d4",
               "title": "Start",
-              "explanation": "Center."
+              "explanation": "Center. d4 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Queen Pawn Opening stays flexible: build a healthy center, develop, castle, then decide whether c4 or e4 is best."
             },
             {
               "uci": "d7d5",
               "san": "d5",
               "title": "Black mirrors",
-              "explanation": "Black takes central space."
+              "explanation": "Black takes central space. d5 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Queen Pawn Opening stays flexible: build a healthy center, develop, castle, then decide whether c4 or e4 is best."
             },
             {
               "uci": "g1f3",
               "san": "Nf3",
               "title": "Recommended: develop",
-              "explanation": "Nf3 supports d4 and prepares normal development."
+              "explanation": "Nf3 supports d4 and prepares normal development. Nf3 develops a knight to f3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "g8f6",
+              "san": "Nf6",
+              "title": "Develop to f6",
+              "explanation": "Nf6 develops a knight to f6. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "e2e3",
+              "san": "e3",
+              "title": "Shape the center",
+              "explanation": "e3 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Queen Pawn Opening stays flexible: build a healthy center, develop, castle, then decide whether c4 or e4 is best."
+            },
+            {
+              "uci": "e7e6",
+              "san": "e6",
+              "title": "Shape the center",
+              "explanation": "e6 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Queen Pawn Opening stays flexible: build a healthy center, develop, castle, then decide whether c4 or e4 is best."
+            },
+            {
+              "uci": "f1d3",
+              "san": "Bd3",
+              "title": "Develop to d3",
+              "explanation": "Bd3 develops a bishop to d3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "f8e7",
+              "san": "Be7",
+              "title": "Develop to e7",
+              "explanation": "Be7 develops a bishop to e7. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "e1g1",
+              "san": "O-O",
+              "title": "Get the king safe",
+              "explanation": "O-O moves the king to safety and brings the rook closer to the center. This is usually the moment when the opening becomes an early middlegame plan: The Queen Pawn Opening stays flexible: build a healthy center, develop, castle, then decide whether c4 or e4 is best."
+            },
+            {
+              "uci": "e8g8",
+              "san": "O-O",
+              "title": "Get the king safe",
+              "explanation": "O-O moves the king to safety and brings the rook closer to the center. This is usually the moment when the opening becomes an early middlegame plan: The Queen Pawn Opening stays flexible: build a healthy center, develop, castle, then decide whether c4 or e4 is best."
+            },
+            {
+              "uci": "c2c4",
+              "san": "c4",
+              "title": "Shape the center",
+              "explanation": "c4 clarifies the pawn structure. Central moves should claim space, challenge a pawn, or prepare a break. The Queen Pawn Opening stays flexible: build a healthy center, develop, castle, then decide whether c4 or e4 is best."
+            },
+            {
+              "uci": "c7c5",
+              "san": "c5",
+              "title": "Shape the center",
+              "explanation": "c5 clarifies the pawn structure. Central moves should claim space, challenge a pawn, or prepare a break. The Queen Pawn Opening stays flexible: build a healthy center, develop, castle, then decide whether c4 or e4 is best."
             }
           ],
           "hints": [
-            "Start by recognizing d4.",
-            "The key training move in this branch is Nf3.",
-            "Follow the highlighted move and keep your plan simple."
+            "Follow the highlighted move and say the idea out loud.",
+            "After each move, check king safety, center control, and piece activity.",
+            "When a trade appears, ask what file opens and which piece improves next."
           ],
           "coachingNotes": [
             "If Black occupies the center, keep a solid setup.",
-            "Nf3 supports d4 and prepares normal development."
+            "The Queen Pawn Opening stays flexible: build a healthy center, develop, castle, then decide whether c4 or e4 is best.",
+            "Good trades usually remove an active enemy piece, open a useful file, or simplify once your king is safe.",
+            "After the opening, do not drift: improve your worst piece, connect rooks, and look for one clear pawn break."
           ],
           "completion": {
             "attempts": 0,
@@ -123,29 +223,85 @@
               "uci": "d2d4",
               "san": "d4",
               "title": "Start",
-              "explanation": "Center."
+              "explanation": "Center. d4 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Queen Pawn Opening stays flexible: build a healthy center, develop, castle, then decide whether c4 or e4 is best."
             },
             {
               "uci": "c7c5",
               "san": "c5",
               "title": "Black challenges",
-              "explanation": "Black attacks d4."
+              "explanation": "Black attacks d4. c5 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Queen Pawn Opening stays flexible: build a healthy center, develop, castle, then decide whether c4 or e4 is best."
             },
             {
               "uci": "e2e3",
               "san": "e3",
               "title": "Recommended: support",
-              "explanation": "e3 supports d4 and opens the bishop. Avoid grabbing pawns too quickly."
+              "explanation": "e3 supports d4 and opens the bishop. Avoid grabbing pawns too quickly. e3 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Queen Pawn Opening stays flexible: build a healthy center, develop, castle, then decide whether c4 or e4 is best."
+            },
+            {
+              "uci": "g8f6",
+              "san": "Nf6",
+              "title": "Develop to f6",
+              "explanation": "Nf6 develops a knight to f6. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "g1f3",
+              "san": "Nf3",
+              "title": "Develop to f3",
+              "explanation": "Nf3 develops a knight to f3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "e7e6",
+              "san": "e6",
+              "title": "Shape the center",
+              "explanation": "e6 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Queen Pawn Opening stays flexible: build a healthy center, develop, castle, then decide whether c4 or e4 is best."
+            },
+            {
+              "uci": "f1d3",
+              "san": "Bd3",
+              "title": "Develop to d3",
+              "explanation": "Bd3 develops a bishop to d3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "d7d5",
+              "san": "d5",
+              "title": "Shape the center",
+              "explanation": "d5 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Queen Pawn Opening stays flexible: build a healthy center, develop, castle, then decide whether c4 or e4 is best."
+            },
+            {
+              "uci": "e1g1",
+              "san": "O-O",
+              "title": "Get the king safe",
+              "explanation": "O-O moves the king to safety and brings the rook closer to the center. This is usually the moment when the opening becomes an early middlegame plan: The Queen Pawn Opening stays flexible: build a healthy center, develop, castle, then decide whether c4 or e4 is best."
+            },
+            {
+              "uci": "f8e7",
+              "san": "Be7",
+              "title": "Develop to e7",
+              "explanation": "Be7 develops a bishop to e7. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "c2c4",
+              "san": "c4",
+              "title": "Shape the center",
+              "explanation": "c4 clarifies the pawn structure. Central moves should claim space, challenge a pawn, or prepare a break. The Queen Pawn Opening stays flexible: build a healthy center, develop, castle, then decide whether c4 or e4 is best."
+            },
+            {
+              "uci": "e8g8",
+              "san": "O-O",
+              "title": "Get the king safe",
+              "explanation": "O-O gets the king safe and brings a rook closer to the center. This is the bridge from opening to middlegame: now look for your worst piece, your safest trade, and your best pawn break."
             }
           ],
           "hints": [
-            "Start by recognizing d4.",
-            "The key training move in this branch is e3.",
-            "Follow the highlighted move and keep your plan simple."
+            "Follow the highlighted move and say the idea out loud.",
+            "After each move, check king safety, center control, and piece activity.",
+            "When a trade appears, ask what file opens and which piece improves next."
           ],
           "coachingNotes": [
             "If Black attacks d4 from the side, support and develop.",
-            "e3 supports d4 and opens the bishop. Avoid grabbing pawns too quickly."
+            "The Queen Pawn Opening stays flexible: build a healthy center, develop, castle, then decide whether c4 or e4 is best.",
+            "Good trades usually remove an active enemy piece, open a useful file, or simplify once your king is safe.",
+            "After the opening, do not drift: improve your worst piece, connect rooks, and look for one clear pawn break."
           ],
           "completion": {
             "attempts": 0,
@@ -168,29 +324,85 @@
               "uci": "d2d4",
               "san": "d4",
               "title": "Start",
-              "explanation": "Center."
+              "explanation": "Center. d4 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Queen Pawn Opening stays flexible: build a healthy center, develop, castle, then decide whether c4 or e4 is best."
             },
             {
               "uci": "g7g6",
               "san": "g6",
               "title": "Black prepares Bg7",
-              "explanation": "Black wants long diagonal pressure."
+              "explanation": "Black wants long diagonal pressure. g6 is a practical improving move for Black. In real games, keep asking: is my king safe, are my pieces active, and what central pawn break comes next?"
             },
             {
               "uci": "g1f3",
               "san": "Nf3",
               "title": "Recommended: develop",
-              "explanation": "Nf3 supports d4 and prepares e3 and castling."
+              "explanation": "Nf3 supports d4 and prepares e3 and castling. Nf3 develops a knight to f3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "g8f6",
+              "san": "Nf6",
+              "title": "Develop to f6",
+              "explanation": "Nf6 develops a knight to f6. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "e2e3",
+              "san": "e3",
+              "title": "Shape the center",
+              "explanation": "e3 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Queen Pawn Opening stays flexible: build a healthy center, develop, castle, then decide whether c4 or e4 is best."
+            },
+            {
+              "uci": "e7e6",
+              "san": "e6",
+              "title": "Shape the center",
+              "explanation": "e6 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Queen Pawn Opening stays flexible: build a healthy center, develop, castle, then decide whether c4 or e4 is best."
+            },
+            {
+              "uci": "f1d3",
+              "san": "Bd3",
+              "title": "Develop to d3",
+              "explanation": "Bd3 develops a bishop to d3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "d7d5",
+              "san": "d5",
+              "title": "Shape the center",
+              "explanation": "d5 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Queen Pawn Opening stays flexible: build a healthy center, develop, castle, then decide whether c4 or e4 is best."
+            },
+            {
+              "uci": "e1g1",
+              "san": "O-O",
+              "title": "Get the king safe",
+              "explanation": "O-O moves the king to safety and brings the rook closer to the center. This is usually the moment when the opening becomes an early middlegame plan: The Queen Pawn Opening stays flexible: build a healthy center, develop, castle, then decide whether c4 or e4 is best."
+            },
+            {
+              "uci": "f8e7",
+              "san": "Be7",
+              "title": "Develop to e7",
+              "explanation": "Be7 develops a bishop to e7. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "c2c4",
+              "san": "c4",
+              "title": "Shape the center",
+              "explanation": "c4 clarifies the pawn structure. Central moves should claim space, challenge a pawn, or prepare a break. The Queen Pawn Opening stays flexible: build a healthy center, develop, castle, then decide whether c4 or e4 is best."
+            },
+            {
+              "uci": "e8g8",
+              "san": "O-O",
+              "title": "Get the king safe",
+              "explanation": "O-O gets the king safe and brings a rook closer to the center. This is the bridge from opening to middlegame: now look for your worst piece, your safest trade, and your best pawn break."
             }
           ],
           "hints": [
-            "Start by recognizing d4.",
-            "The key training move in this branch is Nf3.",
-            "Follow the highlighted move and keep your plan simple."
+            "Follow the highlighted move and say the idea out loud.",
+            "After each move, check king safety, center control, and piece activity.",
+            "When a trade appears, ask what file opens and which piece improves next."
           ],
           "coachingNotes": [
             "If Black fianchettos, develop a steady center.",
-            "Nf3 supports d4 and prepares e3 and castling."
+            "The Queen Pawn Opening stays flexible: build a healthy center, develop, castle, then decide whether c4 or e4 is best.",
+            "Good trades usually remove an active enemy piece, open a useful file, or simplify once your king is safe.",
+            "After the opening, do not drift: improve your worst piece, connect rooks, and look for one clear pawn break."
           ],
           "completion": {
             "attempts": 0,
@@ -213,41 +425,85 @@
               "uci": "d2d4",
               "san": "d4",
               "title": "Center",
-              "explanation": "Start."
+              "explanation": "Start. d4 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Queen Pawn Opening stays flexible: build a healthy center, develop, castle, then decide whether c4 or e4 is best."
             },
             {
               "uci": "g8f6",
               "san": "Nf6",
               "title": "Black knight",
-              "explanation": "Recognize development."
+              "explanation": "Recognize development. Nf6 develops a knight to f6. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
             },
             {
               "uci": "g1f3",
               "san": "Nf3",
               "title": "Develop",
-              "explanation": "Support d4."
+              "explanation": "Support d4. Nf3 develops a knight to f3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
             },
             {
               "uci": "e7e6",
               "san": "e6",
               "title": "Black prepares",
-              "explanation": "Continue."
+              "explanation": "Continue. e6 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Queen Pawn Opening stays flexible: build a healthy center, develop, castle, then decide whether c4 or e4 is best."
             },
             {
               "uci": "e2e3",
               "san": "e3",
               "title": "Solid",
-              "explanation": "Open bishop."
+              "explanation": "Open bishop. e3 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Queen Pawn Opening stays flexible: build a healthy center, develop, castle, then decide whether c4 or e4 is best."
+            },
+            {
+              "uci": "d7d5",
+              "san": "d5",
+              "title": "Shape the center",
+              "explanation": "d5 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Queen Pawn Opening stays flexible: build a healthy center, develop, castle, then decide whether c4 or e4 is best."
+            },
+            {
+              "uci": "f1d3",
+              "san": "Bd3",
+              "title": "Develop to d3",
+              "explanation": "Bd3 develops a bishop to d3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "f8e7",
+              "san": "Be7",
+              "title": "Develop to e7",
+              "explanation": "Be7 develops a bishop to e7. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "e1g1",
+              "san": "O-O",
+              "title": "Get the king safe",
+              "explanation": "O-O moves the king to safety and brings the rook closer to the center. This is usually the moment when the opening becomes an early middlegame plan: The Queen Pawn Opening stays flexible: build a healthy center, develop, castle, then decide whether c4 or e4 is best."
+            },
+            {
+              "uci": "e8g8",
+              "san": "O-O",
+              "title": "Get the king safe",
+              "explanation": "O-O moves the king to safety and brings the rook closer to the center. This is usually the moment when the opening becomes an early middlegame plan: The Queen Pawn Opening stays flexible: build a healthy center, develop, castle, then decide whether c4 or e4 is best."
+            },
+            {
+              "uci": "c2c4",
+              "san": "c4",
+              "title": "Shape the center",
+              "explanation": "c4 clarifies the pawn structure. Central moves should claim space, challenge a pawn, or prepare a break. The Queen Pawn Opening stays flexible: build a healthy center, develop, castle, then decide whether c4 or e4 is best."
+            },
+            {
+              "uci": "c7c5",
+              "san": "c5",
+              "title": "Shape the center",
+              "explanation": "c5 clarifies the pawn structure. Central moves should claim space, challenge a pawn, or prepare a break. The Queen Pawn Opening stays flexible: build a healthy center, develop, castle, then decide whether c4 or e4 is best."
             }
           ],
           "hints": [
-            "Start by recognizing d4.",
-            "The key training move in this branch is e3.",
-            "Follow the highlighted move and keep your plan simple."
+            "Follow the highlighted move and say the idea out loud.",
+            "After each move, check king safety, center control, and piece activity.",
+            "When a trade appears, ask what file opens and which piece improves next."
           ],
           "coachingNotes": [
             "Replay the flexible setup.",
-            "Open bishop."
+            "The Queen Pawn Opening stays flexible: build a healthy center, develop, castle, then decide whether c4 or e4 is best.",
+            "Good trades usually remove an active enemy piece, open a useful file, or simplify once your king is safe.",
+            "After the opening, do not drift: improve your worst piece, connect rooks, and look for one clear pawn break."
           ],
           "completion": {
             "attempts": 0,
@@ -261,12 +517,18 @@
   "ideas": [
     "Control the center with d4.",
     "Stay flexible before choosing a structure.",
-    "Develop pieces before pawn storms."
+    "Develop pieces before pawn storms.",
+    "The Queen Pawn Opening stays flexible: build a healthy center, develop, castle, then decide whether c4 or e4 is best.",
+    "Trade only when it improves your position, removes danger, or opens a useful file.",
+    "By move 8-12, you should know your early middlegame plan: safe king, active pieces, and one central break."
   ],
   "commonMistakes": [
     "Committing to pawn storms too early.",
     "Ignoring development.",
-    "Not noticing transpositions."
+    "Not noticing transpositions.",
+    "Stopping after memorized moves and playing without a plan.",
+    "Trading automatically without asking what improves afterward.",
+    "Starting an attack before castling or finishing development."
   ],
   "tree": {},
   "training": {

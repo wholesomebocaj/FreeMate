@@ -20,35 +20,85 @@
               "uci": "e2e4",
               "san": "e4",
               "title": "Start with e4",
-              "explanation": "Control the center."
+              "explanation": "Control the center. e4 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Petrov is calm: avoid pawn traps, develop, castle, and use trades to simplify only when your pieces are ready."
             },
             {
               "uci": "e7e5",
               "san": "e5",
               "title": "Black mirrors",
-              "explanation": "Open game."
+              "explanation": "Open game. e5 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Petrov is calm: avoid pawn traps, develop, castle, and use trades to simplify only when your pieces are ready."
             },
             {
               "uci": "g1f3",
               "san": "Nf3",
               "title": "Develop",
-              "explanation": "Attack e5."
+              "explanation": "Attack e5. Nf3 develops a knight to f3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
             },
             {
               "uci": "g8f6",
               "san": "Nf6",
               "title": "Petrov Defense",
-              "explanation": "Black counterattacks e4 instead of defending e5."
+              "explanation": "Black counterattacks e4 instead of defending e5. Nf6 develops a knight to f6. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "Shape the center",
+              "explanation": "d4 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Petrov is calm: avoid pawn traps, develop, castle, and use trades to simplify only when your pieces are ready."
+            },
+            {
+              "uci": "d7d6",
+              "san": "d6",
+              "title": "Shape the center",
+              "explanation": "d6 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Petrov is calm: avoid pawn traps, develop, castle, and use trades to simplify only when your pieces are ready."
+            },
+            {
+              "uci": "f1d3",
+              "san": "Bd3",
+              "title": "Develop to d3",
+              "explanation": "Bd3 develops a bishop to d3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "f8e7",
+              "san": "Be7",
+              "title": "Develop to e7",
+              "explanation": "Be7 develops a bishop to e7. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "e1g1",
+              "san": "O-O",
+              "title": "Get the king safe",
+              "explanation": "O-O moves the king to safety and brings the rook closer to the center. This is usually the moment when the opening becomes an early middlegame plan: The Petrov is calm: avoid pawn traps, develop, castle, and use trades to simplify only when your pieces are ready."
+            },
+            {
+              "uci": "e8g8",
+              "san": "O-O",
+              "title": "Get the king safe",
+              "explanation": "O-O moves the king to safety and brings the rook closer to the center. This is usually the moment when the opening becomes an early middlegame plan: The Petrov is calm: avoid pawn traps, develop, castle, and use trades to simplify only when your pieces are ready."
+            },
+            {
+              "uci": "f1e1",
+              "san": "Re1",
+              "title": "Put a rook to work",
+              "explanation": "Re1 activates a rook. Rooks belong on open or half-open files after trades, where they support the early middlegame plan."
+            },
+            {
+              "uci": "b8c6",
+              "san": "Nc6",
+              "title": "Develop to c6",
+              "explanation": "Nc6 improves a piece and adds control over important squares. Developed pieces create threats naturally, so you do not need to force an attack before castling."
             }
           ],
           "hints": [
-            "Start by recognizing e4.",
-            "The key training move in this branch is Nf6.",
-            "Follow the highlighted move and keep your plan simple."
+            "Follow the highlighted move and say the idea out loud.",
+            "After each move, check king safety, center control, and piece activity.",
+            "When a trade appears, ask what file opens and which piece improves next."
           ],
           "coachingNotes": [
             "Learn the Petrov starting position and a safe central response.",
-            "Black counterattacks e4 instead of defending e5."
+            "The Petrov is calm: avoid pawn traps, develop, castle, and use trades to simplify only when your pieces are ready.",
+            "Good trades usually remove an active enemy piece, open a useful file, or simplify once your king is safe.",
+            "After the opening, do not drift: improve your worst piece, connect rooks, and look for one clear pawn break."
           ],
           "completion": {
             "attempts": 0,
@@ -72,53 +122,85 @@
               "uci": "e2e4",
               "san": "e4",
               "title": "Start",
-              "explanation": "Center."
+              "explanation": "Center. e4 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Petrov is calm: avoid pawn traps, develop, castle, and use trades to simplify only when your pieces are ready."
             },
             {
               "uci": "e7e5",
               "san": "e5",
               "title": "Mirror",
-              "explanation": "Open game."
+              "explanation": "Open game. e5 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Petrov is calm: avoid pawn traps, develop, castle, and use trades to simplify only when your pieces are ready."
             },
             {
               "uci": "g1f3",
               "san": "Nf3",
               "title": "Develop",
-              "explanation": "Attack e5."
+              "explanation": "Attack e5. Nf3 develops a knight to f3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
             },
             {
               "uci": "g8f6",
               "san": "Nf6",
               "title": "Petrov",
-              "explanation": "Black attacks e4."
+              "explanation": "Black attacks e4. Nf6 develops a knight to f6. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
             },
             {
               "uci": "f3e5",
               "san": "Nxe5",
               "title": "Recommended: capture",
-              "explanation": "Nxe5 wins the e5 pawn temporarily, but White must be ready for Black's d6 reply."
+              "explanation": "Nxe5 wins the e5 pawn temporarily, but White must be ready for Black's d6 reply. Nxe5 shows how trades enter the opening. This capture should only be played because it gains time, opens lines, or solves a concrete problem. After a trade, ask which file opened and which piece should improve next."
             },
             {
               "uci": "d7d6",
               "san": "d6",
               "title": "Black challenges knight",
-              "explanation": "Black asks the knight to move."
+              "explanation": "Black asks the knight to move. d6 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Petrov is calm: avoid pawn traps, develop, castle, and use trades to simplify only when your pieces are ready."
             },
             {
               "uci": "e5f3",
               "san": "Nf3",
               "title": "Retreat safely",
-              "explanation": "Nf3 returns the knight and keeps development healthy."
+              "explanation": "Nf3 returns the knight and keeps development healthy. Nf3 develops a knight to f3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "f8e7",
+              "san": "Be7",
+              "title": "Develop to e7",
+              "explanation": "Be7 develops a bishop to e7. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "Shape the center",
+              "explanation": "d4 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Petrov is calm: avoid pawn traps, develop, castle, and use trades to simplify only when your pieces are ready."
+            },
+            {
+              "uci": "e8g8",
+              "san": "O-O",
+              "title": "Get the king safe",
+              "explanation": "O-O moves the king to safety and brings the rook closer to the center. This is usually the moment when the opening becomes an early middlegame plan: The Petrov is calm: avoid pawn traps, develop, castle, and use trades to simplify only when your pieces are ready."
+            },
+            {
+              "uci": "c2c3",
+              "san": "c3",
+              "title": "Shape the center",
+              "explanation": "c3 clarifies the pawn structure. Central moves should claim space, challenge a pawn, or prepare a break. The Petrov is calm: avoid pawn traps, develop, castle, and use trades to simplify only when your pieces are ready."
+            },
+            {
+              "uci": "b8c6",
+              "san": "Nc6",
+              "title": "Develop to c6",
+              "explanation": "Nc6 improves a piece and adds control over important squares. Developed pieces create threats naturally, so you do not need to force an attack before castling."
             }
           ],
           "hints": [
-            "Start by recognizing e4.",
-            "The key training move in this branch is Nf3.",
-            "Follow the highlighted move and keep your plan simple."
+            "Follow the highlighted move and say the idea out loud.",
+            "After each move, check king safety, center control, and piece activity.",
+            "When a trade appears, ask what file opens and which piece improves next."
           ],
           "coachingNotes": [
             "If Black plays the Petrov, Nxe5 is playable when you know the follow-up.",
-            "Nf3 returns the knight and keeps development healthy."
+            "The Petrov is calm: avoid pawn traps, develop, castle, and use trades to simplify only when your pieces are ready.",
+            "Good trades usually remove an active enemy piece, open a useful file, or simplify once your king is safe.",
+            "After the opening, do not drift: improve your worst piece, connect rooks, and look for one clear pawn break."
           ],
           "completion": {
             "attempts": 0,
@@ -141,41 +223,85 @@
               "uci": "e2e4",
               "san": "e4",
               "title": "Start",
-              "explanation": "Center."
+              "explanation": "Center. e4 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Petrov is calm: avoid pawn traps, develop, castle, and use trades to simplify only when your pieces are ready."
             },
             {
               "uci": "e7e5",
               "san": "e5",
               "title": "Mirror",
-              "explanation": "Open game."
+              "explanation": "Open game. e5 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Petrov is calm: avoid pawn traps, develop, castle, and use trades to simplify only when your pieces are ready."
             },
             {
               "uci": "g1f3",
               "san": "Nf3",
               "title": "Develop",
-              "explanation": "Attack e5."
+              "explanation": "Attack e5. Nf3 develops a knight to f3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
             },
             {
               "uci": "g8f6",
               "san": "Nf6",
               "title": "Petrov",
-              "explanation": "Counterattack."
+              "explanation": "Counterattack. Nf6 develops a knight to f6. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
             },
             {
               "uci": "d2d4",
               "san": "d4",
               "title": "Recommended: central support",
-              "explanation": "d4 reinforces the center and avoids chasing tactics you may not know yet."
+              "explanation": "d4 reinforces the center and avoids chasing tactics you may not know yet. d4 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Petrov is calm: avoid pawn traps, develop, castle, and use trades to simplify only when your pieces are ready."
+            },
+            {
+              "uci": "d7d6",
+              "san": "d6",
+              "title": "Shape the center",
+              "explanation": "d6 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Petrov is calm: avoid pawn traps, develop, castle, and use trades to simplify only when your pieces are ready."
+            },
+            {
+              "uci": "f1d3",
+              "san": "Bd3",
+              "title": "Develop to d3",
+              "explanation": "Bd3 develops a bishop to d3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "f8e7",
+              "san": "Be7",
+              "title": "Develop to e7",
+              "explanation": "Be7 develops a bishop to e7. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "e1g1",
+              "san": "O-O",
+              "title": "Get the king safe",
+              "explanation": "O-O moves the king to safety and brings the rook closer to the center. This is usually the moment when the opening becomes an early middlegame plan: The Petrov is calm: avoid pawn traps, develop, castle, and use trades to simplify only when your pieces are ready."
+            },
+            {
+              "uci": "e8g8",
+              "san": "O-O",
+              "title": "Get the king safe",
+              "explanation": "O-O moves the king to safety and brings the rook closer to the center. This is usually the moment when the opening becomes an early middlegame plan: The Petrov is calm: avoid pawn traps, develop, castle, and use trades to simplify only when your pieces are ready."
+            },
+            {
+              "uci": "f1e1",
+              "san": "Re1",
+              "title": "Put a rook to work",
+              "explanation": "Re1 activates a rook. Rooks belong on open or half-open files after trades, where they support the early middlegame plan."
+            },
+            {
+              "uci": "b8c6",
+              "san": "Nc6",
+              "title": "Develop to c6",
+              "explanation": "Nc6 improves a piece and adds control over important squares. Developed pieces create threats naturally, so you do not need to force an attack before castling."
             }
           ],
           "hints": [
-            "Start by recognizing e4.",
-            "The key training move in this branch is d4.",
-            "Follow the highlighted move and keep your plan simple."
+            "Follow the highlighted move and say the idea out loud.",
+            "After each move, check king safety, center control, and piece activity.",
+            "When a trade appears, ask what file opens and which piece improves next."
           ],
           "coachingNotes": [
             "A simple alternative is to support the center with d4.",
-            "d4 reinforces the center and avoids chasing tactics you may not know yet."
+            "The Petrov is calm: avoid pawn traps, develop, castle, and use trades to simplify only when your pieces are ready.",
+            "Good trades usually remove an active enemy piece, open a useful file, or simplify once your king is safe.",
+            "After the opening, do not drift: improve your worst piece, connect rooks, and look for one clear pawn break."
           ],
           "completion": {
             "attempts": 0,
@@ -198,41 +324,85 @@
               "uci": "e2e4",
               "san": "e4",
               "title": "Start",
-              "explanation": "Center."
+              "explanation": "Center. e4 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Petrov is calm: avoid pawn traps, develop, castle, and use trades to simplify only when your pieces are ready."
             },
             {
               "uci": "e7e5",
               "san": "e5",
               "title": "Mirror",
-              "explanation": "Open game."
+              "explanation": "Open game. e5 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Petrov is calm: avoid pawn traps, develop, castle, and use trades to simplify only when your pieces are ready."
             },
             {
               "uci": "g1f3",
               "san": "Nf3",
               "title": "Develop",
-              "explanation": "Attack e5."
+              "explanation": "Attack e5. Nf3 develops a knight to f3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
             },
             {
               "uci": "g8f6",
               "san": "Nf6",
               "title": "Petrov",
-              "explanation": "Counterattack."
+              "explanation": "Counterattack. Nf6 develops a knight to f6. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
             },
             {
               "uci": "b1c3",
               "san": "Nc3",
               "title": "Recommended: develop",
-              "explanation": "Nc3 defends e4 and keeps the game calm."
+              "explanation": "Nc3 defends e4 and keeps the game calm. Nc3 develops a knight to c3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "d7d6",
+              "san": "d6",
+              "title": "Shape the center",
+              "explanation": "d6 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Petrov is calm: avoid pawn traps, develop, castle, and use trades to simplify only when your pieces are ready."
+            },
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "Shape the center",
+              "explanation": "d4 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Petrov is calm: avoid pawn traps, develop, castle, and use trades to simplify only when your pieces are ready."
+            },
+            {
+              "uci": "f8e7",
+              "san": "Be7",
+              "title": "Develop to e7",
+              "explanation": "Be7 develops a bishop to e7. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "f1d3",
+              "san": "Bd3",
+              "title": "Develop to d3",
+              "explanation": "Bd3 develops a bishop to d3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "e8g8",
+              "san": "O-O",
+              "title": "Get the king safe",
+              "explanation": "O-O moves the king to safety and brings the rook closer to the center. This is usually the moment when the opening becomes an early middlegame plan: The Petrov is calm: avoid pawn traps, develop, castle, and use trades to simplify only when your pieces are ready."
+            },
+            {
+              "uci": "h2h3",
+              "san": "h3",
+              "title": "Improve with h3",
+              "explanation": "h3 is a quiet improving move. Quiet moves matter when they finish development, prevent counterplay, or prepare a clear next plan."
+            },
+            {
+              "uci": "b8c6",
+              "san": "Nc6",
+              "title": "Develop to c6",
+              "explanation": "Nc6 improves a piece and adds control over important squares. Developed pieces create threats naturally, so you do not need to force an attack before castling."
             }
           ],
           "hints": [
-            "Start by recognizing e4.",
-            "The key training move in this branch is Nc3.",
-            "Follow the highlighted move and keep your plan simple."
+            "Follow the highlighted move and say the idea out loud.",
+            "After each move, check king safety, center control, and piece activity.",
+            "When a trade appears, ask what file opens and which piece improves next."
           ],
           "coachingNotes": [
             "Nc3 keeps development simple and may transpose to Four Knights ideas.",
-            "Nc3 defends e4 and keeps the game calm."
+            "The Petrov is calm: avoid pawn traps, develop, castle, and use trades to simplify only when your pieces are ready.",
+            "Good trades usually remove an active enemy piece, open a useful file, or simplify once your king is safe.",
+            "After the opening, do not drift: improve your worst piece, connect rooks, and look for one clear pawn break."
           ],
           "completion": {
             "attempts": 0,
@@ -255,35 +425,85 @@
               "uci": "e2e4",
               "san": "e4",
               "title": "Center",
-              "explanation": "Start."
+              "explanation": "Start. e4 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Petrov is calm: avoid pawn traps, develop, castle, and use trades to simplify only when your pieces are ready."
             },
             {
               "uci": "e7e5",
               "san": "e5",
               "title": "Mirror",
-              "explanation": "Open game."
+              "explanation": "Open game. e5 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Petrov is calm: avoid pawn traps, develop, castle, and use trades to simplify only when your pieces are ready."
             },
             {
               "uci": "g1f3",
               "san": "Nf3",
               "title": "Develop",
-              "explanation": "Attack e5."
+              "explanation": "Attack e5. Nf3 develops a knight to f3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
             },
             {
               "uci": "g8f6",
               "san": "Nf6",
               "title": "Petrov",
-              "explanation": "Recognize counterattack."
+              "explanation": "Recognize counterattack. Nf6 develops a knight to f6. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "Shape the center",
+              "explanation": "d4 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Petrov is calm: avoid pawn traps, develop, castle, and use trades to simplify only when your pieces are ready."
+            },
+            {
+              "uci": "d7d6",
+              "san": "d6",
+              "title": "Shape the center",
+              "explanation": "d6 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Petrov is calm: avoid pawn traps, develop, castle, and use trades to simplify only when your pieces are ready."
+            },
+            {
+              "uci": "f1d3",
+              "san": "Bd3",
+              "title": "Develop to d3",
+              "explanation": "Bd3 develops a bishop to d3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "f8e7",
+              "san": "Be7",
+              "title": "Develop to e7",
+              "explanation": "Be7 develops a bishop to e7. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "e1g1",
+              "san": "O-O",
+              "title": "Get the king safe",
+              "explanation": "O-O moves the king to safety and brings the rook closer to the center. This is usually the moment when the opening becomes an early middlegame plan: The Petrov is calm: avoid pawn traps, develop, castle, and use trades to simplify only when your pieces are ready."
+            },
+            {
+              "uci": "e8g8",
+              "san": "O-O",
+              "title": "Get the king safe",
+              "explanation": "O-O moves the king to safety and brings the rook closer to the center. This is usually the moment when the opening becomes an early middlegame plan: The Petrov is calm: avoid pawn traps, develop, castle, and use trades to simplify only when your pieces are ready."
+            },
+            {
+              "uci": "f1e1",
+              "san": "Re1",
+              "title": "Put a rook to work",
+              "explanation": "Re1 activates a rook. Rooks belong on open or half-open files after trades, where they support the early middlegame plan."
+            },
+            {
+              "uci": "b8c6",
+              "san": "Nc6",
+              "title": "Develop to c6",
+              "explanation": "Nc6 improves a piece and adds control over important squares. Developed pieces create threats naturally, so you do not need to force an attack before castling."
             }
           ],
           "hints": [
-            "Start by recognizing e4.",
-            "The key training move in this branch is Nf6.",
-            "Follow the highlighted move and keep your plan simple."
+            "Follow the highlighted move and say the idea out loud.",
+            "After each move, check king safety, center control, and piece activity.",
+            "When a trade appears, ask what file opens and which piece improves next."
           ],
           "coachingNotes": [
             "Replay the Petrov start.",
-            "Recognize counterattack."
+            "The Petrov is calm: avoid pawn traps, develop, castle, and use trades to simplify only when your pieces are ready.",
+            "Good trades usually remove an active enemy piece, open a useful file, or simplify once your king is safe.",
+            "After the opening, do not drift: improve your worst piece, connect rooks, and look for one clear pawn break."
           ],
           "completion": {
             "attempts": 0,
@@ -297,12 +517,18 @@
   "ideas": [
     "Develop safely.",
     "Maintain central balance.",
-    "Do not grab pawns without knowing the retreat."
+    "Do not grab pawns without knowing the retreat.",
+    "The Petrov is calm: avoid pawn traps, develop, castle, and use trades to simplify only when your pieces are ready.",
+    "Trade only when it improves your position, removes danger, or opens a useful file.",
+    "By move 8-12, you should know your early middlegame plan: safe king, active pieces, and one central break."
   ],
   "commonMistakes": [
     "Chasing material and losing the knight.",
     "Ignoring Black's counterattack on e4.",
-    "Opening tactics before developing."
+    "Opening tactics before developing.",
+    "Stopping after memorized moves and playing without a plan.",
+    "Trading automatically without asking what improves afterward.",
+    "Starting an attack before castling or finishing development."
   ],
   "tree": {},
   "training": {

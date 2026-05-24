@@ -20,24 +20,86 @@
               "uci": "e2e4",
               "san": "e4",
               "title": "White claims center",
-              "explanation": "White controls d5 and f5."
+              "explanation": "White controls d5 and f5. e4 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Sicilian creates imbalance: Black trades the c-pawn for central influence and develops before counterattacking."
             },
             {
               "uci": "c7c5",
               "san": "c5",
               "title": "Attack d4",
-              "explanation": "c5 challenges the center from the side and creates an imbalanced game."
+              "explanation": "c5 challenges the center from the side and creates an imbalanced game. c5 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Sicilian creates imbalance: Black trades the c-pawn for central influence and develops before counterattacking."
+            },
+            {
+              "uci": "g1f3",
+              "san": "Nf3",
+              "title": "Develop to f3",
+              "explanation": "Nf3 develops a knight to f3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "d7d6",
+              "san": "d6",
+              "title": "Shape the center",
+              "explanation": "d6 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Sicilian creates imbalance: Black trades the c-pawn for central influence and develops before counterattacking."
+            },
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "Shape the center",
+              "explanation": "d4 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Sicilian creates imbalance: Black trades the c-pawn for central influence and develops before counterattacking."
+            },
+            {
+              "uci": "c5d4",
+              "san": "cxd4",
+              "title": "Trade or capture on d4",
+              "explanation": "cxd4 shows how trades enter the opening. This is an equal trade. Equal trades are good when they improve your structure, open a file, or remove an active enemy piece. After a trade, ask which file opened and which piece should improve next."
+            },
+            {
+              "uci": "f3d4",
+              "san": "Nxd4",
+              "title": "Trade or capture on d4",
+              "explanation": "Nxd4 shows how trades enter the opening. This capture should only be played because it gains time, opens lines, or solves a concrete problem. After a trade, ask which file opened and which piece should improve next."
+            },
+            {
+              "uci": "g8f6",
+              "san": "Nf6",
+              "title": "Develop to f6",
+              "explanation": "Nf6 develops a knight to f6. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "b1c3",
+              "san": "Nc3",
+              "title": "Develop to c3",
+              "explanation": "Nc3 develops a knight to c3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "a7a6",
+              "san": "a6",
+              "title": "Improve with a6",
+              "explanation": "a6 is a practical improving move for Black. In real games, keep asking: is my king safe, are my pieces active, and what central pawn break comes next?"
+            },
+            {
+              "uci": "f1e2",
+              "san": "Be2",
+              "title": "Develop to e2",
+              "explanation": "Be2 improves a piece and adds control over important squares. Developed pieces create threats naturally, so you do not need to force an attack before castling."
+            },
+            {
+              "uci": "b8c6",
+              "san": "Nc6",
+              "title": "Develop to c6",
+              "explanation": "Nc6 improves a piece and adds control over important squares. Developed pieces create threats naturally, so you do not need to force an attack before castling."
             }
           ],
           "isMainLine": true,
           "hints": [
-            "Start by recognizing e4.",
-            "The target response in this branch is c5.",
-            "Use the highlighted move and keep the plan simple."
+            "Follow the highlighted move and say the idea out loud.",
+            "After each move, check king safety, center control, and piece activity.",
+            "When a trade appears, ask what file opens and which piece improves next."
           ],
           "coachingNotes": [
             "Learn the core Sicilian response.",
-            "c5 challenges the center from the side and creates an imbalanced game."
+            "The Sicilian creates imbalance: Black trades the c-pawn for central influence and develops before counterattacking.",
+            "Good trades usually remove an active enemy piece, open a useful file, or simplify once your king is safe.",
+            "After the opening, do not drift: improve your worst piece, connect rooks, and look for one clear pawn break."
           ],
           "completion": {
             "attempts": 0,
@@ -60,35 +122,85 @@
               "uci": "e2e4",
               "san": "e4",
               "title": "White starts",
-              "explanation": "White claims space."
+              "explanation": "White claims space. e4 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Sicilian creates imbalance: Black trades the c-pawn for central influence and develops before counterattacking."
             },
             {
               "uci": "c7c5",
               "san": "c5",
               "title": "Sicilian",
-              "explanation": "Black attacks d4."
+              "explanation": "Black attacks d4. c5 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Sicilian creates imbalance: Black trades the c-pawn for central influence and develops before counterattacking."
             },
             {
               "uci": "g1f3",
               "san": "Nf3",
               "title": "White develops",
-              "explanation": "White prepares d4."
+              "explanation": "White prepares d4. Nf3 develops a knight to f3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
             },
             {
               "uci": "d7d6",
               "san": "d6",
               "title": "Recommended: support e5",
-              "explanation": "d6 controls e5 and prepares Nf6. Keep development steady before tactics."
+              "explanation": "d6 controls e5 and prepares Nf6. Keep development steady before tactics. d6 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Sicilian creates imbalance: Black trades the c-pawn for central influence and develops before counterattacking."
+            },
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "Shape the center",
+              "explanation": "d4 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Sicilian creates imbalance: Black trades the c-pawn for central influence and develops before counterattacking."
+            },
+            {
+              "uci": "c5d4",
+              "san": "cxd4",
+              "title": "Trade or capture on d4",
+              "explanation": "cxd4 shows how trades enter the opening. This is an equal trade. Equal trades are good when they improve your structure, open a file, or remove an active enemy piece. After a trade, ask which file opened and which piece should improve next."
+            },
+            {
+              "uci": "f3d4",
+              "san": "Nxd4",
+              "title": "Trade or capture on d4",
+              "explanation": "Nxd4 shows how trades enter the opening. This capture should only be played because it gains time, opens lines, or solves a concrete problem. After a trade, ask which file opened and which piece should improve next."
+            },
+            {
+              "uci": "g8f6",
+              "san": "Nf6",
+              "title": "Develop to f6",
+              "explanation": "Nf6 develops a knight to f6. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "b1c3",
+              "san": "Nc3",
+              "title": "Develop to c3",
+              "explanation": "Nc3 develops a knight to c3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "a7a6",
+              "san": "a6",
+              "title": "Improve with a6",
+              "explanation": "a6 is a practical improving move for Black. In real games, keep asking: is my king safe, are my pieces active, and what central pawn break comes next?"
+            },
+            {
+              "uci": "f1e2",
+              "san": "Be2",
+              "title": "Develop to e2",
+              "explanation": "Be2 improves a piece and adds control over important squares. Developed pieces create threats naturally, so you do not need to force an attack before castling."
+            },
+            {
+              "uci": "b8c6",
+              "san": "Nc6",
+              "title": "Develop to c6",
+              "explanation": "Nc6 improves a piece and adds control over important squares. Developed pieces create threats naturally, so you do not need to force an attack before castling."
             }
           ],
           "hints": [
-            "Start by recognizing e4.",
-            "The target response in this branch is d6.",
-            "Use the highlighted move and keep the plan simple."
+            "Follow the highlighted move and say the idea out loud.",
+            "After each move, check king safety, center control, and piece activity.",
+            "When a trade appears, ask what file opens and which piece improves next."
           ],
           "coachingNotes": [
             "If White develops, develop and prepare d6.",
-            "d6 controls e5 and prepares Nf6. Keep development steady before tactics."
+            "The Sicilian creates imbalance: Black trades the c-pawn for central influence and develops before counterattacking.",
+            "Good trades usually remove an active enemy piece, open a useful file, or simplify once your king is safe.",
+            "After the opening, do not drift: improve your worst piece, connect rooks, and look for one clear pawn break."
           ],
           "completion": {
             "attempts": 0,
@@ -111,35 +223,85 @@
               "uci": "e2e4",
               "san": "e4",
               "title": "White starts",
-              "explanation": "White controls center."
+              "explanation": "White controls center. e4 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Sicilian creates imbalance: Black trades the c-pawn for central influence and develops before counterattacking."
             },
             {
               "uci": "c7c5",
               "san": "c5",
               "title": "Sicilian",
-              "explanation": "Attack d4."
+              "explanation": "Attack d4. c5 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Sicilian creates imbalance: Black trades the c-pawn for central influence and develops before counterattacking."
             },
             {
               "uci": "d2d4",
               "san": "d4",
               "title": "White opens center",
-              "explanation": "White offers the d-pawn to open lines."
+              "explanation": "White offers the d-pawn to open lines. d4 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Sicilian creates imbalance: Black trades the c-pawn for central influence and develops before counterattacking."
             },
             {
               "uci": "c5d4",
               "san": "cxd4",
               "title": "Recommended: capture",
-              "explanation": "cxd4 removes White's central pawn and justifies the Sicilian setup."
+              "explanation": "cxd4 removes White's central pawn and justifies the Sicilian setup. cxd4 shows how trades enter the opening. This is an equal trade. Equal trades are good when they improve your structure, open a file, or remove an active enemy piece. After a trade, ask which file opened and which piece should improve next."
+            },
+            {
+              "uci": "g1f3",
+              "san": "Nf3",
+              "title": "Develop to f3",
+              "explanation": "Nf3 develops a knight to f3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "d7d6",
+              "san": "d6",
+              "title": "Shape the center",
+              "explanation": "d6 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Sicilian creates imbalance: Black trades the c-pawn for central influence and develops before counterattacking."
+            },
+            {
+              "uci": "f3d4",
+              "san": "Nxd4",
+              "title": "Trade or capture on d4",
+              "explanation": "Nxd4 shows how trades enter the opening. This capture should only be played because it gains time, opens lines, or solves a concrete problem. After a trade, ask which file opened and which piece should improve next."
+            },
+            {
+              "uci": "g8f6",
+              "san": "Nf6",
+              "title": "Develop to f6",
+              "explanation": "Nf6 develops a knight to f6. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "b1c3",
+              "san": "Nc3",
+              "title": "Develop to c3",
+              "explanation": "Nc3 develops a knight to c3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "a7a6",
+              "san": "a6",
+              "title": "Improve with a6",
+              "explanation": "a6 is a practical improving move for Black. In real games, keep asking: is my king safe, are my pieces active, and what central pawn break comes next?"
+            },
+            {
+              "uci": "f1e2",
+              "san": "Be2",
+              "title": "Develop to e2",
+              "explanation": "Be2 improves a piece and adds control over important squares. Developed pieces create threats naturally, so you do not need to force an attack before castling."
+            },
+            {
+              "uci": "b8c6",
+              "san": "Nc6",
+              "title": "Develop to c6",
+              "explanation": "Nc6 improves a piece and adds control over important squares. Developed pieces create threats naturally, so you do not need to force an attack before castling."
             }
           ],
           "hints": [
-            "Start by recognizing e4.",
-            "The target response in this branch is cxd4.",
-            "Use the highlighted move and keep the plan simple."
+            "Follow the highlighted move and say the idea out loud.",
+            "After each move, check king safety, center control, and piece activity.",
+            "When a trade appears, ask what file opens and which piece improves next."
           ],
           "coachingNotes": [
             "If White immediately opens the center, capture.",
-            "cxd4 removes White's central pawn and justifies the Sicilian setup."
+            "The Sicilian creates imbalance: Black trades the c-pawn for central influence and develops before counterattacking.",
+            "Good trades usually remove an active enemy piece, open a useful file, or simplify once your king is safe.",
+            "After the opening, do not drift: improve your worst piece, connect rooks, and look for one clear pawn break."
           ],
           "completion": {
             "attempts": 0,
@@ -162,23 +324,85 @@
               "uci": "e2e4",
               "san": "e4",
               "title": "White center",
-              "explanation": "Recognize e4."
+              "explanation": "Recognize e4. e4 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Sicilian creates imbalance: Black trades the c-pawn for central influence and develops before counterattacking."
             },
             {
               "uci": "c7c5",
               "san": "c5",
               "title": "Counter",
-              "explanation": "Challenge d4 from the side."
+              "explanation": "Challenge d4 from the side. c5 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Sicilian creates imbalance: Black trades the c-pawn for central influence and develops before counterattacking."
+            },
+            {
+              "uci": "g1f3",
+              "san": "Nf3",
+              "title": "Develop to f3",
+              "explanation": "Nf3 develops a knight to f3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "d7d6",
+              "san": "d6",
+              "title": "Shape the center",
+              "explanation": "d6 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Sicilian creates imbalance: Black trades the c-pawn for central influence and develops before counterattacking."
+            },
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "Shape the center",
+              "explanation": "d4 changes the central structure. Central pawn moves should either claim space, challenge an enemy pawn, or open a line for a piece. The Sicilian creates imbalance: Black trades the c-pawn for central influence and develops before counterattacking."
+            },
+            {
+              "uci": "c5d4",
+              "san": "cxd4",
+              "title": "Trade or capture on d4",
+              "explanation": "cxd4 shows how trades enter the opening. This is an equal trade. Equal trades are good when they improve your structure, open a file, or remove an active enemy piece. After a trade, ask which file opened and which piece should improve next."
+            },
+            {
+              "uci": "f3d4",
+              "san": "Nxd4",
+              "title": "Trade or capture on d4",
+              "explanation": "Nxd4 shows how trades enter the opening. This capture should only be played because it gains time, opens lines, or solves a concrete problem. After a trade, ask which file opened and which piece should improve next."
+            },
+            {
+              "uci": "g8f6",
+              "san": "Nf6",
+              "title": "Develop to f6",
+              "explanation": "Nf6 develops a knight to f6. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "b1c3",
+              "san": "Nc3",
+              "title": "Develop to c3",
+              "explanation": "Nc3 develops a knight to c3. Developed pieces control central squares, help castling, and make future tactics possible without forcing anything too early."
+            },
+            {
+              "uci": "a7a6",
+              "san": "a6",
+              "title": "Improve with a6",
+              "explanation": "a6 is a practical improving move for Black. In real games, keep asking: is my king safe, are my pieces active, and what central pawn break comes next?"
+            },
+            {
+              "uci": "f1e2",
+              "san": "Be2",
+              "title": "Develop to e2",
+              "explanation": "Be2 improves a piece and adds control over important squares. Developed pieces create threats naturally, so you do not need to force an attack before castling."
+            },
+            {
+              "uci": "b8c6",
+              "san": "Nc6",
+              "title": "Develop to c6",
+              "explanation": "Nc6 improves a piece and adds control over important squares. Developed pieces create threats naturally, so you do not need to force an attack before castling."
             }
           ],
           "hints": [
-            "Start by recognizing e4.",
-            "The target response in this branch is c5.",
-            "Use the highlighted move and keep the plan simple."
+            "Follow the highlighted move and say the idea out loud.",
+            "After each move, check king safety, center control, and piece activity.",
+            "When a trade appears, ask what file opens and which piece improves next."
           ],
           "coachingNotes": [
             "Practice c5 against e4.",
-            "Challenge d4 from the side."
+            "The Sicilian creates imbalance: Black trades the c-pawn for central influence and develops before counterattacking.",
+            "Good trades usually remove an active enemy piece, open a useful file, or simplify once your king is safe.",
+            "After the opening, do not drift: improve your worst piece, connect rooks, and look for one clear pawn break."
           ],
           "completion": {
             "attempts": 0,
@@ -192,12 +416,18 @@
   "ideas": [
     "Use c5 to challenge d4.",
     "Develop before launching tactics.",
-    "Meet d4 with cxd4."
+    "Meet d4 with cxd4.",
+    "The Sicilian creates imbalance: Black trades the c-pawn for central influence and develops before counterattacking.",
+    "Trade only when it improves your position, removes danger, or opens a useful file.",
+    "By move 8-12, you should know your early middlegame plan: safe king, active pieces, and one central break."
   ],
   "commonMistakes": [
     "Playing only pawns.",
     "Ignoring White's kingside development.",
-    "Opening the game without king safety."
+    "Opening the game without king safety.",
+    "Stopping after memorized moves and playing without a plan.",
+    "Trading automatically without asking what improves afterward.",
+    "Starting an attack before castling or finishing development."
   ],
   "tree": {},
   "training": {
