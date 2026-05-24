@@ -5,42 +5,225 @@
   "difficulty": "Beginner+",
   "bracket": "beginner-plus",
   "side": "Black",
-  "description": "A solid defense to 1.e4 where Black supports a later d5 center break.",
-  "moves": [
-    { "uci": "e2e4", "san": "e4", "explanation": "White takes space in the center." },
-    { "uci": "c7c6", "san": "c6", "explanation": "Black prepares d5 while keeping a sturdy pawn structure." },
-    { "uci": "d2d4", "san": "d4", "explanation": "White builds a broad pawn center." },
-    { "uci": "d7d5", "san": "d5", "explanation": "Black challenges the center with support from the c6 pawn." }
+  "description": "A solid Black repertoire against e4 that prepares d5 with support and teaches calm structure-based defense.",
+  "sections": [
+    {
+      "id": "main-line",
+      "title": "Main Line",
+      "branches": [
+        {
+          "id": "main-line",
+          "title": "Main Line: c6 and d5",
+          "description": "Learn the default Caro-Kann structure.",
+          "moves": [
+            {
+              "uci": "e2e4",
+              "san": "e4",
+              "title": "White claims center",
+              "explanation": "White takes space and opens lines."
+            },
+            {
+              "uci": "c7c6",
+              "san": "c6",
+              "title": "Prepare d5",
+              "explanation": "c6 supports the d5 break. Black is planning before challenging."
+            },
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "White builds center",
+              "explanation": "White adds a second central pawn."
+            },
+            {
+              "uci": "d7d5",
+              "san": "d5",
+              "title": "Challenge with support",
+              "explanation": "d5 attacks the center with help from c6. This is the point of the Caro-Kann."
+            }
+          ],
+          "isMainLine": true,
+          "hints": [
+            "Start by recognizing e4.",
+            "The target response in this branch is d5.",
+            "Use the highlighted move and keep the plan simple."
+          ],
+          "coachingNotes": [
+            "Learn the default Caro-Kann structure.",
+            "d5 attacks the center with help from c6. This is the point of the Caro-Kann."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "if-white-plays-nc3",
+      "title": "If White Plays Nc3",
+      "branches": [
+        {
+          "id": "vs-nc3",
+          "title": "Meet Nc3 With d5",
+          "description": "If White develops instead of d4, still challenge the center.",
+          "moves": [
+            {
+              "uci": "e2e4",
+              "san": "e4",
+              "title": "White starts",
+              "explanation": "White takes central space."
+            },
+            {
+              "uci": "c7c6",
+              "san": "c6",
+              "title": "Prepare",
+              "explanation": "Black supports d5."
+            },
+            {
+              "uci": "b1c3",
+              "san": "Nc3",
+              "title": "White develops",
+              "explanation": "White supports e4 and develops."
+            },
+            {
+              "uci": "d7d5",
+              "san": "d5",
+              "title": "Recommended: challenge",
+              "explanation": "d5 attacks e4 and uses the support from c6. Keep the plan simple."
+            }
+          ],
+          "hints": [
+            "Start by recognizing e4.",
+            "The target response in this branch is d5.",
+            "Use the highlighted move and keep the plan simple."
+          ],
+          "coachingNotes": [
+            "If White develops instead of d4, still challenge the center.",
+            "d5 attacks e4 and uses the support from c6. Keep the plan simple."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "if-white-plays-nf3",
+      "title": "If White Plays Nf3",
+      "branches": [
+        {
+          "id": "vs-nf3",
+          "title": "Develop and Challenge",
+          "description": "If White develops a knight, continue the central plan.",
+          "moves": [
+            {
+              "uci": "e2e4",
+              "san": "e4",
+              "title": "White starts",
+              "explanation": "White claims the center."
+            },
+            {
+              "uci": "c7c6",
+              "san": "c6",
+              "title": "Prepare",
+              "explanation": "Black prepares d5."
+            },
+            {
+              "uci": "g1f3",
+              "san": "Nf3",
+              "title": "White develops",
+              "explanation": "White improves a piece and supports d4 ideas."
+            },
+            {
+              "uci": "d7d5",
+              "san": "d5",
+              "title": "Recommended: strike",
+              "explanation": "d5 challenges e4. Do not delay the central break too long."
+            }
+          ],
+          "hints": [
+            "Start by recognizing e4.",
+            "The target response in this branch is d5.",
+            "Use the highlighted move and keep the plan simple."
+          ],
+          "coachingNotes": [
+            "If White develops a knight, continue the central plan.",
+            "d5 challenges e4. Do not delay the central break too long."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "practice",
+      "title": "Practice Drills",
+      "branches": [
+        {
+          "id": "final-review",
+          "title": "Final Review",
+          "description": "Practice c6 and d5.",
+          "moves": [
+            {
+              "uci": "e2e4",
+              "san": "e4",
+              "title": "White center",
+              "explanation": "Recognize e4."
+            },
+            {
+              "uci": "c7c6",
+              "san": "c6",
+              "title": "Prepare",
+              "explanation": "Support d5."
+            },
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "White expands",
+              "explanation": "Now challenge."
+            },
+            {
+              "uci": "d7d5",
+              "san": "d5",
+              "title": "Break",
+              "explanation": "Attack the center."
+            }
+          ],
+          "hints": [
+            "Start by recognizing e4.",
+            "The target response in this branch is d5.",
+            "Use the highlighted move and keep the plan simple."
+          ],
+          "coachingNotes": [
+            "Practice c6 and d5.",
+            "Attack the center."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    }
   ],
   "ideas": [
-    "Support d5 with the c-pawn.",
-    "Develop the light-squared bishop before locking it in when possible.",
-    "Aim for a solid structure and clear piece development."
+    "Prepare d5 with c6.",
+    "Challenge White's center from a solid base.",
+    "Develop the c8 bishop actively when possible."
   ],
   "commonMistakes": [
-    "Playing passively after building the pawn structure.",
-    "Trapping the c8 bishop behind e6 too early.",
-    "Ignoring White's space advantage."
+    "Playing passively after c6.",
+    "Forgetting the d5 break.",
+    "Trapping the light-squared bishop too early."
   ],
-  "tree": {
-    "move": "e2e4",
-    "san": "e4",
-    "responses": [
-      {
-        "move": "c7c6",
-        "san": "c6",
-        "responses": [
-          {
-            "move": "d2d4",
-            "san": "d4",
-            "responses": [
-              { "move": "d7d5", "san": "d5", "responses": [] }
-            ]
-          }
-        ]
-      }
-    ]
-  },
+  "tree": {},
   "training": {
     "mode": "guided-line",
     "startingFen": "startpos",

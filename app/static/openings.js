@@ -43,6 +43,7 @@ async function initOpeningOverview() {
   const opening = await fetchJson(`/api/openings/${openingId}`);
   const container = document.querySelector("#opening-overview");
   const play = opening.moves.map((move) => move.uci).join(",");
+  const sectionCount = opening.sections?.length || 0;
 
   container.innerHTML = `
     <div class="opening-overview-grid">
@@ -51,7 +52,7 @@ async function initOpeningOverview() {
         <h1>${opening.name}</h1>
         <p>${opening.description}</p>
         <div class="opening-overview-actions">
-          <a class="button primary" href="/openings/${opening.id}/train">Train this line</a>
+          <a class="button primary" href="/openings/${opening.id}/train">Train this repertoire</a>
           <a class="button secondary" href="/openings">All openings</a>
         </div>
       </section>
@@ -63,11 +64,11 @@ async function initOpeningOverview() {
     </div>
     <section class="opening-overview-grid">
       <div class="opening-line-card">
-        <p class="eyebrow">Main line</p>
+        <p class="eyebrow">${sectionCount} sections · main training path</p>
         <ol class="opening-line-list">
-          ${opening.moves.map((move, index) => `
+          ${opening.moves.map((move) => `
             <li>
-              <span>${index + 1}</span>
+              <span>${(move.lineIndex ?? 0) + 1}</span>
               <strong>${move.san}</strong>
               <p>${move.explanation}</p>
             </li>
@@ -89,7 +90,7 @@ async function initOpeningOverview() {
 
 async function initOpeningTrainer() {
   const opening = await fetchJson(`/api/openings/${openingId}`);
-  const moveList = document.querySelector("#trainer-move-list");
+  const roadmap = document.querySelector("#trainer-roadmap");
   const title = document.querySelector("#trainer-title");
   const prompt = document.querySelector("#trainer-prompt");
   const kicker = document.querySelector("#trainer-kicker");
@@ -100,14 +101,21 @@ async function initOpeningTrainer() {
   const ideas = document.querySelector("#trainer-ideas");
   const mistakes = document.querySelector("#trainer-mistakes");
   const boardElement = document.querySelector("#opening-board");
+  const timings = {
+    userSettle: 250,
+    opponentSettle: 220,
+  };
 
   title.textContent = opening.name;
   ideas.innerHTML = opening.ideas.map((idea) => `<li>${idea}</li>`).join("");
   mistakes.innerHTML = opening.commonMistakes.map((mistake) => `<li>${mistake}</li>`).join("");
 
+  const trainingLines = getTrainingLines(opening);
+  let activeLine = trainingLines[0];
   let moveIndex = 0;
   let currentFen = opening.training.startingFen === "startpos" ? STARTING_FEN : opening.training.startingFen;
-  const playedMoves = [];
+  let playedMoves = [];
+  let branchCompletions = loadBranchCompletions(opening.id);
   const trainSide = opening.training.sideToTrain || "white";
 
   const board = new PracticeBoard(boardElement, {
@@ -116,6 +124,7 @@ async function initOpeningTrainer() {
     orientation: trainSide === "black" ? "black" : "white",
     lockToAllowedMoves: true,
     highlightLegalMoves: true,
+    animationDuration: 520,
     enableSounds: true,
     onMoveSuccess: async ({ move }) => {
       const validation = await fetchJson("/api/openings/validate-move", {
@@ -124,6 +133,7 @@ async function initOpeningTrainer() {
         body: JSON.stringify({
           opening_id: opening.id,
           move,
+          line_id: activeLine.id,
           move_index: moveIndex,
           played_moves: playedMoves,
         }),
@@ -136,15 +146,25 @@ async function initOpeningTrainer() {
         return;
       }
 
-      playedMoves.push(opening.moves[moveIndex].uci);
+      playedMoves.push(activeLine.moves[moveIndex].uci);
       currentFen = validation.resulting_fen;
+      boardElement.classList.add("opening-board-correct");
+      setTimeout(() => boardElement.classList.remove("opening-board-correct"), 520);
       feedback.textContent = validation.message;
       feedback.className = "lesson-board-feedback success";
       moveIndex += 1;
+      if (moveIndex >= activeLine.moves.length) {
+        markBranchComplete(activeLine.id);
+      }
       renderTrainerState();
+      await wait(timings.userSettle);
       await autoPlayOpponentMoves();
     },
     onMoveError: ({ message }) => {
+      boardElement.classList.remove("opening-board-shake");
+      void boardElement.offsetWidth;
+      boardElement.classList.add("opening-board-shake");
+      setTimeout(() => boardElement.classList.remove("opening-board-shake"), 420);
       feedback.textContent = message || "Try the highlighted opening move.";
       feedback.className = "lesson-board-feedback error";
     },
@@ -152,16 +172,50 @@ async function initOpeningTrainer() {
 
   await autoPlayOpponentMoves();
 
-  async function autoPlayOpponentMoves() {
-    while (moveIndex < opening.moves.length && !isUserMove(moveIndex, trainSide)) {
-      const reply = opening.moves[moveIndex];
-      const data = await fetchJson("/api/validate-move", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ move: reply.uci, fen: currentFen }),
-      });
+  roadmap.addEventListener("click", async (event) => {
+    const section = event.target.closest(".opening-roadmap-section");
+    if (event.target.matches("summary") && section) {
+      rememberSectionState(opening.id, section.dataset.sectionId, section.open);
+      return;
+    }
 
-      if (!data.is_valid) {
+    const button = event.target.closest("[data-line-id]");
+    if (!button) return;
+    const nextLine = trainingLines.find((line) => line.id === button.dataset.lineId);
+    if (!nextLine || nextLine.id === activeLine.id) return;
+    await loadBranch(nextLine);
+  });
+
+  async function loadBranch(nextLine) {
+    activeLine = nextLine;
+    moveIndex = 0;
+    playedMoves = [];
+    currentFen = opening.training.startingFen === "startpos" ? STARTING_FEN : opening.training.startingFen;
+    status.textContent = "Loading";
+    status.className = "lesson-step-progress-state waiting";
+    noteTitle.textContent = activeLine.title;
+    explanation.textContent = activeLine.description || "Follow the branch one move at a time.";
+    feedback.textContent = "Branch loaded. Follow the coach prompts.";
+    feedback.className = "lesson-board-feedback";
+    board.setConfig({ allowedMoves: [], highlightSquares: [] });
+    board.loadFen(currentFen, { clearHistory: true });
+    renderTrainerState();
+    await autoPlayOpponentMoves();
+  }
+
+  async function autoPlayOpponentMoves() {
+    while (moveIndex < activeLine.moves.length && !isUserMove(moveIndex, trainSide)) {
+      const reply = activeLine.moves[moveIndex];
+      status.textContent = "Coach move";
+      prompt.textContent = `${reply.san} is the reply`;
+      noteTitle.textContent = `Opponent plays ${reply.san}`;
+      explanation.textContent = reply.explanation;
+      board.setConfig({ allowedMoves: [], highlightSquares: moveHighlights(reply.uci) });
+      renderTrainerState();
+      await wait(timings.userSettle);
+      const data = await board.playMove(reply.uci, { suppressCallbacks: true, suppressComplete: true });
+
+      if (!data.isValid && !data.is_valid) {
         feedback.textContent = `The line could not continue at ${reply.san}.`;
         feedback.className = "lesson-board-feedback error";
         return;
@@ -170,19 +224,24 @@ async function initOpeningTrainer() {
       playedMoves.push(reply.uci);
       currentFen = data.resulting_fen;
       moveIndex += 1;
+      if (moveIndex >= activeLine.moves.length) {
+        markBranchComplete(activeLine.id);
+      }
+      renderTrainerState();
+      await wait(timings.opponentSettle);
     }
     renderTrainerState();
   }
 
   function renderTrainerState() {
-    renderMoveList(moveList, opening.moves, moveIndex, playedMoves);
+    renderOpeningRoadmap(roadmap, trainingLines, activeLine, moveIndex, playedMoves, branchCompletions, opening.id);
 
-    if (moveIndex >= opening.moves.length) {
+    if (moveIndex >= activeLine.moves.length) {
       prompt.textContent = "Line complete.";
-      kicker.textContent = `${opening.name} · ${playedMoves.length}/${opening.moves.length}`;
+      kicker.textContent = `${activeLine.title} · ${playedMoves.length}/${activeLine.moves.length}`;
       noteTitle.textContent = "Training complete";
-      explanation.textContent = "Great work. You played the full guided line.";
-      feedback.textContent = "Opening line complete. Reset the page to run it again.";
+      explanation.textContent = activeLine.completionMessage || "Great work. You handled this real-game branch. Pick another branch in the roadmap when you are ready.";
+      feedback.textContent = "Branch complete.";
       feedback.className = "lesson-board-feedback success";
       status.textContent = "Complete";
       status.className = "lesson-step-progress-state done";
@@ -191,11 +250,11 @@ async function initOpeningTrainer() {
       return;
     }
 
-    const expected = opening.moves[moveIndex];
+    const expected = activeLine.moves[moveIndex];
     prompt.textContent = `Play ${expected.san}`;
-    kicker.textContent = `${opening.name} · move ${moveIndex + 1} of ${opening.moves.length}`;
+    kicker.textContent = `${activeLine.title} · move ${moveIndex + 1} of ${activeLine.moves.length}`;
     noteTitle.textContent = `Why ${expected.san}?`;
-    explanation.textContent = expected.explanation;
+    explanation.textContent = expected.explanation || activeLine.description || "Make the recommended beginner move.";
     status.textContent = "Your move";
     status.className = "lesson-step-progress-state waiting";
     board.loadFen(currentFen, { clearHistory: false });
@@ -206,7 +265,16 @@ async function initOpeningTrainer() {
       successMessage: expected.explanation,
       errorMessage: `This line wants ${expected.san}. Try the highlighted move.`,
       highlightSquares: moveHighlights(expected.uci),
+      animationDuration: 520,
     });
+  }
+
+  function markBranchComplete(lineId) {
+    branchCompletions[lineId] = {
+      completed: true,
+      completedAt: new Date().toISOString(),
+    };
+    saveBranchCompletions(opening.id, branchCompletions);
   }
 }
 
@@ -247,7 +315,7 @@ function renderOpeningRow(opening) {
         <span>${opening.eco}</span>
       </div>
       <div class="opening-row-main">
-        <p class="eyebrow">${opening.difficulty} · ${opening.side} · ${opening.moveCount} moves</p>
+        <p class="eyebrow">${opening.difficulty} · ${opening.side} · ${opening.sectionCount || 1} sections · ${opening.moveCount} moves</p>
         <h2>${opening.name}</h2>
         <p>${opening.description}</p>
         <div class="opening-row-meta">
@@ -262,11 +330,89 @@ function renderOpeningRow(opening) {
   `;
 }
 
-function renderMoveList(container, moves, activeIndex, playedMoves) {
-  container.innerHTML = moves.map((move, index) => {
-    const state = index < playedMoves.length ? "done" : index === activeIndex ? "active" : "";
-    return `<li class="${state}"><span>${index + 1}</span><strong>${move.san}</strong><small>${move.uci}</small></li>`;
+function renderOpeningRoadmap(container, lines, activeLine, activeIndex, playedMoves, completions = {}, openingId = "") {
+  const sections = groupLinesBySection(lines);
+  const openSections = loadOpenSections(openingId);
+  container.innerHTML = sections.map((section) => {
+    const lessons = section.lines.map((line) => {
+      const isActiveLine = line.id === activeLine.id;
+      const isComplete = Boolean(completions[line.id]?.completed);
+      const moves = line.moves.map((move, index) => {
+        const state = isComplete || (isActiveLine && index < playedMoves.length) ? "done" : isActiveLine && index === activeIndex ? "active" : "";
+        return `<li class="${state}" data-line-index="${index}"><span>${index + 1}</span><strong>${move.san}</strong><small>${move.title || move.uci}</small></li>`;
+      }).join("");
+      return `
+        <button class="opening-roadmap-line ${isActiveLine ? "is-active" : ""} ${isComplete ? "is-complete" : ""}" type="button" data-line-id="${line.id}">
+          <span>${isComplete ? "✓ " : ""}${line.title}</span>
+          <small>${line.description || "Guided response"}</small>
+        </button>
+        <ol class="opening-move-list">${moves}</ol>
+      `;
+    }).join("");
+    const isOpen = section.lines.some((line) => line.id === activeLine.id) || openSections[section.id] !== false;
+    return `
+      <details class="opening-roadmap-section" data-section-id="${section.id}" ${isOpen ? "open" : ""}>
+        <summary>${section.title}</summary>
+        ${lessons}
+      </details>
+    `;
   }).join("");
+
+  const active = container.querySelector(".opening-move-list li.active");
+  active?.scrollIntoView?.({ block: "nearest", behavior: "smooth" });
+}
+
+function getTrainingLines(opening) {
+  const lines = [];
+  (opening.sections || []).forEach((section) => {
+    (section.branches || section.lessons || []).forEach((lesson) => {
+      if (!lesson.moves?.length) return;
+      lines.push({
+        id: lesson.id,
+        title: lesson.title,
+        description: lesson.description,
+        hints: lesson.hints || [],
+        coachingNotes: lesson.coachingNotes || [],
+        completionMessage: lesson.completionMessage,
+        sectionId: section.id,
+        sectionTitle: section.title,
+        isMainLine: Boolean(lesson.isMainLine),
+        moves: lesson.moves.map((move, index) => ({
+          ...move,
+          lineIndex: index,
+          sectionId: section.id,
+          sectionTitle: section.title,
+          lessonId: lesson.id,
+          lessonTitle: lesson.title,
+        })),
+      });
+    });
+  });
+
+  if (!lines.length) {
+    lines.push({
+      id: "main-line",
+      title: "Main Line",
+      sectionId: "main-line",
+      sectionTitle: "Main Line",
+      moves: opening.moves || [],
+    });
+  }
+
+  return lines.sort((a, b) => Number(b.isMainLine) - Number(a.isMainLine));
+}
+
+function groupLinesBySection(lines) {
+  const groups = [];
+  lines.forEach((line) => {
+    let group = groups.find((entry) => entry.id === line.sectionId);
+    if (!group) {
+      group = { id: line.sectionId, title: line.sectionTitle, lines: [] };
+      groups.push(group);
+    }
+    group.lines.push(line);
+  });
+  return groups;
 }
 
 function moveHighlights(uci) {
@@ -278,6 +424,44 @@ function moveHighlights(uci) {
 
 function isUserMove(index, side) {
   return side === "black" ? index % 2 === 1 : index % 2 === 0;
+}
+
+function wait(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function completionKey(openingId) {
+  return `freemate-opening-completions:${openingId}`;
+}
+
+function openSectionsKey(openingId) {
+  return `freemate-opening-open-sections:${openingId}`;
+}
+
+function loadBranchCompletions(openingId) {
+  try {
+    return JSON.parse(localStorage.getItem(completionKey(openingId))) || {};
+  } catch (error) {
+    return {};
+  }
+}
+
+function saveBranchCompletions(openingId, completions) {
+  localStorage.setItem(completionKey(openingId), JSON.stringify(completions));
+}
+
+function loadOpenSections(openingId) {
+  try {
+    return JSON.parse(localStorage.getItem(openSectionsKey(openingId))) || {};
+  } catch (error) {
+    return {};
+  }
+}
+
+function rememberSectionState(openingId, sectionId, wasOpenBeforeToggle) {
+  const sections = loadOpenSections(openingId);
+  sections[sectionId] = !wasOpenBeforeToggle;
+  localStorage.setItem(openSectionsKey(openingId), JSON.stringify(sections));
 }
 
 function getOpeningId() {

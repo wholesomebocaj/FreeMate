@@ -1707,6 +1707,84 @@ button.board-square {
   gap: 8px;
 }
 
+.opening-roadmap {
+  display: grid;
+  gap: 10px;
+  max-height: calc(100vh - 220px);
+  overflow: auto;
+  padding-right: 4px;
+}
+
+.opening-roadmap-section {
+  background: rgba(249, 250, 251, 0.045);
+  border: 1px solid rgba(249, 250, 251, 0.07);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.opening-roadmap-section summary {
+  cursor: pointer;
+  font-weight: 950;
+  list-style: none;
+  padding: 12px 12px 10px;
+}
+
+.opening-roadmap-section summary::-webkit-details-marker {
+  display: none;
+}
+
+.opening-roadmap-section summary::before {
+  color: var(--accent);
+  content: "▸";
+  display: inline-block;
+  margin-right: 8px;
+  transition: transform 160ms ease;
+}
+
+.opening-roadmap-section[open] summary::before {
+  transform: rotate(90deg);
+}
+
+.opening-roadmap-line {
+  background: transparent;
+  border: 0;
+  border-top: 1px solid rgba(249, 250, 251, 0.07);
+  color: var(--text);
+  cursor: pointer;
+  display: grid;
+  gap: 3px;
+  padding: 10px 12px;
+  text-align: left;
+  width: 100%;
+}
+
+.opening-roadmap-line span {
+  font-weight: 950;
+}
+
+.opening-roadmap-line small {
+  color: var(--muted);
+  font-size: 0.76rem;
+  font-weight: 800;
+}
+
+.opening-roadmap-line.is-active {
+  background: rgba(34, 197, 94, 0.12);
+  box-shadow: inset 3px 0 0 rgba(34, 197, 94, 0.85);
+}
+
+.opening-roadmap-line.is-complete {
+  color: rgba(249, 250, 251, 0.86);
+}
+
+.opening-roadmap-line.is-complete small {
+  color: rgba(34, 197, 94, 0.78);
+}
+
+.opening-roadmap-line + .opening-move-list {
+  padding: 0 10px 10px;
+}
+
 .opening-move-list li {
   align-items: center;
   background: rgba(249, 250, 251, 0.06);
@@ -1720,7 +1798,9 @@ button.board-square {
 
 .opening-move-list li.active {
   border-color: rgba(34, 197, 94, 0.55);
-  box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.2);
+  box-shadow:
+    0 0 0 1px rgba(34, 197, 94, 0.2),
+    0 0 22px rgba(34, 197, 94, 0.14);
 }
 
 .opening-move-list li.done {
@@ -1743,6 +1823,52 @@ button.board-square {
 .opening-board {
   margin: 18px auto 0;
   max-width: min(62vh, 620px);
+}
+
+.opening-board-correct {
+  animation: opening-board-correct 520ms ease;
+}
+
+.opening-board-shake {
+  animation: opening-board-shake 420ms ease;
+}
+
+@keyframes opening-board-correct {
+  0% {
+    box-shadow:
+      0 22px 55px rgba(0, 0, 0, 0.5),
+      0 0 0 1px rgba(255, 255, 255, 0.08);
+  }
+  45% {
+    box-shadow:
+      0 22px 55px rgba(0, 0, 0, 0.5),
+      0 0 0 4px rgba(34, 197, 94, 0.34),
+      0 0 34px rgba(34, 197, 94, 0.2);
+  }
+  100% {
+    box-shadow:
+      0 22px 55px rgba(0, 0, 0, 0.5),
+      0 0 0 1px rgba(255, 255, 255, 0.08);
+  }
+}
+
+@keyframes opening-board-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-5px);
+  }
+  40% {
+    transform: translateX(5px);
+  }
+  60% {
+    transform: translateX(-3px);
+  }
+  80% {
+    transform: translateX(3px);
+  }
 }
 
 .opening-note-block {

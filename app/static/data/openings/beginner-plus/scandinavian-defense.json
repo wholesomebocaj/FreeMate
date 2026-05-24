@@ -5,28 +5,201 @@
   "difficulty": "Beginner+",
   "bracket": "beginner-plus",
   "side": "Black",
-  "description": "A direct black opening against 1.e4 that immediately challenges White's center pawn.",
-  "moves": [
-    { "uci": "e2e4", "san": "e4", "explanation": "White begins by claiming central space." },
-    { "uci": "d7d5", "san": "d5", "explanation": "Black strikes the center right away and asks White to make a decision." }
+  "description": "A direct Black repertoire against e4 that teaches immediate central counterplay and simple development after White reacts.",
+  "sections": [
+    {
+      "id": "main-line",
+      "title": "Main Line",
+      "branches": [
+        {
+          "id": "main-line",
+          "title": "Main Line: Challenge e4",
+          "description": "Learn the default Scandinavian idea against 1.e4.",
+          "moves": [
+            {
+              "uci": "e2e4",
+              "san": "e4",
+              "title": "White claims center",
+              "explanation": "White controls d5 and f5. Black should challenge this center immediately."
+            },
+            {
+              "uci": "d7d5",
+              "san": "d5",
+              "title": "Strike with d5",
+              "explanation": "d5 attacks e4 at once. This is the core Scandinavian idea: meet the center before it grows."
+            }
+          ],
+          "isMainLine": true,
+          "hints": [
+            "Start by recognizing e4.",
+            "The target response in this branch is d5.",
+            "Use the highlighted move and keep the plan simple."
+          ],
+          "coachingNotes": [
+            "Learn the default Scandinavian idea against 1.e4.",
+            "d5 attacks e4 at once. This is the core Scandinavian idea: meet the center before it grows."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "if-white-captures",
+      "title": "If White Captures",
+      "branches": [
+        {
+          "id": "recapture-queen",
+          "title": "Recapture Carefully",
+          "description": "If White takes on d5, recapture and expect to lose a tempo to Nc3.",
+          "moves": [
+            {
+              "uci": "e2e4",
+              "san": "e4",
+              "title": "White starts",
+              "explanation": "White takes central space."
+            },
+            {
+              "uci": "d7d5",
+              "san": "d5",
+              "title": "Challenge",
+              "explanation": "Attack e4."
+            },
+            {
+              "uci": "e4d5",
+              "san": "exd5",
+              "title": "White captures",
+              "explanation": "White removes the d5 pawn and opens the queen file."
+            },
+            {
+              "uci": "d8d5",
+              "san": "Qxd5",
+              "title": "Recommended: recapture",
+              "explanation": "Qxd5 restores material. The beginner lesson is to recapture, then accept that the queen may move again after Nc3."
+            }
+          ],
+          "hints": [
+            "Start by recognizing e4.",
+            "The target response in this branch is Qxd5.",
+            "Use the highlighted move and keep the plan simple."
+          ],
+          "coachingNotes": [
+            "If White takes on d5, recapture and expect to lose a tempo to Nc3.",
+            "Qxd5 restores material. The beginner lesson is to recapture, then accept that the queen may move again after Nc3."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "if-white-plays-nc3",
+      "title": "If White Defends With Nc3",
+      "branches": [
+        {
+          "id": "transpose-response",
+          "title": "Keep Development Simple",
+          "description": "If White protects e4 instead of capturing, develop normally.",
+          "moves": [
+            {
+              "uci": "e2e4",
+              "san": "e4",
+              "title": "White starts",
+              "explanation": "White takes space."
+            },
+            {
+              "uci": "d7d5",
+              "san": "d5",
+              "title": "Challenge",
+              "explanation": "Black attacks e4."
+            },
+            {
+              "uci": "b1c3",
+              "san": "Nc3",
+              "title": "White defends",
+              "explanation": "White protects e4 and develops."
+            },
+            {
+              "uci": "g8f6",
+              "san": "Nf6",
+              "title": "Recommended: develop",
+              "explanation": "Nf6 develops and adds pressure to e4. Do not move the queen for no reason."
+            }
+          ],
+          "hints": [
+            "Start by recognizing e4.",
+            "The target response in this branch is Nf6.",
+            "Use the highlighted move and keep the plan simple."
+          ],
+          "coachingNotes": [
+            "If White protects e4 instead of capturing, develop normally.",
+            "Nf6 develops and adds pressure to e4. Do not move the queen for no reason."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "practice",
+      "title": "Practice Drills",
+      "branches": [
+        {
+          "id": "final-review",
+          "title": "Final Review",
+          "description": "Practice the direct d5 answer.",
+          "moves": [
+            {
+              "uci": "e2e4",
+              "san": "e4",
+              "title": "White center",
+              "explanation": "Recognize e4."
+            },
+            {
+              "uci": "d7d5",
+              "san": "d5",
+              "title": "Counter",
+              "explanation": "Challenge immediately."
+            }
+          ],
+          "hints": [
+            "Start by recognizing e4.",
+            "The target response in this branch is d5.",
+            "Use the highlighted move and keep the plan simple."
+          ],
+          "coachingNotes": [
+            "Practice the direct d5 answer.",
+            "Challenge immediately."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    }
   ],
   "ideas": [
-    "Challenge the e4 pawn immediately.",
-    "If White captures, recapture with the queen and develop carefully.",
-    "Do not chase pawns while your pieces are undeveloped."
+    "Challenge e4 with d5.",
+    "If White captures, recapture and develop.",
+    "Avoid moving the queen repeatedly without purpose."
   ],
   "commonMistakes": [
-    "Moving the queen too many times after Qxd5.",
-    "Ignoring development after the center opens.",
-    "Letting White gain tempi with Nc3."
+    "Queen wandering after Qxd5.",
+    "Forgetting to develop kingside pieces.",
+    "Playing for tricks instead of central clarity."
   ],
-  "tree": {
-    "move": "e2e4",
-    "san": "e4",
-    "responses": [
-      { "move": "d7d5", "san": "d5", "responses": [] }
-    ]
-  },
+  "tree": {},
   "training": {
     "mode": "guided-line",
     "startingFen": "startpos",

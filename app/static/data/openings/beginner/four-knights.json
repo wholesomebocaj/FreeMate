@@ -5,56 +5,261 @@
   "difficulty": "Beginner",
   "bracket": "beginner",
   "side": "White",
-  "description": "A calm open game where both sides develop knights quickly and fight for central squares.",
-  "moves": [
-    { "uci": "e2e4", "san": "e4", "explanation": "White opens the center and frees the kingside bishop." },
-    { "uci": "e7e5", "san": "e5", "explanation": "Black answers symmetrically." },
-    { "uci": "g1f3", "san": "Nf3", "explanation": "White develops a knight and attacks e5." },
-    { "uci": "b8c6", "san": "Nc6", "explanation": "Black defends e5 with a developing move." },
-    { "uci": "b1c3", "san": "Nc3", "explanation": "White develops the second knight toward the center." },
-    { "uci": "g8f6", "san": "Nf6", "explanation": "Black completes the four-knight setup and attacks e4." }
+  "description": "A calm open-game course that teaches natural development and common replies after 1.e4 e5.",
+  "sections": [
+    {
+      "id": "main-line",
+      "title": "Main Line",
+      "branches": [
+        {
+          "id": "main-line",
+          "title": "Main Line: Four Knights",
+          "description": "Develop all knights toward the center.",
+          "moves": [
+            {
+              "uci": "e2e4",
+              "san": "e4",
+              "title": "Start with e4",
+              "explanation": "Open the center and piece lines."
+            },
+            {
+              "uci": "e7e5",
+              "san": "e5",
+              "title": "Black mirrors",
+              "explanation": "An open game begins."
+            },
+            {
+              "uci": "g1f3",
+              "san": "Nf3",
+              "title": "Develop with pressure",
+              "explanation": "Attack e5 and prepare castling."
+            },
+            {
+              "uci": "b8c6",
+              "san": "Nc6",
+              "title": "Black defends",
+              "explanation": "Black develops and protects e5."
+            },
+            {
+              "uci": "b1c3",
+              "san": "Nc3",
+              "title": "Second knight",
+              "explanation": "Develop the other knight and support central squares."
+            },
+            {
+              "uci": "g8f6",
+              "san": "Nf6",
+              "title": "Four knights",
+              "explanation": "Black develops the final knight and attacks e4."
+            }
+          ],
+          "isMainLine": true,
+          "hints": [
+            "Start by recognizing e4.",
+            "The target response in this branch is Nf6.",
+            "Use the highlighted move and keep the plan simple."
+          ],
+          "coachingNotes": [
+            "Develop all knights toward the center.",
+            "Black develops the final knight and attacks e4."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "if-nf6-early",
+      "title": "If Black Plays Nf6",
+      "branches": [
+        {
+          "id": "petrov-style",
+          "title": "Petrov-Style Response",
+          "description": "If Black attacks e4 early, defend by developing.",
+          "moves": [
+            {
+              "uci": "e2e4",
+              "san": "e4",
+              "title": "Start with e4",
+              "explanation": "Take central space."
+            },
+            {
+              "uci": "e7e5",
+              "san": "e5",
+              "title": "Black mirrors",
+              "explanation": "Both sides have central pawns."
+            },
+            {
+              "uci": "g1f3",
+              "san": "Nf3",
+              "title": "Attack e5",
+              "explanation": "Develop and create pressure."
+            },
+            {
+              "uci": "g8f6",
+              "san": "Nf6",
+              "title": "Black attacks e4",
+              "explanation": "Black counterattacks instead of defending e5."
+            },
+            {
+              "uci": "b1c3",
+              "san": "Nc3",
+              "title": "Recommended: develop and defend",
+              "explanation": "Nc3 defends e4 and keeps development smooth."
+            }
+          ],
+          "hints": [
+            "Start by recognizing e4.",
+            "The target response in this branch is Nc3.",
+            "Use the highlighted move and keep the plan simple."
+          ],
+          "coachingNotes": [
+            "If Black attacks e4 early, defend by developing.",
+            "Nc3 defends e4 and keeps development smooth."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "if-bc5",
+      "title": "If Black Plays Bc5",
+      "branches": [
+        {
+          "id": "vs-bc5",
+          "title": "Bishop Development Response",
+          "description": "If Black develops the bishop, continue normally.",
+          "moves": [
+            {
+              "uci": "e2e4",
+              "san": "e4",
+              "title": "Start with e4",
+              "explanation": "Claim the center."
+            },
+            {
+              "uci": "e7e5",
+              "san": "e5",
+              "title": "Black mirrors",
+              "explanation": "Open game."
+            },
+            {
+              "uci": "g1f3",
+              "san": "Nf3",
+              "title": "Develop",
+              "explanation": "Attack e5."
+            },
+            {
+              "uci": "f8c5",
+              "san": "Bc5",
+              "title": "Black develops bishop",
+              "explanation": "Black points at f2 and develops actively."
+            },
+            {
+              "uci": "b1c3",
+              "san": "Nc3",
+              "title": "Recommended: develop",
+              "explanation": "Nc3 adds central control and keeps the Four Knights plan intact."
+            }
+          ],
+          "hints": [
+            "Start by recognizing e4.",
+            "The target response in this branch is Nc3.",
+            "Use the highlighted move and keep the plan simple."
+          ],
+          "coachingNotes": [
+            "If Black develops the bishop, continue normally.",
+            "Nc3 adds central control and keeps the Four Knights plan intact."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "practice",
+      "title": "Practice Drills",
+      "branches": [
+        {
+          "id": "final-review",
+          "title": "Final Review",
+          "description": "Replay the main Four Knights setup.",
+          "moves": [
+            {
+              "uci": "e2e4",
+              "san": "e4",
+              "title": "Open",
+              "explanation": "Start in the center."
+            },
+            {
+              "uci": "e7e5",
+              "san": "e5",
+              "title": "Mirror",
+              "explanation": "Open game."
+            },
+            {
+              "uci": "g1f3",
+              "san": "Nf3",
+              "title": "Knight",
+              "explanation": "Develop."
+            },
+            {
+              "uci": "b8c6",
+              "san": "Nc6",
+              "title": "Black knight",
+              "explanation": "Recognize defense."
+            },
+            {
+              "uci": "b1c3",
+              "san": "Nc3",
+              "title": "Second knight",
+              "explanation": "Develop again."
+            },
+            {
+              "uci": "g8f6",
+              "san": "Nf6",
+              "title": "Four knights",
+              "explanation": "Complete setup."
+            }
+          ],
+          "hints": [
+            "Start by recognizing e4.",
+            "The target response in this branch is Nf6.",
+            "Use the highlighted move and keep the plan simple."
+          ],
+          "coachingNotes": [
+            "Replay the main Four Knights setup.",
+            "Complete setup."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    }
   ],
   "ideas": [
-    "Develop knights before bishops when the center is open.",
-    "Castle early after the kingside bishop moves.",
-    "Watch both central pawns because the knights attack them quickly."
+    "Develop knights before making attacks.",
+    "Use development to defend central pawns.",
+    "Stay calm when Black changes move order."
   ],
   "commonMistakes": [
-    "Moving the same knight repeatedly in the opening.",
-    "Forgetting that e4 and e5 are both attacked.",
+    "Moving one knight repeatedly.",
+    "Forgetting e4 is attacked.",
     "Trading pieces without a reason."
   ],
-  "tree": {
-    "move": "e2e4",
-    "san": "e4",
-    "responses": [
-      {
-        "move": "e7e5",
-        "san": "e5",
-        "responses": [
-          {
-            "move": "g1f3",
-            "san": "Nf3",
-            "responses": [
-              {
-                "move": "b8c6",
-                "san": "Nc6",
-                "responses": [
-                  {
-                    "move": "b1c3",
-                    "san": "Nc3",
-                    "responses": [
-                      { "move": "g8f6", "san": "Nf6", "responses": [] }
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
+  "tree": {},
   "training": {
     "mode": "guided-line",
     "startingFen": "startpos",

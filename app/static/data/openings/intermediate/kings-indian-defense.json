@@ -5,56 +5,249 @@
   "difficulty": "Intermediate",
   "bracket": "intermediate",
   "side": "Black",
-  "description": "A hypermodern setup where Black lets White build a center, then attacks it with pieces and pawn breaks.",
-  "moves": [
-    { "uci": "d2d4", "san": "d4", "explanation": "White starts with a queen-pawn center." },
-    { "uci": "g8f6", "san": "Nf6", "explanation": "Black develops and watches the central squares." },
-    { "uci": "c2c4", "san": "c4", "explanation": "White gains more queenside and central space." },
-    { "uci": "g7g6", "san": "g6", "explanation": "Black prepares to fianchetto the bishop." },
-    { "uci": "b1c3", "san": "Nc3", "explanation": "White supports the center." },
-    { "uci": "f8g7", "san": "Bg7", "explanation": "Black places the bishop on the long diagonal toward the center." }
+  "description": "A hypermodern course that teaches the default Nf6-g6-Bg7 setup first, then simple responses to White's common structures.",
+  "sections": [
+    {
+      "id": "main-line",
+      "title": "Main Line",
+      "branches": [
+        {
+          "id": "main-line",
+          "title": "Main Line: Fianchetto Setup",
+          "description": "Learn the default King's Indian starting structure.",
+          "moves": [
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "White starts d4",
+              "explanation": "White controls central squares."
+            },
+            {
+              "uci": "g8f6",
+              "san": "Nf6",
+              "title": "Watch the center",
+              "explanation": "Nf6 develops and pressures e4 without occupying the center yet."
+            },
+            {
+              "uci": "c2c4",
+              "san": "c4",
+              "title": "White expands",
+              "explanation": "White gains more space."
+            },
+            {
+              "uci": "g7g6",
+              "san": "g6",
+              "title": "Prepare bishop",
+              "explanation": "g6 prepares a bishop on g7 to pressure the long diagonal."
+            },
+            {
+              "uci": "b1c3",
+              "san": "Nc3",
+              "title": "White supports center",
+              "explanation": "White reinforces central control."
+            },
+            {
+              "uci": "f8g7",
+              "san": "Bg7",
+              "title": "Fianchetto",
+              "explanation": "Bg7 activates the bishop. Next plans include castling and central breaks."
+            }
+          ],
+          "isMainLine": true,
+          "hints": [
+            "Start by recognizing d4.",
+            "The target response in this branch is Bg7.",
+            "Use the highlighted move and keep the plan simple."
+          ],
+          "coachingNotes": [
+            "Learn the default King's Indian starting structure.",
+            "Bg7 activates the bishop. Next plans include castling and central breaks."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "if-white-plays-nf3",
+      "title": "If White Plays Nf3",
+      "branches": [
+        {
+          "id": "vs-nf3",
+          "title": "Keep the Setup",
+          "description": "If White develops quietly, continue the fianchetto.",
+          "moves": [
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "White starts",
+              "explanation": "White takes center."
+            },
+            {
+              "uci": "g8f6",
+              "san": "Nf6",
+              "title": "Develop",
+              "explanation": "Black watches e4."
+            },
+            {
+              "uci": "g1f3",
+              "san": "Nf3",
+              "title": "White develops",
+              "explanation": "White supports the center and prepares castling."
+            },
+            {
+              "uci": "g7g6",
+              "san": "g6",
+              "title": "Recommended: prepare Bg7",
+              "explanation": "Keep the King's Indian setup. Do not rush pawn breaks before castling."
+            }
+          ],
+          "hints": [
+            "Start by recognizing d4.",
+            "The target response in this branch is g6.",
+            "Use the highlighted move and keep the plan simple."
+          ],
+          "coachingNotes": [
+            "If White develops quietly, continue the fianchetto.",
+            "Keep the King's Indian setup. Do not rush pawn breaks before castling."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "if-white-plays-e4",
+      "title": "If White Plays e4",
+      "branches": [
+        {
+          "id": "vs-e4",
+          "title": "Respect the Big Center",
+          "description": "If White builds a huge center, finish development.",
+          "moves": [
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "White starts",
+              "explanation": "White takes space."
+            },
+            {
+              "uci": "g8f6",
+              "san": "Nf6",
+              "title": "Develop",
+              "explanation": "Black pressures e4."
+            },
+            {
+              "uci": "e2e4",
+              "san": "e4",
+              "title": "White builds center",
+              "explanation": "White creates a strong pawn duo."
+            },
+            {
+              "uci": "d7d6",
+              "san": "d6",
+              "title": "Recommended: support and prepare",
+              "explanation": "d6 controls e5 and prepares castling and later central counterplay."
+            }
+          ],
+          "hints": [
+            "Start by recognizing d4.",
+            "The target response in this branch is d6.",
+            "Use the highlighted move and keep the plan simple."
+          ],
+          "coachingNotes": [
+            "If White builds a huge center, finish development.",
+            "d6 controls e5 and prepares castling and later central counterplay."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "practice",
+      "title": "Practice Drills",
+      "branches": [
+        {
+          "id": "final-review",
+          "title": "Final Review",
+          "description": "Practice the fianchetto setup.",
+          "moves": [
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "White center",
+              "explanation": "Recognize d4."
+            },
+            {
+              "uci": "g8f6",
+              "san": "Nf6",
+              "title": "Develop",
+              "explanation": "Pressure center."
+            },
+            {
+              "uci": "c2c4",
+              "san": "c4",
+              "title": "White expands",
+              "explanation": "Accept space."
+            },
+            {
+              "uci": "g7g6",
+              "san": "g6",
+              "title": "Prepare",
+              "explanation": "Ready Bg7."
+            },
+            {
+              "uci": "b1c3",
+              "san": "Nc3",
+              "title": "Support",
+              "explanation": "White develops."
+            },
+            {
+              "uci": "f8g7",
+              "san": "Bg7",
+              "title": "Bishop",
+              "explanation": "Complete setup."
+            }
+          ],
+          "hints": [
+            "Start by recognizing d4.",
+            "The target response in this branch is Bg7.",
+            "Use the highlighted move and keep the plan simple."
+          ],
+          "coachingNotes": [
+            "Practice the fianchetto setup.",
+            "Complete setup."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    }
   ],
   "ideas": [
-    "Let White build a center, then challenge it later.",
+    "Control the center with pieces before pawns.",
     "Fianchetto the bishop to g7.",
-    "Castle and prepare pawn breaks such as d6 and e5 or c5."
+    "Castle, then challenge White's center."
   ],
   "commonMistakes": [
-    "Playing passively and never challenging White's center.",
-    "Opening the kingside before the king is safe.",
-    "Forgetting that space disadvantage requires active counterplay."
+    "Never challenging White's center.",
+    "Opening the kingside before castling.",
+    "Forgetting the bishop needs the long diagonal."
   ],
-  "tree": {
-    "move": "d2d4",
-    "san": "d4",
-    "responses": [
-      {
-        "move": "g8f6",
-        "san": "Nf6",
-        "responses": [
-          {
-            "move": "c2c4",
-            "san": "c4",
-            "responses": [
-              {
-                "move": "g7g6",
-                "san": "g6",
-                "responses": [
-                  {
-                    "move": "b1c3",
-                    "san": "Nc3",
-                    "responses": [
-                      { "move": "f8g7", "san": "Bg7", "responses": [] }
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
+  "tree": {},
   "training": {
     "mode": "guided-line",
     "startingFen": "startpos",

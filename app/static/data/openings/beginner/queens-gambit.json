@@ -5,35 +5,270 @@
   "difficulty": "Beginner",
   "bracket": "beginner",
   "side": "White",
-  "description": "A classic queen-pawn opening where White offers the c-pawn to challenge Black's center.",
-  "moves": [
-    { "uci": "d2d4", "san": "d4", "explanation": "White controls the center and prepares queenside play." },
-    { "uci": "d7d5", "san": "d5", "explanation": "Black matches White's central pawn." },
-    { "uci": "c2c4", "san": "c4", "explanation": "White asks Black's d-pawn a question and fights for more central control." }
+  "description": "A beginner course for challenging Black's d-pawn with c4 and understanding common replies.",
+  "sections": [
+    {
+      "id": "main-line",
+      "title": "Main Line",
+      "branches": [
+        {
+          "id": "main-line",
+          "title": "Main Line: Offer c4",
+          "description": "Learn the default Queen's Gambit start.",
+          "moves": [
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "Start with d4",
+              "explanation": "Controls central squares and opens the c1 bishop."
+            },
+            {
+              "uci": "d7d5",
+              "san": "d5",
+              "title": "Black mirrors",
+              "explanation": "Black places a pawn on the same central front."
+            },
+            {
+              "uci": "c2c4",
+              "san": "c4",
+              "title": "Challenge d5",
+              "explanation": "c4 attacks Black's d5 pawn and asks Black how they will defend the center."
+            }
+          ],
+          "isMainLine": true,
+          "hints": [
+            "Start by recognizing d4.",
+            "The target response in this branch is c4.",
+            "Use the highlighted move and keep the plan simple."
+          ],
+          "coachingNotes": [
+            "Learn the default Queen's Gambit start.",
+            "c4 attacks Black's d5 pawn and asks Black how they will defend the center."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "if-accepted",
+      "title": "If Black Captures c4",
+      "branches": [
+        {
+          "id": "accepted-response",
+          "title": "Queen's Gambit Accepted",
+          "description": "If Black takes the pawn, develop and win it back later.",
+          "moves": [
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "Start with d4",
+              "explanation": "Build the center."
+            },
+            {
+              "uci": "d7d5",
+              "san": "d5",
+              "title": "Black mirrors",
+              "explanation": "Black contests the center."
+            },
+            {
+              "uci": "c2c4",
+              "san": "c4",
+              "title": "Offer c4",
+              "explanation": "Challenge d5."
+            },
+            {
+              "uci": "d5c4",
+              "san": "dxc4",
+              "title": "Black accepts",
+              "explanation": "Black grabs the c-pawn. The beginner response is not panic."
+            },
+            {
+              "uci": "g1f3",
+              "san": "Nf3",
+              "title": "Recommended: develop",
+              "explanation": "Nf3 develops and prepares e3 to recover the pawn. Development matters more than immediate material."
+            }
+          ],
+          "hints": [
+            "Start by recognizing d4.",
+            "The target response in this branch is Nf3.",
+            "Use the highlighted move and keep the plan simple."
+          ],
+          "coachingNotes": [
+            "If Black takes the pawn, develop and win it back later.",
+            "Nf3 develops and prepares e3 to recover the pawn. Development matters more than immediate material."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "if-e6",
+      "title": "If Black Plays e6",
+      "branches": [
+        {
+          "id": "declined-response",
+          "title": "Queen's Gambit Declined",
+          "description": "If Black supports d5 with e6, develop naturally.",
+          "moves": [
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "Start with d4",
+              "explanation": "Take central space."
+            },
+            {
+              "uci": "d7d5",
+              "san": "d5",
+              "title": "Black mirrors",
+              "explanation": "The center is contested."
+            },
+            {
+              "uci": "c2c4",
+              "san": "c4",
+              "title": "Challenge d5",
+              "explanation": "Ask Black to defend."
+            },
+            {
+              "uci": "e7e6",
+              "san": "e6",
+              "title": "Black declines",
+              "explanation": "Black supports d5 and opens the f8 bishop."
+            },
+            {
+              "uci": "b1c3",
+              "san": "Nc3",
+              "title": "Recommended: develop pressure",
+              "explanation": "Nc3 develops and adds pressure to d5. Continue with Nf3 and Bg5 or e3."
+            }
+          ],
+          "hints": [
+            "Start by recognizing d4.",
+            "The target response in this branch is Nc3.",
+            "Use the highlighted move and keep the plan simple."
+          ],
+          "coachingNotes": [
+            "If Black supports d5 with e6, develop naturally.",
+            "Nc3 develops and adds pressure to d5. Continue with Nf3 and Bg5 or e3."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "if-nf6",
+      "title": "If Black Plays Nf6",
+      "branches": [
+        {
+          "id": "indian-response",
+          "title": "Knight Defense Response",
+          "description": "If Black develops before d5, keep building.",
+          "moves": [
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "Start with d4",
+              "explanation": "Take space."
+            },
+            {
+              "uci": "g8f6",
+              "san": "Nf6",
+              "title": "Black develops",
+              "explanation": "Black controls e4 and d5 with a knight."
+            },
+            {
+              "uci": "c2c4",
+              "san": "c4",
+              "title": "Recommended: take space",
+              "explanation": "c4 builds a queen-pawn center and keeps the Queen's Gambit style structure."
+            }
+          ],
+          "hints": [
+            "Start by recognizing d4.",
+            "The target response in this branch is c4.",
+            "Use the highlighted move and keep the plan simple."
+          ],
+          "coachingNotes": [
+            "If Black develops before d5, keep building.",
+            "c4 builds a queen-pawn center and keeps the Queen's Gambit style structure."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "practice",
+      "title": "Practice Drills",
+      "branches": [
+        {
+          "id": "final-review",
+          "title": "Final Review",
+          "description": "Replay d4, d5, c4.",
+          "moves": [
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "Central base",
+              "explanation": "Start with d4."
+            },
+            {
+              "uci": "d7d5",
+              "san": "d5",
+              "title": "Black mirrors",
+              "explanation": "Spot the target."
+            },
+            {
+              "uci": "c2c4",
+              "san": "c4",
+              "title": "Challenge",
+              "explanation": "Attack d5 with c4."
+            }
+          ],
+          "hints": [
+            "Start by recognizing d4.",
+            "The target response in this branch is c4.",
+            "Use the highlighted move and keep the plan simple."
+          ],
+          "coachingNotes": [
+            "Replay d4, d5, c4.",
+            "Attack d5 with c4."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    }
   ],
   "ideas": [
-    "Use the c-pawn to pressure Black's d5 pawn.",
-    "Develop naturally with Nc3, Nf3, and Bg5 or e3.",
-    "If Black captures on c4, try to win the pawn back with development."
+    "Use c4 to challenge d5.",
+    "If Black captures, develop and recover the pawn calmly.",
+    "If Black defends, increase pressure with pieces."
   ],
   "commonMistakes": [
-    "Trying to win material before finishing development.",
-    "Letting Black keep the c4 pawn for free.",
-    "Moving the queen early instead of developing pieces."
+    "Trying to win the pawn back with the queen too early.",
+    "Ignoring development while chasing material.",
+    "Forgetting king safety."
   ],
-  "tree": {
-    "move": "d2d4",
-    "san": "d4",
-    "responses": [
-      {
-        "move": "d7d5",
-        "san": "d5",
-        "responses": [
-          { "move": "c2c4", "san": "c4", "responses": [] }
-        ]
-      }
-    ]
-  },
+  "tree": {},
   "training": {
     "mode": "guided-line",
     "startingFen": "startpos",

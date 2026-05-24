@@ -95,6 +95,7 @@ export class PracticeBoard {
     this.onComplete = config.onComplete || (() => {});
     this.onPositionChange = config.onPositionChange || (() => {});
     this.highlightSquares = config.highlightSquares || [];
+    this.animationDuration = config.animationDuration || 180;
     this.sound = this.enableSounds ? config.sound || new BoardSound() : { play() {} };
 
     this.position = parseFen(this.fen);
@@ -154,7 +155,7 @@ export class PracticeBoard {
       },
       animation: {
         enabled: true,
-        duration: 180,
+        duration: this.animationDuration,
       },
       selectable: {
         enabled: true,
@@ -270,6 +271,8 @@ export class PracticeBoard {
     this.successMessage = config.successMessage || this.successMessage;
     this.errorMessage = config.errorMessage || this.errorMessage;
     this.highlightSquares = config.highlightSquares || this.highlightSquares;
+    this.animationDuration = config.animationDuration || this.animationDuration;
+    this.ground.set({ animation: { enabled: true, duration: this.animationDuration } });
     this.syncHighlightLayer();
   }
 
@@ -386,6 +389,43 @@ export class PracticeBoard {
     }
   }
 
+  async playMove(move, options = {}) {
+    const cleanMove = move.trim().toLowerCase();
+    const fromSquare = cleanMove.slice(0, 2);
+    const toSquare = cleanMove.slice(2, 4);
+    const captured = Boolean(this.position[toSquare]);
+
+    try {
+      const response = await fetch("/api/validate-move", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ move: cleanMove, fen: this.fen }),
+      });
+      const data = await response.json();
+
+      if (!data.is_valid) {
+        this.rejectMove(cleanMove, data.message);
+        return { isValid: false, message: data.message };
+      }
+
+      this.applyValidatedMove({
+        fromSquare,
+        toSquare,
+        move: cleanMove,
+        san: data.san,
+        resultingFen: data.resulting_fen,
+        captured: captured || (data.san || "").includes("x"),
+        suppressCallbacks: Boolean(options.suppressCallbacks),
+        suppressComplete: Boolean(options.suppressComplete),
+      });
+
+      return { isValid: true, ...data };
+    } catch (error) {
+      this.rejectMove(cleanMove, "The move validator is unavailable.");
+      return { isValid: false, message: "The move validator is unavailable." };
+    }
+  }
+
   buildMove(fromSquare, toSquare) {
     const piece = this.position[fromSquare];
     const promotionRank = piece === "wP" ? "8" : piece === "bP" ? "1" : null;
@@ -406,7 +446,7 @@ export class PracticeBoard {
     return true;
   }
 
-  applyValidatedMove({ fromSquare, toSquare, move, san, resultingFen, captured }) {
+  applyValidatedMove({ fromSquare, toSquare, move, san, resultingFen, captured, suppressCallbacks, suppressComplete }) {
     this.fen = normalizeFen(resultingFen || this.fen);
     this.position = parseFen(this.fen);
     this.turn = parseTurn(this.fen);
@@ -420,9 +460,11 @@ export class PracticeBoard {
 
     this.sound.play(captured ? "capture" : "move");
     this.syncBoard();
-    this.onMove(payload);
-    this.onMoveSuccess(payload);
-    if (this.mode === "lesson" || this.mode === "puzzle") {
+    if (!suppressCallbacks) {
+      this.onMove(payload);
+      this.onMoveSuccess(payload);
+    }
+    if (!suppressComplete && (this.mode === "lesson" || this.mode === "puzzle")) {
       this.onComplete(payload);
     }
     this.emitPositionChange();

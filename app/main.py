@@ -68,6 +68,7 @@ class LegalMovesResponse(BaseModel):
 class OpeningMoveRequest(BaseModel):
     opening_id: str = Field(..., examples=["italian-game"])
     move: str = Field(..., examples=["e2e4"])
+    line_id: str | None = Field(default=None, examples=["main-line"])
     move_index: int = Field(default=0, ge=0)
     played_moves: list[str] = Field(default_factory=list)
 
@@ -138,7 +139,7 @@ def get_course() -> JSONResponse:
 
 @app.get("/api/openings")
 def get_openings() -> JSONResponse:
-    openings = [_opening_summary(load_opening_by_id(entry["id"])) for entry in load_opening_index()]
+    openings = [_opening_summary(prepare_opening(load_opening_by_id(entry["id"]))) for entry in load_opening_index()]
     return JSONResponse(openings)
 
 
@@ -168,15 +169,15 @@ def opening_explorer(
 
 @app.get("/api/openings/{opening_id}")
 def get_opening(opening_id: str) -> JSONResponse:
-    opening = load_opening_by_id(opening_id)
+    opening = prepare_opening(load_opening_by_id(opening_id))
     opening["pgn"] = opening_to_pgn(opening)
     return JSONResponse(opening)
 
 
 @app.post("/api/openings/validate-move")
 def validate_opening_move(request: OpeningMoveRequest) -> JSONResponse:
-    opening = load_opening_by_id(request.opening_id)
-    line = opening.get("moves", [])
+    opening = prepare_opening(load_opening_by_id(request.opening_id))
+    line = opening_line_by_id(opening, request.line_id) if request.line_id else opening.get("moves", [])
 
     if request.move_index >= len(line):
         return JSONResponse(
@@ -372,6 +373,55 @@ def load_opening_by_id(opening_id: str) -> dict:
     raise HTTPException(status_code=404, detail="Opening not found.")
 
 
+def prepare_opening(opening: dict) -> dict:
+    prepared = dict(opening)
+    prepared["moves"] = main_opening_line(opening)
+    prepared["sectionCount"] = len(opening.get("sections", []))
+    return prepared
+
+
+def main_opening_line(opening: dict) -> list[dict]:
+    sections = opening.get("sections") or []
+    for section in sections:
+        for lesson in section_branches(section):
+            if lesson.get("isMainLine") or lesson.get("id") == "main-line":
+                return annotate_line(lesson.get("moves", []), section, lesson)
+    for section in sections:
+        for lesson in section_branches(section):
+            if lesson.get("moves"):
+                return annotate_line(lesson.get("moves", []), section, lesson)
+    return opening.get("moves", [])
+
+
+def opening_line_by_id(opening: dict, line_id: str | None) -> list[dict]:
+    sections = opening.get("sections") or []
+    for section in sections:
+        for lesson in section_branches(section):
+            if lesson.get("id") == line_id:
+                return annotate_line(lesson.get("moves", []), section, lesson)
+    return opening.get("moves", [])
+
+
+def section_branches(section: dict) -> list[dict]:
+    return section.get("branches") or section.get("lessons") or []
+
+
+def annotate_line(moves: list[dict], section: dict, lesson: dict) -> list[dict]:
+    return [
+        {
+            **move,
+            "lineIndex": index,
+            "sectionId": section.get("id"),
+            "sectionTitle": section.get("title"),
+            "lessonId": lesson.get("id"),
+            "lessonTitle": lesson.get("title"),
+            "lineTitle": lesson.get("title"),
+            "lineDescription": lesson.get("description"),
+        }
+        for index, move in enumerate(moves)
+    ]
+
+
 def _opening_summary(opening: dict) -> dict:
     return {
         "id": opening.get("id"),
@@ -382,6 +432,7 @@ def _opening_summary(opening: dict) -> dict:
         "side": opening.get("side"),
         "description": opening.get("description"),
         "moveCount": len(opening.get("moves", [])),
+        "sectionCount": opening.get("sectionCount", 0),
         "ideas": opening.get("ideas", []),
         "training": opening.get("training", {}),
         "spacedRepetition": opening.get("spacedRepetition", {}),

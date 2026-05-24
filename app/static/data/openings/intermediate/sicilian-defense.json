@@ -5,28 +5,201 @@
   "difficulty": "Intermediate",
   "bracket": "intermediate",
   "side": "Black",
-  "description": "A fighting response to 1.e4 where Black challenges the center from the side and creates imbalanced play.",
-  "moves": [
-    { "uci": "e2e4", "san": "e4", "explanation": "White claims central space." },
-    { "uci": "c7c5", "san": "c5", "explanation": "Black attacks the d4 square and creates an asymmetrical position." }
+  "description": "A fighting Black course that teaches the main c5 response first, then how to meet simple White setups.",
+  "sections": [
+    {
+      "id": "main-line",
+      "title": "Main Line",
+      "branches": [
+        {
+          "id": "main-line",
+          "title": "Main Line: c5 Against e4",
+          "description": "Learn the core Sicilian response.",
+          "moves": [
+            {
+              "uci": "e2e4",
+              "san": "e4",
+              "title": "White claims center",
+              "explanation": "White controls d5 and f5."
+            },
+            {
+              "uci": "c7c5",
+              "san": "c5",
+              "title": "Attack d4",
+              "explanation": "c5 challenges the center from the side and creates an imbalanced game."
+            }
+          ],
+          "isMainLine": true,
+          "hints": [
+            "Start by recognizing e4.",
+            "The target response in this branch is c5.",
+            "Use the highlighted move and keep the plan simple."
+          ],
+          "coachingNotes": [
+            "Learn the core Sicilian response.",
+            "c5 challenges the center from the side and creates an imbalanced game."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "if-white-plays-nf3",
+      "title": "If White Plays Nf3",
+      "branches": [
+        {
+          "id": "vs-nf3",
+          "title": "Develop Naturally",
+          "description": "If White develops, develop and prepare d6.",
+          "moves": [
+            {
+              "uci": "e2e4",
+              "san": "e4",
+              "title": "White starts",
+              "explanation": "White claims space."
+            },
+            {
+              "uci": "c7c5",
+              "san": "c5",
+              "title": "Sicilian",
+              "explanation": "Black attacks d4."
+            },
+            {
+              "uci": "g1f3",
+              "san": "Nf3",
+              "title": "White develops",
+              "explanation": "White prepares d4."
+            },
+            {
+              "uci": "d7d6",
+              "san": "d6",
+              "title": "Recommended: support e5",
+              "explanation": "d6 controls e5 and prepares Nf6. Keep development steady before tactics."
+            }
+          ],
+          "hints": [
+            "Start by recognizing e4.",
+            "The target response in this branch is d6.",
+            "Use the highlighted move and keep the plan simple."
+          ],
+          "coachingNotes": [
+            "If White develops, develop and prepare d6.",
+            "d6 controls e5 and prepares Nf6. Keep development steady before tactics."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "if-white-plays-d4",
+      "title": "If White Plays d4",
+      "branches": [
+        {
+          "id": "open-sicilian",
+          "title": "Open Sicilian Capture",
+          "description": "If White immediately opens the center, capture.",
+          "moves": [
+            {
+              "uci": "e2e4",
+              "san": "e4",
+              "title": "White starts",
+              "explanation": "White controls center."
+            },
+            {
+              "uci": "c7c5",
+              "san": "c5",
+              "title": "Sicilian",
+              "explanation": "Attack d4."
+            },
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "White opens center",
+              "explanation": "White offers the d-pawn to open lines."
+            },
+            {
+              "uci": "c5d4",
+              "san": "cxd4",
+              "title": "Recommended: capture",
+              "explanation": "cxd4 removes White's central pawn and justifies the Sicilian setup."
+            }
+          ],
+          "hints": [
+            "Start by recognizing e4.",
+            "The target response in this branch is cxd4.",
+            "Use the highlighted move and keep the plan simple."
+          ],
+          "coachingNotes": [
+            "If White immediately opens the center, capture.",
+            "cxd4 removes White's central pawn and justifies the Sicilian setup."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "practice",
+      "title": "Practice Drills",
+      "branches": [
+        {
+          "id": "final-review",
+          "title": "Final Review",
+          "description": "Practice c5 against e4.",
+          "moves": [
+            {
+              "uci": "e2e4",
+              "san": "e4",
+              "title": "White center",
+              "explanation": "Recognize e4."
+            },
+            {
+              "uci": "c7c5",
+              "san": "c5",
+              "title": "Counter",
+              "explanation": "Challenge d4 from the side."
+            }
+          ],
+          "hints": [
+            "Start by recognizing e4.",
+            "The target response in this branch is c5.",
+            "Use the highlighted move and keep the plan simple."
+          ],
+          "coachingNotes": [
+            "Practice c5 against e4.",
+            "Challenge d4 from the side."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    }
   ],
   "ideas": [
-    "Fight for d4 instead of mirroring with e5.",
-    "Develop quickly because the position can open fast.",
-    "Look for queenside counterplay while respecting White's center."
+    "Use c5 to challenge d4.",
+    "Develop before launching tactics.",
+    "Meet d4 with cxd4."
   ],
   "commonMistakes": [
-    "Playing too many pawn moves before developing.",
-    "Ignoring White's kingside attacking chances.",
-    "Trading into positions you do not understand yet."
+    "Playing only pawns.",
+    "Ignoring White's kingside development.",
+    "Opening the game without king safety."
   ],
-  "tree": {
-    "move": "e2e4",
-    "san": "e4",
-    "responses": [
-      { "move": "c7c5", "san": "c5", "responses": [] }
-    ]
-  },
+  "tree": {},
   "training": {
     "mode": "guided-line",
     "startingFen": "startpos",

@@ -5,35 +5,246 @@
   "difficulty": "Beginner",
   "bracket": "beginner",
   "side": "White",
-  "description": "A simple setup opening where White develops smoothly and builds a sturdy center.",
-  "moves": [
-    { "uci": "d2d4", "san": "d4", "explanation": "White takes space in the center and opens the c1 bishop." },
-    { "uci": "d7d5", "san": "d5", "explanation": "Black challenges the same central squares." },
-    { "uci": "c1f4", "san": "Bf4", "explanation": "The bishop comes outside the pawn chain before e3, creating an easy development plan." }
+  "description": "A simple d4 setup course that teaches the default London structure first, then common Black reactions.",
+  "sections": [
+    {
+      "id": "main-line",
+      "title": "Main Line",
+      "branches": [
+        {
+          "id": "main-line",
+          "title": "Main Line: London Setup",
+          "description": "Learn the basic London starting pattern.",
+          "moves": [
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "Start with d4",
+              "explanation": "Controls e5 and c5, opens the c1 bishop, and gives White a stable central base."
+            },
+            {
+              "uci": "d7d5",
+              "san": "d5",
+              "title": "Black mirrors",
+              "explanation": "Black also takes central space. The position is stable enough for a setup approach."
+            },
+            {
+              "uci": "c1f4",
+              "san": "Bf4",
+              "title": "Develop bishop outside",
+              "explanation": "Bf4 develops the bishop before e3 can block it. This is the key London habit."
+            }
+          ],
+          "isMainLine": true,
+          "hints": [
+            "Start by recognizing d4.",
+            "The target response in this branch is Bf4.",
+            "Use the highlighted move and keep the plan simple."
+          ],
+          "coachingNotes": [
+            "Learn the basic London starting pattern.",
+            "Bf4 develops the bishop before e3 can block it. This is the key London habit."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "if-nf6",
+      "title": "If Black Plays Nf6",
+      "branches": [
+        {
+          "id": "vs-nf6",
+          "title": "Normal Development Response",
+          "description": "If Black develops a knight, continue the London setup.",
+          "moves": [
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "Start with d4",
+              "explanation": "Take central space."
+            },
+            {
+              "uci": "g8f6",
+              "san": "Nf6",
+              "title": "Black develops",
+              "explanation": "Black controls e4 and d5 with a knight."
+            },
+            {
+              "uci": "c1f4",
+              "san": "Bf4",
+              "title": "Recommended: Bf4",
+              "explanation": "Develop the bishop outside the pawn chain and keep the setup simple."
+            }
+          ],
+          "hints": [
+            "Start by recognizing d4.",
+            "The target response in this branch is Bf4.",
+            "Use the highlighted move and keep the plan simple."
+          ],
+          "coachingNotes": [
+            "If Black develops a knight, continue the London setup.",
+            "Develop the bishop outside the pawn chain and keep the setup simple."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "if-c5",
+      "title": "If Black Plays c5",
+      "branches": [
+        {
+          "id": "vs-c5",
+          "title": "Center Challenge Response",
+          "description": "If Black attacks d4 with c5, support the center.",
+          "moves": [
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "Start with d4",
+              "explanation": "Build the center."
+            },
+            {
+              "uci": "c7c5",
+              "san": "c5",
+              "title": "Black challenges",
+              "explanation": "Black attacks d4 from the side."
+            },
+            {
+              "uci": "e2e3",
+              "san": "e3",
+              "title": "Recommended: support and develop",
+              "explanation": "e3 supports the center and opens the f1 bishop. Keep developing instead of grabbing pawns too soon."
+            }
+          ],
+          "hints": [
+            "Start by recognizing d4.",
+            "The target response in this branch is e3.",
+            "Use the highlighted move and keep the plan simple."
+          ],
+          "coachingNotes": [
+            "If Black attacks d4 with c5, support the center.",
+            "e3 supports the center and opens the f1 bishop. Keep developing instead of grabbing pawns too soon."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "if-g6",
+      "title": "If Black Plays g6",
+      "branches": [
+        {
+          "id": "vs-g6",
+          "title": "Fianchetto Response",
+          "description": "If Black prepares a bishop on g7, build normally.",
+          "moves": [
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "Start with d4",
+              "explanation": "Take space."
+            },
+            {
+              "uci": "g7g6",
+              "san": "g6",
+              "title": "Black prepares Bg7",
+              "explanation": "Black wants long diagonal pressure."
+            },
+            {
+              "uci": "c1f4",
+              "san": "Bf4",
+              "title": "Recommended: keep the setup",
+              "explanation": "Bf4 develops before e3 and keeps your plan consistent."
+            }
+          ],
+          "hints": [
+            "Start by recognizing d4.",
+            "The target response in this branch is Bf4.",
+            "Use the highlighted move and keep the plan simple."
+          ],
+          "coachingNotes": [
+            "If Black prepares a bishop on g7, build normally.",
+            "Bf4 develops before e3 and keeps your plan consistent."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "practice",
+      "title": "Practice Drills",
+      "branches": [
+        {
+          "id": "final-review",
+          "title": "Final Review",
+          "description": "Replay the default London start.",
+          "moves": [
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "Central base",
+              "explanation": "Control the center."
+            },
+            {
+              "uci": "d7d5",
+              "san": "d5",
+              "title": "Black mirrors",
+              "explanation": "Recognize symmetry."
+            },
+            {
+              "uci": "c1f4",
+              "san": "Bf4",
+              "title": "Bishop out",
+              "explanation": "Develop before e3."
+            }
+          ],
+          "hints": [
+            "Start by recognizing d4.",
+            "The target response in this branch is Bf4.",
+            "Use the highlighted move and keep the plan simple."
+          ],
+          "coachingNotes": [
+            "Replay the default London start.",
+            "Develop before e3."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    }
   ],
   "ideas": [
-    "Put the dark-squared bishop on f4 early.",
-    "Build with e3, Nf3, Bd3, and short castling.",
-    "Keep the center solid before starting an attack."
+    "Default plan: d4, Bf4, e3, Nf3, Bd3, castle.",
+    "Keep the bishop outside the pawn chain.",
+    "Against deviations, continue development calmly."
   ],
   "commonMistakes": [
-    "Locking the bishop in with e3 too soon.",
-    "Attacking before finishing development.",
-    "Forgetting that Black can challenge the center with c5."
+    "Playing e3 before Bf4.",
+    "Attacking before castling.",
+    "Forgetting Black can challenge d4 with c5."
   ],
-  "tree": {
-    "move": "d2d4",
-    "san": "d4",
-    "responses": [
-      {
-        "move": "d7d5",
-        "san": "d5",
-        "responses": [
-          { "move": "c1f4", "san": "Bf4", "responses": [] }
-        ]
-      }
-    ]
-  },
+  "tree": {},
   "training": {
     "mode": "guided-line",
     "startingFen": "startpos",

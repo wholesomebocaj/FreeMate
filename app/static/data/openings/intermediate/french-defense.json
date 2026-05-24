@@ -5,42 +5,225 @@
   "difficulty": "Intermediate",
   "bracket": "intermediate",
   "side": "Black",
-  "description": "A resilient defense where Black supports d5 and often accepts a locked center before counterattacking.",
-  "moves": [
-    { "uci": "e2e4", "san": "e4", "explanation": "White begins with central space." },
-    { "uci": "e7e6", "san": "e6", "explanation": "Black prepares d5 and builds a solid pawn chain." },
-    { "uci": "d2d4", "san": "d4", "explanation": "White occupies the center." },
-    { "uci": "d7d5", "san": "d5", "explanation": "Black challenges White's center with a supported pawn break." }
+  "description": "A practical French course that teaches the main e6-d5 structure first, then simple responses to White deviations.",
+  "sections": [
+    {
+      "id": "main-line",
+      "title": "Main Line",
+      "branches": [
+        {
+          "id": "main-line",
+          "title": "Main Line: e6 and d5",
+          "description": "Learn the core French structure.",
+          "moves": [
+            {
+              "uci": "e2e4",
+              "san": "e4",
+              "title": "White claims center",
+              "explanation": "White takes space and opens lines."
+            },
+            {
+              "uci": "e7e6",
+              "san": "e6",
+              "title": "Prepare d5",
+              "explanation": "e6 supports d5 and builds the French pawn chain."
+            },
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "White expands",
+              "explanation": "White creates a big pawn center."
+            },
+            {
+              "uci": "d7d5",
+              "san": "d5",
+              "title": "Challenge center",
+              "explanation": "d5 attacks e4 with support. This is the core French idea."
+            }
+          ],
+          "isMainLine": true,
+          "hints": [
+            "Start by recognizing e4.",
+            "The target response in this branch is d5.",
+            "Use the highlighted move and keep the plan simple."
+          ],
+          "coachingNotes": [
+            "Learn the core French structure.",
+            "d5 attacks e4 with support. This is the core French idea."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "if-white-plays-nc3",
+      "title": "If White Plays Nc3",
+      "branches": [
+        {
+          "id": "vs-nc3",
+          "title": "Classical Development",
+          "description": "If White defends e4 with Nc3, continue pressure.",
+          "moves": [
+            {
+              "uci": "e2e4",
+              "san": "e4",
+              "title": "White starts",
+              "explanation": "White takes space."
+            },
+            {
+              "uci": "e7e6",
+              "san": "e6",
+              "title": "Prepare",
+              "explanation": "Support d5."
+            },
+            {
+              "uci": "b1c3",
+              "san": "Nc3",
+              "title": "White defends",
+              "explanation": "White develops and supports e4."
+            },
+            {
+              "uci": "d7d5",
+              "san": "d5",
+              "title": "Recommended: challenge",
+              "explanation": "d5 attacks the center anyway. Black should not delay the central break."
+            }
+          ],
+          "hints": [
+            "Start by recognizing e4.",
+            "The target response in this branch is d5.",
+            "Use the highlighted move and keep the plan simple."
+          ],
+          "coachingNotes": [
+            "If White defends e4 with Nc3, continue pressure.",
+            "d5 attacks the center anyway. Black should not delay the central break."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "if-white-plays-nf3",
+      "title": "If White Plays Nf3",
+      "branches": [
+        {
+          "id": "vs-nf3",
+          "title": "Developing Response",
+          "description": "If White develops first, still claim the French center.",
+          "moves": [
+            {
+              "uci": "e2e4",
+              "san": "e4",
+              "title": "White starts",
+              "explanation": "White controls the center."
+            },
+            {
+              "uci": "e7e6",
+              "san": "e6",
+              "title": "Prepare",
+              "explanation": "Black prepares d5."
+            },
+            {
+              "uci": "g1f3",
+              "san": "Nf3",
+              "title": "White develops",
+              "explanation": "White improves a knight and supports d4."
+            },
+            {
+              "uci": "d7d5",
+              "san": "d5",
+              "title": "Recommended: strike",
+              "explanation": "Black challenges e4 and keeps the French plan simple."
+            }
+          ],
+          "hints": [
+            "Start by recognizing e4.",
+            "The target response in this branch is d5.",
+            "Use the highlighted move and keep the plan simple."
+          ],
+          "coachingNotes": [
+            "If White develops first, still claim the French center.",
+            "Black challenges e4 and keeps the French plan simple."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "practice",
+      "title": "Practice Drills",
+      "branches": [
+        {
+          "id": "final-review",
+          "title": "Final Review",
+          "description": "Practice e6 and d5.",
+          "moves": [
+            {
+              "uci": "e2e4",
+              "san": "e4",
+              "title": "White center",
+              "explanation": "Recognize e4."
+            },
+            {
+              "uci": "e7e6",
+              "san": "e6",
+              "title": "Prepare",
+              "explanation": "Support d5."
+            },
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "White expands",
+              "explanation": "Now challenge."
+            },
+            {
+              "uci": "d7d5",
+              "san": "d5",
+              "title": "Break",
+              "explanation": "Attack e4."
+            }
+          ],
+          "hints": [
+            "Start by recognizing e4.",
+            "The target response in this branch is d5.",
+            "Use the highlighted move and keep the plan simple."
+          ],
+          "coachingNotes": [
+            "Practice e6 and d5.",
+            "Attack e4."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    }
   ],
   "ideas": [
-    "Attack White's center with d5.",
-    "Look for counterplay with c5 later.",
-    "Solve the light-squared bishop problem with care."
+    "Prepare d5 with e6.",
+    "Challenge White's center before it rolls forward.",
+    "Look for c5 later as a second break."
   ],
   "commonMistakes": [
-    "Leaving the c8 bishop passive forever.",
-    "Forgetting the c5 break.",
-    "Opening the center before development is ready."
+    "Never freeing the c8 bishop.",
+    "Forgetting the c5 counterbreak.",
+    "Playing passively after building the pawn chain."
   ],
-  "tree": {
-    "move": "e2e4",
-    "san": "e4",
-    "responses": [
-      {
-        "move": "e7e6",
-        "san": "e6",
-        "responses": [
-          {
-            "move": "d2d4",
-            "san": "d4",
-            "responses": [
-              { "move": "d7d5", "san": "d5", "responses": [] }
-            ]
-          }
-        ]
-      }
-    ]
-  },
+  "tree": {},
   "training": {
     "mode": "guided-line",
     "startingFen": "startpos",

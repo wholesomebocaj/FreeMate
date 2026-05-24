@@ -5,35 +5,246 @@
   "difficulty": "Beginner+",
   "bracket": "beginner-plus",
   "side": "White",
-  "description": "A flexible 1.e4 opening where White develops the queen's knight early and can build attacking chances.",
-  "moves": [
-    { "uci": "e2e4", "san": "e4", "explanation": "White opens the center and frees the kingside bishop." },
-    { "uci": "e7e5", "san": "e5", "explanation": "Black answers with central space." },
-    { "uci": "b1c3", "san": "Nc3", "explanation": "White develops a knight while supporting e4 and preparing flexible plans." }
+  "description": "A flexible 1.e4 course that teaches the Vienna main setup first, then simple reactions to Black's common defenses.",
+  "sections": [
+    {
+      "id": "main-line",
+      "title": "Main Line",
+      "branches": [
+        {
+          "id": "main-line",
+          "title": "Main Line: Flexible Nc3",
+          "description": "Learn the default Vienna starting setup.",
+          "moves": [
+            {
+              "uci": "e2e4",
+              "san": "e4",
+              "title": "Start with e4",
+              "explanation": "Control the center and open piece lines."
+            },
+            {
+              "uci": "e7e5",
+              "san": "e5",
+              "title": "Black mirrors",
+              "explanation": "Black also takes central space."
+            },
+            {
+              "uci": "b1c3",
+              "san": "Nc3",
+              "title": "Develop flexibly",
+              "explanation": "Nc3 supports e4 and keeps attacking ideas like f4 available later."
+            }
+          ],
+          "isMainLine": true,
+          "hints": [
+            "Start by recognizing e4.",
+            "The target response in this branch is Nc3.",
+            "Use the highlighted move and keep the plan simple."
+          ],
+          "coachingNotes": [
+            "Learn the default Vienna starting setup.",
+            "Nc3 supports e4 and keeps attacking ideas like f4 available later."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "if-c5",
+      "title": "If Black Plays c5",
+      "branches": [
+        {
+          "id": "vs-sicilian",
+          "title": "Sicilian Response",
+          "description": "If Black plays c5, choose simple development.",
+          "moves": [
+            {
+              "uci": "e2e4",
+              "san": "e4",
+              "title": "Start with e4",
+              "explanation": "White takes space."
+            },
+            {
+              "uci": "c7c5",
+              "san": "c5",
+              "title": "Black plays Sicilian",
+              "explanation": "Black attacks d4 from the side."
+            },
+            {
+              "uci": "g1f3",
+              "san": "Nf3",
+              "title": "Recommended: develop",
+              "explanation": "Nf3 develops and prepares d4 or Bb5 ideas. Stay calm and castle soon."
+            }
+          ],
+          "hints": [
+            "Start by recognizing e4.",
+            "The target response in this branch is Nf3.",
+            "Use the highlighted move and keep the plan simple."
+          ],
+          "coachingNotes": [
+            "If Black plays c5, choose simple development.",
+            "Nf3 develops and prepares d4 or Bb5 ideas. Stay calm and castle soon."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "if-c6",
+      "title": "If Black Plays c6",
+      "branches": [
+        {
+          "id": "vs-caro",
+          "title": "Caro-Kann Response",
+          "description": "If Black prepares d5, build the center.",
+          "moves": [
+            {
+              "uci": "e2e4",
+              "san": "e4",
+              "title": "Start with e4",
+              "explanation": "Take space."
+            },
+            {
+              "uci": "c7c6",
+              "san": "c6",
+              "title": "Caro-Kann",
+              "explanation": "Black prepares d5."
+            },
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "Recommended: central duo",
+              "explanation": "d4 builds the center and meets Black's plan directly."
+            }
+          ],
+          "hints": [
+            "Start by recognizing e4.",
+            "The target response in this branch is d4.",
+            "Use the highlighted move and keep the plan simple."
+          ],
+          "coachingNotes": [
+            "If Black prepares d5, build the center.",
+            "d4 builds the center and meets Black's plan directly."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "if-d5",
+      "title": "If Black Plays d5",
+      "branches": [
+        {
+          "id": "vs-scandi",
+          "title": "Scandinavian Response",
+          "description": "If Black attacks e4 immediately, capture once.",
+          "moves": [
+            {
+              "uci": "e2e4",
+              "san": "e4",
+              "title": "Start with e4",
+              "explanation": "Claim the center."
+            },
+            {
+              "uci": "d7d5",
+              "san": "d5",
+              "title": "Scandinavian",
+              "explanation": "Black attacks e4 immediately."
+            },
+            {
+              "uci": "e4d5",
+              "san": "exd5",
+              "title": "Recommended: capture",
+              "explanation": "Accept the challenge. If the queen recaptures, develop with tempo."
+            }
+          ],
+          "hints": [
+            "Start by recognizing e4.",
+            "The target response in this branch is exd5.",
+            "Use the highlighted move and keep the plan simple."
+          ],
+          "coachingNotes": [
+            "If Black attacks e4 immediately, capture once.",
+            "Accept the challenge. If the queen recaptures, develop with tempo."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "practice",
+      "title": "Practice Drills",
+      "branches": [
+        {
+          "id": "final-review",
+          "title": "Final Review",
+          "description": "Practice the Vienna main start.",
+          "moves": [
+            {
+              "uci": "e2e4",
+              "san": "e4",
+              "title": "Center",
+              "explanation": "Start central."
+            },
+            {
+              "uci": "e7e5",
+              "san": "e5",
+              "title": "Mirror",
+              "explanation": "Open game."
+            },
+            {
+              "uci": "b1c3",
+              "san": "Nc3",
+              "title": "Vienna",
+              "explanation": "Develop flexibly."
+            }
+          ],
+          "hints": [
+            "Start by recognizing e4.",
+            "The target response in this branch is Nc3.",
+            "Use the highlighted move and keep the plan simple."
+          ],
+          "coachingNotes": [
+            "Practice the Vienna main start.",
+            "Develop flexibly."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    }
   ],
   "ideas": [
-    "Develop naturally while keeping options open.",
-    "Consider f4 only when it fits the position.",
-    "Avoid launching an attack before your king is safe."
+    "Use Nc3 to support e4 and keep options open.",
+    "Against c5/c6/d5, respond with simple center and development rules.",
+    "Do not attack before the king is safe."
   ],
   "commonMistakes": [
-    "Pushing f4 without understanding the opened lines.",
-    "Forgetting to develop the kingside knight.",
-    "Leaving the king in the center too long."
+    "Pushing f4 too early.",
+    "Forgetting the kingside knight.",
+    "Starting tactics before development."
   ],
-  "tree": {
-    "move": "e2e4",
-    "san": "e4",
-    "responses": [
-      {
-        "move": "e7e5",
-        "san": "e5",
-        "responses": [
-          { "move": "b1c3", "san": "Nc3", "responses": [] }
-        ]
-      }
-    ]
-  },
+  "tree": {},
   "training": {
     "mode": "guided-line",
     "startingFen": "startpos",
