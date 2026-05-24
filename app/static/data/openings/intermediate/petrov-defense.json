@@ -318,7 +318,7 @@
         {
           "id": "three-knights",
           "title": "Transpose Calmly",
-          "description": "Nc3 keeps development simple and may transpose to Four Knights ideas.",
+          "description": "Nc3 keeps development simple and enters the Three Knights Game.",
           "moves": [
             {
               "uci": "e2e4",
@@ -399,7 +399,7 @@
             "When a trade appears, ask what file opens and which piece improves next."
           ],
           "coachingNotes": [
-            "Nc3 keeps development simple and may transpose to Four Knights ideas.",
+            "Nc3 keeps development simple and enters the Three Knights Game.",
             "The Petrov is calm: avoid pawn traps, develop, castle, and use trades to simplify only when your pieces are ready.",
             "Good trades usually remove an active enemy piece, open a useful file, or simplify once your king is safe.",
             "After the opening, do not drift: improve your worst piece, connect rooks, and look for one clear pawn break."
