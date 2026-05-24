@@ -1,0 +1,321 @@
+{
+  "id": "jobava-london",
+  "name": "Jobava London",
+  "eco": "D00",
+  "difficulty": "Beginner+",
+  "bracket": "beginner-plus",
+  "side": "White",
+  "description": "An aggressive London-style opening that teaches fast development, pressure on the center, and tactical attacking ideas.",
+  "sections": [
+    {
+      "id": "main-line",
+      "title": "Main Line",
+      "branches": [
+        {
+          "id": "main-line",
+          "title": "Main Line: Nc3 and Bf4",
+          "description": "Learn the default Jobava London setup.",
+          "moves": [
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "Start with d4",
+              "explanation": "Control the center and open the c1 bishop."
+            },
+            {
+              "uci": "g8f6",
+              "san": "Nf6",
+              "title": "Black develops",
+              "explanation": "Black controls e4 and d5."
+            },
+            {
+              "uci": "b1c3",
+              "san": "Nc3",
+              "title": "Develop actively",
+              "explanation": "Nc3 supports e4 ideas and puts pressure on d5."
+            },
+            {
+              "uci": "d7d5",
+              "san": "d5",
+              "title": "Black claims center",
+              "explanation": "Black occupies the center."
+            },
+            {
+              "uci": "c1f4",
+              "san": "Bf4",
+              "title": "Develop bishop",
+              "explanation": "Bf4 develops quickly and supports active play before attacking."
+            }
+          ],
+          "hints": [
+            "Start by recognizing d4.",
+            "The key training move in this branch is Bf4.",
+            "Follow the highlighted move and keep your plan simple."
+          ],
+          "coachingNotes": [
+            "Learn the default Jobava London setup.",
+            "Bf4 develops quickly and supports active play before attacking."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          },
+          "isMainLine": true
+        }
+      ]
+    },
+    {
+      "id": "if-e6",
+      "title": "If Black Plays e6",
+      "branches": [
+        {
+          "id": "vs-e6",
+          "title": "Develop Against e6",
+          "description": "If Black prepares a solid structure, keep developing actively.",
+          "moves": [
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "Start",
+              "explanation": "Take space."
+            },
+            {
+              "uci": "g8f6",
+              "san": "Nf6",
+              "title": "Black develops",
+              "explanation": "Knight controls center."
+            },
+            {
+              "uci": "b1c3",
+              "san": "Nc3",
+              "title": "Jobava knight",
+              "explanation": "Active development."
+            },
+            {
+              "uci": "e7e6",
+              "san": "e6",
+              "title": "Black prepares",
+              "explanation": "Black supports d5 and opens bishop."
+            },
+            {
+              "uci": "c1f4",
+              "san": "Bf4",
+              "title": "Recommended: bishop out",
+              "explanation": "Bf4 develops before e3 and keeps pressure on c7 and e5."
+            }
+          ],
+          "hints": [
+            "Start by recognizing d4.",
+            "The key training move in this branch is Bf4.",
+            "Follow the highlighted move and keep your plan simple."
+          ],
+          "coachingNotes": [
+            "If Black prepares a solid structure, keep developing actively.",
+            "Bf4 develops before e3 and keeps pressure on c7 and e5."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "if-c5",
+      "title": "If Black Plays c5",
+      "branches": [
+        {
+          "id": "vs-c5",
+          "title": "Meet c5 With e3",
+          "description": "If Black attacks d4 from the side, support the center.",
+          "moves": [
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "Start",
+              "explanation": "Take center."
+            },
+            {
+              "uci": "g8f6",
+              "san": "Nf6",
+              "title": "Black develops",
+              "explanation": "Control center."
+            },
+            {
+              "uci": "b1c3",
+              "san": "Nc3",
+              "title": "Develop",
+              "explanation": "Support e4."
+            },
+            {
+              "uci": "c7c5",
+              "san": "c5",
+              "title": "Black challenges",
+              "explanation": "Black attacks d4."
+            },
+            {
+              "uci": "e2e3",
+              "san": "e3",
+              "title": "Recommended: support and develop",
+              "explanation": "e3 supports d4 and opens the f1 bishop. Stay solid before attacking."
+            }
+          ],
+          "hints": [
+            "Start by recognizing d4.",
+            "The key training move in this branch is e3.",
+            "Follow the highlighted move and keep your plan simple."
+          ],
+          "coachingNotes": [
+            "If Black attacks d4 from the side, support the center.",
+            "e3 supports d4 and opens the f1 bishop. Stay solid before attacking."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "if-bf5",
+      "title": "If Black Plays Bf5",
+      "branches": [
+        {
+          "id": "vs-bf5",
+          "title": "Challenge With Bf4",
+          "description": "If Black mirrors bishop development, complete your setup.",
+          "moves": [
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "Start",
+              "explanation": "Take center."
+            },
+            {
+              "uci": "d7d5",
+              "san": "d5",
+              "title": "Black mirrors",
+              "explanation": "Symmetrical center."
+            },
+            {
+              "uci": "b1c3",
+              "san": "Nc3",
+              "title": "Develop",
+              "explanation": "Active knight."
+            },
+            {
+              "uci": "c8f5",
+              "san": "Bf5",
+              "title": "Black develops bishop",
+              "explanation": "Black gets the bishop out early."
+            },
+            {
+              "uci": "c1f4",
+              "san": "Bf4",
+              "title": "Recommended: develop too",
+              "explanation": "Bf4 keeps White active and ready for e3, Nf3, and kingside safety."
+            }
+          ],
+          "hints": [
+            "Start by recognizing d4.",
+            "The key training move in this branch is Bf4.",
+            "Follow the highlighted move and keep your plan simple."
+          ],
+          "coachingNotes": [
+            "If Black mirrors bishop development, complete your setup.",
+            "Bf4 keeps White active and ready for e3, Nf3, and kingside safety."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "practice-quiz",
+      "title": "Practice Drills & Mini Quiz",
+      "branches": [
+        {
+          "id": "final-review",
+          "title": "Final Review",
+          "description": "Replay the Jobava setup.",
+          "moves": [
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "Center",
+              "explanation": "Start with d4."
+            },
+            {
+              "uci": "g8f6",
+              "san": "Nf6",
+              "title": "Black knight",
+              "explanation": "Recognize development."
+            },
+            {
+              "uci": "b1c3",
+              "san": "Nc3",
+              "title": "Jobava",
+              "explanation": "Develop actively."
+            },
+            {
+              "uci": "d7d5",
+              "san": "d5",
+              "title": "Black center",
+              "explanation": "Continue."
+            },
+            {
+              "uci": "c1f4",
+              "san": "Bf4",
+              "title": "Bishop",
+              "explanation": "Finish setup."
+            }
+          ],
+          "hints": [
+            "Start by recognizing d4.",
+            "The key training move in this branch is Bf4.",
+            "Follow the highlighted move and keep your plan simple."
+          ],
+          "coachingNotes": [
+            "Replay the Jobava setup.",
+            "Finish setup."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    }
+  ],
+  "ideas": [
+    "Develop quickly with Nc3 and Bf4.",
+    "Pressure central squares before attacking.",
+    "Complete development before tactical shots."
+  ],
+  "commonMistakes": [
+    "Attacking before developing.",
+    "Forgetting king safety.",
+    "Pushing pawns while pieces stay home."
+  ],
+  "tree": {},
+  "training": {
+    "mode": "guided-line",
+    "startingFen": "startpos",
+    "sideToTrain": "white"
+  },
+  "spacedRepetition": {
+    "attempts": 0,
+    "mistakes": 0,
+    "accuracy": 0,
+    "completedLines": 0,
+    "confidence": "new",
+    "lastReviewed": null
+  }
+}

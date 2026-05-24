@@ -1,0 +1,297 @@
+{
+  "id": "kings-indian-attack",
+  "name": "King's Indian Attack",
+  "eco": "A07",
+  "difficulty": "Beginner",
+  "bracket": "beginner",
+  "side": "White",
+  "description": "A setup-based opening course that teaches consistent development patterns and kingside safety.",
+  "sections": [
+    {
+      "id": "main-line",
+      "title": "Main Line",
+      "branches": [
+        {
+          "id": "main-line",
+          "title": "Main Line: Safe Setup",
+          "description": "Build the Nf3-g3-Bg2 setup against a normal Black response.",
+          "moves": [
+            {
+              "uci": "g1f3",
+              "san": "Nf3",
+              "title": "Develop first",
+              "explanation": "Nf3 develops, controls central squares, and keeps the setup flexible."
+            },
+            {
+              "uci": "d7d5",
+              "san": "d5",
+              "title": "Black takes center",
+              "explanation": "Black claims central space."
+            },
+            {
+              "uci": "g2g3",
+              "san": "g3",
+              "title": "Prepare the bishop",
+              "explanation": "g3 opens a safe home for the bishop and supports castling."
+            },
+            {
+              "uci": "g8f6",
+              "san": "Nf6",
+              "title": "Black develops",
+              "explanation": "Black improves a knight and controls e4."
+            },
+            {
+              "uci": "f1g2",
+              "san": "Bg2",
+              "title": "Fianchetto",
+              "explanation": "Bg2 puts the bishop on the long diagonal and prepares king safety."
+            }
+          ],
+          "hints": [
+            "Start by recognizing Nf3.",
+            "The key training move in this branch is Bg2.",
+            "Follow the highlighted move and keep your plan simple."
+          ],
+          "coachingNotes": [
+            "Build the Nf3-g3-Bg2 setup against a normal Black response.",
+            "Bg2 puts the bishop on the long diagonal and prepares king safety."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          },
+          "isMainLine": true
+        }
+      ]
+    },
+    {
+      "id": "if-c5",
+      "title": "If Black Plays c5",
+      "branches": [
+        {
+          "id": "vs-c5",
+          "title": "Keep the Setup",
+          "description": "If Black challenges the center with c5, continue calmly.",
+          "moves": [
+            {
+              "uci": "g1f3",
+              "san": "Nf3",
+              "title": "Develop",
+              "explanation": "Start with a flexible knight."
+            },
+            {
+              "uci": "c7c5",
+              "san": "c5",
+              "title": "Black challenges",
+              "explanation": "Black grabs space from the side."
+            },
+            {
+              "uci": "g2g3",
+              "san": "g3",
+              "title": "Recommended: prepare Bg2",
+              "explanation": "Keep the setup. The bishop will help control central dark squares."
+            }
+          ],
+          "hints": [
+            "Start by recognizing Nf3.",
+            "The key training move in this branch is g3.",
+            "Follow the highlighted move and keep your plan simple."
+          ],
+          "coachingNotes": [
+            "If Black challenges the center with c5, continue calmly.",
+            "Keep the setup. The bishop will help control central dark squares."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "if-e6",
+      "title": "If Black Plays e6",
+      "branches": [
+        {
+          "id": "vs-e6",
+          "title": "Fianchetto Anyway",
+          "description": "If Black prepares d5, build your reliable setup.",
+          "moves": [
+            {
+              "uci": "g1f3",
+              "san": "Nf3",
+              "title": "Develop",
+              "explanation": "Control central squares."
+            },
+            {
+              "uci": "e7e6",
+              "san": "e6",
+              "title": "Black prepares",
+              "explanation": "Black supports d5 and opens the bishop."
+            },
+            {
+              "uci": "g2g3",
+              "san": "g3",
+              "title": "Recommended: prepare Bg2",
+              "explanation": "g3 keeps White's king safe and builds the standard structure."
+            }
+          ],
+          "hints": [
+            "Start by recognizing Nf3.",
+            "The key training move in this branch is g3.",
+            "Follow the highlighted move and keep your plan simple."
+          ],
+          "coachingNotes": [
+            "If Black prepares d5, build your reliable setup.",
+            "g3 keeps White's king safe and builds the standard structure."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "if-bg4",
+      "title": "If Black Plays Bg4",
+      "branches": [
+        {
+          "id": "vs-bg4",
+          "title": "Break the Pin Calmly",
+          "description": "If Black pins the knight, develop and prepare to ask the bishop a question later.",
+          "moves": [
+            {
+              "uci": "g1f3",
+              "san": "Nf3",
+              "title": "Develop",
+              "explanation": "Start with a knight."
+            },
+            {
+              "uci": "d7d5",
+              "san": "d5",
+              "title": "Black center",
+              "explanation": "Black takes space."
+            },
+            {
+              "uci": "g2g3",
+              "san": "g3",
+              "title": "Prepare bishop",
+              "explanation": "Build the setup."
+            },
+            {
+              "uci": "c8g4",
+              "san": "Bg4",
+              "title": "Black pins",
+              "explanation": "Black pins the knight to the queen."
+            },
+            {
+              "uci": "f1g2",
+              "san": "Bg2",
+              "title": "Recommended: develop",
+              "explanation": "Finish the fianchetto. You can deal with the pin later after castling."
+            }
+          ],
+          "hints": [
+            "Start by recognizing Nf3.",
+            "The key training move in this branch is Bg2.",
+            "Follow the highlighted move and keep your plan simple."
+          ],
+          "coachingNotes": [
+            "If Black pins the knight, develop and prepare to ask the bishop a question later.",
+            "Finish the fianchetto. You can deal with the pin later after castling."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "practice-quiz",
+      "title": "Practice Drills & Mini Quiz",
+      "branches": [
+        {
+          "id": "final-review",
+          "title": "Final Review",
+          "description": "Replay the KIA setup.",
+          "moves": [
+            {
+              "uci": "g1f3",
+              "san": "Nf3",
+              "title": "Knight",
+              "explanation": "Develop."
+            },
+            {
+              "uci": "d7d5",
+              "san": "d5",
+              "title": "Black center",
+              "explanation": "Recognize space."
+            },
+            {
+              "uci": "g2g3",
+              "san": "g3",
+              "title": "Prepare",
+              "explanation": "Ready Bg2."
+            },
+            {
+              "uci": "g8f6",
+              "san": "Nf6",
+              "title": "Black develops",
+              "explanation": "Continue."
+            },
+            {
+              "uci": "f1g2",
+              "san": "Bg2",
+              "title": "Bishop",
+              "explanation": "Fianchetto."
+            }
+          ],
+          "hints": [
+            "Start by recognizing Nf3.",
+            "The key training move in this branch is Bg2.",
+            "Follow the highlighted move and keep your plan simple."
+          ],
+          "coachingNotes": [
+            "Replay the KIA setup.",
+            "Fianchetto."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    }
+  ],
+  "ideas": [
+    "Build a reliable setup regardless of Black's moves.",
+    "Fianchetto the bishop for king safety.",
+    "Prepare central pawn breaks later."
+  ],
+  "commonMistakes": [
+    "Attacking before castling.",
+    "Forgetting the bishop belongs on g2.",
+    "Reacting emotionally to pins instead of developing."
+  ],
+  "tree": {},
+  "training": {
+    "mode": "guided-line",
+    "startingFen": "startpos",
+    "sideToTrain": "white"
+  },
+  "spacedRepetition": {
+    "attempts": 0,
+    "mistakes": 0,
+    "accuracy": 0,
+    "completedLines": 0,
+    "confidence": "new",
+    "lastReviewed": null
+  }
+}

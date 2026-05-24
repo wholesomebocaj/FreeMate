@@ -38,5 +38,45 @@
   {
     "id": "kings-indian-defense",
     "path": "intermediate/kings-indian-defense.json"
+  },
+  {
+    "id": "scotch-game",
+    "path": "beginner/scotch-game.json"
+  },
+  {
+    "id": "english-opening",
+    "path": "beginner/english-opening.json"
+  },
+  {
+    "id": "kings-indian-attack",
+    "path": "beginner/kings-indian-attack.json"
+  },
+  {
+    "id": "jobava-london",
+    "path": "beginner-plus/jobava-london.json"
+  },
+  {
+    "id": "pirc-defense",
+    "path": "beginner-plus/pirc-defense.json"
+  },
+  {
+    "id": "slav-defense",
+    "path": "beginner-plus/slav-defense.json"
+  },
+  {
+    "id": "nimzo-indian-defense",
+    "path": "intermediate/nimzo-indian-defense.json"
+  },
+  {
+    "id": "petrov-defense",
+    "path": "intermediate/petrov-defense.json"
+  },
+  {
+    "id": "queens-pawn-opening",
+    "path": "intermediate/queens-pawn-opening.json"
+  },
+  {
+    "id": "modern-defense",
+    "path": "intermediate/modern-defense.json"
   }
 ]

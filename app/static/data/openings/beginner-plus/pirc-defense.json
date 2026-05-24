@@ -1,0 +1,327 @@
+{
+  "id": "pirc-defense",
+  "name": "Pirc Defense",
+  "eco": "B07",
+  "difficulty": "Beginner+",
+  "bracket": "beginner-plus",
+  "side": "Black",
+  "description": "A hypermodern Black defense that teaches counterattacking the center rather than occupying it immediately.",
+  "sections": [
+    {
+      "id": "main-line",
+      "title": "Main Line",
+      "branches": [
+        {
+          "id": "main-line",
+          "title": "Main Line: d6 and Nf6",
+          "description": "Learn the default Pirc setup against e4 and d4.",
+          "moves": [
+            {
+              "uci": "e2e4",
+              "san": "e4",
+              "title": "White claims center",
+              "explanation": "White takes space."
+            },
+            {
+              "uci": "d7d6",
+              "san": "d6",
+              "title": "Prepare counterplay",
+              "explanation": "d6 controls e5 and keeps Black flexible."
+            },
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "White expands",
+              "explanation": "White builds a big pawn center."
+            },
+            {
+              "uci": "g8f6",
+              "san": "Nf6",
+              "title": "Pressure e4",
+              "explanation": "Nf6 develops and attacks the e4 pawn from a distance."
+            }
+          ],
+          "hints": [
+            "Start by recognizing e4.",
+            "The key training move in this branch is Nf6.",
+            "Follow the highlighted move and keep your plan simple."
+          ],
+          "coachingNotes": [
+            "Learn the default Pirc setup against e4 and d4.",
+            "Nf6 develops and attacks the e4 pawn from a distance."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          },
+          "isMainLine": true
+        }
+      ]
+    },
+    {
+      "id": "if-nc3",
+      "title": "If White Plays Nc3",
+      "branches": [
+        {
+          "id": "vs-nc3",
+          "title": "Fianchetto Plan",
+          "description": "If White supports the center with Nc3, prepare Bg7.",
+          "moves": [
+            {
+              "uci": "e2e4",
+              "san": "e4",
+              "title": "White starts",
+              "explanation": "White takes space."
+            },
+            {
+              "uci": "d7d6",
+              "san": "d6",
+              "title": "Flexible",
+              "explanation": "Control e5."
+            },
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "White center",
+              "explanation": "White expands."
+            },
+            {
+              "uci": "g8f6",
+              "san": "Nf6",
+              "title": "Pressure",
+              "explanation": "Attack e4."
+            },
+            {
+              "uci": "b1c3",
+              "san": "Nc3",
+              "title": "White defends",
+              "explanation": "White supports e4."
+            },
+            {
+              "uci": "g7g6",
+              "san": "g6",
+              "title": "Recommended: prepare Bg7",
+              "explanation": "g6 builds the Pirc bishop setup and prepares king safety."
+            }
+          ],
+          "hints": [
+            "Start by recognizing e4.",
+            "The key training move in this branch is g6.",
+            "Follow the highlighted move and keep your plan simple."
+          ],
+          "coachingNotes": [
+            "If White supports the center with Nc3, prepare Bg7.",
+            "g6 builds the Pirc bishop setup and prepares king safety."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "if-f4",
+      "title": "If White Plays f4",
+      "branches": [
+        {
+          "id": "vs-f4",
+          "title": "Stay Calm Against Space",
+          "description": "If White grabs more space with f4, develop and prepare Bg7.",
+          "moves": [
+            {
+              "uci": "e2e4",
+              "san": "e4",
+              "title": "White starts",
+              "explanation": "Center."
+            },
+            {
+              "uci": "d7d6",
+              "san": "d6",
+              "title": "Pirc start",
+              "explanation": "Flexible defense."
+            },
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "White center",
+              "explanation": "More space."
+            },
+            {
+              "uci": "g8f6",
+              "san": "Nf6",
+              "title": "Pressure",
+              "explanation": "Attack e4."
+            },
+            {
+              "uci": "f2f4",
+              "san": "f4",
+              "title": "White expands",
+              "explanation": "White wants a big attack."
+            },
+            {
+              "uci": "g7g6",
+              "san": "g6",
+              "title": "Recommended: fianchetto",
+              "explanation": "Do not panic. Develop the bishop, castle, and counterattack later."
+            }
+          ],
+          "hints": [
+            "Start by recognizing e4.",
+            "The key training move in this branch is g6.",
+            "Follow the highlighted move and keep your plan simple."
+          ],
+          "coachingNotes": [
+            "If White grabs more space with f4, develop and prepare Bg7.",
+            "Do not panic. Develop the bishop, castle, and counterattack later."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "if-bc4",
+      "title": "If White Plays Bc4",
+      "branches": [
+        {
+          "id": "vs-bc4",
+          "title": "Block Direct Ideas",
+          "description": "If White develops the bishop aggressively, continue development.",
+          "moves": [
+            {
+              "uci": "e2e4",
+              "san": "e4",
+              "title": "White starts",
+              "explanation": "Center."
+            },
+            {
+              "uci": "d7d6",
+              "san": "d6",
+              "title": "Pirc start",
+              "explanation": "Flexible."
+            },
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "White expands",
+              "explanation": "Big center."
+            },
+            {
+              "uci": "g8f6",
+              "san": "Nf6",
+              "title": "Pressure",
+              "explanation": "Attack e4."
+            },
+            {
+              "uci": "f1c4",
+              "san": "Bc4",
+              "title": "White aims at f7",
+              "explanation": "White develops aggressively."
+            },
+            {
+              "uci": "g7g6",
+              "san": "g6",
+              "title": "Recommended: develop safely",
+              "explanation": "Prepare Bg7 and castling. Do not chase the bishop with weakening pawn moves."
+            }
+          ],
+          "hints": [
+            "Start by recognizing e4.",
+            "The key training move in this branch is g6.",
+            "Follow the highlighted move and keep your plan simple."
+          ],
+          "coachingNotes": [
+            "If White develops the bishop aggressively, continue development.",
+            "Prepare Bg7 and castling. Do not chase the bishop with weakening pawn moves."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "practice-quiz",
+      "title": "Practice Drills & Mini Quiz",
+      "branches": [
+        {
+          "id": "final-review",
+          "title": "Final Review",
+          "description": "Replay the Pirc start.",
+          "moves": [
+            {
+              "uci": "e2e4",
+              "san": "e4",
+              "title": "White center",
+              "explanation": "Recognize e4."
+            },
+            {
+              "uci": "d7d6",
+              "san": "d6",
+              "title": "Flexible",
+              "explanation": "Control e5."
+            },
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "White expands",
+              "explanation": "Prepare pressure."
+            },
+            {
+              "uci": "g8f6",
+              "san": "Nf6",
+              "title": "Knight",
+              "explanation": "Attack e4."
+            }
+          ],
+          "hints": [
+            "Start by recognizing e4.",
+            "The key training move in this branch is Nf6.",
+            "Follow the highlighted move and keep your plan simple."
+          ],
+          "coachingNotes": [
+            "Replay the Pirc start.",
+            "Attack e4."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    }
+  ],
+  "ideas": [
+    "Allow White space early.",
+    "Pressure the center with pieces.",
+    "Strike later with pawn breaks."
+  ],
+  "commonMistakes": [
+    "Panicking about White's space.",
+    "Playing only defensive moves.",
+    "Opening lines before castling."
+  ],
+  "tree": {},
+  "training": {
+    "mode": "guided-line",
+    "startingFen": "startpos",
+    "sideToTrain": "black"
+  },
+  "spacedRepetition": {
+    "attempts": 0,
+    "mistakes": 0,
+    "accuracy": 0,
+    "completedLines": 0,
+    "confidence": "new",
+    "lastReviewed": null
+  }
+}

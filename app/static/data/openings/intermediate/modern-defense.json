@@ -1,0 +1,327 @@
+{
+  "id": "modern-defense",
+  "name": "Modern Defense",
+  "eco": "B06",
+  "difficulty": "Intermediate",
+  "bracket": "intermediate",
+  "side": "Black",
+  "description": "A hypermodern defense similar to the Pirc that teaches flexible counterplay and central pressure from distance.",
+  "sections": [
+    {
+      "id": "main-line",
+      "title": "Main Line",
+      "branches": [
+        {
+          "id": "main-line",
+          "title": "Main Line: g6 and Bg7",
+          "description": "Learn the default Modern setup against e4 and d4.",
+          "moves": [
+            {
+              "uci": "e2e4",
+              "san": "e4",
+              "title": "White starts",
+              "explanation": "White takes space."
+            },
+            {
+              "uci": "g7g6",
+              "san": "g6",
+              "title": "Prepare bishop",
+              "explanation": "Black delays central pawns and prepares Bg7."
+            },
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "White expands",
+              "explanation": "White builds a strong center."
+            },
+            {
+              "uci": "f8g7",
+              "san": "Bg7",
+              "title": "Fianchetto",
+              "explanation": "Bg7 pressures the long diagonal and prepares flexible counterplay."
+            }
+          ],
+          "hints": [
+            "Start by recognizing e4.",
+            "The key training move in this branch is Bg7.",
+            "Follow the highlighted move and keep your plan simple."
+          ],
+          "coachingNotes": [
+            "Learn the default Modern setup against e4 and d4.",
+            "Bg7 pressures the long diagonal and prepares flexible counterplay."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          },
+          "isMainLine": true
+        }
+      ]
+    },
+    {
+      "id": "if-nc3",
+      "title": "If White Plays Nc3",
+      "branches": [
+        {
+          "id": "vs-nc3",
+          "title": "Develop With d6",
+          "description": "If White supports the center, prepare counterplay.",
+          "moves": [
+            {
+              "uci": "e2e4",
+              "san": "e4",
+              "title": "White starts",
+              "explanation": "Center."
+            },
+            {
+              "uci": "g7g6",
+              "san": "g6",
+              "title": "Modern setup",
+              "explanation": "Prepare Bg7."
+            },
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "White center",
+              "explanation": "Big center."
+            },
+            {
+              "uci": "f8g7",
+              "san": "Bg7",
+              "title": "Bishop",
+              "explanation": "Long diagonal."
+            },
+            {
+              "uci": "b1c3",
+              "san": "Nc3",
+              "title": "White supports",
+              "explanation": "White reinforces the center."
+            },
+            {
+              "uci": "d7d6",
+              "san": "d6",
+              "title": "Recommended: support and prepare",
+              "explanation": "d6 controls e5 and prepares Nf6. Do not attack before developing."
+            }
+          ],
+          "hints": [
+            "Start by recognizing e4.",
+            "The key training move in this branch is d6.",
+            "Follow the highlighted move and keep your plan simple."
+          ],
+          "coachingNotes": [
+            "If White supports the center, prepare counterplay.",
+            "d6 controls e5 and prepares Nf6. Do not attack before developing."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "if-c4",
+      "title": "If White Plays c4",
+      "branches": [
+        {
+          "id": "vs-c4",
+          "title": "Respect the Space",
+          "description": "If White builds a huge center, develop patiently.",
+          "moves": [
+            {
+              "uci": "e2e4",
+              "san": "e4",
+              "title": "White starts",
+              "explanation": "Center."
+            },
+            {
+              "uci": "g7g6",
+              "san": "g6",
+              "title": "Modern setup",
+              "explanation": "Prepare bishop."
+            },
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "White expands",
+              "explanation": "Center."
+            },
+            {
+              "uci": "f8g7",
+              "san": "Bg7",
+              "title": "Bishop",
+              "explanation": "Long diagonal."
+            },
+            {
+              "uci": "c2c4",
+              "san": "c4",
+              "title": "White gains space",
+              "explanation": "White builds a broad pawn center."
+            },
+            {
+              "uci": "d7d6",
+              "san": "d6",
+              "title": "Recommended: prepare counterplay",
+              "explanation": "d6 keeps Black flexible and prepares Nf6 or e5/c5 breaks later."
+            }
+          ],
+          "hints": [
+            "Start by recognizing e4.",
+            "The key training move in this branch is d6.",
+            "Follow the highlighted move and keep your plan simple."
+          ],
+          "coachingNotes": [
+            "If White builds a huge center, develop patiently.",
+            "d6 keeps Black flexible and prepares Nf6 or e5/c5 breaks later."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "if-f4",
+      "title": "If White Plays f4",
+      "branches": [
+        {
+          "id": "vs-f4",
+          "title": "Do Not Panic",
+          "description": "If White grabs kingside space, develop and keep the long diagonal pressure.",
+          "moves": [
+            {
+              "uci": "e2e4",
+              "san": "e4",
+              "title": "White starts",
+              "explanation": "Center."
+            },
+            {
+              "uci": "g7g6",
+              "san": "g6",
+              "title": "Modern setup",
+              "explanation": "Prepare bishop."
+            },
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "White center",
+              "explanation": "Space."
+            },
+            {
+              "uci": "f8g7",
+              "san": "Bg7",
+              "title": "Bishop",
+              "explanation": "Pressure."
+            },
+            {
+              "uci": "f2f4",
+              "san": "f4",
+              "title": "White attacks",
+              "explanation": "White wants a big pawn center and kingside attack."
+            },
+            {
+              "uci": "d7d6",
+              "san": "d6",
+              "title": "Recommended: stay flexible",
+              "explanation": "d6 controls e5 and keeps Black ready to counterattack after development."
+            }
+          ],
+          "hints": [
+            "Start by recognizing e4.",
+            "The key training move in this branch is d6.",
+            "Follow the highlighted move and keep your plan simple."
+          ],
+          "coachingNotes": [
+            "If White grabs kingside space, develop and keep the long diagonal pressure.",
+            "d6 controls e5 and keeps Black ready to counterattack after development."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "practice-quiz",
+      "title": "Practice Drills & Mini Quiz",
+      "branches": [
+        {
+          "id": "final-review",
+          "title": "Final Review",
+          "description": "Replay the Modern setup.",
+          "moves": [
+            {
+              "uci": "e2e4",
+              "san": "e4",
+              "title": "White center",
+              "explanation": "Recognize e4."
+            },
+            {
+              "uci": "g7g6",
+              "san": "g6",
+              "title": "Modern",
+              "explanation": "Prepare Bg7."
+            },
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "White expands",
+              "explanation": "Center."
+            },
+            {
+              "uci": "f8g7",
+              "san": "Bg7",
+              "title": "Bishop",
+              "explanation": "Fianchetto."
+            }
+          ],
+          "hints": [
+            "Start by recognizing e4.",
+            "The key training move in this branch is Bg7.",
+            "Follow the highlighted move and keep your plan simple."
+          ],
+          "coachingNotes": [
+            "Replay the Modern setup.",
+            "Fianchetto."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    }
+  ],
+  "ideas": [
+    "Delay committing central pawns.",
+    "Use g6 and Bg7 pressure.",
+    "Counterattack after White overextends."
+  ],
+  "commonMistakes": [
+    "Panicking about White's space.",
+    "Never challenging the center later.",
+    "Opening the kingside before development."
+  ],
+  "tree": {},
+  "training": {
+    "mode": "guided-line",
+    "startingFen": "startpos",
+    "sideToTrain": "black"
+  },
+  "spacedRepetition": {
+    "attempts": 0,
+    "mistakes": 0,
+    "accuracy": 0,
+    "completedLines": 0,
+    "confidence": "new",
+    "lastReviewed": null
+  }
+}

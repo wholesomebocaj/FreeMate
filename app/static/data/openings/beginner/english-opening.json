@@ -1,0 +1,261 @@
+{
+  "id": "english-opening",
+  "name": "English Opening",
+  "eco": "A10",
+  "difficulty": "Beginner",
+  "bracket": "beginner",
+  "side": "White",
+  "description": "A flexible flank-opening course that teaches positional play, center control from the side, and calm development.",
+  "sections": [
+    {
+      "id": "main-line",
+      "title": "Main Line",
+      "branches": [
+        {
+          "id": "main-line",
+          "title": "Main Line: c4 and Nc3",
+          "description": "Learn the default English setup: control d5 from the side and develop flexibly.",
+          "moves": [
+            {
+              "uci": "c2c4",
+              "san": "c4",
+              "title": "Control d5",
+              "explanation": "c4 fights for d5 from the side and keeps the center flexible."
+            },
+            {
+              "uci": "e7e5",
+              "san": "e5",
+              "title": "Black takes space",
+              "explanation": "Black occupies the center directly."
+            },
+            {
+              "uci": "b1c3",
+              "san": "Nc3",
+              "title": "Develop toward d5",
+              "explanation": "Nc3 develops and increases control over d5. White can choose the center structure later."
+            }
+          ],
+          "hints": [
+            "Start by recognizing c4.",
+            "The key training move in this branch is Nc3.",
+            "Follow the highlighted move and keep your plan simple."
+          ],
+          "coachingNotes": [
+            "Learn the default English setup: control d5 from the side and develop flexibly.",
+            "Nc3 develops and increases control over d5. White can choose the center structure later."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          },
+          "isMainLine": true
+        }
+      ]
+    },
+    {
+      "id": "if-c5",
+      "title": "If Black Plays c5",
+      "branches": [
+        {
+          "id": "vs-c5",
+          "title": "Symmetrical English",
+          "description": "If Black mirrors c5, develop naturally.",
+          "moves": [
+            {
+              "uci": "c2c4",
+              "san": "c4",
+              "title": "Start with c4",
+              "explanation": "Control d5 indirectly."
+            },
+            {
+              "uci": "c7c5",
+              "san": "c5",
+              "title": "Black mirrors",
+              "explanation": "Black also controls d4 from the side."
+            },
+            {
+              "uci": "b1c3",
+              "san": "Nc3",
+              "title": "Recommended: develop",
+              "explanation": "Nc3 increases central control and keeps the setup flexible."
+            }
+          ],
+          "hints": [
+            "Start by recognizing c4.",
+            "The key training move in this branch is Nc3.",
+            "Follow the highlighted move and keep your plan simple."
+          ],
+          "coachingNotes": [
+            "If Black mirrors c5, develop naturally.",
+            "Nc3 increases central control and keeps the setup flexible."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "if-nf6",
+      "title": "If Black Plays Nf6",
+      "branches": [
+        {
+          "id": "vs-nf6",
+          "title": "Develop Against Nf6",
+          "description": "If Black develops a knight, continue with Nc3.",
+          "moves": [
+            {
+              "uci": "c2c4",
+              "san": "c4",
+              "title": "Start with c4",
+              "explanation": "Control d5."
+            },
+            {
+              "uci": "g8f6",
+              "san": "Nf6",
+              "title": "Black develops",
+              "explanation": "Black controls e4 and d5."
+            },
+            {
+              "uci": "b1c3",
+              "san": "Nc3",
+              "title": "Recommended: develop",
+              "explanation": "Nc3 adds central control and prepares g3 or Nf3 setups."
+            }
+          ],
+          "hints": [
+            "Start by recognizing c4.",
+            "The key training move in this branch is Nc3.",
+            "Follow the highlighted move and keep your plan simple."
+          ],
+          "coachingNotes": [
+            "If Black develops a knight, continue with Nc3.",
+            "Nc3 adds central control and prepares g3 or Nf3 setups."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "if-e6",
+      "title": "If Black Plays e6",
+      "branches": [
+        {
+          "id": "vs-e6",
+          "title": "Stay Flexible",
+          "description": "If Black prepares d5 with e6, keep developing.",
+          "moves": [
+            {
+              "uci": "c2c4",
+              "san": "c4",
+              "title": "Start with c4",
+              "explanation": "Control d5."
+            },
+            {
+              "uci": "e7e6",
+              "san": "e6",
+              "title": "Black prepares d5",
+              "explanation": "Black supports a central pawn break."
+            },
+            {
+              "uci": "b1c3",
+              "san": "Nc3",
+              "title": "Recommended: develop",
+              "explanation": "Nc3 pressures d5 and keeps White ready for d4 or g3 plans."
+            }
+          ],
+          "hints": [
+            "Start by recognizing c4.",
+            "The key training move in this branch is Nc3.",
+            "Follow the highlighted move and keep your plan simple."
+          ],
+          "coachingNotes": [
+            "If Black prepares d5 with e6, keep developing.",
+            "Nc3 pressures d5 and keeps White ready for d4 or g3 plans."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "practice-quiz",
+      "title": "Practice Drills & Mini Quiz",
+      "branches": [
+        {
+          "id": "final-review",
+          "title": "Final Review",
+          "description": "Replay c4, e5, Nc3.",
+          "moves": [
+            {
+              "uci": "c2c4",
+              "san": "c4",
+              "title": "Flank control",
+              "explanation": "Control d5."
+            },
+            {
+              "uci": "e7e5",
+              "san": "e5",
+              "title": "Black center",
+              "explanation": "Recognize central space."
+            },
+            {
+              "uci": "b1c3",
+              "san": "Nc3",
+              "title": "Develop",
+              "explanation": "Increase d5 control."
+            }
+          ],
+          "hints": [
+            "Start by recognizing c4.",
+            "The key training move in this branch is Nc3.",
+            "Follow the highlighted move and keep your plan simple."
+          ],
+          "coachingNotes": [
+            "Replay c4, e5, Nc3.",
+            "Increase d5 control."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    }
+  ],
+  "ideas": [
+    "Control d5 indirectly with c4.",
+    "Stay flexible before committing central pawns.",
+    "Develop naturally and avoid rushing attacks."
+  ],
+  "commonMistakes": [
+    "Treating c4 like a gambit trick.",
+    "Ignoring development because the center is quiet.",
+    "Pushing too many pawns before pieces are out."
+  ],
+  "tree": {},
+  "training": {
+    "mode": "guided-line",
+    "startingFen": "startpos",
+    "sideToTrain": "white"
+  },
+  "spacedRepetition": {
+    "attempts": 0,
+    "mistakes": 0,
+    "accuracy": 0,
+    "completedLines": 0,
+    "confidence": "new",
+    "lastReviewed": null
+  }
+}

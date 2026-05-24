@@ -1,0 +1,321 @@
+{
+  "id": "petrov-defense",
+  "name": "Petrov Defense",
+  "eco": "C42",
+  "difficulty": "Intermediate",
+  "bracket": "intermediate",
+  "side": "White",
+  "description": "A calm opening course that teaches symmetry, development, and avoiding early tactical mistakes against 2...Nf6.",
+  "sections": [
+    {
+      "id": "main-line",
+      "title": "Main Line",
+      "branches": [
+        {
+          "id": "main-line",
+          "title": "Main Line: Meet Nf6 Calmly",
+          "description": "Learn the Petrov starting position and a safe central response.",
+          "moves": [
+            {
+              "uci": "e2e4",
+              "san": "e4",
+              "title": "Start with e4",
+              "explanation": "Control the center."
+            },
+            {
+              "uci": "e7e5",
+              "san": "e5",
+              "title": "Black mirrors",
+              "explanation": "Open game."
+            },
+            {
+              "uci": "g1f3",
+              "san": "Nf3",
+              "title": "Develop",
+              "explanation": "Attack e5."
+            },
+            {
+              "uci": "g8f6",
+              "san": "Nf6",
+              "title": "Petrov Defense",
+              "explanation": "Black counterattacks e4 instead of defending e5."
+            }
+          ],
+          "hints": [
+            "Start by recognizing e4.",
+            "The key training move in this branch is Nf6.",
+            "Follow the highlighted move and keep your plan simple."
+          ],
+          "coachingNotes": [
+            "Learn the Petrov starting position and a safe central response.",
+            "Black counterattacks e4 instead of defending e5."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          },
+          "isMainLine": true
+        }
+      ]
+    },
+    {
+      "id": "if-nxe5",
+      "title": "If You Can Play Nxe5",
+      "branches": [
+        {
+          "id": "nxe5-line",
+          "title": "Capture Carefully",
+          "description": "If Black plays the Petrov, Nxe5 is playable when you know the follow-up.",
+          "moves": [
+            {
+              "uci": "e2e4",
+              "san": "e4",
+              "title": "Start",
+              "explanation": "Center."
+            },
+            {
+              "uci": "e7e5",
+              "san": "e5",
+              "title": "Mirror",
+              "explanation": "Open game."
+            },
+            {
+              "uci": "g1f3",
+              "san": "Nf3",
+              "title": "Develop",
+              "explanation": "Attack e5."
+            },
+            {
+              "uci": "g8f6",
+              "san": "Nf6",
+              "title": "Petrov",
+              "explanation": "Black attacks e4."
+            },
+            {
+              "uci": "f3e5",
+              "san": "Nxe5",
+              "title": "Recommended: capture",
+              "explanation": "Nxe5 wins the e5 pawn temporarily, but White must be ready for Black's d6 reply."
+            },
+            {
+              "uci": "d7d6",
+              "san": "d6",
+              "title": "Black challenges knight",
+              "explanation": "Black asks the knight to move."
+            },
+            {
+              "uci": "e5f3",
+              "san": "Nf3",
+              "title": "Retreat safely",
+              "explanation": "Nf3 returns the knight and keeps development healthy."
+            }
+          ],
+          "hints": [
+            "Start by recognizing e4.",
+            "The key training move in this branch is Nf3.",
+            "Follow the highlighted move and keep your plan simple."
+          ],
+          "coachingNotes": [
+            "If Black plays the Petrov, Nxe5 is playable when you know the follow-up.",
+            "Nf3 returns the knight and keeps development healthy."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "if-d4",
+      "title": "If You Prefer d4",
+      "branches": [
+        {
+          "id": "d4-line",
+          "title": "Build the Center",
+          "description": "A simple alternative is to support the center with d4.",
+          "moves": [
+            {
+              "uci": "e2e4",
+              "san": "e4",
+              "title": "Start",
+              "explanation": "Center."
+            },
+            {
+              "uci": "e7e5",
+              "san": "e5",
+              "title": "Mirror",
+              "explanation": "Open game."
+            },
+            {
+              "uci": "g1f3",
+              "san": "Nf3",
+              "title": "Develop",
+              "explanation": "Attack e5."
+            },
+            {
+              "uci": "g8f6",
+              "san": "Nf6",
+              "title": "Petrov",
+              "explanation": "Counterattack."
+            },
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "Recommended: central support",
+              "explanation": "d4 reinforces the center and avoids chasing tactics you may not know yet."
+            }
+          ],
+          "hints": [
+            "Start by recognizing e4.",
+            "The key training move in this branch is d4.",
+            "Follow the highlighted move and keep your plan simple."
+          ],
+          "coachingNotes": [
+            "A simple alternative is to support the center with d4.",
+            "d4 reinforces the center and avoids chasing tactics you may not know yet."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "if-nc3",
+      "title": "If You Play Nc3",
+      "branches": [
+        {
+          "id": "three-knights",
+          "title": "Transpose Calmly",
+          "description": "Nc3 keeps development simple and may transpose to Four Knights ideas.",
+          "moves": [
+            {
+              "uci": "e2e4",
+              "san": "e4",
+              "title": "Start",
+              "explanation": "Center."
+            },
+            {
+              "uci": "e7e5",
+              "san": "e5",
+              "title": "Mirror",
+              "explanation": "Open game."
+            },
+            {
+              "uci": "g1f3",
+              "san": "Nf3",
+              "title": "Develop",
+              "explanation": "Attack e5."
+            },
+            {
+              "uci": "g8f6",
+              "san": "Nf6",
+              "title": "Petrov",
+              "explanation": "Counterattack."
+            },
+            {
+              "uci": "b1c3",
+              "san": "Nc3",
+              "title": "Recommended: develop",
+              "explanation": "Nc3 defends e4 and keeps the game calm."
+            }
+          ],
+          "hints": [
+            "Start by recognizing e4.",
+            "The key training move in this branch is Nc3.",
+            "Follow the highlighted move and keep your plan simple."
+          ],
+          "coachingNotes": [
+            "Nc3 keeps development simple and may transpose to Four Knights ideas.",
+            "Nc3 defends e4 and keeps the game calm."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "practice-quiz",
+      "title": "Practice Drills & Mini Quiz",
+      "branches": [
+        {
+          "id": "final-review",
+          "title": "Final Review",
+          "description": "Replay the Petrov start.",
+          "moves": [
+            {
+              "uci": "e2e4",
+              "san": "e4",
+              "title": "Center",
+              "explanation": "Start."
+            },
+            {
+              "uci": "e7e5",
+              "san": "e5",
+              "title": "Mirror",
+              "explanation": "Open game."
+            },
+            {
+              "uci": "g1f3",
+              "san": "Nf3",
+              "title": "Develop",
+              "explanation": "Attack e5."
+            },
+            {
+              "uci": "g8f6",
+              "san": "Nf6",
+              "title": "Petrov",
+              "explanation": "Recognize counterattack."
+            }
+          ],
+          "hints": [
+            "Start by recognizing e4.",
+            "The key training move in this branch is Nf6.",
+            "Follow the highlighted move and keep your plan simple."
+          ],
+          "coachingNotes": [
+            "Replay the Petrov start.",
+            "Recognize counterattack."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    }
+  ],
+  "ideas": [
+    "Develop safely.",
+    "Maintain central balance.",
+    "Do not grab pawns without knowing the retreat."
+  ],
+  "commonMistakes": [
+    "Chasing material and losing the knight.",
+    "Ignoring Black's counterattack on e4.",
+    "Opening tactics before developing."
+  ],
+  "tree": {},
+  "training": {
+    "mode": "guided-line",
+    "startingFen": "startpos",
+    "sideToTrain": "white"
+  },
+  "spacedRepetition": {
+    "attempts": 0,
+    "mistakes": 0,
+    "accuracy": 0,
+    "completedLines": 0,
+    "confidence": "new",
+    "lastReviewed": null
+  }
+}

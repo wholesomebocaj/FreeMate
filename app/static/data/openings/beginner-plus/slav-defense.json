@@ -1,0 +1,327 @@
+{
+  "id": "slav-defense",
+  "name": "Slav Defense",
+  "eco": "D10",
+  "difficulty": "Beginner+",
+  "bracket": "beginner-plus",
+  "side": "Black",
+  "description": "A solid defense against d4 that teaches strong pawn structures and simple development.",
+  "sections": [
+    {
+      "id": "main-line",
+      "title": "Main Line",
+      "branches": [
+        {
+          "id": "main-line",
+          "title": "Main Line: Support d5 With c6",
+          "description": "Learn the default Slav structure.",
+          "moves": [
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "White starts d4",
+              "explanation": "White takes central space."
+            },
+            {
+              "uci": "d7d5",
+              "san": "d5",
+              "title": "Meet the center",
+              "explanation": "Black contests the center directly."
+            },
+            {
+              "uci": "c2c4",
+              "san": "c4",
+              "title": "White challenges",
+              "explanation": "White attacks d5."
+            },
+            {
+              "uci": "c7c6",
+              "san": "c6",
+              "title": "Support d5",
+              "explanation": "c6 protects d5 and creates the solid Slav structure."
+            }
+          ],
+          "hints": [
+            "Start by recognizing d4.",
+            "The key training move in this branch is c6.",
+            "Follow the highlighted move and keep your plan simple."
+          ],
+          "coachingNotes": [
+            "Learn the default Slav structure.",
+            "c6 protects d5 and creates the solid Slav structure."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          },
+          "isMainLine": true
+        }
+      ]
+    },
+    {
+      "id": "if-nc3",
+      "title": "If White Plays Nc3",
+      "branches": [
+        {
+          "id": "vs-nc3",
+          "title": "Develop Nf6",
+          "description": "If White develops pressure, develop a knight.",
+          "moves": [
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "White starts",
+              "explanation": "Center."
+            },
+            {
+              "uci": "d7d5",
+              "san": "d5",
+              "title": "Contest",
+              "explanation": "Meet d4."
+            },
+            {
+              "uci": "c2c4",
+              "san": "c4",
+              "title": "Challenge",
+              "explanation": "Attack d5."
+            },
+            {
+              "uci": "c7c6",
+              "san": "c6",
+              "title": "Support",
+              "explanation": "Slav structure."
+            },
+            {
+              "uci": "b1c3",
+              "san": "Nc3",
+              "title": "White pressures",
+              "explanation": "White adds pressure to d5."
+            },
+            {
+              "uci": "g8f6",
+              "san": "Nf6",
+              "title": "Recommended: develop",
+              "explanation": "Nf6 develops and supports the center. Keep the structure solid."
+            }
+          ],
+          "hints": [
+            "Start by recognizing d4.",
+            "The key training move in this branch is Nf6.",
+            "Follow the highlighted move and keep your plan simple."
+          ],
+          "coachingNotes": [
+            "If White develops pressure, develop a knight.",
+            "Nf6 develops and supports the center. Keep the structure solid."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "if-nf3",
+      "title": "If White Plays Nf3",
+      "branches": [
+        {
+          "id": "vs-nf3",
+          "title": "Simple Development",
+          "description": "If White develops calmly, develop too.",
+          "moves": [
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "White starts",
+              "explanation": "Center."
+            },
+            {
+              "uci": "d7d5",
+              "san": "d5",
+              "title": "Black contests",
+              "explanation": "Center."
+            },
+            {
+              "uci": "c2c4",
+              "san": "c4",
+              "title": "Challenge",
+              "explanation": "Queen's Gambit structure."
+            },
+            {
+              "uci": "c7c6",
+              "san": "c6",
+              "title": "Slav",
+              "explanation": "Support d5."
+            },
+            {
+              "uci": "g1f3",
+              "san": "Nf3",
+              "title": "White develops",
+              "explanation": "White prepares normal development."
+            },
+            {
+              "uci": "g8f6",
+              "san": "Nf6",
+              "title": "Recommended: develop",
+              "explanation": "Mirror development and keep the position stable."
+            }
+          ],
+          "hints": [
+            "Start by recognizing d4.",
+            "The key training move in this branch is Nf6.",
+            "Follow the highlighted move and keep your plan simple."
+          ],
+          "coachingNotes": [
+            "If White develops calmly, develop too.",
+            "Mirror development and keep the position stable."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "if-cxd5",
+      "title": "If White Takes d5",
+      "branches": [
+        {
+          "id": "vs-cxd5",
+          "title": "Recapture With c-pawn",
+          "description": "If White releases the tension, recapture toward the center.",
+          "moves": [
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "White starts",
+              "explanation": "Center."
+            },
+            {
+              "uci": "d7d5",
+              "san": "d5",
+              "title": "Black contests",
+              "explanation": "Center."
+            },
+            {
+              "uci": "c2c4",
+              "san": "c4",
+              "title": "Challenge",
+              "explanation": "Attack d5."
+            },
+            {
+              "uci": "c7c6",
+              "san": "c6",
+              "title": "Support",
+              "explanation": "Slav."
+            },
+            {
+              "uci": "c4d5",
+              "san": "cxd5",
+              "title": "White captures",
+              "explanation": "White removes the d5 pawn."
+            },
+            {
+              "uci": "c6d5",
+              "san": "cxd5",
+              "title": "Recommended: recapture",
+              "explanation": "cxd5 restores the center and keeps Black's structure healthy."
+            }
+          ],
+          "hints": [
+            "Start by recognizing d4.",
+            "The key training move in this branch is cxd5.",
+            "Follow the highlighted move and keep your plan simple."
+          ],
+          "coachingNotes": [
+            "If White releases the tension, recapture toward the center.",
+            "cxd5 restores the center and keeps Black's structure healthy."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "practice-quiz",
+      "title": "Practice Drills & Mini Quiz",
+      "branches": [
+        {
+          "id": "final-review",
+          "title": "Final Review",
+          "description": "Replay the Slav structure.",
+          "moves": [
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "White d4",
+              "explanation": "Center."
+            },
+            {
+              "uci": "d7d5",
+              "san": "d5",
+              "title": "Contest",
+              "explanation": "Meet d4."
+            },
+            {
+              "uci": "c2c4",
+              "san": "c4",
+              "title": "Challenge",
+              "explanation": "White attacks."
+            },
+            {
+              "uci": "c7c6",
+              "san": "c6",
+              "title": "Support",
+              "explanation": "Build Slav."
+            }
+          ],
+          "hints": [
+            "Start by recognizing d4.",
+            "The key training move in this branch is c6.",
+            "Follow the highlighted move and keep your plan simple."
+          ],
+          "coachingNotes": [
+            "Replay the Slav structure.",
+            "Build Slav."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    }
+  ],
+  "ideas": [
+    "Support d5 with c6.",
+    "Keep the center stable.",
+    "Develop bishops actively."
+  ],
+  "commonMistakes": [
+    "Letting d5 fall without reason.",
+    "Blocking every piece passively.",
+    "Ignoring bishop development."
+  ],
+  "tree": {},
+  "training": {
+    "mode": "guided-line",
+    "startingFen": "startpos",
+    "sideToTrain": "black"
+  },
+  "spacedRepetition": {
+    "attempts": 0,
+    "mistakes": 0,
+    "accuracy": 0,
+    "completedLines": 0,
+    "confidence": "new",
+    "lastReviewed": null
+  }
+}

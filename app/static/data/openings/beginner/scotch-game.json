@@ -1,0 +1,333 @@
+{
+  "id": "scotch-game",
+  "name": "Scotch Game",
+  "eco": "C44",
+  "difficulty": "Beginner",
+  "bracket": "beginner",
+  "side": "White",
+  "description": "A beginner-friendly open game that teaches central pawn breaks, active development, and simple tactical play after 1.e4 e5.",
+  "sections": [
+    {
+      "id": "main-line",
+      "title": "Main Line",
+      "branches": [
+        {
+          "id": "main-line",
+          "title": "Main Line: Break With d4",
+          "description": "Learn the default Scotch idea: develop, then challenge the center with d4.",
+          "moves": [
+            {
+              "uci": "e2e4",
+              "san": "e4",
+              "title": "Claim the center",
+              "explanation": "Controls d5 and f5 while opening lines for the bishop and queen."
+            },
+            {
+              "uci": "e7e5",
+              "san": "e5",
+              "title": "Black mirrors",
+              "explanation": "Black also takes central space, creating an open-game structure."
+            },
+            {
+              "uci": "g1f3",
+              "san": "Nf3",
+              "title": "Develop with pressure",
+              "explanation": "Develops a knight and attacks e5 before making the central break."
+            },
+            {
+              "uci": "b8c6",
+              "san": "Nc6",
+              "title": "Black defends e5",
+              "explanation": "Black develops and protects the e5 pawn."
+            },
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "Break open the center",
+              "explanation": "d4 challenges e5 and opens lines. The Scotch teaches active central play after development."
+            }
+          ],
+          "hints": [
+            "Start by recognizing e4.",
+            "The key training move in this branch is d4.",
+            "Follow the highlighted move and keep your plan simple."
+          ],
+          "coachingNotes": [
+            "Learn the default Scotch idea: develop, then challenge the center with d4.",
+            "d4 challenges e5 and opens lines. The Scotch teaches active central play after development."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          },
+          "isMainLine": true
+        }
+      ]
+    },
+    {
+      "id": "if-exd4",
+      "title": "If Black Plays exd4",
+      "branches": [
+        {
+          "id": "vs-exd4",
+          "title": "Recapture and Develop",
+          "description": "If Black accepts the central break, recapture calmly and keep developing.",
+          "moves": [
+            {
+              "uci": "e2e4",
+              "san": "e4",
+              "title": "Start with e4",
+              "explanation": "Take central space."
+            },
+            {
+              "uci": "e7e5",
+              "san": "e5",
+              "title": "Black mirrors",
+              "explanation": "Open game."
+            },
+            {
+              "uci": "g1f3",
+              "san": "Nf3",
+              "title": "Develop",
+              "explanation": "Attack e5."
+            },
+            {
+              "uci": "b8c6",
+              "san": "Nc6",
+              "title": "Black defends",
+              "explanation": "Normal development."
+            },
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "Central break",
+              "explanation": "Challenge e5."
+            },
+            {
+              "uci": "e5d4",
+              "san": "exd4",
+              "title": "Black captures",
+              "explanation": "Black removes the d4 pawn."
+            },
+            {
+              "uci": "f3d4",
+              "san": "Nxd4",
+              "title": "Recommended: recapture",
+              "explanation": "Nxd4 centralizes the knight and keeps White developed. Avoid queen recaptures that lose time."
+            }
+          ],
+          "hints": [
+            "Start by recognizing e4.",
+            "The key training move in this branch is Nxd4.",
+            "Follow the highlighted move and keep your plan simple."
+          ],
+          "coachingNotes": [
+            "If Black accepts the central break, recapture calmly and keep developing.",
+            "Nxd4 centralizes the knight and keeps White developed. Avoid queen recaptures that lose time."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "if-nf6",
+      "title": "If Black Plays Nf6",
+      "branches": [
+        {
+          "id": "vs-nf6",
+          "title": "Meet Pressure With Nc3",
+          "description": "If Black attacks e4 with Nf6, defend through development.",
+          "moves": [
+            {
+              "uci": "e2e4",
+              "san": "e4",
+              "title": "Start with e4",
+              "explanation": "Control the center."
+            },
+            {
+              "uci": "e7e5",
+              "san": "e5",
+              "title": "Black mirrors",
+              "explanation": "Open game."
+            },
+            {
+              "uci": "g1f3",
+              "san": "Nf3",
+              "title": "Develop",
+              "explanation": "Pressure e5."
+            },
+            {
+              "uci": "g8f6",
+              "san": "Nf6",
+              "title": "Black counterattacks",
+              "explanation": "Black attacks e4 instead of defending e5."
+            },
+            {
+              "uci": "b1c3",
+              "san": "Nc3",
+              "title": "Recommended: develop and defend",
+              "explanation": "Nc3 protects e4 and develops a new piece. Simple development solves the problem."
+            }
+          ],
+          "hints": [
+            "Start by recognizing e4.",
+            "The key training move in this branch is Nc3.",
+            "Follow the highlighted move and keep your plan simple."
+          ],
+          "coachingNotes": [
+            "If Black attacks e4 with Nf6, defend through development.",
+            "Nc3 protects e4 and develops a new piece. Simple development solves the problem."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "if-bc5",
+      "title": "If Black Plays Bc5",
+      "branches": [
+        {
+          "id": "vs-bc5",
+          "title": "Continue With d4",
+          "description": "If Black develops the bishop, use d4 to challenge the center.",
+          "moves": [
+            {
+              "uci": "e2e4",
+              "san": "e4",
+              "title": "Start with e4",
+              "explanation": "Take space."
+            },
+            {
+              "uci": "e7e5",
+              "san": "e5",
+              "title": "Black mirrors",
+              "explanation": "Open game."
+            },
+            {
+              "uci": "g1f3",
+              "san": "Nf3",
+              "title": "Develop",
+              "explanation": "Attack e5."
+            },
+            {
+              "uci": "f8c5",
+              "san": "Bc5",
+              "title": "Black develops bishop",
+              "explanation": "Black points toward f2 and develops actively."
+            },
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "Recommended: central break",
+              "explanation": "d4 challenges the center before Black gets too comfortable. Keep development active."
+            }
+          ],
+          "hints": [
+            "Start by recognizing e4.",
+            "The key training move in this branch is d4.",
+            "Follow the highlighted move and keep your plan simple."
+          ],
+          "coachingNotes": [
+            "If Black develops the bishop, use d4 to challenge the center.",
+            "d4 challenges the center before Black gets too comfortable. Keep development active."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "practice-quiz",
+      "title": "Practice Drills & Mini Quiz",
+      "branches": [
+        {
+          "id": "final-review",
+          "title": "Final Review",
+          "description": "Replay the core Scotch setup.",
+          "moves": [
+            {
+              "uci": "e2e4",
+              "san": "e4",
+              "title": "Center",
+              "explanation": "Start central."
+            },
+            {
+              "uci": "e7e5",
+              "san": "e5",
+              "title": "Mirror",
+              "explanation": "Recognize open game."
+            },
+            {
+              "uci": "g1f3",
+              "san": "Nf3",
+              "title": "Develop",
+              "explanation": "Attack e5."
+            },
+            {
+              "uci": "b8c6",
+              "san": "Nc6",
+              "title": "Defense",
+              "explanation": "Black protects."
+            },
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "Break",
+              "explanation": "Challenge the center."
+            }
+          ],
+          "hints": [
+            "Start by recognizing e4.",
+            "The key training move in this branch is d4.",
+            "Follow the highlighted move and keep your plan simple."
+          ],
+          "coachingNotes": [
+            "Replay the core Scotch setup.",
+            "Challenge the center."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    }
+  ],
+  "ideas": [
+    "Challenge the center early with d4.",
+    "Open lines only after developing.",
+    "Use active pieces before launching attacks."
+  ],
+  "commonMistakes": [
+    "Playing d4 before developing anything.",
+    "Recapturing with the queen too early.",
+    "Chasing tactics before king safety."
+  ],
+  "tree": {},
+  "training": {
+    "mode": "guided-line",
+    "startingFen": "startpos",
+    "sideToTrain": "white"
+  },
+  "spacedRepetition": {
+    "attempts": 0,
+    "mistakes": 0,
+    "accuracy": 0,
+    "completedLines": 0,
+    "confidence": "new",
+    "lastReviewed": null
+  }
+}

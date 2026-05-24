@@ -1,0 +1,285 @@
+{
+  "id": "queens-pawn-opening",
+  "name": "Queen's Pawn Opening",
+  "eco": "A40",
+  "difficulty": "Intermediate",
+  "bracket": "intermediate",
+  "side": "White",
+  "description": "A flexible d4 opening course focused on center control, development, and transposition understanding.",
+  "sections": [
+    {
+      "id": "main-line",
+      "title": "Main Line",
+      "branches": [
+        {
+          "id": "main-line",
+          "title": "Main Line: Flexible e3 Setup",
+          "description": "Learn a calm d4 setup that can transpose into many queen-pawn openings.",
+          "moves": [
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "Start with d4",
+              "explanation": "Control e5 and c5."
+            },
+            {
+              "uci": "g8f6",
+              "san": "Nf6",
+              "title": "Black develops",
+              "explanation": "Black controls e4 and d5."
+            },
+            {
+              "uci": "g1f3",
+              "san": "Nf3",
+              "title": "Develop safely",
+              "explanation": "Nf3 supports d4 and prepares castling."
+            },
+            {
+              "uci": "e7e6",
+              "san": "e6",
+              "title": "Black prepares",
+              "explanation": "Black supports d5 and opens the bishop."
+            },
+            {
+              "uci": "e2e3",
+              "san": "e3",
+              "title": "Solid setup",
+              "explanation": "e3 supports d4 and opens the f1 bishop. White stays flexible."
+            }
+          ],
+          "hints": [
+            "Start by recognizing d4.",
+            "The key training move in this branch is e3.",
+            "Follow the highlighted move and keep your plan simple."
+          ],
+          "coachingNotes": [
+            "Learn a calm d4 setup that can transpose into many queen-pawn openings.",
+            "e3 supports d4 and opens the f1 bishop. White stays flexible."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          },
+          "isMainLine": true
+        }
+      ]
+    },
+    {
+      "id": "if-d5",
+      "title": "If Black Plays d5",
+      "branches": [
+        {
+          "id": "vs-d5",
+          "title": "Develop Normally",
+          "description": "If Black occupies the center, keep a solid setup.",
+          "moves": [
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "Start",
+              "explanation": "Center."
+            },
+            {
+              "uci": "d7d5",
+              "san": "d5",
+              "title": "Black mirrors",
+              "explanation": "Black takes central space."
+            },
+            {
+              "uci": "g1f3",
+              "san": "Nf3",
+              "title": "Recommended: develop",
+              "explanation": "Nf3 supports d4 and prepares normal development."
+            }
+          ],
+          "hints": [
+            "Start by recognizing d4.",
+            "The key training move in this branch is Nf3.",
+            "Follow the highlighted move and keep your plan simple."
+          ],
+          "coachingNotes": [
+            "If Black occupies the center, keep a solid setup.",
+            "Nf3 supports d4 and prepares normal development."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "if-c5",
+      "title": "If Black Plays c5",
+      "branches": [
+        {
+          "id": "vs-c5",
+          "title": "Support the Center",
+          "description": "If Black attacks d4 from the side, support and develop.",
+          "moves": [
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "Start",
+              "explanation": "Center."
+            },
+            {
+              "uci": "c7c5",
+              "san": "c5",
+              "title": "Black challenges",
+              "explanation": "Black attacks d4."
+            },
+            {
+              "uci": "e2e3",
+              "san": "e3",
+              "title": "Recommended: support",
+              "explanation": "e3 supports d4 and opens the bishop. Avoid grabbing pawns too quickly."
+            }
+          ],
+          "hints": [
+            "Start by recognizing d4.",
+            "The key training move in this branch is e3.",
+            "Follow the highlighted move and keep your plan simple."
+          ],
+          "coachingNotes": [
+            "If Black attacks d4 from the side, support and develop.",
+            "e3 supports d4 and opens the bishop. Avoid grabbing pawns too quickly."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "if-g6",
+      "title": "If Black Plays g6",
+      "branches": [
+        {
+          "id": "vs-g6",
+          "title": "Build Calmly",
+          "description": "If Black fianchettos, develop a steady center.",
+          "moves": [
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "Start",
+              "explanation": "Center."
+            },
+            {
+              "uci": "g7g6",
+              "san": "g6",
+              "title": "Black prepares Bg7",
+              "explanation": "Black wants long diagonal pressure."
+            },
+            {
+              "uci": "g1f3",
+              "san": "Nf3",
+              "title": "Recommended: develop",
+              "explanation": "Nf3 supports d4 and prepares e3 and castling."
+            }
+          ],
+          "hints": [
+            "Start by recognizing d4.",
+            "The key training move in this branch is Nf3.",
+            "Follow the highlighted move and keep your plan simple."
+          ],
+          "coachingNotes": [
+            "If Black fianchettos, develop a steady center.",
+            "Nf3 supports d4 and prepares e3 and castling."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "practice-quiz",
+      "title": "Practice Drills & Mini Quiz",
+      "branches": [
+        {
+          "id": "final-review",
+          "title": "Final Review",
+          "description": "Replay the flexible setup.",
+          "moves": [
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "Center",
+              "explanation": "Start."
+            },
+            {
+              "uci": "g8f6",
+              "san": "Nf6",
+              "title": "Black knight",
+              "explanation": "Recognize development."
+            },
+            {
+              "uci": "g1f3",
+              "san": "Nf3",
+              "title": "Develop",
+              "explanation": "Support d4."
+            },
+            {
+              "uci": "e7e6",
+              "san": "e6",
+              "title": "Black prepares",
+              "explanation": "Continue."
+            },
+            {
+              "uci": "e2e3",
+              "san": "e3",
+              "title": "Solid",
+              "explanation": "Open bishop."
+            }
+          ],
+          "hints": [
+            "Start by recognizing d4.",
+            "The key training move in this branch is e3.",
+            "Follow the highlighted move and keep your plan simple."
+          ],
+          "coachingNotes": [
+            "Replay the flexible setup.",
+            "Open bishop."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    }
+  ],
+  "ideas": [
+    "Control the center with d4.",
+    "Stay flexible before choosing a structure.",
+    "Develop pieces before pawn storms."
+  ],
+  "commonMistakes": [
+    "Committing to pawn storms too early.",
+    "Ignoring development.",
+    "Not noticing transpositions."
+  ],
+  "tree": {},
+  "training": {
+    "mode": "guided-line",
+    "startingFen": "startpos",
+    "sideToTrain": "white"
+  },
+  "spacedRepetition": {
+    "attempts": 0,
+    "mistakes": 0,
+    "accuracy": 0,
+    "completedLines": 0,
+    "confidence": "new",
+    "lastReviewed": null
+  }
+}

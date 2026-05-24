@@ -1,0 +1,387 @@
+{
+  "id": "nimzo-indian-defense",
+  "name": "Nimzo-Indian Defense",
+  "eco": "E20",
+  "difficulty": "Intermediate",
+  "bracket": "intermediate",
+  "side": "Black",
+  "description": "A positional defense that teaches pinning, central pressure, and structural imbalances.",
+  "sections": [
+    {
+      "id": "main-line",
+      "title": "Main Line",
+      "branches": [
+        {
+          "id": "main-line",
+          "title": "Main Line: Pin With Bb4",
+          "description": "Learn the default Nimzo-Indian setup.",
+          "moves": [
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "White starts d4",
+              "explanation": "White controls central squares."
+            },
+            {
+              "uci": "g8f6",
+              "san": "Nf6",
+              "title": "Develop knight",
+              "explanation": "Black controls e4 and d5."
+            },
+            {
+              "uci": "c2c4",
+              "san": "c4",
+              "title": "White expands",
+              "explanation": "White builds queen-pawn space."
+            },
+            {
+              "uci": "e7e6",
+              "san": "e6",
+              "title": "Prepare Bb4",
+              "explanation": "Black opens the bishop and supports central dark squares."
+            },
+            {
+              "uci": "b1c3",
+              "san": "Nc3",
+              "title": "White supports center",
+              "explanation": "White develops the knight in front of the c-pawn."
+            },
+            {
+              "uci": "f8b4",
+              "san": "Bb4",
+              "title": "Pin the knight",
+              "explanation": "Bb4 pins the c3 knight and fights for e4. This is the Nimzo-Indian idea."
+            }
+          ],
+          "hints": [
+            "Start by recognizing d4.",
+            "The key training move in this branch is Bb4.",
+            "Follow the highlighted move and keep your plan simple."
+          ],
+          "coachingNotes": [
+            "Learn the default Nimzo-Indian setup.",
+            "Bb4 pins the c3 knight and fights for e4. This is the Nimzo-Indian idea."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          },
+          "isMainLine": true
+        }
+      ]
+    },
+    {
+      "id": "if-a3",
+      "title": "If White Plays a3",
+      "branches": [
+        {
+          "id": "vs-a3",
+          "title": "Exchange When Asked",
+          "description": "If White asks the bishop a question, capture and damage structure.",
+          "moves": [
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "White starts",
+              "explanation": "Center."
+            },
+            {
+              "uci": "g8f6",
+              "san": "Nf6",
+              "title": "Develop",
+              "explanation": "Control e4."
+            },
+            {
+              "uci": "c2c4",
+              "san": "c4",
+              "title": "White expands",
+              "explanation": "Space."
+            },
+            {
+              "uci": "e7e6",
+              "san": "e6",
+              "title": "Prepare",
+              "explanation": "Open bishop."
+            },
+            {
+              "uci": "b1c3",
+              "san": "Nc3",
+              "title": "White develops",
+              "explanation": "Target for pin."
+            },
+            {
+              "uci": "f8b4",
+              "san": "Bb4",
+              "title": "Pin",
+              "explanation": "Nimzo."
+            },
+            {
+              "uci": "a2a3",
+              "san": "a3",
+              "title": "White questions bishop",
+              "explanation": "White attacks the bishop."
+            },
+            {
+              "uci": "b4c3",
+              "san": "Bxc3+",
+              "title": "Recommended: capture",
+              "explanation": "Bxc3+ gives up the bishop pair but damages White's structure and keeps long-term pressure."
+            }
+          ],
+          "hints": [
+            "Start by recognizing d4.",
+            "The key training move in this branch is Bxc3+.",
+            "Follow the highlighted move and keep your plan simple."
+          ],
+          "coachingNotes": [
+            "If White asks the bishop a question, capture and damage structure.",
+            "Bxc3+ gives up the bishop pair but damages White's structure and keeps long-term pressure."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "if-e3",
+      "title": "If White Plays e3",
+      "branches": [
+        {
+          "id": "vs-e3",
+          "title": "Castle Calmly",
+          "description": "If White builds quietly, castle and continue development.",
+          "moves": [
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "White starts",
+              "explanation": "Center."
+            },
+            {
+              "uci": "g8f6",
+              "san": "Nf6",
+              "title": "Develop",
+              "explanation": "Pressure."
+            },
+            {
+              "uci": "c2c4",
+              "san": "c4",
+              "title": "Space",
+              "explanation": "White expands."
+            },
+            {
+              "uci": "e7e6",
+              "san": "e6",
+              "title": "Prepare",
+              "explanation": "Open bishop."
+            },
+            {
+              "uci": "b1c3",
+              "san": "Nc3",
+              "title": "Knight",
+              "explanation": "Pin target."
+            },
+            {
+              "uci": "f8b4",
+              "san": "Bb4",
+              "title": "Pin",
+              "explanation": "Nimzo."
+            },
+            {
+              "uci": "e2e3",
+              "san": "e3",
+              "title": "White supports center",
+              "explanation": "White opens the bishop and stays solid."
+            },
+            {
+              "uci": "e8g8",
+              "san": "O-O",
+              "title": "Recommended: castle",
+              "explanation": "Castle before starting deeper plans. King safety first."
+            }
+          ],
+          "hints": [
+            "Start by recognizing d4.",
+            "The key training move in this branch is O-O.",
+            "Follow the highlighted move and keep your plan simple."
+          ],
+          "coachingNotes": [
+            "If White builds quietly, castle and continue development.",
+            "Castle before starting deeper plans. King safety first."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "if-qc2",
+      "title": "If White Plays Qc2",
+      "branches": [
+        {
+          "id": "vs-qc2",
+          "title": "Protect the Bishop",
+          "description": "If White prepares to recapture with the queen, castle.",
+          "moves": [
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "White starts",
+              "explanation": "Center."
+            },
+            {
+              "uci": "g8f6",
+              "san": "Nf6",
+              "title": "Develop",
+              "explanation": "Pressure."
+            },
+            {
+              "uci": "c2c4",
+              "san": "c4",
+              "title": "Space",
+              "explanation": "White expands."
+            },
+            {
+              "uci": "e7e6",
+              "san": "e6",
+              "title": "Prepare",
+              "explanation": "Open bishop."
+            },
+            {
+              "uci": "b1c3",
+              "san": "Nc3",
+              "title": "Knight",
+              "explanation": "Pin target."
+            },
+            {
+              "uci": "f8b4",
+              "san": "Bb4",
+              "title": "Pin",
+              "explanation": "Nimzo."
+            },
+            {
+              "uci": "d1c2",
+              "san": "Qc2",
+              "title": "White prepares recapture",
+              "explanation": "White wants to avoid doubled pawns."
+            },
+            {
+              "uci": "e8g8",
+              "san": "O-O",
+              "title": "Recommended: castle",
+              "explanation": "Castle and keep pressure. Do not rush captures without a reason."
+            }
+          ],
+          "hints": [
+            "Start by recognizing d4.",
+            "The key training move in this branch is O-O.",
+            "Follow the highlighted move and keep your plan simple."
+          ],
+          "coachingNotes": [
+            "If White prepares to recapture with the queen, castle.",
+            "Castle and keep pressure. Do not rush captures without a reason."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "practice-quiz",
+      "title": "Practice Drills & Mini Quiz",
+      "branches": [
+        {
+          "id": "final-review",
+          "title": "Final Review",
+          "description": "Replay the Nimzo setup.",
+          "moves": [
+            {
+              "uci": "d2d4",
+              "san": "d4",
+              "title": "White d4",
+              "explanation": "Center."
+            },
+            {
+              "uci": "g8f6",
+              "san": "Nf6",
+              "title": "Knight",
+              "explanation": "Develop."
+            },
+            {
+              "uci": "c2c4",
+              "san": "c4",
+              "title": "Space",
+              "explanation": "White expands."
+            },
+            {
+              "uci": "e7e6",
+              "san": "e6",
+              "title": "Prepare",
+              "explanation": "Open bishop."
+            },
+            {
+              "uci": "b1c3",
+              "san": "Nc3",
+              "title": "Knight",
+              "explanation": "Pin target."
+            },
+            {
+              "uci": "f8b4",
+              "san": "Bb4",
+              "title": "Pin",
+              "explanation": "Nimzo."
+            }
+          ],
+          "hints": [
+            "Start by recognizing d4.",
+            "The key training move in this branch is Bb4.",
+            "Follow the highlighted move and keep your plan simple."
+          ],
+          "coachingNotes": [
+            "Replay the Nimzo setup.",
+            "Nimzo."
+          ],
+          "completion": {
+            "attempts": 0,
+            "completed": false,
+            "mistakes": 0
+          }
+        }
+      ]
+    }
+  ],
+  "ideas": [
+    "Pin the knight on c3.",
+    "Fight for e4 control.",
+    "Create long-term positional pressure."
+  ],
+  "commonMistakes": [
+    "Capturing on c3 without understanding why.",
+    "Forgetting to castle.",
+    "Ignoring central control."
+  ],
+  "tree": {},
+  "training": {
+    "mode": "guided-line",
+    "startingFen": "startpos",
+    "sideToTrain": "black"
+  },
+  "spacedRepetition": {
+    "attempts": 0,
+    "mistakes": 0,
+    "accuracy": 0,
+    "completedLines": 0,
+    "confidence": "new",
+    "lastReviewed": null
+  }
+}
