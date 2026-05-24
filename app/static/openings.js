@@ -602,8 +602,11 @@ function renderOpeningRoadmap(
   const sections = groupLinesBySection(lines);
   const openSections = loadOpenSections(openingId);
   const activeProgress = progressForLine(activeLine, activeIndex, completions, progress);
-  const currentMove = activeLine.moves[activeIndex];
-  const nextMove = activeLine.moves[activeIndex + 1];
+  const activeLineMoves = renderSidebarMoveItems(activeLine, {
+    activeIndex,
+    isActiveLine: true,
+    isComplete: Boolean(completions[activeLine.id]?.completed),
+  });
 
   container.innerHTML = `
     <section class="opening-roadmap-current" aria-live="polite">
@@ -615,8 +618,10 @@ function renderOpeningRoadmap(
       </div>
       <div class="opening-current-move-card">
         <small>${activeProgress.done}/${activeProgress.total} complete</small>
-        <strong>${currentMove ? `Now: ${currentMove.san}` : "Line complete"}</strong>
-        <span>${nextMove ? `Next: ${nextMove.san}` : "Pick another branch when ready."}</span>
+        <strong>${activeProgress.done >= activeProgress.total ? "Line complete" : "Active line"}</strong>
+        <ol class="opening-move-list opening-current-line-list is-active-list" aria-label="${activeLine.title} active move list">
+          ${activeLineMoves}
+        </ol>
       </div>
     </section>
     ${sections.map((section) => {
@@ -624,27 +629,7 @@ function renderOpeningRoadmap(
         const isActiveLine = line.id === activeLine.id;
         const isComplete = Boolean(completions[line.id]?.completed);
         const lineProgress = progressForLine(line, isActiveLine ? activeIndex : 0, completions, progress);
-
-        const moves = line.moves.map((move, index) => {
-          const state = isActiveLine
-            ? moveTrackerState(index, activeIndex, isComplete)
-            : (isComplete ? "done" : "upcoming");
-
-          return `
-            <li
-              class="${state}"
-              data-line-id="${line.id}"
-              data-line-index="${index}"
-              role="button"
-              tabindex="0"
-              aria-label="Jump to ${move.san} in ${line.title}"
-            >
-              <span class="move-state-icon" aria-hidden="true">${moveStateIcon(state)}</span>
-              <strong>${renderMoveLabel(move, index)}</strong>
-              <small>${move.title || move.uci}</small>
-            </li>
-          `;
-        }).join("");
+        const moves = renderSidebarMoveItems(line, { activeIndex, isActiveLine, isComplete });
 
         return `
           <article class="opening-roadmap-entry ${isActiveLine ? "is-active-entry" : ""}">
@@ -661,7 +646,7 @@ function renderOpeningRoadmap(
               <small>${line.description || "Guided response"}</small>
               <b class="opening-line-meter" aria-hidden="true"><i style="width: ${lineProgress.percent}%"></i></b>
             </button>
-            <ol class="opening-move-list ${isActiveLine ? "is-active-list" : "is-collapsed-list"}" aria-label="${line.title} move list">
+            <ol class="opening-move-list ${isActiveLine ? "is-active-list" : "is-line-list"}" aria-label="${line.title} move list">
               ${moves}
             </ol>
           </article>
@@ -687,6 +672,30 @@ function renderOpeningRoadmap(
 
   const activeLineButton = container.querySelector(".opening-roadmap-line.is-active");
   activeLineButton?.scrollIntoView?.({ block: "nearest", behavior: "smooth" });
+}
+
+function renderSidebarMoveItems(line, { activeIndex = 0, isActiveLine = false, isComplete = false } = {}) {
+  return line.moves.map((move, index) => {
+    const state = isActiveLine
+      ? moveTrackerState(index, activeIndex, isComplete)
+      : (isComplete ? "done" : "upcoming");
+
+    return `
+      <li
+        class="${state}"
+        data-line-id="${line.id}"
+        data-line-index="${index}"
+        role="button"
+        tabindex="0"
+        aria-label="Jump to ${move.san} in ${line.title}"
+        title="${move.title || move.uci}"
+      >
+        <span class="move-state-icon" aria-hidden="true">${moveStateIcon(state)}</span>
+        <strong>${renderMoveLabel(move, index)}</strong>
+        <small>${move.title || move.uci}</small>
+      </li>
+    `;
+  }).join("");
 }
 
 function renderMoveLabel(move, index) {

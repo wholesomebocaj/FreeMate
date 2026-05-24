@@ -1,4 +1,5 @@
 /* pages/openings.css */
+
 .openings-shell {
     max-width: 1280px;
     padding-top: 34px;
@@ -12,18 +13,27 @@
     margin-bottom: 28px;
 }
 
+.openings-hero h1,
+.opening-overview-main h1 {
+    letter-spacing: 0;
+    line-height: 0.96;
+    margin: 0;
+}
+
 .openings-hero h1 {
     font-size: clamp(2.5rem, 5vw, 5.5rem);
-    letter-spacing: 0;
-    line-height: 0.95;
-    margin: 0;
     max-width: 920px;
 }
 
+.opening-overview-main h1 {
+    font-size: clamp(2.4rem, 5vw, 5rem);
+    margin-bottom: 14px;
+}
+
 .openings-hero p,
-.opening-overview-main p {
+.opening-overview-main p,
+.opening-row-main p {
     color: var(--muted);
-    max-width: 760px;
 }
 
 .opening-filter-row {
@@ -59,11 +69,7 @@
 
 .opening-row {
     align-items: center;
-    background: linear-gradient(
-        180deg,
-        rgba(31, 41, 55, 0.92),
-        rgba(31, 41, 55, 0.78)
-    );
+    background: rgba(31, 41, 55, 0.86);
     border: 1px solid rgba(249, 250, 251, 0.08);
     border-radius: 14px;
     box-shadow: 0 16px 44px rgba(0, 0, 0, 0.22);
@@ -71,9 +77,7 @@
     gap: 18px;
     grid-template-columns: 104px 1fr auto;
     padding: 16px;
-    transition:
-        border-color 180ms ease,
-        transform 180ms ease;
+    transition: border-color 180ms ease, transform 180ms ease;
 }
 
 .opening-row:hover {
@@ -85,11 +89,7 @@
     align-items: center;
     aspect-ratio: 1;
     background:
-        linear-gradient(
-            135deg,
-            rgba(238, 238, 210, 0.98) 0 50%,
-            rgba(118, 150, 86, 0.98) 50%
-        ),
+        linear-gradient(135deg, #eeeed2 0 50%, #769656 50%),
         #769656;
     border-radius: 10px;
     color: #111827;
@@ -105,7 +105,6 @@
 }
 
 .opening-row-main p {
-    color: var(--muted);
     margin: 0;
 }
 
@@ -127,9 +126,15 @@
     padding: 7px 10px;
 }
 
-.opening-row-actions {
+.opening-row-actions,
+.opening-overview-actions {
     display: flex;
+    flex-wrap: wrap;
     gap: 10px;
+}
+
+.opening-overview-actions {
+    margin-top: 22px;
 }
 
 .opening-overview-grid {
@@ -151,19 +156,6 @@
     padding: 22px;
 }
 
-.opening-overview-main h1 {
-    font-size: clamp(2.4rem, 5vw, 5rem);
-    line-height: 0.95;
-    margin: 0 0 14px;
-}
-
-.opening-overview-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 22px;
-}
-
 .opening-line-list,
 .opening-next-moves,
 .opening-move-list {
@@ -187,8 +179,7 @@
     padding: 12px;
 }
 
-.opening-line-list span,
-.opening-move-list span {
+.opening-line-list span {
     color: var(--accent);
     font-weight: 950;
 }
@@ -217,405 +208,7 @@
     justify-content: space-between;
 }
 
-.opening-trainer-shell {
-    display: grid;
-    gap: 18px;
-    grid-template-columns: 280px minmax(520px, 1fr) 320px;
-    max-width: 1500px;
-    padding: 22px;
-}
-
-.opening-trainer-panel {
-    align-self: start;
-    position: sticky;
-    top: 86px;
-}
-
-.opening-trainer-panel h2 {
-    margin-top: 0;
-}
-
-.opening-roadmap {
-    display: grid;
-    gap: 12px;
-    max-height: calc(100vh - 220px);
-    overflow: auto;
-    padding-right: 4px;
-}
-
-.opening-roadmap-current {
-    background:
-        linear-gradient(
-            135deg,
-            rgba(34, 197, 94, 0.13),
-            rgba(34, 197, 94, 0.035)
-        ),
-        rgba(17, 24, 39, 0.5);
-    border: 1px solid rgba(34, 197, 94, 0.22);
-    border-radius: 14px;
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
-    padding: 13px;
-}
-
-.opening-roadmap-current h3 {
-    font-size: 1rem;
-    line-height: 1.3;
-    margin: 2px 0 4px;
-}
-
-.opening-roadmap-current > span {
-    color: var(--muted);
-    display: block;
-    font-size: 0.76rem;
-    font-weight: 850;
-    margin-bottom: 10px;
-}
-
-.opening-sidebar-progress,
-.opening-line-meter {
-    background: rgba(249, 250, 251, 0.1);
-    border-radius: 999px;
-    display: block;
-    height: 6px;
-    overflow: hidden;
-}
-
-.opening-sidebar-progress i,
-.opening-line-meter i {
-    background: linear-gradient(
-        90deg,
-        rgba(34, 197, 94, 0.95),
-        rgba(134, 239, 172, 0.92)
-    );
-    border-radius: inherit;
-    display: block;
-    height: 100%;
-    transition: width 240ms ease;
-}
-
-.opening-current-move-card {
-    background: rgba(17, 24, 39, 0.34);
-    border: 1px solid rgba(249, 250, 251, 0.07);
-    border-radius: 12px;
-    display: grid;
-    gap: 3px;
-    margin-top: 10px;
-    padding: 10px;
-}
-
-.opening-current-move-card small,
-.opening-current-move-card span {
-    color: var(--muted);
-    font-size: 0.74rem;
-    font-weight: 850;
-}
-
-.opening-current-move-card strong {
-    color: var(--text);
-    font-size: 0.92rem;
-    line-height: 1.3;
-}
-
-.opening-roadmap-section {
-    background: rgba(249, 250, 251, 0.045);
-    border: 1px solid rgba(249, 250, 251, 0.07);
-    border-radius: 12px;
-    overflow: hidden;
-}
-
-.opening-roadmap-section summary {
-    cursor: pointer;
-    font-weight: 950;
-    list-style: none;
-    padding: 12px 12px 10px;
-}
-
-.opening-roadmap-section summary::-webkit-details-marker {
-    display: none;
-}
-
-.opening-roadmap-section summary::before {
-    color: var(--accent);
-    content: "▸";
-    display: inline-block;
-    margin-right: 8px;
-    transition: transform 160ms ease;
-}
-
-.opening-roadmap-section[open] summary::before {
-    transform: rotate(90deg);
-}
-
-.opening-roadmap-section-body {
-    display: grid;
-    gap: 10px;
-    padding: 0 10px 10px;
-}
-
-.opening-roadmap-entry {
-    background: rgba(17, 24, 39, 0.24);
-    border: 1px solid rgba(249, 250, 251, 0.06);
-    border-radius: 12px;
-    overflow: hidden;
-}
-
-.opening-roadmap-entry.is-active-entry {
-    border-color: rgba(34, 197, 94, 0.2);
-    box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.08);
-}
-
-.opening-roadmap-line {
-    background: transparent;
-    border: 0;
-    color: var(--text);
-    cursor: pointer;
-    display: grid;
-    gap: 7px;
-    padding: 10px 12px;
-    text-align: left;
-    width: 100%;
-    transition: background 180ms ease, box-shadow 180ms ease;
-}
-
-.opening-roadmap-line:hover {
-    background: rgba(249, 250, 251, 0.025);
-}
-
-.opening-roadmap-line span {
-    align-items: start;
-    display: grid;
-    gap: 8px;
-    grid-template-columns: minmax(0, 1fr) auto;
-}
-
-.opening-roadmap-line strong {
-    font-size: 0.98rem;
-    font-weight: 950;
-    line-height: 1.28;
-    min-width: 0;
-    overflow-wrap: anywhere;
-}
-
-.opening-roadmap-line em {
-    background: rgba(249, 250, 251, 0.08);
-    border: 1px solid rgba(249, 250, 251, 0.08);
-    border-radius: 999px;
-    color: rgba(249, 250, 251, 0.7);
-    font-size: 0.66rem;
-    font-style: normal;
-    font-weight: 950;
-    padding: 5px 8px;
-    white-space: nowrap;
-}
-
-.opening-roadmap-line small {
-    color: var(--muted);
-    font-size: 0.74rem;
-    font-weight: 800;
-    line-height: 1.35;
-}
-
-.opening-line-meter {
-    height: 5px;
-}
-
-.opening-roadmap-line.is-active {
-    background:
-        linear-gradient(
-            135deg,
-            rgba(34, 197, 94, 0.14),
-            rgba(34, 197, 94, 0.05)
-        ),
-        rgba(17, 24, 39, 0.22);
-    box-shadow: inset 3px 0 0 rgba(34, 197, 94, 0.9);
-}
-
-.opening-roadmap-line.is-active em {
-    background: rgba(34, 197, 94, 0.18);
-    border-color: rgba(34, 197, 94, 0.25);
-    color: rgba(220, 252, 231, 0.95);
-}
-
-.opening-roadmap-line.is-complete small {
-    color: rgba(34, 197, 94, 0.78);
-}
-
-.opening-move-list {
-    display: grid;
-    gap: 6px;
-    list-style: none;
-    margin: 0;
-    padding: 0 10px 10px;
-}
-
-.opening-move-list li {
-    align-items: center;
-    background: rgba(249, 250, 251, 0.04);
-    border: 1px solid rgba(249, 250, 251, 0.06);
-    border-radius: 10px;
-    cursor: pointer;
-    display: grid;
-    gap: 3px 8px;
-    grid-template-columns: 20px minmax(0, 1fr);
-    padding: 8px 9px;
-    transition:
-        background 180ms ease,
-        border-color 180ms ease,
-        box-shadow 180ms ease,
-        opacity 180ms ease,
-        transform 180ms ease;
-}
-
-.opening-move-list li:hover,
-.opening-move-list li:focus-visible {
-    border-color: rgba(34, 197, 94, 0.32);
-    box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.12);
-    opacity: 1;
-    outline: none;
-    transform: translateX(2px);
-}
-
-.opening-move-list .move-state-icon {
-    align-items: center;
-    background: rgba(249, 250, 251, 0.08);
-    border-radius: 999px;
-    color: rgba(249, 250, 251, 0.75);
-    display: inline-flex;
-    font-size: 0.7rem;
-    font-weight: 900;
-    height: 18px;
-    justify-content: center;
-    width: 18px;
-}
-
-.opening-move-list li strong {
-    font-size: 0.8rem;
-    line-height: 1.25;
-    min-width: 0;
-}
-
-.opening-move-list li small {
-    color: var(--muted);
-    font-size: 0.68rem;
-    font-weight: 800;
-    grid-column: 2;
-    line-height: 1.25;
-}
-
-.opening-move-list li.active {
-    background: rgba(34, 197, 94, 0.14);
-    border-color: rgba(34, 197, 94, 0.48);
-    box-shadow:
-        0 0 0 1px rgba(34, 197, 94, 0.16),
-        0 0 16px rgba(34, 197, 94, 0.1);
-}
-
-.opening-move-list li.active .move-state-icon {
-    animation: opening-current-pulse 1500ms ease-in-out infinite;
-    background: rgba(34, 197, 94, 0.24);
-    color: rgba(220, 252, 231, 0.98);
-}
-
-.opening-move-list li.done {
-    background: rgba(34, 197, 94, 0.09);
-    border-color: rgba(34, 197, 94, 0.2);
-}
-
-.opening-move-list li.done .move-state-icon {
-    background: rgba(34, 197, 94, 0.2);
-    color: rgba(220, 252, 231, 0.94);
-}
-
-.opening-move-list li.upcoming {
-    opacity: 0.82;
-}
-
-.opening-move-list.is-collapsed-list li {
-    background: rgba(249, 250, 251, 0.03);
-}
-
-.opening-move-list.is-collapsed-list li.upcoming {
-    opacity: 0.72;
-}
-
-.opening-move-list.is-active-list {
-    border-top: 1px solid rgba(34, 197, 94, 0.08);
-    padding-top: 10px;
-}
-
-.opening-trainer-board-card {
-    background: rgba(31, 41, 55, 0.86);
-    border: 1px solid rgba(249, 250, 251, 0.08);
-    border-radius: 18px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.24);
-    padding: 22px;
-}
-
-.opening-overview-main h1 {
-    font-size: clamp(2.4rem, 5vw, 5rem);
-    line-height: 0.95;
-    margin: 0 0 14px;
-}
-
-.opening-overview-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 22px;
-}
-
-.opening-line-list,
-.opening-next-moves,
-.opening-move-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.opening-line-list {
-    display: grid;
-    gap: 12px;
-}
-
-.opening-line-list li {
-    background: rgba(249, 250, 251, 0.055);
-    border: 1px solid rgba(249, 250, 251, 0.07);
-    border-radius: 12px;
-    display: grid;
-    gap: 4px 12px;
-    grid-template-columns: 34px 68px 1fr;
-    padding: 12px;
-}
-
-.opening-line-list span,
-.opening-move-list span {
-    color: var(--accent);
-    font-weight: 950;
-}
-
-.opening-line-list p {
-    color: var(--muted);
-    grid-column: 3;
-    margin: 0;
-}
-
-.opening-stats-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin: 14px 0;
-}
-
-.opening-next-moves {
-    display: grid;
-    gap: 8px;
-}
-
-.opening-next-moves li {
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
-}
+/* Trainer layout */
 
 .opening-trainer-shell {
     display: grid;
@@ -627,287 +220,13 @@
 
 .opening-trainer-panel {
     align-self: start;
+    min-width: 0;
     position: sticky;
     top: 86px;
 }
 
 .opening-trainer-panel h2 {
     margin-top: 0;
-}
-
-.opening-move-list {
-    display: grid;
-    gap: 8px;
-}
-
-.opening-roadmap {
-    display: grid;
-    gap: 12px;
-    max-height: calc(100vh - 220px);
-    overflow: auto;
-    padding-right: 4px;
-}
-
-.opening-roadmap-current {
-    background:
-        linear-gradient(
-            135deg,
-            rgba(34, 197, 94, 0.16),
-            rgba(34, 197, 94, 0.04)
-        ),
-        rgba(17, 24, 39, 0.54);
-    border: 1px solid rgba(34, 197, 94, 0.28);
-    border-radius: 14px;
-    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.2);
-    padding: 14px;
-}
-
-.opening-roadmap-current h3 {
-    font-size: 1.05rem;
-    margin: 2px 0 4px;
-}
-
-.opening-roadmap-current > span {
-    color: var(--muted);
-    display: block;
-    font-size: 0.78rem;
-    font-weight: 850;
-    margin-bottom: 10px;
-}
-
-.opening-sidebar-progress,
-.opening-line-meter {
-    background: rgba(249, 250, 251, 0.1);
-    border-radius: 999px;
-    display: block;
-    height: 7px;
-    overflow: hidden;
-}
-
-.opening-sidebar-progress i,
-.opening-line-meter i {
-    background: linear-gradient(
-        90deg,
-        rgba(34, 197, 94, 0.95),
-        rgba(134, 239, 172, 0.92)
-    );
-    border-radius: inherit;
-    display: block;
-    height: 100%;
-    transition: width 240ms ease;
-}
-
-.opening-current-move-card {
-    background: rgba(17, 24, 39, 0.42);
-    border: 1px solid rgba(249, 250, 251, 0.08);
-    border-radius: 12px;
-    display: grid;
-    gap: 4px;
-    margin-top: 10px;
-    padding: 10px;
-}
-
-.opening-current-move-card small,
-.opening-current-move-card span {
-    color: var(--muted);
-    font-size: 0.76rem;
-    font-weight: 850;
-}
-
-.opening-current-move-card strong {
-    color: var(--text);
-    font-size: 0.95rem;
-}
-
-.opening-roadmap-section {
-    background: rgba(249, 250, 251, 0.045);
-    border: 1px solid rgba(249, 250, 251, 0.07);
-    border-radius: 12px;
-    overflow: hidden;
-}
-
-.opening-roadmap-section summary {
-    cursor: pointer;
-    font-weight: 950;
-    list-style: none;
-    padding: 12px 12px 10px;
-}
-
-.opening-roadmap-section summary::-webkit-details-marker {
-    display: none;
-}
-
-.opening-roadmap-section summary::before {
-    color: var(--accent);
-    content: "▸";
-    display: inline-block;
-    margin-right: 8px;
-    transition: transform 160ms ease;
-}
-
-.opening-roadmap-section[open] summary::before {
-    transform: rotate(90deg);
-}
-
-.opening-roadmap-line {
-    background: transparent;
-    border: 0;
-    border-top: 1px solid rgba(249, 250, 251, 0.07);
-    color: var(--text);
-    cursor: pointer;
-    display: grid;
-    gap: 7px;
-    padding: 10px 12px;
-    text-align: left;
-    width: 100%;
-}
-
-.opening-roadmap-line span {
-    align-items: center;
-    display: flex;
-    gap: 8px;
-    justify-content: space-between;
-}
-
-.opening-roadmap-line strong {
-    font-weight: 950;
-}
-
-.opening-roadmap-line em {
-    background: rgba(249, 250, 251, 0.08);
-    border: 1px solid rgba(249, 250, 251, 0.08);
-    border-radius: 999px;
-    color: rgba(249, 250, 251, 0.7);
-    font-size: 0.66rem;
-    font-style: normal;
-    font-weight: 950;
-    padding: 4px 7px;
-    white-space: nowrap;
-}
-
-.opening-roadmap-line small {
-    color: var(--muted);
-    font-size: 0.76rem;
-    font-weight: 800;
-    line-height: 1.35;
-}
-
-.opening-line-meter {
-    height: 5px;
-}
-
-.opening-roadmap-line.is-active {
-    background:
-        linear-gradient(
-            135deg,
-            rgba(34, 197, 94, 0.18),
-            rgba(34, 197, 94, 0.06)
-        ),
-        rgba(17, 24, 39, 0.28);
-    box-shadow:
-        inset 4px 0 0 rgba(34, 197, 94, 0.92),
-        0 0 28px rgba(34, 197, 94, 0.1);
-}
-
-.opening-roadmap-line.is-active em {
-    background: rgba(34, 197, 94, 0.2);
-    border-color: rgba(34, 197, 94, 0.28);
-    color: rgba(220, 252, 231, 0.95);
-}
-
-.opening-roadmap-line.is-complete {
-    color: rgba(249, 250, 251, 0.86);
-}
-
-.opening-roadmap-line.is-complete small {
-    color: rgba(34, 197, 94, 0.78);
-}
-
-.opening-roadmap-line + .opening-move-list {
-    background: rgba(17, 24, 39, 0.28);
-    border-top: 1px solid rgba(34, 197, 94, 0.1);
-    padding: 10px;
-}
-
-.opening-move-list li {
-    align-items: center;
-    background: rgba(249, 250, 251, 0.052);
-    border: 1px solid rgba(249, 250, 251, 0.07);
-    border-radius: 10px;
-    cursor: pointer;
-    display: grid;
-    gap: 6px 8px;
-    grid-template-columns: 24px 1fr;
-    padding: 9px 10px;
-    transition:
-        background 180ms ease,
-        border-color 180ms ease,
-        box-shadow 180ms ease,
-        opacity 180ms ease,
-        transform 180ms ease;
-}
-
-.opening-move-list li:hover,
-.opening-move-list li:focus-visible {
-    border-color: rgba(34, 197, 94, 0.38);
-    box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.16);
-    opacity: 1;
-    outline: none;
-    transform: translateX(2px);
-}
-
-.opening-move-list .move-state-icon {
-    align-items: center;
-    background: rgba(249, 250, 251, 0.08);
-    border-radius: 999px;
-    display: inline-flex;
-    font-size: 0.76rem;
-    height: 22px;
-    justify-content: center;
-    width: 22px;
-}
-
-.opening-move-list li strong {
-    font-size: 0.95rem;
-    line-height: 1;
-}
-
-.opening-move-list li small {
-    grid-column: 2;
-    line-height: 1.3;
-}
-
-.opening-move-list li.active {
-    background: rgba(34, 197, 94, 0.16);
-    border-color: rgba(34, 197, 94, 0.55);
-    box-shadow:
-        0 0 0 1px rgba(34, 197, 94, 0.2),
-        0 0 22px rgba(34, 197, 94, 0.14);
-}
-
-.opening-move-list li.active .move-state-icon {
-    animation: opening-current-pulse 1500ms ease-in-out infinite;
-    background: rgba(34, 197, 94, 0.25);
-    color: rgba(220, 252, 231, 0.98);
-}
-
-.opening-move-list li.done {
-    background: rgba(34, 197, 94, 0.12);
-    border-color: rgba(34, 197, 94, 0.24);
-}
-
-.opening-move-list li.done .move-state-icon {
-    background: rgba(34, 197, 94, 0.22);
-    color: rgba(220, 252, 231, 0.94);
-}
-
-.opening-move-list li.upcoming {
-    opacity: 0.64;
-}
-
-.opening-move-list small {
-    color: var(--muted);
-    font-weight: 850;
 }
 
 .opening-trainer-board-card {
@@ -931,6 +250,278 @@
     animation: opening-board-shake 420ms ease;
 }
 
+/* Opening roadmap */
+
+.opening-roadmap {
+    display: grid;
+    gap: 12px;
+    max-height: calc(100vh - 220px);
+    overflow: auto;
+    padding-right: 4px;
+}
+
+.opening-roadmap-current,
+.opening-roadmap-section,
+.opening-roadmap-entry {
+    background: rgba(17, 24, 39, 0.34);
+    border: 1px solid rgba(249, 250, 251, 0.08);
+    border-radius: 12px;
+}
+
+.opening-roadmap-current {
+    border-color: rgba(34, 197, 94, 0.28);
+    padding: 12px;
+}
+
+.opening-roadmap-current h3 {
+    font-size: 1rem;
+    line-height: 1.25;
+    margin: 2px 0 4px;
+}
+
+.opening-roadmap-current > span {
+    color: var(--muted);
+    display: block;
+    font-size: 0.76rem;
+    font-weight: 850;
+    margin-bottom: 10px;
+}
+
+.opening-sidebar-progress,
+.opening-line-meter {
+    background: rgba(249, 250, 251, 0.1);
+    border-radius: 999px;
+    display: block;
+    height: 5px;
+    overflow: hidden;
+}
+
+.opening-sidebar-progress i,
+.opening-line-meter i {
+    background: var(--accent);
+    border-radius: inherit;
+    display: block;
+    height: 100%;
+    transition: width 220ms ease;
+}
+
+.opening-current-move-card {
+    background: rgba(17, 24, 39, 0.32);
+    border: 1px solid rgba(249, 250, 251, 0.07);
+    border-radius: 10px;
+    display: grid;
+    gap: 8px;
+    margin-top: 10px;
+    padding: 9px;
+}
+
+.opening-current-move-card small,
+.opening-current-move-card span {
+    color: var(--muted);
+    font-size: 0.72rem;
+    font-weight: 850;
+}
+
+.opening-current-move-card strong {
+    color: var(--text);
+    font-size: 0.84rem;
+}
+
+.opening-roadmap-section {
+    overflow: hidden;
+}
+
+.opening-roadmap-section summary {
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 950;
+    list-style: none;
+    padding: 10px 12px;
+}
+
+.opening-roadmap-section summary::-webkit-details-marker {
+    display: none;
+}
+
+.opening-roadmap-section summary::before {
+    color: var(--accent);
+    content: "▸";
+    display: inline-block;
+    margin-right: 8px;
+    transition: transform 160ms ease;
+}
+
+.opening-roadmap-section[open] summary::before {
+    transform: rotate(90deg);
+}
+
+.opening-roadmap-section-body {
+    display: grid;
+    gap: 8px;
+    padding: 0 8px 8px;
+}
+
+.opening-roadmap-entry {
+    min-width: 0;
+    overflow: hidden;
+}
+
+.opening-roadmap-entry.is-active-entry {
+    border-color: rgba(34, 197, 94, 0.42);
+    box-shadow: inset 3px 0 0 rgba(34, 197, 94, 0.88);
+}
+
+.opening-roadmap-line {
+    background: transparent;
+    border: 0;
+    color: var(--text);
+    cursor: pointer;
+    display: grid;
+    gap: 6px;
+    min-width: 0;
+    padding: 9px 10px;
+    text-align: left;
+    width: 100%;
+}
+
+.opening-roadmap-line:hover {
+    background: rgba(249, 250, 251, 0.035);
+}
+
+.opening-roadmap-line span {
+    align-items: start;
+    display: grid;
+    gap: 8px;
+    grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.opening-roadmap-line strong {
+    font-size: 0.86rem;
+    font-weight: 950;
+    line-height: 1.2;
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.opening-roadmap-line em {
+    background: rgba(249, 250, 251, 0.08);
+    border-radius: 999px;
+    color: rgba(249, 250, 251, 0.76);
+    font-size: 0.58rem;
+    font-style: normal;
+    font-weight: 950;
+    padding: 3px 6px;
+    white-space: nowrap;
+}
+
+.opening-roadmap-line small {
+    color: var(--muted);
+    display: -webkit-box;
+    font-size: 0.68rem;
+    font-weight: 800;
+    line-height: 1.25;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+
+.opening-roadmap-line.is-active {
+    background: rgba(34, 197, 94, 0.12);
+}
+
+.opening-roadmap-line.is-active em {
+    background: rgba(34, 197, 94, 0.2);
+    color: rgba(220, 252, 231, 0.95);
+}
+
+.opening-roadmap-line.is-complete small {
+    color: rgba(34, 197, 94, 0.78);
+}
+
+.opening-roadmap-line + .opening-move-list,
+.opening-current-line-list {
+    border-top: 1px solid rgba(249, 250, 251, 0.06);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    padding: 8px;
+}
+
+.opening-current-line-list {
+    background: rgba(17, 24, 39, 0.24);
+    border: 1px solid rgba(249, 250, 251, 0.06);
+    border-radius: 10px;
+}
+
+.opening-move-list li {
+    align-items: center;
+    background: rgba(249, 250, 251, 0.052);
+    border: 1px solid rgba(249, 250, 251, 0.07);
+    border-radius: 999px;
+    cursor: pointer;
+    display: inline-grid;
+    gap: 4px;
+    grid-template-columns: 16px auto;
+    min-width: 0;
+    padding: 5px 7px;
+    transition: background 160ms ease, border-color 160ms ease, opacity 160ms ease;
+}
+
+.opening-move-list li:hover,
+.opening-move-list li:focus-visible {
+    background: rgba(249, 250, 251, 0.08);
+    border-color: rgba(34, 197, 94, 0.36);
+    outline: none;
+}
+
+.opening-move-list .move-state-icon {
+    align-items: center;
+    background: rgba(249, 250, 251, 0.08);
+    border-radius: 999px;
+    color: rgba(249, 250, 251, 0.75);
+    display: inline-flex;
+    font-size: 0.56rem;
+    font-weight: 900;
+    height: 16px;
+    justify-content: center;
+    width: 16px;
+}
+
+.opening-move-list li strong {
+    font-size: 0.72rem;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.opening-move-list li small {
+    display: none;
+}
+
+.opening-move-list li.active {
+    background: rgba(34, 197, 94, 0.17);
+    border-color: rgba(34, 197, 94, 0.54);
+}
+
+.opening-move-list li.active .move-state-icon {
+    animation: opening-current-pulse 1500ms ease-in-out infinite;
+    background: rgba(34, 197, 94, 0.25);
+    color: rgba(220, 252, 231, 0.98);
+}
+
+.opening-move-list li.done {
+    background: rgba(34, 197, 94, 0.11);
+    border-color: rgba(34, 197, 94, 0.24);
+}
+
+.opening-move-list li.done .move-state-icon {
+    background: rgba(34, 197, 94, 0.22);
+    color: rgba(220, 252, 231, 0.94);
+}
+
+.opening-move-list li.upcoming {
+    opacity: 0.76;
+}
+
 .opening-note-block {
     border-top: 1px solid rgba(249, 250, 251, 0.08);
     margin-top: 18px;
@@ -941,19 +532,49 @@
     margin: 0 0 10px;
 }
 
-.opening-note-block ul,
-.opening-line-card ul {
+.opening-note-block ul {
     color: var(--muted);
     display: grid;
     gap: 8px;
-    margin-bottom: 0;
+    margin: 0;
     padding-left: 18px;
 }
 
-.lesson-board-feedback.success {
-    color: var(--accent);
+@media (max-width: 1180px) {
+    .opening-trainer-shell {
+        grid-template-columns: 260px minmax(420px, 1fr);
+    }
+
+    .opening-trainer-shell > aside:last-child {
+        grid-column: 1 / -1;
+        position: static;
+    }
 }
 
-.lesson-board-feedback.error {
-    color: #fca5a5;
+@media (max-width: 900px) {
+    .openings-hero,
+    .opening-overview-grid,
+    .opening-trainer-shell {
+        grid-template-columns: 1fr;
+    }
+
+    .opening-trainer-shell {
+        padding: 16px;
+    }
+
+    .opening-trainer-panel {
+        position: static;
+    }
+
+    .opening-roadmap {
+        max-height: none;
+    }
+
+    .opening-row {
+        grid-template-columns: 76px 1fr;
+    }
+
+    .opening-row-actions {
+        grid-column: 1 / -1;
+    }
 }
