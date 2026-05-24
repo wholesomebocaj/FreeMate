@@ -235,6 +235,406 @@
     margin-top: 0;
 }
 
+.opening-roadmap {
+    display: grid;
+    gap: 12px;
+    max-height: calc(100vh - 220px);
+    overflow: auto;
+    padding-right: 4px;
+}
+
+.opening-roadmap-current {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(34, 197, 94, 0.13),
+            rgba(34, 197, 94, 0.035)
+        ),
+        rgba(17, 24, 39, 0.5);
+    border: 1px solid rgba(34, 197, 94, 0.22);
+    border-radius: 14px;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+    padding: 13px;
+}
+
+.opening-roadmap-current h3 {
+    font-size: 1rem;
+    line-height: 1.3;
+    margin: 2px 0 4px;
+}
+
+.opening-roadmap-current > span {
+    color: var(--muted);
+    display: block;
+    font-size: 0.76rem;
+    font-weight: 850;
+    margin-bottom: 10px;
+}
+
+.opening-sidebar-progress,
+.opening-line-meter {
+    background: rgba(249, 250, 251, 0.1);
+    border-radius: 999px;
+    display: block;
+    height: 6px;
+    overflow: hidden;
+}
+
+.opening-sidebar-progress i,
+.opening-line-meter i {
+    background: linear-gradient(
+        90deg,
+        rgba(34, 197, 94, 0.95),
+        rgba(134, 239, 172, 0.92)
+    );
+    border-radius: inherit;
+    display: block;
+    height: 100%;
+    transition: width 240ms ease;
+}
+
+.opening-current-move-card {
+    background: rgba(17, 24, 39, 0.34);
+    border: 1px solid rgba(249, 250, 251, 0.07);
+    border-radius: 12px;
+    display: grid;
+    gap: 3px;
+    margin-top: 10px;
+    padding: 10px;
+}
+
+.opening-current-move-card small,
+.opening-current-move-card span {
+    color: var(--muted);
+    font-size: 0.74rem;
+    font-weight: 850;
+}
+
+.opening-current-move-card strong {
+    color: var(--text);
+    font-size: 0.92rem;
+    line-height: 1.3;
+}
+
+.opening-roadmap-section {
+    background: rgba(249, 250, 251, 0.045);
+    border: 1px solid rgba(249, 250, 251, 0.07);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.opening-roadmap-section summary {
+    cursor: pointer;
+    font-weight: 950;
+    list-style: none;
+    padding: 12px 12px 10px;
+}
+
+.opening-roadmap-section summary::-webkit-details-marker {
+    display: none;
+}
+
+.opening-roadmap-section summary::before {
+    color: var(--accent);
+    content: "▸";
+    display: inline-block;
+    margin-right: 8px;
+    transition: transform 160ms ease;
+}
+
+.opening-roadmap-section[open] summary::before {
+    transform: rotate(90deg);
+}
+
+.opening-roadmap-section-body {
+    display: grid;
+    gap: 10px;
+    padding: 0 10px 10px;
+}
+
+.opening-roadmap-entry {
+    background: rgba(17, 24, 39, 0.24);
+    border: 1px solid rgba(249, 250, 251, 0.06);
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.opening-roadmap-entry.is-active-entry {
+    border-color: rgba(34, 197, 94, 0.2);
+    box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.08);
+}
+
+.opening-roadmap-line {
+    background: transparent;
+    border: 0;
+    color: var(--text);
+    cursor: pointer;
+    display: grid;
+    gap: 7px;
+    padding: 10px 12px;
+    text-align: left;
+    width: 100%;
+    transition: background 180ms ease, box-shadow 180ms ease;
+}
+
+.opening-roadmap-line:hover {
+    background: rgba(249, 250, 251, 0.025);
+}
+
+.opening-roadmap-line span {
+    align-items: start;
+    display: grid;
+    gap: 8px;
+    grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.opening-roadmap-line strong {
+    font-size: 0.98rem;
+    font-weight: 950;
+    line-height: 1.28;
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.opening-roadmap-line em {
+    background: rgba(249, 250, 251, 0.08);
+    border: 1px solid rgba(249, 250, 251, 0.08);
+    border-radius: 999px;
+    color: rgba(249, 250, 251, 0.7);
+    font-size: 0.66rem;
+    font-style: normal;
+    font-weight: 950;
+    padding: 5px 8px;
+    white-space: nowrap;
+}
+
+.opening-roadmap-line small {
+    color: var(--muted);
+    font-size: 0.74rem;
+    font-weight: 800;
+    line-height: 1.35;
+}
+
+.opening-line-meter {
+    height: 5px;
+}
+
+.opening-roadmap-line.is-active {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(34, 197, 94, 0.14),
+            rgba(34, 197, 94, 0.05)
+        ),
+        rgba(17, 24, 39, 0.22);
+    box-shadow: inset 3px 0 0 rgba(34, 197, 94, 0.9);
+}
+
+.opening-roadmap-line.is-active em {
+    background: rgba(34, 197, 94, 0.18);
+    border-color: rgba(34, 197, 94, 0.25);
+    color: rgba(220, 252, 231, 0.95);
+}
+
+.opening-roadmap-line.is-complete small {
+    color: rgba(34, 197, 94, 0.78);
+}
+
+.opening-move-list {
+    display: grid;
+    gap: 6px;
+    list-style: none;
+    margin: 0;
+    padding: 0 10px 10px;
+}
+
+.opening-move-list li {
+    align-items: center;
+    background: rgba(249, 250, 251, 0.04);
+    border: 1px solid rgba(249, 250, 251, 0.06);
+    border-radius: 10px;
+    cursor: pointer;
+    display: grid;
+    gap: 3px 8px;
+    grid-template-columns: 20px minmax(0, 1fr);
+    padding: 8px 9px;
+    transition:
+        background 180ms ease,
+        border-color 180ms ease,
+        box-shadow 180ms ease,
+        opacity 180ms ease,
+        transform 180ms ease;
+}
+
+.opening-move-list li:hover,
+.opening-move-list li:focus-visible {
+    border-color: rgba(34, 197, 94, 0.32);
+    box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.12);
+    opacity: 1;
+    outline: none;
+    transform: translateX(2px);
+}
+
+.opening-move-list .move-state-icon {
+    align-items: center;
+    background: rgba(249, 250, 251, 0.08);
+    border-radius: 999px;
+    color: rgba(249, 250, 251, 0.75);
+    display: inline-flex;
+    font-size: 0.7rem;
+    font-weight: 900;
+    height: 18px;
+    justify-content: center;
+    width: 18px;
+}
+
+.opening-move-list li strong {
+    font-size: 0.8rem;
+    line-height: 1.25;
+    min-width: 0;
+}
+
+.opening-move-list li small {
+    color: var(--muted);
+    font-size: 0.68rem;
+    font-weight: 800;
+    grid-column: 2;
+    line-height: 1.25;
+}
+
+.opening-move-list li.active {
+    background: rgba(34, 197, 94, 0.14);
+    border-color: rgba(34, 197, 94, 0.48);
+    box-shadow:
+        0 0 0 1px rgba(34, 197, 94, 0.16),
+        0 0 16px rgba(34, 197, 94, 0.1);
+}
+
+.opening-move-list li.active .move-state-icon {
+    animation: opening-current-pulse 1500ms ease-in-out infinite;
+    background: rgba(34, 197, 94, 0.24);
+    color: rgba(220, 252, 231, 0.98);
+}
+
+.opening-move-list li.done {
+    background: rgba(34, 197, 94, 0.09);
+    border-color: rgba(34, 197, 94, 0.2);
+}
+
+.opening-move-list li.done .move-state-icon {
+    background: rgba(34, 197, 94, 0.2);
+    color: rgba(220, 252, 231, 0.94);
+}
+
+.opening-move-list li.upcoming {
+    opacity: 0.82;
+}
+
+.opening-move-list.is-collapsed-list li {
+    background: rgba(249, 250, 251, 0.03);
+}
+
+.opening-move-list.is-collapsed-list li.upcoming {
+    opacity: 0.72;
+}
+
+.opening-move-list.is-active-list {
+    border-top: 1px solid rgba(34, 197, 94, 0.08);
+    padding-top: 10px;
+}
+
+.opening-trainer-board-card {
+    background: rgba(31, 41, 55, 0.86);
+    border: 1px solid rgba(249, 250, 251, 0.08);
+    border-radius: 18px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.24);
+    padding: 22px;
+}
+
+.opening-overview-main h1 {
+    font-size: clamp(2.4rem, 5vw, 5rem);
+    line-height: 0.95;
+    margin: 0 0 14px;
+}
+
+.opening-overview-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 22px;
+}
+
+.opening-line-list,
+.opening-next-moves,
+.opening-move-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.opening-line-list {
+    display: grid;
+    gap: 12px;
+}
+
+.opening-line-list li {
+    background: rgba(249, 250, 251, 0.055);
+    border: 1px solid rgba(249, 250, 251, 0.07);
+    border-radius: 12px;
+    display: grid;
+    gap: 4px 12px;
+    grid-template-columns: 34px 68px 1fr;
+    padding: 12px;
+}
+
+.opening-line-list span,
+.opening-move-list span {
+    color: var(--accent);
+    font-weight: 950;
+}
+
+.opening-line-list p {
+    color: var(--muted);
+    grid-column: 3;
+    margin: 0;
+}
+
+.opening-stats-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 14px 0;
+}
+
+.opening-next-moves {
+    display: grid;
+    gap: 8px;
+}
+
+.opening-next-moves li {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
+
+.opening-trainer-shell {
+    display: grid;
+    gap: 18px;
+    grid-template-columns: 280px minmax(520px, 1fr) 320px;
+    max-width: 1500px;
+    padding: 22px;
+}
+
+.opening-trainer-panel {
+    align-self: start;
+    position: sticky;
+    top: 86px;
+}
+
+.opening-trainer-panel h2 {
+    margin-top: 0;
+}
+
 .opening-move-list {
     display: grid;
     gap: 8px;
