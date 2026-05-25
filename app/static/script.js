@@ -789,8 +789,6 @@ function renderCourseLibrary() {
   })[0];
 
   if (recommended) {
-    setText("#continue-title", recommended.course.title);
-    setText("#continue-description", `${recommended.bracketLabel} · ${recommended.topic} · ${recommended.progress}% complete`);
     const continueButton = document.querySelector("#continue-card-button");
     if (continueButton) {
       continueButton.href = `/courses/${recommended.course.id}`;
