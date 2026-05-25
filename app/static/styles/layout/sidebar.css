@@ -21,3 +21,76 @@
     box-shadow: 0 16px 44px rgba(0, 0, 0, 0.24);
     padding: 16px;
 }
+
+.mobile-panel {
+    background: transparent;
+    border: 0;
+    margin: 0;
+    min-width: 0;
+    padding: 0;
+}
+
+.mobile-panel > summary {
+    list-style: none;
+}
+
+.mobile-panel > summary::-webkit-details-marker {
+    display: none;
+}
+
+.mobile-panel-body {
+    display: grid;
+    gap: 12px;
+    min-width: 0;
+}
+
+@media (min-width: 901px) {
+    .mobile-panel > summary {
+        display: none;
+    }
+
+    .mobile-panel-body {
+        display: grid;
+    }
+}
+
+@media (max-width: 900px) {
+    .mobile-panel {
+        background: rgba(31, 41, 55, 0.78);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        box-shadow: var(--shadow);
+        overflow: hidden;
+    }
+
+    .mobile-panel > summary {
+        align-items: center;
+        cursor: pointer;
+        display: flex;
+        font-size: 0.95rem;
+        font-weight: 900;
+        gap: 10px;
+        justify-content: space-between;
+        padding: 14px 16px;
+        user-select: none;
+    }
+
+    .mobile-panel > summary::after {
+        color: var(--muted);
+        content: "▾";
+        flex: 0 0 auto;
+        transition: transform 0.18s ease;
+    }
+
+    .mobile-panel[open] > summary::after {
+        transform: rotate(180deg);
+    }
+
+    .mobile-panel-body {
+        padding: 0 16px 16px;
+    }
+
+    .mobile-panel:not([open]) .mobile-panel-body {
+        display: none;
+    }
+}

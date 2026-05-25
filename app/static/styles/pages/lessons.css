@@ -599,3 +599,70 @@
 .metric-grid p {
     margin: 6px 0 0;
 }
+
+@media (max-width: 900px) {
+    .course-browser-shell {
+        max-width: 100%;
+    }
+
+    .course-browser-hero,
+    .coach-header {
+        gap: 16px;
+        margin-bottom: 16px;
+    }
+
+    .course-browser-hero h1,
+    .coach-header h1 {
+        font-size: clamp(1.9rem, 8vw, 3.2rem);
+    }
+
+    .course-sidebar,
+    .lesson-notes {
+        gap: 12px;
+    }
+
+    .course-sidebar {
+        padding: 14px;
+    }
+
+    .lesson-stage {
+        border-radius: 18px;
+        padding: 18px;
+    }
+
+    .lesson-title-row {
+        margin-top: 12px;
+    }
+
+    .lesson-title-row h1,
+    .lesson-title-row h2 {
+        font-size: clamp(1.8rem, 8vw, 3rem);
+    }
+
+    .lesson-focus-grid,
+    .board-lesson-layout {
+        gap: 16px;
+        grid-template-columns: 1fr;
+    }
+
+    .lesson-practice-board {
+        margin: 14px 0;
+        max-width: min(100%, 92vw);
+    }
+
+    .lesson-controls {
+        justify-content: flex-start;
+    }
+
+    .lesson-controls .button {
+        min-height: 48px;
+    }
+
+    .metric-grid {
+        gap: 10px;
+    }
+
+    .metric-grid div {
+        min-width: 0;
+    }
+}

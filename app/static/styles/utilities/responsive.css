@@ -69,6 +69,81 @@
     }
 }
 
+@media (max-width: 920px) {
+    .practice-header,
+    .course-browser-hero,
+    .coach-header,
+    .openings-hero,
+    .opening-overview-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .practice-layout,
+    .lesson-mode-shell,
+    .opening-trainer-shell {
+        grid-template-columns: 1fr;
+    }
+
+    .practice-layout {
+        grid-template-areas:
+            "board"
+            "panel";
+    }
+
+    .lesson-mode-shell {
+        grid-template-areas:
+            "lesson"
+            "notes"
+            "sidebar";
+    }
+
+    .opening-trainer-shell {
+        grid-template-areas:
+            "board"
+            "notes"
+            "roadmap";
+    }
+
+    .practice-board-wrap {
+        grid-area: board;
+    }
+
+    .practice-panel {
+        grid-area: panel;
+        position: static;
+    }
+
+    .course-sidebar {
+        grid-area: sidebar;
+        max-height: none;
+        overflow: visible;
+    }
+
+    .lesson-stage {
+        grid-area: lesson;
+        min-height: auto;
+        padding: 20px;
+    }
+
+    .lesson-notes {
+        grid-area: notes;
+        position: static;
+    }
+
+    .opening-trainer-board-card {
+        grid-area: board;
+    }
+
+    .opening-trainer-shell > aside:first-child {
+        grid-area: roadmap;
+    }
+
+    .opening-trainer-shell > aside:last-child {
+        grid-area: notes;
+        position: static;
+    }
+}
+
 @media (max-width: 820px) {
     main {
         padding: 24px 16px 44px;
@@ -142,7 +217,11 @@
 }
 
 @media (max-width: 560px) {
-    .navbar,
+    .navbar {
+        align-items: flex-start;
+        gap: 10px;
+    }
+
     .nav-links,
     .input-row,
     .lesson-actions {
@@ -150,10 +229,28 @@
         flex-direction: column;
     }
 
+    .nav-links {
+        flex-direction: row;
+        gap: 6px;
+        overflow-x: auto;
+        padding-bottom: 4px;
+        scrollbar-width: none;
+        width: 100%;
+    }
+
+    .nav-links::-webkit-scrollbar {
+        display: none;
+    }
+
     .nav-links a,
     .button {
         text-align: center;
         width: 100%;
+    }
+
+    .nav-links a {
+        flex: 0 0 auto;
+        width: auto;
     }
 
     .coach-panel,
@@ -164,5 +261,25 @@
     .focus-card {
         border-radius: 18px;
         padding: 16px;
+    }
+
+    .practice-header h1,
+    .lesson-title-row h1,
+    .lesson-title-row h2,
+    .openings-hero h1,
+    .opening-overview-main h1 {
+        font-size: clamp(1.9rem, 10vw, 3rem);
+    }
+
+    .practice-layout,
+    .lesson-mode-shell,
+    .opening-trainer-shell {
+        gap: 14px;
+    }
+
+    .practice-board-wrap,
+    .lesson-stage,
+    .opening-trainer-board-card {
+        padding: 12px;
     }
 }

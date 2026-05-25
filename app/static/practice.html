@@ -72,54 +72,72 @@
                         </div>
                     </div>
 
-                    <div class="focus-card">
-                        <p class="eyebrow">Controls</p>
-                        <div class="practice-actions">
-                            <button
-                                class="button primary"
-                                type="button"
-                                id="reset-board"
-                            >
-                                Reset
-                            </button>
-                            <button
-                                class="button secondary"
-                                type="button"
-                                id="flip-board"
-                            >
-                                Flip Board
-                            </button>
-                            <button
-                                class="button secondary"
-                                type="button"
-                                id="clear-board"
-                            >
-                                Clear Board
-                            </button>
+                    <details class="mobile-panel" data-mobile-collapse open>
+                        <summary>Controls</summary>
+                        <div class="mobile-panel-body">
+                            <div class="focus-card">
+                                <div class="practice-actions">
+                                    <button
+                                        class="button primary"
+                                        type="button"
+                                        id="reset-board"
+                                    >
+                                        Reset
+                                    </button>
+                                    <button
+                                        class="button secondary"
+                                        type="button"
+                                        id="flip-board"
+                                    >
+                                        Flip Board
+                                    </button>
+                                    <button
+                                        class="button secondary"
+                                        type="button"
+                                        id="clear-board"
+                                    >
+                                        Clear Board
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    </details>
 
-                    <form class="focus-card fen-form" id="fen-form">
-                        <label for="fen-input">Load FEN</label>
-                        <textarea
-                            id="fen-input"
-                            rows="4"
-                            spellcheck="false"
-                        ></textarea>
-                        <button class="button primary" type="submit">
-                            Load Position
-                        </button>
-                        <p class="result" id="fen-feedback" role="status"></p>
-                    </form>
+                    <details class="mobile-panel" data-mobile-collapse open>
+                        <summary>Load FEN</summary>
+                        <div class="mobile-panel-body">
+                            <form class="focus-card fen-form" id="fen-form">
+                                <label for="fen-input">Load FEN</label>
+                                <textarea
+                                    id="fen-input"
+                                    rows="4"
+                                    spellcheck="false"
+                                ></textarea>
+                                <button class="button primary" type="submit">
+                                    Load Position
+                                </button>
+                                <p
+                                    class="result"
+                                    id="fen-feedback"
+                                    role="status"
+                                ></p>
+                            </form>
+                        </div>
+                    </details>
 
-                    <div class="focus-card">
-                        <p class="eyebrow">Move history</p>
-                        <ol class="move-history" id="move-history"></ol>
-                    </div>
+                    <details class="mobile-panel" data-mobile-collapse open>
+                        <summary>Move history</summary>
+                        <div class="mobile-panel-body">
+                            <div class="focus-card">
+                                <ol class="move-history" id="move-history"></ol>
+                            </div>
+                        </div>
+                    </details>
                 </aside>
             </section>
         </main>
 
+        <script type="module" src="/static/components/mobile-panels.js"></script>
         <script type="module" src="/static/practice.js"></script>
     </body>
 </html>

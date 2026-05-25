@@ -53,7 +53,12 @@
                         <span id="sidebar-course-percent">0%</span>
                     </div>
                 </div>
-                <div class="course-tree" id="course-tree"></div>
+                <details class="mobile-panel" data-mobile-collapse open>
+                    <summary>Course roadmap</summary>
+                    <div class="mobile-panel-body">
+                        <div class="course-tree" id="course-tree"></div>
+                    </div>
+                </details>
             </aside>
 
             <article class="lesson-stage" id="lesson-player" aria-live="polite">
@@ -62,32 +67,38 @@
             </article>
 
             <aside class="lesson-notes" aria-label="Lesson notes">
-                <div class="focus-card">
-                    <p class="eyebrow">Objective</p>
-                    <h2 id="lesson-objective">Learn the pattern</h2>
-                    <p id="lesson-goal">
-                        Follow the guided steps, then complete the exercise.
-                    </p>
-                </div>
-                <div class="focus-card">
-                    <p class="eyebrow">Lesson progress</p>
-                    <h2 id="lesson-progress-label">Step 1</h2>
-                    <div class="progress-track" aria-hidden="true">
-                        <div
-                            class="progress-fill"
-                            id="lesson-progress-fill"
-                        ></div>
+                <details class="mobile-panel" data-mobile-collapse open>
+                    <summary>Lesson notes</summary>
+                    <div class="mobile-panel-body">
+                        <div class="focus-card">
+                            <p class="eyebrow">Objective</p>
+                            <h2 id="lesson-objective">Learn the pattern</h2>
+                            <p id="lesson-goal">
+                                Follow the guided steps, then complete the exercise.
+                            </p>
+                        </div>
+                        <div class="focus-card">
+                            <p class="eyebrow">Lesson progress</p>
+                            <h2 id="lesson-progress-label">Step 1</h2>
+                            <div class="progress-track" aria-hidden="true">
+                                <div
+                                    class="progress-fill"
+                                    id="lesson-progress-fill"
+                                ></div>
+                            </div>
+                        </div>
+                        <div class="focus-card">
+                            <p class="eyebrow">Coach feedback</p>
+                            <p class="result" id="side-feedback">
+                                Make your first move when you are ready.
+                            </p>
+                        </div>
                     </div>
-                </div>
-                <div class="focus-card">
-                    <p class="eyebrow">Coach feedback</p>
-                    <p class="result" id="side-feedback">
-                        Make your first move when you are ready.
-                    </p>
-                </div>
+                </details>
             </aside>
         </main>
 
+        <script type="module" src="/static/components/mobile-panels.js"></script>
         <script type="module">
             import { LessonRenderer } from "/static/components/LessonRenderer.js";
             import { recordReviewSuccess } from "/static/components/review-store.js";

@@ -32,7 +32,12 @@
             <aside class="opening-trainer-panel">
                 <p class="eyebrow">Opening line</p>
                 <h2 id="trainer-title">Loading</h2>
-                <div id="trainer-roadmap" class="opening-roadmap"></div>
+                <details class="mobile-panel" data-mobile-collapse open>
+                    <summary>Roadmap</summary>
+                    <div class="mobile-panel-body">
+                        <div id="trainer-roadmap" class="opening-roadmap"></div>
+                    </div>
+                </details>
             </aside>
 
             <section class="opening-trainer-board-card">
@@ -58,22 +63,27 @@
             </section>
 
             <aside class="opening-trainer-panel">
-                <p class="eyebrow">Coach notes</p>
-                <h2 id="trainer-note-title">Current idea</h2>
-                <p id="trainer-explanation">
-                    Follow the guided line one move at a time.
-                </p>
-                <div class="opening-note-block">
-                    <h3>Key ideas</h3>
-                    <ul id="trainer-ideas"></ul>
-                </div>
-                <div class="opening-note-block">
-                    <h3>Common mistakes</h3>
-                    <ul id="trainer-mistakes"></ul>
-                </div>
+                <details class="mobile-panel" data-mobile-collapse open>
+                    <summary>Coach notes</summary>
+                    <div class="mobile-panel-body">
+                        <h2 id="trainer-note-title">Current idea</h2>
+                        <p id="trainer-explanation">
+                            Follow the guided line one move at a time.
+                        </p>
+                        <div class="opening-note-block">
+                            <h3>Key ideas</h3>
+                            <ul id="trainer-ideas"></ul>
+                        </div>
+                        <div class="opening-note-block">
+                            <h3>Common mistakes</h3>
+                            <ul id="trainer-mistakes"></ul>
+                        </div>
+                    </div>
+                </details>
             </aside>
         </main>
 
+        <script type="module" src="/static/components/mobile-panels.js"></script>
         <script type="module" src="/static/openings.js"></script>
     </body>
 </html>

@@ -512,3 +512,51 @@
         grid-column: 1 / -1;
     }
 }
+
+@media (max-width: 700px) {
+    .openings-shell {
+        padding-top: 22px;
+    }
+
+    .openings-hero h1,
+    .opening-overview-main h1 {
+        font-size: clamp(2rem, 10vw, 3.2rem);
+    }
+
+    .opening-trainer-shell {
+        gap: 14px;
+        padding: 14px;
+    }
+
+    .opening-trainer-board-card,
+    .opening-trainer-panel {
+        border-radius: 18px;
+        padding: 16px;
+    }
+
+    .opening-trainer-panel h2 {
+        margin-bottom: 8px;
+    }
+
+    .opening-roadmap {
+        max-height: none;
+    }
+
+    .opening-board {
+        margin-top: 14px;
+        max-width: min(100%, 92vw);
+    }
+
+    .opening-note-block {
+        margin-top: 14px;
+        padding-top: 14px;
+    }
+
+    .opening-move-list {
+        gap: 6px;
+    }
+
+    .opening-move-list li {
+        padding: 6px 8px;
+    }
+}

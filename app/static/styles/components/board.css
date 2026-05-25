@@ -140,6 +140,25 @@ button.board-square {
     width: 100%;
 }
 
+@media (max-width: 900px) {
+    .practice-board,
+    .practice-board-component,
+    .chessboard,
+    .lesson-board {
+        border-radius: 14px;
+    }
+
+    .practice-board,
+    .practice-board-component {
+        max-width: min(100%, 92vw);
+    }
+
+    .chessboard,
+    .lesson-board {
+        max-width: min(100%, 92vw);
+    }
+}
+
 .cg-square-layer,
 .cg-highlight-layer {
     display: grid;
