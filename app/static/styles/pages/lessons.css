@@ -242,7 +242,7 @@
 
 .course-browser-grid {
     display: grid;
-    gap: 14px;
+    gap: 140px;
 }
 
 .course-card-grid,
