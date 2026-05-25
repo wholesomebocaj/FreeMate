@@ -239,7 +239,9 @@ function coursePercent(courseItem) {
 
 function courseLibraryMeta(courseItem) {
   const lessons = courseLessons(courseItem);
-  const bracket = findBracketByCourseId(allBrackets(), courseItem.id);
+  const bracket = allBrackets().find((entry) => {
+    return (entry.items || []).some((item) => item.courseId === courseItem.id || item.id === courseItem.id);
+  }) || null;
   const progress = coursePercent(courseItem);
   const completed = lessons.filter((lesson) => completedLessons.has(lesson.id)).length;
   const status = progress >= 100 ? "completed" : completed > 0 ? "in-progress" : "not-started";
@@ -292,7 +294,7 @@ function inferCourseType(courseItem) {
 }
 
 function courseLibrarySortValue(meta) {
-  const bracketIndex = allBrackets().findIndex((entry) => entry.id === meta.bracket?.id || entry.slug === meta.bracket?.slug);
+  const bracketIndex = allBrackets().findIndex((entry) => entry.id === meta.bracket?.id || entry.slug === meta.bracket?.slug || entry.title === meta.bracketLabel);
   const difficultyOrder = {
     Beginner: 0,
     "Beginner+": 1,
