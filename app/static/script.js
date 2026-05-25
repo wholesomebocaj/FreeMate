@@ -1451,7 +1451,7 @@ async function loadCourseData() {
 
   for (const url of sources) {
     try {
-      const response = await fetch(url);
+      const response = await fetch(url, { cache: "no-store" });
       if (!response.ok) continue;
       const data = await response.json();
       return Array.isArray(data) ? data : data ? [data] : [];
@@ -1468,7 +1468,7 @@ async function loadBracketData() {
 
   for (const url of sources) {
     try {
-      const response = await fetch(url);
+      const response = await fetch(url, { cache: "no-store" });
       if (!response.ok) continue;
       const data = await response.json();
       return hydrateBrackets(Array.isArray(data) ? data : []);

@@ -117,7 +117,7 @@ export function lessonStateLabel(course, lessonId, completedLessons) {
 async function loadJsonArray(sources) {
   for (const url of sources) {
     try {
-      const response = await fetch(url);
+      const response = await fetch(url, { cache: "no-store" });
       if (!response.ok) continue;
       const data = await response.json();
       if (Array.isArray(data)) return data;
