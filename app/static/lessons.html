@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Lessons | FreeMate</title>
+        <title>Courses | FreeMate</title>
         <link rel="stylesheet" href="/static/styles/main.css" />
     </head>
     <body>
@@ -20,18 +20,18 @@
             </nav>
         </header>
 
-        <main class="course-browser-shell">
+        <main class="course-browser-shell course-library-shell">
             <section class="course-browser-hero">
                 <div>
-                    <p class="eyebrow">Skill brackets</p>
-                    <h1>Choose your learning level.</h1>
+                    <p class="eyebrow">Courses</p>
+                    <h1>Browse the course library.</h1>
                     <p>
-                        FreeMate groups lessons by skill bracket so you can see
-                        what fits you now and what opens up next.
+                        Filter by level, topic, color, and progress to find the
+                        next lesson path that fits your current game.
                     </p>
                 </div>
                 <div class="coach-stats" id="progress">
-                    <span id="progress-count">0 lessons complete</span>
+                    <span id="progress-count">0 of 0 lessons complete</span>
                     <div class="progress-track" aria-hidden="true">
                         <div class="progress-fill" id="progress-fill"></div>
                     </div>
@@ -40,10 +40,10 @@
 
             <section class="continue-panel">
                 <div>
-                    <p class="eyebrow">Recommended next</p>
-                    <h2 id="continue-title">Beginner</h2>
+                    <p class="eyebrow">Continue learning</p>
+                    <h2 id="continue-title">Beginner Chess Course</h2>
                     <p id="continue-description">
-                        Start with the bracket that matches your current level.
+                        Start with the course that matches your current level.
                     </p>
                 </div>
                 <a
@@ -54,42 +54,52 @@
                 >
             </section>
 
-            <section
-                class="bracket-card-grid"
-                id="bracket-cards"
-                aria-label="Skill brackets"
-            ></section>
-
-            <section class="progress-overview" id="progress-overview">
-                <div class="mini-dashboard">
-                    <p class="eyebrow">Progress dashboard</p>
-                    <h2>FreeMate Path</h2>
-                    <div class="metric-grid">
-                        <div>
-                            <span id="completed-number">0</span>
-                            <p>Lessons completed</p>
-                        </div>
-                        <div>
-                            <span id="course-percent">0%</span>
-                            <p>Overall course complete</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="focus-card">
-                    <p class="eyebrow">Current bracket</p>
-                    <h3 id="current-focus">Beginner</h3>
-                    <p id="next-lesson">
-                        Learn the board before moving up the ladder.
-                    </p>
-                </div>
-                <div class="focus-card" id="puzzles">
-                    <p class="eyebrow">Next up</p>
-                    <h3 id="next-bracket">Beginner+</h3>
-                    <p id="next-bracket-description">
-                        The next bracket unlocks as you move forward.
-                    </p>
-                </div>
+            <section class="course-library-toolbar" id="course-library-toolbar" aria-label="Course filters">
+                <label class="course-filter-field course-filter-search">
+                    <span>Search</span>
+                    <input
+                        id="course-search"
+                        type="search"
+                        name="course-search"
+                        placeholder="Search courses"
+                        autocomplete="off"
+                    />
+                </label>
+                <label class="course-filter-field">
+                    <span>Level</span>
+                    <select id="course-filter-bracket" name="course-filter-bracket"></select>
+                </label>
+                <label class="course-filter-field">
+                    <span>Topic</span>
+                    <select id="course-filter-topic" name="course-filter-topic"></select>
+                </label>
+                <label class="course-filter-field">
+                    <span>Color</span>
+                    <select id="course-filter-color" name="course-filter-color"></select>
+                </label>
+                <label class="course-filter-field">
+                    <span>Type</span>
+                    <select id="course-filter-type" name="course-filter-type"></select>
+                </label>
+                <label class="course-filter-field">
+                    <span>Status</span>
+                    <select id="course-filter-status" name="course-filter-status"></select>
+                </label>
+                <label class="course-filter-field">
+                    <span>Sort by</span>
+                    <select id="course-sort" name="course-sort"></select>
+                </label>
+                <button class="button secondary course-filter-reset" id="course-filter-reset" type="button">
+                    Reset
+                </button>
             </section>
+
+            <section class="course-library-summary">
+                <p id="course-library-count">0 courses shown</p>
+                <div class="course-library-tags" id="course-library-tags"></div>
+            </section>
+
+            <section class="course-library-list" id="course-library" aria-label="Courses"></section>
         </main>
 
         <script type="module" src="/static/components/mobile-nav.js"></script>
