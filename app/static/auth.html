@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Account | FreeMate</title>
+        <link rel="stylesheet" href="/static/styles/main.css" />
+    </head>
+    <body data-auth-page="true">
+        <header class="site-header">
+            <nav class="navbar" aria-label="Main navigation">
+                <a class="brand" href="/">FreeMate</a>
+                <div class="nav-links" id="nav-links-auth">
+                    <a href="/">Home</a>
+                    <a href="/lessons">Lessons</a>
+                    <a href="/openings">Openings</a>
+                    <a href="/practice">Practice</a>
+                    <a href="/review">Review</a>
+                </div>
+            </nav>
+        </header>
+
+        <main class="auth-shell">
+            <section class="auth-hero">
+                <div>
+                    <p class="eyebrow">Account</p>
+                    <h1>Save your progress and keep learning.</h1>
+                    <p>
+                        FreeMate keeps your lesson progress, opening practice,
+                        and review queue tied to one simple account.
+                    </p>
+                </div>
+                <aside class="auth-status-card" data-auth-status hidden>
+                    <p class="auth-status-title">Signed in</p>
+                    <h2 class="auth-status-name" data-status-name></h2>
+                    <p class="auth-status-email" data-status-email></p>
+                    <div class="auth-status-actions">
+                        <a class="button primary" href="/">Continue learning</a>
+                        <button
+                            class="button secondary"
+                            type="button"
+                            data-auth-logout
+                        >
+                            Logout
+                        </button>
+                    </div>
+                </aside>
+            </section>
+
+            <section class="auth-note-card" data-auth-forms>
+                <p class="eyebrow">One account</p>
+                <h2>Log in or create a new account.</h2>
+                <p>
+                    The forms below are intentionally simple. Use email and a
+                    password, then jump back into lessons.
+                </p>
+
+                <div class="auth-grid">
+                    <article class="auth-card">
+                        <h2>Log in</h2>
+                        <p>Use your email or username.</p>
+                        <form class="auth-form" data-login-form>
+                            <div class="auth-field">
+                                <label for="login-identifier">Email or username</label>
+                                <input
+                                    id="login-identifier"
+                                    name="identifier"
+                                    type="text"
+                                    autocomplete="username"
+                                    required
+                                />
+                            </div>
+                            <div class="auth-field">
+                                <label for="login-password">Password</label>
+                                <input
+                                    id="login-password"
+                                    name="password"
+                                    type="password"
+                                    autocomplete="current-password"
+                                    required
+                                />
+                            </div>
+                            <div class="auth-result result" data-login-result></div>
+                            <button class="button primary" type="submit">Log in</button>
+                        </form>
+                    </article>
+
+                    <article class="auth-card">
+                        <h2>Sign up</h2>
+                        <p>Create a beginner-friendly FreeMate account.</p>
+                        <form class="auth-form" data-signup-form>
+                            <div class="auth-field">
+                                <label for="signup-email">Email</label>
+                                <input
+                                    id="signup-email"
+                                    name="email"
+                                    type="email"
+                                    autocomplete="email"
+                                    required
+                                />
+                            </div>
+                            <div class="auth-field">
+                                <label for="signup-username">Username <small>(optional)</small></label>
+                                <input
+                                    id="signup-username"
+                                    name="username"
+                                    type="text"
+                                    autocomplete="username"
+                                />
+                            </div>
+                            <div class="auth-field">
+                                <label for="signup-password">Password</label>
+                                <input
+                                    id="signup-password"
+                                    name="password"
+                                    type="password"
+                                    autocomplete="new-password"
+                                    required
+                                />
+                            </div>
+                            <div class="auth-result result" data-signup-result></div>
+                            <button class="button primary" type="submit">Create account</button>
+                        </form>
+                    </article>
+                </div>
+            </section>
+        </main>
+
+        <script type="module" src="/static/components/mobile-nav.js"></script>
+        <script type="module" src="/static/components/auth-ui.js"></script>
+    </body>
+</html>

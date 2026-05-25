@@ -1,0 +1,114 @@
+.auth-shell {
+    max-width: 1120px;
+    padding-top: 34px;
+}
+
+.auth-hero {
+    display: grid;
+    gap: 18px;
+    grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+    margin-bottom: 20px;
+}
+
+.auth-card,
+.auth-status-card,
+.auth-note-card {
+    background: linear-gradient(
+        135deg,
+        rgba(31, 41, 55, 0.96),
+        rgba(20, 31, 45, 0.96)
+    );
+    border: 1px solid rgba(249, 250, 251, 0.1);
+    border-radius: 18px;
+    box-shadow: 0 18px 60px rgba(0, 0, 0, 0.22);
+}
+
+.auth-status-card,
+.auth-note-card {
+    padding: 20px 22px;
+}
+
+.auth-status-card[hidden],
+.auth-card[hidden],
+.auth-note-card[hidden] {
+    display: none;
+}
+
+.auth-status-title {
+    color: var(--muted);
+    font-size: 0.82rem;
+    font-weight: 850;
+    letter-spacing: 0.05em;
+    margin: 0 0 10px;
+    text-transform: uppercase;
+}
+
+.auth-status-name {
+    font-size: 1.5rem;
+    font-weight: 900;
+    margin: 0;
+}
+
+.auth-status-email {
+    color: var(--muted);
+    margin: 6px 0 0;
+}
+
+.auth-status-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 18px;
+}
+
+.auth-grid {
+    display: grid;
+    gap: 18px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.auth-card {
+    padding: 22px;
+}
+
+.auth-card h2 {
+    font-size: 1.3rem;
+    margin: 0;
+}
+
+.auth-card p {
+    color: var(--muted);
+    margin: 8px 0 0;
+}
+
+.auth-form {
+    display: grid;
+    gap: 12px;
+    margin-top: 18px;
+}
+
+.auth-field {
+    display: grid;
+    gap: 8px;
+}
+
+.auth-field label {
+    color: var(--text);
+    font-weight: 850;
+}
+
+.auth-field small {
+    color: var(--muted);
+    font-size: 0.86rem;
+}
+
+.auth-result {
+    min-height: 24px;
+}
+
+@media (max-width: 920px) {
+    .auth-hero,
+    .auth-grid {
+        grid-template-columns: 1fr;
+    }
+}

@@ -3,7 +3,7 @@ from pathlib import Path
 
 import chess
 import chess.pgn
-from fastapi import Depends, FastAPI, HTTPException, Query
+from fastapi import Depends, FastAPI, HTTPException, Query, Request, status
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from sqlalchemy import text
@@ -11,7 +11,17 @@ from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import Session
 from pydantic import BaseModel, Field
 
-from app.db.session import get_db
+from app.db.base import Base
+from app.db import models as db_models  # noqa: F401
+from app.db.session import DATABASE_URL, engine, get_db
+from app.services.auth import (
+    authenticate_user,
+    clear_current_user_session,
+    create_user,
+    get_current_user_optional,
+    serialize_user,
+    set_current_user_session,
+)
 from app.services.content_validator import (
     ContentValidationError,
     raise_for_issues,
@@ -38,6 +48,14 @@ BRACKET_SLUGS = {
 
 app = FastAPI(title="FreeMate", version="1.0.0")
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
+
+
+@app.on_event("startup")
+def ensure_sqlite_schema() -> None:
+    if not DATABASE_URL.startswith("sqlite"):
+        return
+
+    Base.metadata.create_all(bind=engine)
 
 
 class MoveRequest(BaseModel):
@@ -84,9 +102,35 @@ class OpeningMoveRequest(BaseModel):
     played_moves: list[str] = Field(default_factory=list)
 
 
+class AuthSignupRequest(BaseModel):
+    email: str = Field(..., examples=["jane@example.com"])
+    username: str | None = Field(default=None, examples=["jane"])
+    password: str = Field(..., min_length=8, examples=["strong-password"])
+
+
+class AuthLoginRequest(BaseModel):
+    identifier: str = Field(..., examples=["jane@example.com"])
+    password: str = Field(..., min_length=1, examples=["strong-password"])
+
+
 @app.get("/")
 def homepage() -> FileResponse:
     return FileResponse(STATIC_DIR / "index.html")
+
+
+@app.get("/auth")
+def auth_page() -> FileResponse:
+    return FileResponse(STATIC_DIR / "auth.html")
+
+
+@app.get("/login")
+def login_page() -> FileResponse:
+    return FileResponse(STATIC_DIR / "auth.html")
+
+
+@app.get("/signup")
+def signup_page() -> FileResponse:
+    return FileResponse(STATIC_DIR / "auth.html")
 
 
 @app.get("/lessons")
@@ -113,6 +157,37 @@ def opening_overview_page(opening_id: str) -> FileResponse:
 def get_brackets() -> JSONResponse:
     _, brackets = load_curriculum_data()
     return JSONResponse(brackets)
+
+
+@app.get("/api/auth/me")
+def auth_me(request: Request, db: Session = Depends(get_db)) -> JSONResponse:
+    user = get_current_user_optional(request, db)
+    if user is None:
+        return JSONResponse({"authenticated": False, "user": None})
+    return JSONResponse({"authenticated": True, "user": serialize_user(user)})
+
+
+@app.post("/api/auth/signup", status_code=status.HTTP_201_CREATED)
+def auth_signup(payload: AuthSignupRequest, db: Session = Depends(get_db)) -> JSONResponse:
+    user = create_user(db, payload.email, payload.password, payload.username)
+    response = JSONResponse({"authenticated": True, "user": serialize_user(user)}, status_code=status.HTTP_201_CREATED)
+    set_current_user_session(response, user)
+    return response
+
+
+@app.post("/api/auth/login")
+def auth_login(payload: AuthLoginRequest, db: Session = Depends(get_db)) -> JSONResponse:
+    user = authenticate_user(db, payload.identifier, payload.password)
+    response = JSONResponse({"authenticated": True, "user": serialize_user(user)})
+    set_current_user_session(response, user)
+    return response
+
+
+@app.post("/api/auth/logout")
+def auth_logout() -> JSONResponse:
+    response = JSONResponse({"authenticated": False, "ok": True})
+    clear_current_user_session(response)
+    return response
 
 
 @app.get("/courses/{course_id}")

@@ -39,6 +39,17 @@
         color 0.2s ease;
 }
 
+.nav-links .nav-auth {
+    background: rgba(249, 250, 251, 0.06);
+    border: 1px solid rgba(249, 250, 251, 0.09);
+    color: var(--text);
+}
+
+.nav-links .nav-auth.is-authenticated {
+    background: rgba(34, 197, 94, 0.12);
+    border-color: rgba(34, 197, 94, 0.22);
+}
+
 .nav-links a:hover,
 .nav-links a[aria-current="page"] {
     background: rgba(34, 197, 94, 0.12);
