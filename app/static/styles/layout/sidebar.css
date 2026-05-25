@@ -17,7 +17,7 @@
 }
 
 .practice-panel .focus-card {
-    border-radius: 16px;
+    border-radius: 100px;
     box-shadow: 0 16px 44px rgba(0, 0, 0, 0.24);
     padding: 16px;
 }
@@ -40,7 +40,7 @@
 
 .mobile-panel-body {
     display: grid;
-    gap: 120px;
+    gap: 12px;
     min-width: 0;
 }
 
