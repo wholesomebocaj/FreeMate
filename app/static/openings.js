@@ -161,8 +161,8 @@ async function initOpeningTrainer() {
       });
 
       if (!validation.is_valid) {
-        setText(feedback, validation.message);
-        feedback.className = "lesson-board-feedback error";
+        setText(feedback, "Incorrect move.");
+        feedback.className = "lesson-board-feedback opening-board-status error";
         queueActiveLineForReview();
         syncBoardPosition({ silent: true, animate: false });
         return;
@@ -173,8 +173,8 @@ async function initOpeningTrainer() {
       currentLastMove = [move.slice(0, 2), move.slice(2, 4)];
       boardElement.classList.add("opening-board-correct");
       setTimeout(() => boardElement.classList.remove("opening-board-correct"), 520);
-      setText(feedback, validation.message);
-      feedback.className = "lesson-board-feedback success";
+      setText(feedback, "Correct.");
+      feedback.className = "lesson-board-feedback opening-board-status success";
       moveIndex += 1;
 
       if (moveIndex >= activeLine.moves.length) {
@@ -191,8 +191,8 @@ async function initOpeningTrainer() {
       void boardElement.offsetWidth;
       boardElement.classList.add("opening-board-shake");
       setTimeout(() => boardElement.classList.remove("opening-board-shake"), 420);
-      setText(feedback, message || "Try the highlighted opening move.");
-      feedback.className = "lesson-board-feedback error";
+      setText(feedback, "Try the highlighted move.");
+      feedback.className = "lesson-board-feedback opening-board-status error";
       queueActiveLineForReview();
     },
   });
@@ -306,17 +306,14 @@ async function initOpeningTrainer() {
     renderTrainerState({ syncBoard: true, historyNavigation: true });
 
     if (boundedIndex <= 0) {
-      setText(feedback, `Returned to the start of ${activeLine.title}.`);
+      setText(feedback, "Back to the start.");
     } else if (boundedIndex >= activeLine.moves.length) {
-      setText(feedback, `Jumped to the end of ${activeLine.title}.`);
+      setText(feedback, "At the end of the line.");
     } else {
-      const jumpMove = activeLine.moves[Math.max(0, boundedIndex - 1)];
-      setText(feedback, jumpMove
-        ? `Jumped to ${jumpMove.san}.`
-        : `Jumped within ${activeLine.title}.`);
+      setText(feedback, "Moved to a previous step.");
     }
 
-    feedback.className = "lesson-board-feedback";
+    feedback.className = "lesson-board-feedback opening-board-status";
   }
 
   async function autoPlayOpponentMoves() {
@@ -338,8 +335,8 @@ async function initOpeningTrainer() {
       });
 
       if (!data.isValid && !data.is_valid) {
-        feedback.textContent = `The line could not continue at ${reply.san}.`;
-        feedback.className = "lesson-board-feedback error";
+        feedback.textContent = "Line paused.";
+        feedback.className = "lesson-board-feedback opening-board-status error";
         return;
       }
 
@@ -400,7 +397,7 @@ async function initOpeningTrainer() {
           || "Great work. You handled this real-game branch. Pick another branch in the roadmap when you are ready.",
       );
       setText(feedback, "Branch complete.");
-      feedback.className = "lesson-board-feedback success";
+      feedback.className = "lesson-board-feedback opening-board-status success";
       setText(status, "Complete");
       status.className = "lesson-step-progress-state done";
       applyBoardConfig({ allowedMoves: [], highlightSquares: [] });

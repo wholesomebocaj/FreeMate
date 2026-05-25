@@ -250,6 +250,24 @@
     animation: opening-board-shake 420ms ease;
 }
 
+.opening-board-status {
+    color: rgba(249, 250, 251, 0.78);
+    font-size: 0.88rem;
+    font-weight: 800;
+    line-height: 1.35;
+    margin-top: 12px;
+    min-height: 1.4em;
+    text-align: center;
+}
+
+.opening-board-status.success {
+    color: #86efac;
+}
+
+.opening-board-status.error {
+    color: #fca5a5;
+}
+
 /* Opening roadmap */
 
 .opening-trainer-panel:first-child {
