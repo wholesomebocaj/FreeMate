@@ -5,27 +5,26 @@
 
 .course-browser-hero,
 .coach-header {
-    align-items: end;
+    align-items: start;
     display: grid;
-    gap: 24px;
-    grid-template-columns: 1fr 360px;
-    margin-bottom: 22px;
+    gap: 16px;
+    grid-template-columns: 1fr 300px;
+    margin-bottom: 14px;
 }
 
 .course-browser-hero h1,
 .coach-header h1 {
-    font-size: clamp(2.2rem, 5vw, 4.8rem);
+    font-size: clamp(1.9rem, 4.2vw, 3.4rem);
     line-height: 1;
     margin: 0;
 }
 
 .coach-stats {
     display: grid;
-    gap: 12px;
-    padding: 20px;
+    gap: 10px;
+    padding: 16px;
 }
 
-.continue-panel,
 .progress-overview,
 .course-category-card {
     background: rgba(31, 41, 55, 0.86);
@@ -34,21 +33,10 @@
     box-shadow: var(--shadow);
 }
 
-.continue-panel {
-    align-items: center;
-    display: flex;
-    gap: 18px;
-    justify-content: space-between;
-    margin: 20px 0;
-    padding: 22px;
-}
-
-.continue-panel h2,
 .category-heading h2 {
     margin: 0;
 }
 
-.continue-panel p,
 .category-heading p {
     color: var(--muted);
 }
@@ -242,7 +230,7 @@
 
 .course-browser-grid {
     display: grid;
-    gap: 20px;
+    gap: 14px;
 }
 
 .course-card-grid,
@@ -263,21 +251,12 @@
     padding: 12px 14px;
 }
 
-.course-browser-shell .continue-panel,
 .course-browser-shell .roadmap-section {
     margin-bottom: 16px;
 }
 
-.course-browser-shell .continue-panel {
-    padding: 16px 18px;
-}
-
-.course-browser-shell .continue-panel h2 {
-    font-size: 1.25rem;
-}
-
 .course-browser-shell .coach-stats {
-    padding: 18px 20px;
+    padding: 16px 18px;
 }
 
 .lesson-row-list {

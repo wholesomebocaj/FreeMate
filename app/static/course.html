@@ -26,17 +26,6 @@
                     <p class="eyebrow">Course dashboard</p>
                     <h1 id="course-title">Loading course...</h1>
                     <p id="course-description">Preparing your lesson list.</p>
-                    <div class="hero-actions">
-                        <a
-                            class="button primary"
-                            id="continue-learning"
-                            href="#"
-                            >Continue Learning</a
-                        >
-                        <a class="button secondary" href="/lessons"
-                            >All Courses</a
-                        >
-                    </div>
                 </div>
                 <div class="coach-stats">
                     <span id="progress-count">0 of 0 complete</span>
@@ -51,19 +40,6 @@
                 aria-label="Course roadmap"
             >
                 <div class="roadmap" id="lesson-roadmap"></div>
-            </section>
-
-            <section class="continue-panel">
-                <div>
-                    <p class="eyebrow">Continue learning</p>
-                    <h2 id="continue-title">Your next lesson is ready</h2>
-                    <p id="continue-description">
-                        Jump back into the next unlocked lesson.
-                    </p>
-                </div>
-                <a class="button primary" id="continue-card-button" href="#"
-                    >Open Lesson</a
-                >
             </section>
 
             <section
@@ -86,7 +62,6 @@
                 findCourseById,
                 isCourseLessonUnlocked,
                 loadCurriculumData,
-                nextUnlockedLesson,
             } from "/static/components/curriculum.js?v=20260525a";
 
             const progressKey = "freemate.completedLessons";
@@ -136,8 +111,6 @@
 
                 const lessons = courseLessons(course);
                 const bracket = findBracketByCourseId(brackets, course.id);
-                const nextLesson =
-                    nextUnlockedLesson(course, completedLessons) || lessons[0];
                 const progress = courseProgress(course, completedLessons);
 
                 document.getElementById("course-title").textContent =
@@ -160,18 +133,6 @@
                         hero.insertBefore(bracketTag, hero.firstChild);
                     }
                 }
-                const nextHref = nextLesson
-                    ? `/lessons/${nextLesson.id}`
-                    : `/courses/${course.id}`;
-                document.getElementById("continue-learning").href = nextHref;
-                document.getElementById("continue-card-button").href = nextHref;
-                document.getElementById("continue-title").textContent =
-                    nextLesson ? nextLesson.title : "You are up to date";
-                document.getElementById("continue-description").textContent =
-                    nextLesson
-                        ? nextLesson.description ||
-                          "Open the next unlocked lesson to continue."
-                        : "You have completed this course.";
 
                 detail.innerHTML = course.categories
                     .map(
