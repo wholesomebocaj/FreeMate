@@ -378,7 +378,7 @@
 .progress-sidebar,
 .lesson-notes {
     display: grid;
-    gap: 160px;
+    gap: 16px;
     position: sticky;
     top: 88px;
 }
