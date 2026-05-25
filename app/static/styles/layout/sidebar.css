@@ -40,7 +40,7 @@
 
 .mobile-panel-body {
     display: grid;
-    gap: 12px;
+    gap: 120px;
     min-width: 0;
 }
 
