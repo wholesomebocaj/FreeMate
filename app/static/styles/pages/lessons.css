@@ -262,23 +262,27 @@
 
 .lesson-row {
     align-items: center;
-    background: rgba(249, 250, 251, 0.045);
-    border: 1px solid var(--line);
-    border-radius: 12px;
+    background: rgba(249, 250, 251, 0.035);
+    border: 1px solid rgba(249, 250, 251, 0.09);
+    border-radius: 14px;
     display: grid;
-    gap: 12px;
-    grid-template-columns: minmax(0, 1.45fr) auto minmax(150px, 0.46fr) auto;
+    gap: 14px;
+    grid-template-columns: minmax(0, 1.5fr) auto minmax(150px, 0.48fr) auto;
     min-height: 0;
-    padding: 10px 12px;
+    padding: 13px 14px;
     transition:
         border 0.2s ease,
         box-shadow 0.2s ease,
         transform 0.2s ease;
+    box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.24) inset;
 }
 
 .lesson-row:hover {
-    border-color: rgba(34, 197, 94, 0.55);
-    box-shadow: 0 0 26px rgba(34, 197, 94, 0.1);
+    border-color: rgba(34, 197, 94, 0.46);
+    box-shadow:
+        0 0 0 1px rgba(34, 197, 94, 0.14) inset,
+        0 10px 24px rgba(15, 23, 42, 0.18),
+        0 0 22px rgba(34, 197, 94, 0.08);
     transform: translateY(-1px);
 }
 
@@ -294,6 +298,10 @@
 .lesson-row-main h3 {
     font-size: 0.96rem;
     line-height: 1.15;
+}
+
+.lesson-row-main {
+    padding-right: 8px;
 }
 
 .lesson-row-main p,
@@ -320,6 +328,7 @@
     flex-wrap: wrap;
     gap: 6px;
     justify-content: flex-end;
+    padding-left: 8px;
 }
 
 .lesson-row-progress {
@@ -327,6 +336,7 @@
     display: grid;
     gap: 8px;
     grid-template-columns: 1fr auto;
+    padding-left: 8px;
 }
 
 .lesson-row-progress.compact {
