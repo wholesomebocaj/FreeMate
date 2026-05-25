@@ -1,6 +1,6 @@
 """add last_step_index to lesson_progress
 
-Revision ID: 0003_add_last_step_index_to_lesson_progress
+Revision ID: 0003_last_step_idx
 Revises: 0002_username_only_auth
 Create Date: 2026-05-25 00:00:00.000000
 """
