@@ -14,15 +14,25 @@ function setNavState(navbar, open) {
     links.setAttribute("aria-hidden", String(!open));
 }
 
+function removeMobileButton(navbar) {
+    const button = navbar.querySelector("[data-mobile-nav-toggle]");
+    if (button) {
+        button.remove();
+    }
+    navbar.classList.remove("is-open");
+    const links = navbar.querySelector(".nav-links");
+    if (links) {
+        links.removeAttribute("aria-hidden");
+    }
+}
+
 function enhanceNavBar(navbar) {
     if (!(navbar instanceof HTMLElement)) return;
 
     const links = navbar.querySelector(".nav-links");
     if (!links) return;
 
-    if (!links.id) {
-        links.id = `nav-links-${Math.random().toString(36).slice(2, 8)}`;
-    }
+    if (!links.id) links.id = `nav-links-${Math.random().toString(36).slice(2, 8)}`;
 
     let button = navbar.querySelector("[data-mobile-nav-toggle]");
     if (!button) {
@@ -37,14 +47,6 @@ function enhanceNavBar(navbar) {
             '<span class="nav-toggle-icon" aria-hidden="true"><span></span></span><span class="nav-toggle-label">Menu</span>';
         navbar.appendChild(button);
     }
-
-    const sync = () => {
-        if (mobileNavQuery.matches) {
-            setNavState(navbar, navbar.classList.contains("is-open"));
-        } else {
-            setNavState(navbar, false);
-        }
-    };
 
     button.addEventListener("click", () => {
         if (!mobileNavQuery.matches) return;
@@ -68,21 +70,27 @@ function enhanceNavBar(navbar) {
         setNavState(navbar, false);
     });
 
-    if (typeof mobileNavQuery.addEventListener === "function") {
-        mobileNavQuery.addEventListener("change", sync);
-    } else if (typeof mobileNavQuery.addListener === "function") {
-        mobileNavQuery.addListener(sync);
-    }
-
-    sync();
+    setNavState(navbar, false);
 }
 
 function initMobileNav() {
-    getNavBars().forEach(enhanceNavBar);
+    getNavBars().forEach((navbar) => {
+        if (mobileNavQuery.matches) {
+            enhanceNavBar(navbar);
+        } else {
+            removeMobileButton(navbar);
+        }
+    });
 }
 
 if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", initMobileNav);
 } else {
     initMobileNav();
+}
+
+if (typeof mobileNavQuery.addEventListener === "function") {
+    mobileNavQuery.addEventListener("change", initMobileNav);
+} else if (typeof mobileNavQuery.addListener === "function") {
+    mobileNavQuery.addListener(initMobileNav);
 }
