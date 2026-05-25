@@ -377,18 +377,20 @@
 .course-sidebar,
 .progress-sidebar,
 .lesson-notes {
+    background: rgba(31, 41, 55, 0.86);
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    box-shadow: var(--shadow);
     display: grid;
     gap: 16px;
     position: sticky;
     top: 88px;
-    border: 1px solid rgba(249, 250, 251, 0.08);
 }
 
 .course-sidebar {
     max-height: calc(100vh - 110px);
     overflow: auto;
     padding: 18px;
-    border: 1px solid rgba(249, 250, 251, 0.08);
 }
 
 .sidebar-title h2,
@@ -805,14 +807,10 @@
     .course-sidebar,
     .lesson-notes {
         gap: 12px;
-        border: 1px solid rgba(249, 250, 251, 0.08);
-
     }
 
     .course-sidebar {
         padding: 14px;
-        border: 1px solid rgba(249, 250, 251, 0.08);
-
     }
 
     .lesson-stage {
