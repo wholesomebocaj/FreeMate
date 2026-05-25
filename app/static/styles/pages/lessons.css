@@ -33,12 +33,24 @@
     box-shadow: var(--shadow);
 }
 
+.course-category-card {
+    padding: 20px 20px 18px;
+}
+
 .category-heading h2 {
     margin: 0;
 }
 
 .category-heading p {
     color: var(--muted);
+}
+
+.category-heading {
+    margin-bottom: 16px;
+}
+
+.category-heading > div {
+    max-width: 72ch;
 }
 
 .course-library-toolbar {
@@ -257,7 +269,7 @@
 
 .lesson-row-list {
     display: grid;
-    gap: 8px;
+    gap: 10px;
 }
 
 .lesson-row {
