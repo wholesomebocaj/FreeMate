@@ -12,7 +12,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = "0003_add_last_step_index_to_lesson_progress"
+revision = "0003_last_step_idx"
 down_revision = "0002_username_only_auth"
 branch_labels = None
 depends_on = None
