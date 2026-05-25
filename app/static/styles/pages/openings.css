@@ -213,7 +213,7 @@
 .opening-trainer-shell {
     display: grid;
     gap: 18px;
-    grid-template-columns: 280px minmax(520px, 1fr) 320px;
+    grid-template-columns: 280px minmax(580px, 1.1fr) 320px;
     max-width: 1500px;
     padding: 22px;
 }
@@ -231,6 +231,7 @@
 
 .opening-trainer-board-card {
     min-width: 0;
+    padding: 24px;
 }
 
 .lesson-title-row.compact h1 {
@@ -238,8 +239,8 @@
 }
 
 .opening-board {
-    margin: 18px auto 0;
-    max-width: min(62vh, 620px);
+    margin: 14px auto 0;
+    max-width: min(68vh, 700px);
 }
 
 .opening-board-correct {
