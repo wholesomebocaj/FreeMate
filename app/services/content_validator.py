@@ -174,7 +174,7 @@ def _validate_courses(courses: Any, issues: list[ValidationIssue]) -> set[str]:
     course_ids: set[str] = set()
     seen_lesson_ids: set[str] = set()
     if not isinstance(courses, list):
-        issues.append(ValidationIssue("courses.json", "Expected a list of courses."))
+        issues.append(ValidationIssue("courses", "Expected a list of courses."))
         return course_ids
 
     for course_index, course in enumerate(courses):
@@ -248,8 +248,10 @@ def _validate_lesson(lesson: Any, path: str, seen_lesson_ids: set[str], issues: 
         issues.append(ValidationIssue(f"{path}.ratingRange", "Expected a rating range like '0-400' or two integer bounds."))
 
     steps = lesson.get("steps")
-    if not isinstance(steps, list) or not steps:
-        issues.append(ValidationIssue(f"{path}.steps", "Expected at least one lesson step."))
+    if not isinstance(steps, list):
+        issues.append(ValidationIssue(f"{path}.steps", "Expected a list of lesson steps."))
+        return
+    if not steps:
         return
 
     for step_index, step in enumerate(steps):

@@ -1,4 +1,4 @@
-const COURSE_SOURCES = ["/api/course", "/static/data/courses.json"];
+const COURSE_SOURCES = ["/api/course"];
 const BRACKET_SOURCES = ["/api/brackets", "/static/data/brackets.json"];
 
 export async function loadCurriculumData() {

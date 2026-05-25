@@ -41,10 +41,24 @@ from app.services.opening_explorer import get_explorer_data
 
 BASE_DIR = Path(__file__).resolve().parent
 STATIC_DIR = BASE_DIR / "static"
-COURSE_PATH = STATIC_DIR / "data" / "courses.json"
+COURSES_DIR = STATIC_DIR / "data" / "courses"
 BRACKETS_PATH = STATIC_DIR / "data" / "brackets.json"
 OPENINGS_DIR = STATIC_DIR / "data" / "openings"
 OPENINGS_INDEX_PATH = OPENINGS_DIR / "index.json"
+COURSE_FOLDER_ORDER = {
+    "beginner-fundamentals": 1,
+    "beginner-opening-principles": 2,
+    "beginner-tactics": 3,
+    "beginner-endgames": 4,
+    "beginner-practical-play": 5,
+}
+COURSE_BRACKET_DEFAULTS = {
+    "beginner-fundamentals": "Beginner",
+    "beginner-endgames": "Beginner",
+    "beginner-opening-principles": "Beginner+",
+    "beginner-tactics": "Beginner+",
+    "beginner-practical-play": "Beginner+",
+}
 BRACKET_SLUGS = {
     "beginner",
     "beginner-plus",
@@ -137,7 +151,7 @@ class OpeningProgressRequest(BaseModel):
 
 
 class CourseProgressRequest(BaseModel):
-    course_id: str = Field(..., examples=["beginner-chess-course"])
+    course_id: str = Field(..., examples=["beginner-fundamentals"])
     completed_lessons: int = Field(default=0, ge=0)
     completion_percent: float = Field(default=0.0, ge=0)
 
@@ -594,8 +608,7 @@ def load_opening_by_id(opening_id: str) -> dict:
 
 
 def load_curriculum_data() -> tuple[list[dict], list[dict]]:
-    with COURSE_PATH.open(encoding="utf-8") as course_file:
-        courses = json.load(course_file)
+    courses = load_course_folders()
     with BRACKETS_PATH.open(encoding="utf-8") as brackets_file:
         brackets = json.load(brackets_file)
     try:
@@ -603,6 +616,121 @@ def load_curriculum_data() -> tuple[list[dict], list[dict]]:
     except ContentValidationError as exc:
         raise _content_validation_http_error(exc) from exc
     return courses, brackets
+
+
+def load_course_folders() -> list[dict]:
+    if not COURSES_DIR.exists():
+        return []
+
+    courses: list[dict] = []
+    course_dirs = sorted(
+        (path for path in COURSES_DIR.iterdir() if path.is_dir()),
+        key=lambda path: (COURSE_FOLDER_ORDER.get(path.name, 999), path.name),
+    )
+    for course_dir in course_dirs:
+        lessons = load_course_lessons(course_dir)
+        if not lessons:
+            continue
+        courses.append(build_course_from_lessons(course_dir.name, lessons))
+
+    return courses
+
+
+def load_course_lessons(course_dir: Path) -> list[dict]:
+    lesson_files = sorted(
+        (path for path in course_dir.glob("*.json") if path.is_file()),
+        key=lambda path: (load_lesson_order(path), path.name),
+    )
+    lessons: list[dict] = []
+    for lesson_file in lesson_files:
+        with lesson_file.open(encoding="utf-8") as lesson_handle:
+            lesson = json.load(lesson_handle)
+        lessons.append(normalize_course_lesson(lesson, course_dir.name, lesson_file))
+    return lessons
+
+
+def load_lesson_order(path: Path) -> int:
+    try:
+        lesson = json.loads(path.read_text(encoding="utf-8"))
+        order = lesson.get("order", 999)
+        return int(order) if isinstance(order, int) or str(order).isdigit() else 999
+    except Exception:
+        return 999
+
+
+def normalize_course_lesson(lesson: dict, course_id: str, lesson_file: Path) -> dict:
+    normalized = dict(lesson)
+    normalized["id"] = normalized.get("id") or lesson_file.stem.split("_", 1)[-1]
+    normalized["title"] = normalized.get("title") or humanize_slug(normalized["id"])
+    normalized["course"] = normalized.get("course") or course_id
+    normalized["bracket"] = normalized.get("bracket") or COURSE_BRACKET_DEFAULTS.get(course_id, "Beginner")
+    normalized["topic"] = normalized.get("topic") or "fundamentals"
+    normalized["order"] = normalized.get("order") or load_lesson_order(lesson_file)
+    normalized["summary"] = normalized.get("summary") or "Starter lesson scaffold."
+    normalized["steps"] = normalized.get("steps") if isinstance(normalized.get("steps"), list) else []
+    normalized["difficulty"] = normalized.get("difficulty") or normalized["bracket"]
+    normalized["timeMinutes"] = normalized.get("timeMinutes") or 5
+    normalized["ratingRange"] = normalized.get("ratingRange") or bracket_rating_range(normalized["bracket"])
+    normalized["locked"] = bool(normalized.get("locked", False))
+    return normalized
+
+
+def build_course_from_lessons(course_id: str, lessons: list[dict]) -> dict:
+    course_title = humanize_slug(course_id)
+    lessons = sorted(lessons, key=lambda lesson: (lesson.get("order", 999), lesson.get("title", "")))
+    category_title = COURSE_CATEGORY_TITLES.get(course_id, "Lessons")
+    category_description = lessons[0].get("summary") if lessons else f"{course_title} lesson set."
+    bracket = lessons[0].get("bracket") if lessons else COURSE_BRACKET_DEFAULTS.get(course_id, "Beginner")
+
+    skills = [
+        {
+            "id": lesson["id"],
+            "title": lesson["title"],
+            "lessons": [lesson],
+        }
+        for lesson in lessons
+    ]
+
+    return {
+        "id": course_id,
+        "title": course_title,
+        "description": category_description,
+        "difficulty": bracket,
+        "bracket": bracket,
+        "order": COURSE_FOLDER_ORDER.get(course_id, lessons[0].get("order", 999) if lessons else 999),
+        "categories": [
+            {
+                "id": f"{course_id}-lessons",
+                "title": category_title,
+                "description": category_description,
+                "order": 1,
+                "skills": skills,
+            }
+        ],
+    }
+
+
+def humanize_slug(value: str) -> str:
+    return " ".join(part.capitalize() for part in value.replace("_", "-").split("-") if part)
+
+
+def bracket_rating_range(bracket: str) -> str:
+    return {
+        "Beginner": "0-100",
+        "Beginner+": "100-400",
+        "Novice": "400-600",
+        "Intermediate": "600-900",
+        "Advanced Beginner": "900-1200",
+    }.get(bracket, "0-100")
+
+
+COURSE_CATEGORY_TITLES = {
+    "beginner-fundamentals": "Fundamentals",
+    "beginner-opening-principles": "Opening Principles",
+    "beginner-tactics": "Tactics",
+    "beginner-endgames": "Endgames",
+    "beginner-practical-play": "Practical Play",
+}
 
 
 def _content_validation_http_error(exc: ContentValidationError) -> HTTPException:

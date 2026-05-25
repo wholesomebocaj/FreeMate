@@ -220,7 +220,7 @@ function courseById(id) {
 function currentCourseIdFromUrl() {
   const parts = window.location.pathname.split("/");
   if (parts[1] === "courses" || parts[1] === "course") return parts[2];
-  return "beginner-chess-course";
+  return "beginner-fundamentals";
 }
 
 function courseLessons(courseItem) {
@@ -270,7 +270,7 @@ function inferCourseTopic(courseItem) {
   if (/(endgame|opposition|promotion|rook endgame|king and pawn|pawn endgame)/.test(text)) return "Endgame";
   if (/(checkmate|mate|fork|pin|skewer|tactics|blunder)/.test(text)) return "Tactics";
   if (/(opening|defense|gambit|repertoire|english|italian|london|scandinavian|caro|french|sicilian|pirc|modern|nimzo|slav|vienna|scotch|queen.?s gambit|queens gambit)/.test(text)) return "Openings";
-  if (/(strategy|planning|positional|pawn structure|candidate move)/.test(text)) return "Strategy";
+  if (/(strategy|planning|positional|pawn structure|candidate move|practical|checks|captures|threats|before you move)/.test(text)) return "Strategy";
   return "Fundamentals";
 }
 
@@ -588,10 +588,10 @@ function renderCourseCards() {
   const browser = document.querySelector("#course-cards");
   if (!browser || !course) return;
 
-  const beginnerCourse = courseById("beginner-chess-course");
+  const beginnerCourse = courseById("beginner-fundamentals");
   const next = nextLesson();
   if (next) {
-    document.querySelector("#continue-card-button").href = `/courses/beginner-chess-course`;
+    document.querySelector("#continue-card-button").href = `/courses/beginner-fundamentals`;
     setText("#continue-title", next.title);
     setText("#continue-description", `${next.category.title} · ${next.skill.title} · ${next.timeMinutes || 5} min`);
   }
@@ -927,7 +927,7 @@ function renderCourseDetail() {
           <h2>${currentCourse.title}</h2>
           <p>This course is part of the FreeMate roadmap. For now, continue with the Beginner Chess Course.</p>
         </div>
-        <a class="button primary" href="/courses/beginner-chess-course">Open Beginner Course</a>
+        <a class="button primary" href="/courses/beginner-fundamentals">Open Beginner Course</a>
       </section>
     `;
     return;
@@ -1447,7 +1447,7 @@ async function init() {
 }
 
 async function loadCourseData() {
-  const sources = ["/api/course", "/static/data/courses.json"];
+  const sources = ["/api/course"];
 
   for (const url of sources) {
     try {

@@ -1,0 +1,10 @@
+{
+  "id": "board-basics",
+  "title": "Board Basics",
+  "course": "beginner-fundamentals",
+  "bracket": "Beginner",
+  "topic": "fundamentals",
+  "order": 1,
+  "summary": "Learn the board, files, ranks, and square names.",
+  "steps": []
+}

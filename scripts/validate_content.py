@@ -14,10 +14,10 @@ from app.services.content_validator import (  # noqa: E402
     validate_opening_data,
     validate_opening_index,
 )
+from app.main import load_course_folders  # noqa: E402
 
 
 DATA_DIR = ROOT_DIR / "app" / "static" / "data"
-COURSES_PATH = DATA_DIR / "courses.json"
 BRACKETS_PATH = DATA_DIR / "brackets.json"
 OPENINGS_DIR = DATA_DIR / "openings"
 OPENINGS_INDEX_PATH = OPENINGS_DIR / "index.json"
@@ -26,7 +26,7 @@ OPENINGS_INDEX_PATH = OPENINGS_DIR / "index.json"
 def main() -> int:
     issues: list[ValidationIssue] = []
 
-    courses = read_json(COURSES_PATH)
+    courses = load_course_folders()
     brackets = read_json(BRACKETS_PATH)
     opening_index = read_json(OPENINGS_INDEX_PATH)
 

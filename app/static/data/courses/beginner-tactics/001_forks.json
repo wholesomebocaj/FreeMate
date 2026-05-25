@@ -1,0 +1,10 @@
+{
+  "id": "forks",
+  "title": "Forks",
+  "course": "beginner-tactics",
+  "bracket": "Beginner+",
+  "topic": "tactics",
+  "order": 1,
+  "summary": "Learn how one move can attack two targets.",
+  "steps": []
+}

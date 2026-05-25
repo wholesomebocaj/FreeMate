@@ -502,6 +502,16 @@ export class LessonRenderer {
   }
 
   renderComplete() {
+    if (!Array.isArray(this.lesson.steps) || this.lesson.steps.length === 0) {
+      this.container.innerHTML = `
+        <div class="lesson-complete">
+          <h2>Lesson Scaffold</h2>
+          <p>This lesson is ready for content. Add steps when you are ready to build it out.</p>
+        </div>
+      `;
+      return;
+    }
+
     this.container.innerHTML = `
       <div class="lesson-complete">
         <h2>Lesson Complete</h2>
