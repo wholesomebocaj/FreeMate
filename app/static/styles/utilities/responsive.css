@@ -218,39 +218,19 @@
 
 @media (max-width: 560px) {
     .navbar {
-        align-items: flex-start;
+        align-items: center;
         gap: 10px;
     }
 
-    .nav-links,
     .input-row,
     .lesson-actions {
         align-items: stretch;
         flex-direction: column;
     }
 
-    .nav-links {
-        flex-direction: row;
-        gap: 6px;
-        overflow-x: auto;
-        padding-bottom: 4px;
-        scrollbar-width: none;
-        width: 100%;
-    }
-
-    .nav-links::-webkit-scrollbar {
-        display: none;
-    }
-
-    .nav-links a,
     .button {
         text-align: center;
         width: 100%;
-    }
-
-    .nav-links a {
-        flex: 0 0 auto;
-        width: auto;
     }
 
     .coach-panel,
