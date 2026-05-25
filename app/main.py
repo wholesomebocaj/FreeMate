@@ -3,11 +3,15 @@ from pathlib import Path
 
 import chess
 import chess.pgn
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import Depends, FastAPI, HTTPException, Query
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
+from sqlalchemy import text
+from sqlalchemy.exc import SQLAlchemyError
+from sqlalchemy.orm import Session
 from pydantic import BaseModel, Field
 
+from app.db.session import get_db
 from app.services.content_validator import (
     ContentValidationError,
     raise_for_issues,
@@ -365,6 +369,29 @@ def validate_rook_move(request: RookMoveRequest) -> RookMoveResponse:
         to_square=to_square,
         is_correct=False,
         message="Incorrect. Rooks move horizontally or vertically, not diagonally.",
+    )
+
+
+@app.get("/api/health/db")
+def database_health(db: Session = Depends(get_db)) -> JSONResponse:
+    try:
+        result = db.execute(text("SELECT 1")).scalar_one()
+    except SQLAlchemyError as exc:
+        raise HTTPException(
+            status_code=503,
+            detail={
+                "ok": False,
+                "message": "Database connection failed.",
+                "error": str(exc),
+            },
+        ) from exc
+
+    return JSONResponse(
+        {
+            "ok": True,
+            "message": "Database connection healthy.",
+            "result": result,
+        }
     )
 
 
