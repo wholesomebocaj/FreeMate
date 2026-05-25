@@ -5,7 +5,6 @@ let authStatePromise = null;
 function displayName(user) {
     if (!user) return "Account";
     if (user.username) return `@${user.username}`;
-    if (user.email) return user.email.split("@")[0];
     return "Account";
 }
 
@@ -138,9 +137,6 @@ async function initAuthPage() {
             statusCard.querySelector("[data-status-name]")?.replaceChildren(
                 document.createTextNode(displayName(state.user)),
             );
-            statusCard.querySelector("[data-status-email]")?.replaceChildren(
-                document.createTextNode(state.user.email || ""),
-            );
         }
     } else {
         if (forms) forms.hidden = false;
@@ -152,7 +148,7 @@ async function initAuthPage() {
         setResult(loginResult, "Signing in...");
         const formData = new FormData(loginForm);
         const payload = {
-            identifier: String(formData.get("identifier") || "").trim(),
+            username: String(formData.get("username") || "").trim(),
             password: String(formData.get("password") || ""),
         };
 
@@ -170,8 +166,7 @@ async function initAuthPage() {
         setResult(signupResult, "Creating account...");
         const formData = new FormData(signupForm);
         const payload = {
-            email: String(formData.get("email") || "").trim(),
-            username: String(formData.get("username") || "").trim() || null,
+            username: String(formData.get("username") || "").trim(),
             password: String(formData.get("password") || ""),
         };
 

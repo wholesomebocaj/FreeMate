@@ -103,13 +103,12 @@ class OpeningMoveRequest(BaseModel):
 
 
 class AuthSignupRequest(BaseModel):
-    email: str = Field(..., examples=["jane@example.com"])
-    username: str | None = Field(default=None, examples=["jane"])
+    username: str = Field(..., examples=["jane"])
     password: str = Field(..., min_length=8, examples=["strong-password"])
 
 
 class AuthLoginRequest(BaseModel):
-    identifier: str = Field(..., examples=["jane@example.com"])
+    username: str = Field(..., examples=["jane"])
     password: str = Field(..., min_length=1, examples=["strong-password"])
 
 
@@ -169,7 +168,7 @@ def auth_me(request: Request, db: Session = Depends(get_db)) -> JSONResponse:
 
 @app.post("/api/auth/signup", status_code=status.HTTP_201_CREATED)
 def auth_signup(payload: AuthSignupRequest, db: Session = Depends(get_db)) -> JSONResponse:
-    user = create_user(db, payload.email, payload.password, payload.username)
+    user = create_user(db, payload.username, payload.password)
     response = JSONResponse({"authenticated": True, "user": serialize_user(user)}, status_code=status.HTTP_201_CREATED)
     set_current_user_session(response, user)
     return response
@@ -177,7 +176,7 @@ def auth_signup(payload: AuthSignupRequest, db: Session = Depends(get_db)) -> JS
 
 @app.post("/api/auth/login")
 def auth_login(payload: AuthLoginRequest, db: Session = Depends(get_db)) -> JSONResponse:
-    user = authenticate_user(db, payload.identifier, payload.password)
+    user = authenticate_user(db, payload.username, payload.password)
     response = JSONResponse({"authenticated": True, "user": serialize_user(user)})
     set_current_user_session(response, user)
     return response

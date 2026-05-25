@@ -11,7 +11,7 @@ import time
 from typing import Any
 
 from fastapi import Depends, HTTPException, Request, Response, status
-from sqlalchemy import or_, select
+from sqlalchemy import select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
@@ -25,23 +25,13 @@ AUTH_COOKIE_NAME = "freemate_auth"
 AUTH_COOKIE_MAX_AGE = 60 * 60 * 24 * 30
 
 
-def normalize_email(email: str) -> str:
-    value = email.strip().lower()
-    if not value or value.count("@") != 1:
-        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Enter a valid email address.")
-    local_part, domain = value.split("@", 1)
-    if not local_part or "." not in domain:
-        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Enter a valid email address.")
-    return value
-
-
-def normalize_username(username: str | None) -> str | None:
-    if username is None:
-        return None
-
+def normalize_username(username: str) -> str:
     value = username.strip().lower()
     if not value:
-        return None
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail="Choose a username.",
+        )
     if len(value) < 3 or len(value) > 64:
         raise HTTPException(
             status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
@@ -124,31 +114,23 @@ def get_user_by_id(db: Session, user_id: int) -> User | None:
     return db.get(User, user_id)
 
 
-def get_user_by_identifier(db: Session, identifier: str) -> User | None:
-    normalized = identifier.strip().lower()
-    if not normalized:
-        return None
-    statement = select(User).where(or_(User.email == normalized, User.username == normalized))
+def get_user_by_username(db: Session, username: str) -> User | None:
+    normalized = normalize_username(username)
+    statement = select(User).where(User.username == normalized)
     return db.scalar(statement)
 
 
-def create_user(db: Session, email: str, password: str, username: str | None = None) -> User:
-    normalized_email = normalize_email(email)
+def create_user(db: Session, username: str, password: str) -> User:
     normalized_username = normalize_username(username)
 
-    if db.scalar(select(User.id).where(User.email == normalized_email)) is not None:
-        raise HTTPException(
-            status_code=status.HTTP_409_CONFLICT,
-            detail="That email is already in use.",
-        )
-    if normalized_username and db.scalar(select(User.id).where(User.username == normalized_username)) is not None:
+    if db.scalar(select(User.id).where(User.username == normalized_username)) is not None:
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
             detail="That username is already taken.",
         )
 
     user = User(
-        email=normalized_email,
+        email=None,
         username=normalized_username,
         password_hash=hash_password(password),
     )
@@ -167,12 +149,12 @@ def create_user(db: Session, email: str, password: str, username: str | None = N
     return user
 
 
-def authenticate_user(db: Session, identifier: str, password: str) -> User:
-    user = get_user_by_identifier(db, identifier)
+def authenticate_user(db: Session, username: str, password: str) -> User:
+    user = get_user_by_username(db, username)
     if user is None or not verify_password(password, user.password_hash):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid email/username or password.",
+            detail="Invalid username or password.",
         )
     return user
 

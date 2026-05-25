@@ -24,16 +24,15 @@
             <section class="auth-hero">
                 <div>
                     <p class="eyebrow">Account</p>
-                    <h1>Save your progress and keep learning.</h1>
+                    <h1>Save your progress with one simple account.</h1>
                     <p>
                         FreeMate keeps your lesson progress, opening practice,
-                        and review queue tied to one simple account.
+                        and review queue tied to your username.
                     </p>
                 </div>
                 <aside class="auth-status-card" data-auth-status hidden>
                     <p class="auth-status-title">Signed in</p>
                     <h2 class="auth-status-name" data-status-name></h2>
-                    <p class="auth-status-email" data-status-email></p>
                     <div class="auth-status-actions">
                         <a class="button primary" href="/">Continue learning</a>
                         <button
@@ -49,22 +48,22 @@
 
             <section class="auth-note-card" data-auth-forms>
                 <p class="eyebrow">One account</p>
-                <h2>Log in or create a new account.</h2>
+                <h2>Choose a username and create a password.</h2>
                 <p>
-                    The forms below are intentionally simple. Use email and a
-                    password, then jump back into lessons.
+                    No email required. Just pick a username and a password,
+                    then jump back into lessons.
                 </p>
 
                 <div class="auth-grid">
                     <article class="auth-card">
-                        <h2>Log in</h2>
-                        <p>Use your email or username.</p>
+                        <h2>Sign in</h2>
+                        <p>Use your username and password.</p>
                         <form class="auth-form" data-login-form>
                             <div class="auth-field">
-                                <label for="login-identifier">Email or username</label>
+                                <label for="login-username">Username</label>
                                 <input
-                                    id="login-identifier"
-                                    name="identifier"
+                                    id="login-username"
+                                    name="username"
                                     type="text"
                                     autocomplete="username"
                                     required
@@ -86,30 +85,21 @@
                     </article>
 
                     <article class="auth-card">
-                        <h2>Sign up</h2>
-                        <p>Create a beginner-friendly FreeMate account.</p>
+                        <h2>Start learning</h2>
+                        <p>Create your FreeMate username and password.</p>
                         <form class="auth-form" data-signup-form>
                             <div class="auth-field">
-                                <label for="signup-email">Email</label>
-                                <input
-                                    id="signup-email"
-                                    name="email"
-                                    type="email"
-                                    autocomplete="email"
-                                    required
-                                />
-                            </div>
-                            <div class="auth-field">
-                                <label for="signup-username">Username <small>(optional)</small></label>
+                                <label for="signup-username">Choose a username</label>
                                 <input
                                     id="signup-username"
                                     name="username"
                                     type="text"
                                     autocomplete="username"
+                                    required
                                 />
                             </div>
                             <div class="auth-field">
-                                <label for="signup-password">Password</label>
+                                <label for="signup-password">Create a password</label>
                                 <input
                                     id="signup-password"
                                     name="password"
