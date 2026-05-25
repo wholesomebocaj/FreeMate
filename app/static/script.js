@@ -20,11 +20,13 @@ const startingFen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
 let course = null;
 let brackets = null;
 let completedLessons = loadSet(progressKey);
-let savedSteps = loadObject(stepKey);
+let savedSteps = loadObject(stepKey, "freemate.savedSteps");
 let activeLesson = null;
 let activeStepIndex = 0;
 let activeBoard = null;
 let audioContext = null;
+let progressSyncModulePromise = null;
+let progressSaveTimer = null;
 
 function loadSet(key) {
   try {
@@ -34,9 +36,20 @@ function loadSet(key) {
   }
 }
 
-function loadObject(key) {
+function loadObject(key, fallbackKey = null) {
+  const merged = {};
+  [fallbackKey, key]
+    .filter(Boolean)
+    .forEach((sourceKey) => {
+      try {
+        Object.assign(merged, JSON.parse(localStorage.getItem(sourceKey)) || {});
+      } catch (error) {
+        // Ignore malformed storage and keep the other source.
+      }
+    });
+
   try {
-    return JSON.parse(localStorage.getItem(key)) || {};
+    return merged;
   } catch (error) {
     return {};
   }
@@ -45,6 +58,58 @@ function loadObject(key) {
 function saveProgress() {
   localStorage.setItem(progressKey, JSON.stringify([...completedLessons]));
   localStorage.setItem(stepKey, JSON.stringify(savedSteps));
+  localStorage.setItem("freemate.savedSteps", JSON.stringify(savedSteps));
+  scheduleRemoteProgressSave();
+}
+
+function loadProgressSyncModule() {
+  if (!progressSyncModulePromise) {
+    progressSyncModulePromise = import("/static/components/progress-sync.js");
+  }
+
+  return progressSyncModulePromise;
+}
+
+function scheduleRemoteProgressSave() {
+  if (!activeLesson) return;
+
+  window.clearTimeout(progressSaveTimer);
+  progressSaveTimer = window.setTimeout(() => {
+    void flushRemoteProgressSave();
+  }, 250);
+}
+
+async function flushRemoteProgressSave() {
+  if (!activeLesson) return;
+
+  try {
+    const progressSync = await loadProgressSyncModule();
+    const activeCourse = activeLesson.course || null;
+    const lessonCount = activeCourse ? courseLessons(activeCourse).length : allLessons().length;
+    const completedCount = activeCourse
+      ? courseLessons(activeCourse).filter((lesson) => completedLessons.has(lesson.id)).length
+      : allLessons().filter((lesson) => completedLessons.has(lesson.id)).length;
+    const percent = lessonCount ? Math.round((completedCount / lessonCount) * 100) : 0;
+    await progressSync.saveLessonProgress({
+      lesson_id: activeLesson.id,
+      status: completedLessons.has(activeLesson.id) ? "mastered" : "learning",
+      completed: completedLessons.has(activeLesson.id),
+      mastery_score: Math.max(
+        percent,
+        activeStepIndex > 0 ? Math.round((activeStepIndex / Math.max(activeLesson.steps.length, 1)) * 100) : 0,
+      ),
+      last_step_index: savedSteps[activeLesson.id] || 0,
+    });
+    if (activeCourse) {
+      await progressSync.saveCourseProgress({
+        course_id: activeCourse.id,
+        completed_lessons: completedCount,
+        completion_percent: percent,
+      });
+    }
+  } catch (error) {
+    // Keep localStorage as the fallback if remote sync is unavailable.
+  }
 }
 
 function playSound(type) {
@@ -943,6 +1008,7 @@ function bindStepControls(step) {
       completedLessons.add(activeLesson.id);
       savedSteps[activeLesson.id] = 0;
       saveProgress();
+      void flushRemoteProgressSave();
       playSound("success");
       document.querySelector("#side-feedback").textContent = "Lesson complete. Your next lesson is unlocked.";
       updateProgressUI();
@@ -970,6 +1036,19 @@ function unlockNextStep() {
 }
 
 async function init() {
+  try {
+    const progressSync = await loadProgressSyncModule();
+    const snapshot = await progressSync.loadProgressSnapshot();
+    progressSync.hydrateLessonProgressStorage(snapshot, {
+      completedLessons,
+      savedSteps,
+      progressKey,
+      stepKeys: [stepKey, "freemate.savedSteps"],
+    });
+  } catch (error) {
+    // Continue with localStorage-only progress if the DB is unavailable.
+  }
+
   const needsBracket = document.querySelector("#bracket-cards")
     || document.querySelector("#bracket-courses");
   if (needsBracket) {

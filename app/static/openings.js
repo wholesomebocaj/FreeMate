@@ -1,5 +1,10 @@
 import { PracticeBoard, STARTING_FEN } from "/static/components/practice-board.js";
 import { recordReviewFailure, recordReviewSuccess } from "/static/components/review-store.js";
+import {
+  hydrateOpeningProgressStorage,
+  loadProgressSnapshot,
+  saveOpeningProgress as saveOpeningProgressRemote,
+} from "/static/components/progress-sync.js";
 
 const page = document.body.dataset.openingPage;
 const openingId = getOpeningId();
@@ -110,6 +115,7 @@ async function initOpeningTrainer() {
   const lineStateRequests = new Map();
   let roadmapRendered = false;
   let lineProgressSaveTimer = null;
+  let openingProgressSaveTimer = null;
   let lastBoardSyncKey = "";
   let lastBoardConfigKey = "";
   let lastPromptText = "";
@@ -127,6 +133,17 @@ async function initOpeningTrainer() {
   const trainingLines = getTrainingLines(opening);
   let branchCompletions = loadBranchCompletions(opening.id);
   let openingProgress = loadOpeningProgress(opening.id);
+  const progressSnapshot = await loadProgressSnapshot();
+  ({ branchCompletions, openingProgress } = hydrateOpeningProgressStorage(
+    progressSnapshot,
+    opening.id,
+    {
+      branchCompletions,
+      openingProgress,
+      completionKey: completionKey(opening.id),
+      progressKey: progressKey(opening.id),
+    },
+  ));
   const requestedLineId = new URLSearchParams(window.location.search).get("line");
   let activeLine = trainingLines.find((line) => line.id === requestedLineId)
     || trainingLines.find((line) => line.id === openingProgress.activeLineId)
@@ -617,6 +634,7 @@ async function initOpeningTrainer() {
     };
 
     saveOpeningProgress(opening.id, openingProgress);
+    scheduleRemoteOpeningProgressSave();
   }
 
   function scheduleLineProgressSave() {
@@ -624,6 +642,34 @@ async function initOpeningTrainer() {
     lineProgressSaveTimer = window.setTimeout(() => {
       saveLineProgress(true);
     }, 120);
+  }
+
+  function scheduleRemoteOpeningProgressSave(immediate = false) {
+    const runSave = async () => {
+      try {
+        await saveOpeningProgressRemote({
+          opening_key: opening.id,
+          branch_key: activeLine.id,
+          move_index: moveIndex,
+          completed: moveIndex >= activeLine.moves.length,
+          mastery_score: activeLine.moves.length
+            ? Math.round((moveIndex / activeLine.moves.length) * 100)
+            : 0,
+        });
+      } catch (error) {
+        // Keep localStorage as the fallback.
+      }
+    };
+
+    window.clearTimeout(openingProgressSaveTimer);
+    if (immediate) {
+      void runSave();
+      return;
+    }
+
+    openingProgressSaveTimer = window.setTimeout(() => {
+      void runSave();
+    }, 250);
   }
 
   function syncBoardPosition({ silent = false, animate = false } = {}) {
@@ -917,12 +963,14 @@ function moveStateIcon(state) {
 }
 
 function normalizeSavedLineState(saved, line) {
-  if (!saved || !Array.isArray(saved.playedMoves)) {
+  if (!saved) {
     return null;
   }
 
-  const moveIndex = Math.max(0, Math.min(saved.moveIndex || 0, line.moves.length));
-  const playedMoves = saved.playedMoves.slice(0, moveIndex);
+  const moveIndex = Math.max(0, Math.min(Number.isInteger(saved.moveIndex) ? saved.moveIndex : 0, line.moves.length));
+  const playedMoves = Array.isArray(saved.playedMoves) && saved.playedMoves.length
+    ? saved.playedMoves.slice(0, moveIndex)
+    : line.moves.slice(0, moveIndex).map((move) => move.uci);
   const expectedMoves = line.moves.slice(0, moveIndex).map((move) => move.uci);
   const isInSync = expectedMoves.every((move, index) => playedMoves[index] === move);
 

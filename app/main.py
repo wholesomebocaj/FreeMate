@@ -18,9 +18,16 @@ from app.services.auth import (
     authenticate_user,
     clear_current_user_session,
     create_user,
+    get_current_user,
     get_current_user_optional,
     serialize_user,
     set_current_user_session,
+)
+from app.services.progress import (
+    get_progress_snapshot,
+    upsert_course_progress,
+    upsert_lesson_progress,
+    upsert_opening_progress,
 )
 from app.services.content_validator import (
     ContentValidationError,
@@ -112,6 +119,29 @@ class AuthLoginRequest(BaseModel):
     password: str = Field(..., min_length=1, examples=["strong-password"])
 
 
+class LessonProgressRequest(BaseModel):
+    lesson_id: str = Field(..., examples=["rook-from-d4"])
+    status: str | None = Field(default=None, examples=["learning"])
+    completed: bool | None = Field(default=None)
+    mastery_score: float | None = Field(default=None, ge=0)
+    last_step_index: int | None = Field(default=None, ge=0)
+    last_position_fen: str | None = Field(default=None)
+
+
+class OpeningProgressRequest(BaseModel):
+    opening_key: str = Field(..., examples=["italian-game"])
+    branch_key: str = Field(..., examples=["main-line"])
+    move_index: int = Field(default=0, ge=0)
+    completed: bool | None = Field(default=None)
+    mastery_score: float | None = Field(default=None, ge=0)
+
+
+class CourseProgressRequest(BaseModel):
+    course_id: str = Field(..., examples=["beginner-chess-course"])
+    completed_lessons: int = Field(default=0, ge=0)
+    completion_percent: float = Field(default=0.0, ge=0)
+
+
 @app.get("/")
 def homepage() -> FileResponse:
     return FileResponse(STATIC_DIR / "index.html")
@@ -187,6 +217,64 @@ def auth_logout() -> JSONResponse:
     response = JSONResponse({"authenticated": False, "ok": True})
     clear_current_user_session(response)
     return response
+
+
+@app.get("/api/progress")
+def get_progress(db: Session = Depends(get_db), current_user = Depends(get_current_user)) -> JSONResponse:
+    return JSONResponse(get_progress_snapshot(db, current_user.id))
+
+
+@app.post("/api/progress/lesson")
+def save_lesson_progress(
+    payload: LessonProgressRequest,
+    db: Session = Depends(get_db),
+    current_user = Depends(get_current_user),
+) -> JSONResponse:
+    row = upsert_lesson_progress(
+        db,
+        current_user.id,
+        lesson_id=payload.lesson_id,
+        status=payload.status,
+        completed=payload.completed,
+        mastery_score=payload.mastery_score,
+        last_step_index=payload.last_step_index,
+        last_position_fen=payload.last_position_fen,
+    )
+    return JSONResponse({"ok": True, "lesson": row.lesson_id})
+
+
+@app.post("/api/progress/opening")
+def save_opening_progress(
+    payload: OpeningProgressRequest,
+    db: Session = Depends(get_db),
+    current_user = Depends(get_current_user),
+) -> JSONResponse:
+    row = upsert_opening_progress(
+        db,
+        current_user.id,
+        opening_key=payload.opening_key,
+        branch_key=payload.branch_key,
+        move_index=payload.move_index,
+        completed=payload.completed,
+        mastery_score=payload.mastery_score,
+    )
+    return JSONResponse({"ok": True, "opening_key": row.opening_key, "branch_key": row.branch_key})
+
+
+@app.post("/api/progress/course")
+def save_course_progress(
+    payload: CourseProgressRequest,
+    db: Session = Depends(get_db),
+    current_user = Depends(get_current_user),
+) -> JSONResponse:
+    row = upsert_course_progress(
+        db,
+        current_user.id,
+        course_id=payload.course_id,
+        completed_lessons=payload.completed_lessons,
+        completion_percent=payload.completion_percent,
+    )
+    return JSONResponse({"ok": True, "course_id": row.course_id})
 
 
 @app.get("/courses/{course_id}")

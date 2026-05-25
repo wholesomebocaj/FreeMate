@@ -76,6 +76,10 @@
         <script src="/static/script.js"></script>
         <script type="module">
             import {
+                hydrateLessonProgressStorage,
+                loadProgressSnapshot,
+            } from "/static/components/progress-sync.js";
+            import {
                 courseLessons,
                 courseProgress,
                 findBracketByCourseId,
@@ -96,16 +100,30 @@
                 }
             }
 
-            function loadObject(key) {
-                try {
-                    return JSON.parse(localStorage.getItem(key)) || {};
-                } catch (error) {
-                    return {};
-                }
+            function loadObject(key, fallbackKey = null) {
+                const merged = {};
+                [fallbackKey, key].filter(Boolean).forEach((sourceKey) => {
+                    try {
+                        Object.assign(
+                            merged,
+                            JSON.parse(localStorage.getItem(sourceKey)) || {},
+                        );
+                    } catch (error) {
+                        // Ignore malformed storage and keep the other source.
+                    }
+                });
+                return merged;
             }
 
             const completedLessons = loadSet(progressKey);
-            const savedSteps = loadObject(stepKey);
+            const savedSteps = loadObject(stepKey, "freemate.lessonSteps");
+            const progressSnapshot = await loadProgressSnapshot();
+            hydrateLessonProgressStorage(progressSnapshot, {
+                completedLessons,
+                savedSteps,
+                progressKey,
+                stepKeys: [stepKey, "freemate.lessonSteps"],
+            });
 
             async function ensureCourseVisible() {
                 const detail = document.getElementById("course-detail");

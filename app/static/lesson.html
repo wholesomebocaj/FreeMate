@@ -105,6 +105,12 @@
             import { LessonRenderer } from "/static/components/LessonRenderer.js";
             import { recordReviewSuccess } from "/static/components/review-store.js";
             import {
+                hydrateLessonProgressStorage,
+                loadProgressSnapshot,
+                saveCourseProgress,
+                saveLessonProgress,
+            } from "/static/components/progress-sync.js";
+            import {
                 courseLessons,
                 courseProgress,
                 findBracketByCourseId,
@@ -126,16 +132,23 @@
                 }
             }
 
-            function loadObject(key) {
-                try {
-                    return JSON.parse(localStorage.getItem(key)) || {};
-                } catch (error) {
-                    return {};
-                }
+            function loadObject(key, fallbackKey = null) {
+                const merged = {};
+                [fallbackKey, key].filter(Boolean).forEach((sourceKey) => {
+                    try {
+                        Object.assign(
+                            merged,
+                            JSON.parse(localStorage.getItem(sourceKey)) || {},
+                        );
+                    } catch (error) {
+                        // Ignore malformed storage and keep the other source.
+                    }
+                });
+                return merged;
             }
 
             const completedLessons = loadSet(progressKey);
-            const savedSteps = loadObject(stepKey);
+            const savedSteps = loadObject(stepKey, "freemate.lessonSteps");
 
             function saveProgress() {
                 localStorage.setItem(
@@ -143,11 +156,22 @@
                     JSON.stringify([...completedLessons]),
                 );
                 localStorage.setItem(stepKey, JSON.stringify(savedSteps));
+                localStorage.setItem(
+                    "freemate.lessonSteps",
+                    JSON.stringify(savedSteps),
+                );
             }
 
             async function loadLesson() {
                 const pathParts = window.location.pathname.split("/");
                 const lessonId = pathParts[pathParts.length - 1];
+                const progressSnapshot = await loadProgressSnapshot();
+                hydrateLessonProgressStorage(progressSnapshot, {
+                    completedLessons,
+                    savedSteps,
+                    progressKey,
+                    stepKeys: [stepKey, "freemate.lessonSteps"],
+                });
 
                 const { courses, brackets } = await loadCurriculumData();
                 const lessonContext = findCourseForLesson(courses, lessonId);
@@ -192,6 +216,20 @@
                         completedLessons.add(lesson.id);
                         savedSteps[lesson.id] = 0;
                         saveProgress();
+                        void saveLessonProgress({
+                            lesson_id: lesson.id,
+                            status: "mastered",
+                            completed: true,
+                            mastery_score: 100,
+                            last_step_index: 0,
+                        });
+                        void saveCourseProgress({
+                            course_id: course?.id || "course",
+                            completed_lessons: currentLessons.filter((entry) =>
+                                completedLessons.has(entry.id),
+                            ).length,
+                            completion_percent: courseProgress(course, completedLessons),
+                        });
                         recordReviewSuccess({
                             type: "lesson",
                             id: lesson.id,

@@ -44,6 +44,7 @@ class LessonProgress(Base):
     status: Mapped[str] = mapped_column(String(20), nullable=False, default="new")
     completed: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
     mastery_score: Mapped[float] = mapped_column(Float, nullable=False, default=0.0)
+    last_step_index: Mapped[int | None] = mapped_column(Integer, nullable=True)
     last_position_fen: Mapped[str | None] = mapped_column(Text, nullable=True)
     updated_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
