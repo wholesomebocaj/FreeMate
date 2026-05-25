@@ -140,9 +140,14 @@ def create_user(db: Session, username: str, password: str) -> User:
         db.commit()
     except IntegrityError as exc:
         db.rollback()
+        if _looks_like_duplicate_username_error(exc):
+            raise HTTPException(
+                status_code=status.HTTP_409_CONFLICT,
+                detail="That username is already taken.",
+            ) from exc
         raise HTTPException(
-            status_code=status.HTTP_409_CONFLICT,
-            detail="That account already exists.",
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Something went wrong creating your account.",
         ) from exc
 
     db.refresh(user)
@@ -252,3 +257,8 @@ def _sign_payload(payload_b64: str) -> str:
         hashlib.sha256,
     ).digest()
     return base64.urlsafe_b64encode(digest).decode("ascii").rstrip("=")
+
+
+def _looks_like_duplicate_username_error(exc: IntegrityError) -> bool:
+    orig = getattr(exc, "orig", None)
+    return getattr(orig, "pgcode", None) == "23505"

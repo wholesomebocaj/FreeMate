@@ -99,7 +99,10 @@ async function postJson(url, payload) {
 
     const data = await response.json().catch(() => ({}));
     if (!response.ok) {
-        throw new Error(extractErrorMessage(data));
+        const error = new Error(extractErrorMessage(data));
+        error.status = response.status;
+        error.payload = data;
+        throw error;
     }
 
     return data;
@@ -175,7 +178,13 @@ async function initAuthPage() {
             authStatePromise = null;
             window.location.href = "/";
         } catch (error) {
-            setResult(signupResult, error.message, "error");
+            if (error.status === 409) {
+                setResult(signupResult, "That username is already taken.", "error");
+            } else if (error.status === 422) {
+                setResult(signupResult, error.message, "error");
+            } else {
+                setResult(signupResult, "Something went wrong creating your account.", "error");
+            }
         }
     });
 

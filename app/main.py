@@ -198,7 +198,16 @@ def auth_me(request: Request, db: Session = Depends(get_db)) -> JSONResponse:
 
 @app.post("/api/auth/signup", status_code=status.HTTP_201_CREATED)
 def auth_signup(payload: AuthSignupRequest, db: Session = Depends(get_db)) -> JSONResponse:
-    user = create_user(db, payload.username, payload.password)
+    try:
+        user = create_user(db, payload.username, payload.password)
+    except HTTPException:
+        raise
+    except Exception as exc:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Something went wrong creating your account.",
+        ) from exc
+
     response = JSONResponse({"authenticated": True, "user": serialize_user(user)}, status_code=status.HTTP_201_CREATED)
     set_current_user_session(response, user)
     return response
