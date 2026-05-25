@@ -3,11 +3,16 @@
 .review-empty-card,
 .course-card,
 .bracket-card,
-.focus-card,
+
 .mini-dashboard,
 .coach-stats,
 .course-sidebar,
 .coach-panel,
+
+.focus-card {
+    padding: 160px;
+}
+
 .progress-sidebar > * {
     background: linear-gradient(
         135deg,
