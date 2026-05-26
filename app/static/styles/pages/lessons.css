@@ -369,9 +369,9 @@
 .lesson-mode-shell {
     align-items: start;
     display: grid;
-    gap: 20px;
-    grid-template-columns: 280px minmax(0, 1fr) 300px;
-    max-width: 1600px;
+    gap: 18px;
+    grid-template-columns: 260px minmax(0, 1fr) 280px;
+    max-width: 1580px;
 }
 
 .course-sidebar,
@@ -500,8 +500,8 @@
 
 .coach-panel,
 .lesson-stage {
-    min-height: 720px;
-    padding: 28px;
+    min-height: 0;
+    padding: 24px 26px;
 }
 
 .lesson-stage {
@@ -561,12 +561,16 @@
 }
 
 .lesson-step {
+    align-items: start;
+    display: grid;
+    gap: 18px 28px;
+    grid-template-columns: minmax(0, 1fr) 250px;
     min-height: 410px;
 }
 
 .lesson-step-body {
     color: var(--muted);
-    margin: 0 0 10px;
+    margin: 0 0 8px;
 }
 
 .lesson-step-progress {
@@ -578,16 +582,70 @@
 }
 
 .lesson-step-header {
+    background: rgba(249, 250, 251, 0.04);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    box-shadow: 0 10px 28px rgba(15, 23, 42, 0.14);
     align-items: flex-start;
     display: flex;
     gap: 16px;
     justify-content: space-between;
-    margin-bottom: 16px;
+    margin: 0;
+    min-height: 100%;
+    padding: 16px;
+    position: sticky;
+    top: 112px;
 }
 
 .lesson-step-header .lesson-step-progress {
     flex: 1;
     margin-bottom: 0;
+}
+
+.lesson-step-title,
+.lesson-step-body,
+.lesson-checklist,
+.lesson-choice-grid,
+.lesson-practice-board,
+.lesson-complete {
+    grid-column: 1;
+}
+
+.lesson-step-header {
+    grid-column: 2;
+    grid-row: auto;
+}
+
+.lesson-step .lesson-board-feedback,
+.lesson-step .lesson-step-note {
+    grid-column: 2;
+}
+
+.lesson-step .lesson-practice-board {
+    justify-self: start;
+    margin: 8px 0 4px;
+    max-width: min(560px, 100%);
+}
+
+.lesson-step .lesson-step-note {
+    background: rgba(249, 250, 251, 0.04);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    margin-top: 4px;
+    padding: 12px 14px;
+}
+
+.lesson-step .lesson-board-feedback {
+    max-width: min(560px, 100%);
+}
+
+.lesson-step .lesson-checklist,
+.lesson-step .lesson-choice-grid {
+    max-width: 760px;
+}
+
+.lesson-step .lesson-complete {
+    grid-column: 1 / -1;
 }
 
 .lesson-step-progress-label {
@@ -831,6 +889,28 @@
     .board-lesson-layout {
         gap: 16px;
         grid-template-columns: 1fr;
+    }
+
+    .lesson-step {
+        gap: 16px;
+        grid-template-columns: 1fr;
+    }
+
+    .lesson-step-header {
+        grid-column: 1;
+        grid-row: auto;
+        position: static;
+    }
+
+    .lesson-step-title,
+    .lesson-step-body,
+    .lesson-checklist,
+    .lesson-choice-grid,
+    .lesson-practice-board,
+    .lesson-board-feedback,
+    .lesson-step-note,
+    .lesson-complete {
+        grid-column: 1;
     }
 
     .lesson-practice-board {
