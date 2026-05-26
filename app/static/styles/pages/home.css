@@ -6,18 +6,23 @@
 .hero {
     align-items: center;
     display: grid;
-    gap: 48px;
-    grid-template-columns: 1fr 0.8fr;
-    min-height: 520px;
+    gap: 32px;
+    grid-template-columns: minmax(0, 1.05fr) minmax(360px, 0.9fr);
+    min-height: 480px;
+    padding-top: 8px;
 }
 
 .home-hero {
     text-align: left;
 }
 
+.hero-content {
+    max-width: 640px;
+}
+
 .hero h1,
 .coach-header h1 {
-    font-size: clamp(3rem, 7vw, 6.5rem);
+    font-size: clamp(2.9rem, 6vw, 5.5rem);
     letter-spacing: 0;
     line-height: 0.95;
     margin: 0;
@@ -27,13 +32,44 @@
 .coach-header p,
 .section-heading p {
     color: var(--muted);
-    font-size: 1.2rem;
-    max-width: 680px;
+    font-size: 1.06rem;
+    max-width: 620px;
+}
+
+.hero-actions {
+    margin-top: 26px;
+}
+
+.hero-stats {
+    display: grid;
+    gap: 12px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin-top: 22px;
+}
+
+.hero-stat {
+    background: rgba(249, 250, 251, 0.04);
+    border: 1px solid rgba(249, 250, 251, 0.08);
+    border-radius: 16px;
+    padding: 14px 14px 13px;
+}
+
+.hero-stat strong {
+    display: block;
+    font-size: 0.95rem;
+    margin-bottom: 6px;
+}
+
+.hero-stat span {
+    color: var(--muted);
+    display: block;
+    font-size: 0.82rem;
+    line-height: 1.35;
 }
 
 .eyebrow {
     color: var(--green);
-    font-size: 0.78rem;
+    font-size: 0.76rem;
     font-weight: 900;
     letter-spacing: 0;
     margin: 0 0 10px;
@@ -41,11 +77,151 @@
 }
 
 .section-heading {
-    margin-bottom: 18px;
+    margin-bottom: 16px;
 }
 
 .section-heading h2 {
-    font-size: clamp(1.8rem, 3vw, 3rem);
+    font-size: clamp(1.55rem, 2.8vw, 2.5rem);
     line-height: 1.05;
     margin: 0;
+}
+
+.roadmap-section {
+    margin-top: 20px;
+}
+
+.roadmap {
+    display: grid;
+    gap: 12px;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+}
+
+.roadmap-item {
+    background: rgba(31, 41, 55, 0.82);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+    color: var(--text);
+    font-weight: 750;
+    min-height: 72px;
+    padding: 16px 16px 15px;
+    position: relative;
+}
+
+.roadmap-item::before {
+    border-radius: 999px;
+    content: "";
+    display: block;
+    height: 6px;
+    margin-bottom: 12px;
+    width: 36px;
+}
+
+.roadmap-item.complete::before {
+    background: rgba(34, 197, 94, 0.8);
+}
+
+.roadmap-item.current {
+    border-color: rgba(34, 197, 94, 0.42);
+    box-shadow:
+        0 0 22px rgba(34, 197, 94, 0.14),
+        var(--shadow);
+}
+
+.roadmap-item.current::before {
+    background: rgba(34, 197, 94, 1);
+}
+
+.roadmap-item.locked {
+    color: var(--muted);
+}
+
+.roadmap-item.locked::before {
+    background: rgba(249, 250, 251, 0.14);
+}
+
+.board-preview {
+    align-items: stretch;
+    background: rgba(31, 41, 55, 0.86);
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    box-shadow: var(--shadow);
+    display: grid;
+    gap: 14px;
+    padding: 18px;
+}
+
+.board-preview-caption {
+    display: grid;
+    gap: 4px;
+}
+
+.board-preview-kicker {
+    color: var(--green);
+    font-size: 0.74rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.board-preview-caption strong {
+    font-size: 1.1rem;
+}
+
+.chessboard {
+    aspect-ratio: 1 / 1;
+    background:
+        linear-gradient(45deg, transparent 48%, rgba(34, 197, 94, 0.1) 49%, rgba(34, 197, 94, 0.1) 51%, transparent 52%),
+        linear-gradient(135deg, transparent 48%, rgba(59, 130, 246, 0.08) 49%, rgba(59, 130, 246, 0.08) 51%, transparent 52%),
+        repeating-conic-gradient(
+            from 0deg,
+            #eeeed2 0 12.5%,
+            #769656 0 25%
+        );
+    border: 1px solid rgba(249, 250, 251, 0.08);
+    border-radius: 18px;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
+    min-height: 0;
+}
+
+@media (max-width: 1024px) {
+    .hero {
+        gap: 24px;
+        grid-template-columns: 1fr;
+    }
+
+    .hero-content {
+        max-width: none;
+    }
+
+    .hero-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .board-preview {
+        max-width: 520px;
+    }
+}
+
+@media (max-width: 640px) {
+    .hero {
+        min-height: 0;
+    }
+
+    .hero h1 {
+        font-size: clamp(2.4rem, 11vw, 3.4rem);
+    }
+
+    .hero-copy {
+        font-size: 1rem;
+    }
+
+    .board-preview {
+        border-radius: 20px;
+        padding: 14px;
+    }
+
+    .roadmap {
+        grid-template-columns: 1fr;
+    }
 }
