@@ -98,6 +98,7 @@ export class PracticeBoard {
     this.highlightSquares = config.highlightSquares || [];
     this.animationDuration = config.animationDuration || 180;
     this.sound = this.enableSounds ? config.sound || new BoardSound() : { play() {} };
+    this.pendingPromotion = null;
 
     this.engine = createChessEngine(this.fen);
     this.position = parseFen(this.fen);
@@ -279,6 +280,7 @@ export class PracticeBoard {
   }
 
   loadFen(fen, options = {}) {
+    this.hidePromotionChooser();
     this.fen = normalizeFen(fen);
     this.engine = createChessEngine(this.fen);
     this.position = parseFen(this.fen);
@@ -300,6 +302,7 @@ export class PracticeBoard {
   }
 
   syncFen(fen, options = {}) {
+    this.hidePromotionChooser();
     this.fen = normalizeFen(fen);
     this.engine = createChessEngine(this.fen);
     this.position = parseFen(this.fen);
@@ -349,6 +352,7 @@ export class PracticeBoard {
   }
 
   flip() {
+    this.hidePromotionChooser();
     this.orientation = this.orientation === "white" ? "black" : "white";
     this.pendingSelectionRequest += 1;
     this.ground.set({
@@ -391,6 +395,16 @@ export class PracticeBoard {
     }
 
     const localResult = this.validateLocalMove(fromSquare, toSquare, metadata);
+    if (localResult.promotionRequired) {
+      this.showPromotionChooser({
+        fromSquare,
+        toSquare,
+        metadata,
+        choices: localResult.promotionChoices,
+      });
+      return;
+    }
+
     if (!localResult.isValid) {
       this.rejectMove(move, localResult.message);
       return;
@@ -414,6 +428,29 @@ export class PracticeBoard {
     const localResult = this.validateLocalMove(fromSquare, toSquare, {
       promotion: cleanMove[4],
     });
+
+    if (localResult.promotionRequired) {
+      const promotion = options.defaultPromotion || "q";
+      if (options.promptPromotion === false) {
+        return this.playMove(`${cleanMove.slice(0, 4)}${promotion}`, {
+          ...options,
+          defaultPromotion: promotion,
+        });
+      }
+
+      this.showPromotionChooser({
+        fromSquare,
+        toSquare,
+        metadata: { promotion: cleanMove[4] },
+        choices: localResult.promotionChoices,
+      });
+      return {
+        isValid: false,
+        is_valid: false,
+        promotionRequired: true,
+        promotionChoices: localResult.promotionChoices,
+      };
+    }
 
     if (!localResult.isValid) {
       this.rejectMove(cleanMove, localResult.message);
@@ -477,13 +514,27 @@ export class PracticeBoard {
     }
 
     const legalMoves = this.engine.moves({ square: fromSquare, verbose: true }) || [];
-    const moveInfo = legalMoves.find((move) => move.to === toSquare);
+    const matchingMoves = legalMoves.filter((move) => move.to === toSquare);
+    const moveInfo = matchingMoves[0];
 
     if (!moveInfo) {
       return { isValid: false, message: "That move is not legal." };
     }
 
+    const promotionChoices = unique(
+      matchingMoves.map((move) => move.promotion).filter(Boolean),
+    );
     const promotion = metadata.promotion || moveInfo.promotion || undefined;
+
+    if (promotionChoices.length > 1 && !promotion) {
+      return {
+        isValid: false,
+        message: "Choose a promotion piece.",
+        promotionRequired: true,
+        promotionChoices,
+      };
+    }
+
     const move = `${fromSquare}${toSquare}${promotion || ""}`;
 
     if (!this.isConfiguredMoveAllowed(move)) {
@@ -540,6 +591,7 @@ export class PracticeBoard {
     const feedback = this.errorMessage || message;
     this.pendingSelectionRequest += 1;
     this.selectedSquare = null;
+    this.hidePromotionChooser();
     this.sound.play("illegal");
     this.syncBoard({ clearSelection: true });
     this.onIllegalMove({ move, message: feedback });
@@ -608,7 +660,61 @@ export class PracticeBoard {
     });
   }
 
+  showPromotionChooser({ fromSquare, toSquare, metadata = {}, choices = [] }) {
+    this.hidePromotionChooser();
+
+    const promotionChoices = choices.length ? choices : ["q", "r", "b", "n"];
+    const overlay = document.createElement("div");
+    overlay.className = "promotion-chooser";
+    overlay.innerHTML = `
+      <div class="promotion-chooser-panel" role="dialog" aria-modal="true" aria-label="Choose promotion piece">
+        <p class="promotion-chooser-title">Promote to</p>
+        <div class="promotion-chooser-grid">
+          ${promotionChoices
+            .map(
+              (choice) => `
+                <button type="button" class="promotion-choice" data-choice="${choice}">
+                  <span class="promotion-choice-piece">${choice.toUpperCase()}</span>
+                  <span class="promotion-choice-label">${promotionLabel(choice)}</span>
+                </button>
+              `,
+            )
+            .join("")}
+        </div>
+        <button type="button" class="promotion-chooser-cancel">Cancel</button>
+      </div>
+    `;
+
+    overlay.addEventListener("click", (event) => {
+      if (event.target === overlay) {
+        this.hidePromotionChooser();
+      }
+    });
+
+    overlay.querySelectorAll(".promotion-choice").forEach((button) => {
+      button.addEventListener("click", () => {
+        const promotion = button.dataset.choice;
+        this.hidePromotionChooser();
+        this.tryMove(fromSquare, toSquare, { ...metadata, promotion });
+      });
+    });
+
+    overlay.querySelector(".promotion-chooser-cancel")?.addEventListener("click", () => {
+      this.hidePromotionChooser();
+    });
+
+    this.pendingPromotion = { fromSquare, toSquare, metadata, choices: promotionChoices };
+    this.element.appendChild(overlay);
+    queueMicrotask(() => overlay.querySelector(".promotion-choice")?.focus());
+  }
+
+  hidePromotionChooser() {
+    this.pendingPromotion = null;
+    this.element.querySelector(".promotion-chooser")?.remove();
+  }
+
   destroy() {
+    this.hidePromotionChooser();
     this.ground?.destroy();
   }
 }
@@ -661,6 +767,17 @@ function createChessEngine(fen) {
 
 function unique(values) {
   return [...new Set(values)];
+}
+
+function promotionLabel(choice) {
+  const map = {
+    q: "Queen",
+    r: "Rook",
+    b: "Bishop",
+    n: "Knight",
+  };
+
+  return map[choice] || choice.toUpperCase();
 }
 
 function normalizeFen(fen) {

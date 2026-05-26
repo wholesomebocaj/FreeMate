@@ -354,3 +354,76 @@ button.board-square {
 .practice-board-component.cg-wrap coords coord:nth-child(even) {
     color: rgba(39, 53, 32, 0.74);
 }
+
+.promotion-chooser {
+    align-items: center;
+    background: rgba(2, 6, 23, 0.42);
+    backdrop-filter: blur(6px);
+    bottom: 0;
+    display: grid;
+    left: 0;
+    place-items: center;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 20;
+}
+
+.promotion-chooser-panel {
+    background: rgba(15, 23, 42, 0.98);
+    border: 1px solid rgba(249, 250, 251, 0.1);
+    border-radius: 18px;
+    box-shadow: 0 22px 60px rgba(0, 0, 0, 0.45);
+    min-width: min(320px, 88%);
+    padding: 18px;
+}
+
+.promotion-chooser-title {
+    color: var(--text);
+    font-size: 1rem;
+    font-weight: 900;
+    margin: 0 0 14px;
+    text-align: center;
+}
+
+.promotion-chooser-grid {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.promotion-choice,
+.promotion-chooser-cancel {
+    align-items: center;
+    background: rgba(249, 250, 251, 0.06);
+    border: 1px solid rgba(249, 250, 251, 0.1);
+    border-radius: 14px;
+    color: var(--text);
+    display: grid;
+    gap: 4px;
+    justify-items: center;
+    padding: 14px 10px;
+    text-align: center;
+}
+
+.promotion-choice:hover,
+.promotion-chooser-cancel:hover {
+    border-color: rgba(34, 197, 94, 0.35);
+    background: rgba(34, 197, 94, 0.12);
+}
+
+.promotion-choice-piece {
+    font-size: 1.15rem;
+    font-weight: 950;
+}
+
+.promotion-choice-label {
+    color: var(--muted);
+    font-size: 0.76rem;
+    font-weight: 750;
+}
+
+.promotion-chooser-cancel {
+    margin-top: 12px;
+    width: 100%;
+}
