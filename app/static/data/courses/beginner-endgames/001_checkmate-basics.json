@@ -44,28 +44,6 @@
       ]
     },
     {
-      "type": "multiple-choice",
-      "title": "Checkmate or stalemate?",
-      "question": "In a position where the king is not in check but has no legal moves, what is the result?",
-      "choices": [
-        {
-          "label": "Checkmate",
-          "value": "checkmate"
-        },
-        {
-          "label": "Stalemate",
-          "value": "stalemate"
-        },
-        {
-          "label": "Play continues",
-          "value": "play-continues"
-        }
-      ],
-      "correctChoice": "stalemate",
-      "successText": "Correct. No check plus no legal moves means stalemate.",
-      "errorText": "Not quite. Checkmate requires the king to be in check."
-    },
-    {
       "type": "explain",
       "title": "Lesson recap",
       "body": "Checkmate wins the game. Stalemate draws the game. Always ask: is the king actually in check?"
