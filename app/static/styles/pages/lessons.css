@@ -685,6 +685,14 @@
     margin: 12px 0 4px;
 }
 
+.lesson-choice-prompt {
+    color: rgba(249, 250, 251, 0.88);
+    font-size: 0.98rem;
+    font-weight: 800;
+    margin: 8px 0 10px;
+    max-width: 46rem;
+}
+
 .lesson-choice-button {
     align-items: center;
     background: rgba(249, 250, 251, 0.06);

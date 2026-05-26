@@ -136,9 +136,10 @@ export class LessonRenderer {
     const choices = Array.isArray(step.choices) ? step.choices : [];
     const correctValue = step.correctChoice ?? step.correctAnswer ?? step.answer;
 
-    if (step.board) {
-      this.renderPracticeBoard(wrapper, step, this.getBoardConfig(step));
-    }
+    const prompt = document.createElement("p");
+    prompt.className = "lesson-choice-prompt";
+    prompt.textContent = step.question || "Choose the best response.";
+    wrapper.appendChild(prompt);
 
     const options = document.createElement("div");
     options.className = "lesson-choice-grid";
@@ -171,6 +172,10 @@ export class LessonRenderer {
     });
 
     wrapper.appendChild(options);
+
+    if (step.board) {
+      this.renderPracticeBoard(wrapper, step, this.getBoardConfig(step));
+    }
   }
 
   renderPracticeBoard(wrapper, step, config) {

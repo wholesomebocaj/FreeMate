@@ -37,20 +37,20 @@
     {
       "type": "move-task",
       "title": "Cut off the king",
-      "body": "Move the rook from g2 to g7 to trap the black king on the edge.",
+      "body": "Move the rook from g2 to g6 to cut the king off without leaving it hanging.",
       "fen": "7k/8/8/8/8/8/6R1/6K1 w - - 0 1",
       "startSquare": "g2",
-      "targetSquare": "g7",
-      "highlightSquares": ["g7", "h8"],
+      "targetSquare": "g6",
+      "highlightSquares": ["g6", "h8"],
       "successText": "Good. The rook has cut the king off.",
-      "errorText": "Try again. Move the rook to g7."
+      "errorText": "Try again. Move the rook to g6."
     },
     {
       "type": "board-demo",
       "title": "Now bring your king closer",
       "body": "Once the king is boxed in, your own king must help take away the final escape squares.",
-      "fen": "6Rk/8/8/8/8/8/8/6K1 b - - 0 1",
-      "highlightSquares": ["g8", "h8", "g1"]
+      "fen": "7k/8/6R1/8/8/8/8/6K1 b - - 0 1",
+      "highlightSquares": ["g6", "h8", "g1"]
     },
     {
       "type": "explain",
