@@ -37,20 +37,20 @@
     {
       "type": "move-task",
       "title": "Make a restricting queen move",
-      "body": "Move the queen from g2 to g7 to trap the king on the back rank.",
+      "body": "Move the queen from g2 to g6 to cut off the king without hanging it.",
       "fen": "7k/8/8/8/8/8/6Q1/6K1 w - - 0 1",
       "startSquare": "g2",
-      "targetSquare": "g7",
-      "highlightSquares": ["g7", "h8"],
+      "targetSquare": "g6",
+      "highlightSquares": ["g6", "h7", "h8"],
       "successText": "Good. That move cuts the king's space down sharply.",
-      "errorText": "Try again. Move the queen to g7."
+      "errorText": "Try again. Move the queen to g6."
     },
     {
       "type": "board-demo",
       "title": "After the box shrinks",
       "body": "Once the king is boxed in, your king can walk forward and help finish the mate.",
-      "fen": "6Qk/8/8/8/8/8/8/6K1 b - - 0 1",
-      "highlightSquares": ["g8", "h8", "g1"]
+      "fen": "7k/8/8/8/8/6Q1/8/6K1 b - - 0 1",
+      "highlightSquares": ["g8", "h8", "h7"]
     },
     {
       "type": "explain",

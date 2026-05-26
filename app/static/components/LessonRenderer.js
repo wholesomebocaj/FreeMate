@@ -94,7 +94,7 @@ export class LessonRenderer {
     }
 
     const stepIndex = this.currentStepIndex;
-    if (["explain", "board-demo", "highlight-demo", "guided-puzzle", "attack-visualization"].includes(step.type)) {
+    if (this.shouldAutoCompleteStep(step)) {
       window.setTimeout(() => {
         if (this.currentStepIndex !== stepIndex) return;
         if (!this.completedSteps.has(stepIndex)) {
@@ -347,7 +347,9 @@ export class LessonRenderer {
         : "Next";
     nextButton.disabled = !this.completedSteps.has(this.currentStepIndex);
     nextButton.title = nextButton.disabled
-      ? "Complete this step to continue"
+      ? this.stepRequiresManualResponse(this.lesson.steps[this.currentStepIndex])
+        ? "Complete your response to continue"
+        : "Complete this step to continue"
       : "";
     nextButton.onclick = () => {
       if (!this.completedSteps.has(this.currentStepIndex)) return;
@@ -369,9 +371,37 @@ export class LessonRenderer {
     if (nextButton) {
       nextButton.disabled = !this.completedSteps.has(this.currentStepIndex);
       nextButton.title = nextButton.disabled
-        ? "Complete this step to continue"
+        ? this.stepRequiresManualResponse(this.lesson.steps[this.currentStepIndex])
+          ? "Complete your response to continue"
+          : "Complete this step to continue"
         : "";
     }
+  }
+
+  shouldAutoCompleteStep(step) {
+    return [
+      "explain",
+      "board-demo",
+      "highlight-demo",
+    ].includes(step.type) && step.completeOnSuccess !== false;
+  }
+
+  stepRequiresManualResponse(step) {
+    return [
+      "checklist",
+      "multiple-choice",
+      "move-task",
+      "capture-task",
+      "tactic-task",
+      "board-task",
+      "attack-visualization",
+      "guided-puzzle",
+      "rook-practice",
+      "rook-challenge",
+      "click-all-squares",
+      "square-click",
+      "move-validation",
+    ].includes(step?.type);
   }
 
   showBoardFeedback(wrapper, message, type) {
