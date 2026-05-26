@@ -14,44 +14,59 @@
   "tags": ["endgame", "checkmate", "stalemate", "beginner"],
   "steps": [
     {
-      "type": "explanation",
+      "type": "explain",
       "title": "What is checkmate?",
       "body": "Checkmate means the king is in check and there is no legal move to escape. The game ends immediately."
     },
     {
-      "type": "explanation",
+      "type": "explain",
       "title": "What is stalemate?",
       "body": "Stalemate means the player to move is not in check, but has no legal moves. The game is a draw."
     },
     {
-      "type": "board_demo",
+      "type": "board-demo",
       "title": "Checkmate example",
+      "body": "Black is in check from the queen and has no legal escape squares.",
       "fen": "7k/6Q1/6K1/8/8/8/8/8 b - - 0 1",
-      "coach_note": "Black is in check from the queen and has no legal escape squares."
+      "highlightSquares": [
+        "g7",
+        "h8"
+      ]
     },
     {
-      "type": "board_demo",
+      "type": "board-demo",
       "title": "Stalemate example",
+      "body": "Black is not in check, but every legal move is blocked. That makes it stalemate, not checkmate.",
       "fen": "7k/5Q2/6K1/8/8/8/8/8 b - - 0 1",
-      "coach_note": "Black is not in check, but every legal move is blocked. That makes it stalemate, not checkmate."
+      "highlightSquares": [
+        "g7",
+        "h8"
+      ]
     },
     {
-      "type": "quiz",
+      "type": "multiple-choice",
       "title": "Checkmate or stalemate?",
       "question": "In a position where the king is not in check but has no legal moves, what is the result?",
-      "options": [
-        "Checkmate",
-        "Stalemate",
-        "Play continues"
+      "choices": [
+        {
+          "label": "Checkmate",
+          "value": "checkmate"
+        },
+        {
+          "label": "Stalemate",
+          "value": "stalemate"
+        },
+        {
+          "label": "Play continues",
+          "value": "play-continues"
+        }
       ],
-      "answer": "Stalemate",
-      "feedback": {
-        "correct": "Correct. No check plus no legal moves means stalemate.",
-        "incorrect": "Not quite. Checkmate requires the king to be in check."
-      }
+      "correctChoice": "stalemate",
+      "successText": "Correct. No check plus no legal moves means stalemate.",
+      "errorText": "Not quite. Checkmate requires the king to be in check."
     },
     {
-      "type": "recap",
+      "type": "explain",
       "title": "Lesson recap",
       "body": "Checkmate wins the game. Stalemate draws the game. Always ask: is the king actually in check?"
     }

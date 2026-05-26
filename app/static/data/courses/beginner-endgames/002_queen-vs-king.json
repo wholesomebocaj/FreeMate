@@ -14,44 +14,59 @@
   "tags": ["endgame", "queen", "checkmate", "beginner"],
   "steps": [
     {
-      "type": "explanation",
+      "type": "explain",
       "title": "The big idea",
       "body": "Your queen is strong enough to trap the enemy king, but your own king must help finish the job."
     },
     {
-      "type": "explanation",
+      "type": "explain",
       "title": "Do not rush checks",
       "body": "Beginners often keep checking forever. First restrict the king, then bring your king closer, then deliver mate."
     },
     {
-      "type": "board_demo",
+      "type": "board-demo",
       "title": "Starting example",
+      "body": "White has more than enough material. The goal is not random checks. The goal is to trap the king step by step.",
       "fen": "7k/8/8/8/8/8/6Q1/6K1 w - - 0 1",
-      "coach_note": "White has more than enough material. The goal is not random checks. The goal is to trap the king step by step."
+      "highlightSquares": [
+        "g2",
+        "h8"
+      ]
     },
     {
-      "type": "board_demo",
+      "type": "board-demo",
       "title": "Shrink the box",
+      "body": "A queen can cut off files, ranks, and diagonals. Think about making the enemy king's area smaller and smaller.",
       "fen": "7k/8/8/8/8/6Q1/8/6K1 w - - 0 1",
-      "coach_note": "A queen can cut off files, ranks, and diagonals. Think about making the enemy king's area smaller and smaller."
+      "highlightSquares": [
+        "g3",
+        "h8"
+      ]
     },
     {
-      "type": "quiz",
+      "type": "multiple-choice",
       "title": "What matters most?",
       "question": "In queen vs king, what is the most important practical idea?",
-      "options": [
-        "Give endless checks",
-        "Trap the king and bring your king closer",
-        "Trade the queen"
+      "choices": [
+        {
+          "label": "Give endless checks",
+          "value": "checks"
+        },
+        {
+          "label": "Trap the king and bring your king closer",
+          "value": "trap-and-king"
+        },
+        {
+          "label": "Trade the queen",
+          "value": "trade-queen"
+        }
       ],
-      "answer": "Trap the king and bring your king closer",
-      "feedback": {
-        "correct": "Correct. Restriction plus king support is the winning method.",
-        "incorrect": "Not quite. Random checks can slow you down or even risk stalemate."
-      }
+      "correctChoice": "trap-and-king",
+      "successText": "Correct. Restriction plus king support is the winning method.",
+      "errorText": "Not quite. Random checks can slow you down or even risk stalemate."
     },
     {
-      "type": "recap",
+      "type": "explain",
       "title": "Lesson recap",
       "body": "Use the queen to limit the king, bring your king in, and watch carefully for stalemate before the final mate."
     }
