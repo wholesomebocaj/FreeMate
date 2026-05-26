@@ -1,51 +1,60 @@
-[
-  {
-    "type": "explain",
-    "title": "What is checkmate?",
-    "body": "Checkmate means the king is in check and there is no legal move to escape. The game ends immediately."
-  },
-  {
-    "type": "board-demo",
-    "title": "A checkmate position",
-    "body": "Black is in check from the queen and has no legal escape squares.",
-    "fen": "7k/6Q1/6K1/8/8/8/8/8 b - - 0 1",
-    "highlightSquares": ["g7", "h8"]
-  },
-  {
-    "type": "board-demo",
-    "title": "A stalemate position",
-    "body": "Black is not in check, but has no legal move. That makes it stalemate, not checkmate.",
-    "fen": "7k/5Q2/6K1/8/8/8/8/8 b - - 0 1",
-    "highlightSquares": ["f7", "h8"]
-  },
-  {
-    "type": "multiple-choice",
-    "title": "What is this position?",
-    "question": "Look at the board. What is the result?",
-    "board": true,
-    "fen": "7k/5Q2/6K1/8/8/8/8/8 b - - 0 1",
-    "choices": [
-      { "label": "Checkmate", "value": "checkmate" },
-      { "label": "Stalemate", "value": "stalemate" },
-      { "label": "Play continues", "value": "play-continues" }
-    ],
-    "correctChoice": "stalemate",
-    "successText": "Correct. Black is not in check, but cannot move.",
-    "errorText": "Not quite. Check first whether the king is actually in check."
-  },
-  {
-    "type": "square-click",
-    "title": "Click the trapped king",
-    "body": "Click the black king in this stalemate position.",
-    "fen": "7k/5Q2/6K1/8/8/8/8/8 b - - 0 1",
-    "targetSquare": "h8",
-    "highlightSquares": ["h8"],
-    "successText": "Correct. That king has no legal moves.",
-    "errorText": "Try again. Click the black king on h8."
-  },
-  {
-    "type": "explain",
-    "title": "Lesson recap",
-    "body": "Checkmate wins. Stalemate draws. Always ask: is the king in check or just trapped?"
-  }
-]
+{
+  "id": "checkmate-basics",
+  "title": "Checkmate Basics",
+  "course": "beginner-endgames",
+  "bracket": "Beginner",
+  "topic": "endgames",
+  "order": 1,
+  "summary": "Learn the difference between checkmate and stalemate.",
+  "steps": [
+    {
+      "type": "explain",
+      "title": "What is checkmate?",
+      "body": "Checkmate means the king is in check and there is no legal move to escape. The game ends immediately."
+    },
+    {
+      "type": "board-demo",
+      "title": "A checkmate position",
+      "body": "Black is in check from the queen and has no legal escape squares.",
+      "fen": "7k/6Q1/6K1/8/8/8/8/8 b - - 0 1",
+      "highlightSquares": ["g7", "h8"]
+    },
+    {
+      "type": "board-demo",
+      "title": "A stalemate position",
+      "body": "Black is not in check, but has no legal move. That makes it stalemate, not checkmate.",
+      "fen": "7k/5Q2/6K1/8/8/8/8/8 b - - 0 1",
+      "highlightSquares": ["f7", "h8"]
+    },
+    {
+      "type": "multiple-choice",
+      "title": "What is this position?",
+      "question": "Look at the board. What is the result?",
+      "board": true,
+      "fen": "7k/5Q2/6K1/8/8/8/8/8 b - - 0 1",
+      "choices": [
+        { "label": "Checkmate", "value": "checkmate" },
+        { "label": "Stalemate", "value": "stalemate" },
+        { "label": "Play continues", "value": "play-continues" }
+      ],
+      "correctChoice": "stalemate",
+      "successText": "Correct. Black is not in check, but cannot move.",
+      "errorText": "Not quite. Check first whether the king is actually in check."
+    },
+    {
+      "type": "square-click",
+      "title": "Click the trapped king",
+      "body": "Click the black king in this stalemate position.",
+      "fen": "7k/5Q2/6K1/8/8/8/8/8 b - - 0 1",
+      "targetSquare": "h8",
+      "highlightSquares": ["h8"],
+      "successText": "Correct. That king has no legal moves.",
+      "errorText": "Try again. Click the black king on h8."
+    },
+    {
+      "type": "explain",
+      "title": "Lesson recap",
+      "body": "Checkmate wins. Stalemate draws. Always ask: is the king in check or just trapped?"
+    }
+  ]
+}

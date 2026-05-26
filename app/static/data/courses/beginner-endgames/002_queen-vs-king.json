@@ -1,52 +1,61 @@
-[
-  {
-    "type": "explain",
-    "title": "The big idea",
-    "body": "The queen traps the enemy king by cutting off space. Your king helps finish the job."
-  },
-  {
-    "type": "board-demo",
-    "title": "Start by shrinking the box",
-    "body": "Do not give random checks forever. First reduce the enemy king's safe area.",
-    "fen": "7k/8/8/8/8/8/6Q1/6K1 w - - 0 1",
-    "highlightSquares": ["g2", "h8"]
-  },
-  {
-    "type": "multiple-choice",
-    "title": "What should White do first?",
-    "question": "What is the best practical plan here?",
-    "board": true,
-    "fen": "7k/8/8/8/8/8/6Q1/6K1 w - - 0 1",
-    "choices": [
-      { "label": "Give endless checks", "value": "checks" },
-      { "label": "Trap the king and bring your king closer", "value": "trap-and-king" },
-      { "label": "Offer a queen trade", "value": "trade" }
-    ],
-    "correctChoice": "trap-and-king",
-    "successText": "Correct. Restrict first, then bring your king in.",
-    "errorText": "Not quite. The goal is to shrink the king's space, not just check forever."
-  },
-  {
-    "type": "move-task",
-    "title": "Make a restricting queen move",
-    "body": "Move the queen from g2 to g7 to trap the king on the back rank.",
-    "fen": "7k/8/8/8/8/8/6Q1/6K1 w - - 0 1",
-    "startSquare": "g2",
-    "targetSquare": "g7",
-    "highlightSquares": ["g7", "h8"],
-    "successText": "Good. That move cuts the king's space down sharply.",
-    "errorText": "Try again. Move the queen to g7."
-  },
-  {
-    "type": "board-demo",
-    "title": "After the box shrinks",
-    "body": "Once the king is boxed in, your king can walk forward and help finish the mate.",
-    "fen": "6Qk/8/8/8/8/8/8/6K1 b - - 0 1",
-    "highlightSquares": ["g8", "h8", "g1"]
-  },
-  {
-    "type": "explain",
-    "title": "Lesson recap",
-    "body": "With queen vs king, shrink the box, bring your king in, and avoid accidental stalemate."
-  }
-]
+{
+  "id": "queen-vs-king",
+  "title": "Queen vs King",
+  "course": "beginner-endgames",
+  "bracket": "Beginner",
+  "topic": "endgames",
+  "order": 2,
+  "summary": "Practice shrinking the enemy king's space with the queen.",
+  "steps": [
+    {
+      "type": "explain",
+      "title": "The big idea",
+      "body": "The queen traps the enemy king by cutting off space. Your king helps finish the job."
+    },
+    {
+      "type": "board-demo",
+      "title": "Start by shrinking the box",
+      "body": "Do not give random checks forever. First reduce the enemy king's safe area.",
+      "fen": "7k/8/8/8/8/8/6Q1/6K1 w - - 0 1",
+      "highlightSquares": ["g2", "h8"]
+    },
+    {
+      "type": "multiple-choice",
+      "title": "What should White do first?",
+      "question": "What is the best practical plan here?",
+      "board": true,
+      "fen": "7k/8/8/8/8/8/6Q1/6K1 w - - 0 1",
+      "choices": [
+        { "label": "Give endless checks", "value": "checks" },
+        { "label": "Trap the king and bring your king closer", "value": "trap-and-king" },
+        { "label": "Offer a queen trade", "value": "trade" }
+      ],
+      "correctChoice": "trap-and-king",
+      "successText": "Correct. Restrict first, then bring your king in.",
+      "errorText": "Not quite. The goal is to shrink the king's space, not just check forever."
+    },
+    {
+      "type": "move-task",
+      "title": "Make a restricting queen move",
+      "body": "Move the queen from g2 to g7 to trap the king on the back rank.",
+      "fen": "7k/8/8/8/8/8/6Q1/6K1 w - - 0 1",
+      "startSquare": "g2",
+      "targetSquare": "g7",
+      "highlightSquares": ["g7", "h8"],
+      "successText": "Good. That move cuts the king's space down sharply.",
+      "errorText": "Try again. Move the queen to g7."
+    },
+    {
+      "type": "board-demo",
+      "title": "After the box shrinks",
+      "body": "Once the king is boxed in, your king can walk forward and help finish the mate.",
+      "fen": "6Qk/8/8/8/8/8/8/6K1 b - - 0 1",
+      "highlightSquares": ["g8", "h8", "g1"]
+    },
+    {
+      "type": "explain",
+      "title": "Lesson recap",
+      "body": "With queen vs king, shrink the box, bring your king in, and avoid accidental stalemate."
+    }
+  ]
+}
