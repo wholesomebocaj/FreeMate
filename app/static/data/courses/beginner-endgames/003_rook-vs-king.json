@@ -3,8 +3,57 @@
   "title": "Rook vs King",
   "course": "beginner-endgames",
   "bracket": "Beginner",
-  "topic": "endgame",
+  "topic": "Endgames",
   "order": 3,
-  "summary": "Learn the basic rook checkmate pattern.",
-  "steps": []
+  "summary": "Learn the beginner-friendly plan for checkmating with a rook and king against a lone king.",
+  "objectives": [
+    "Use the rook to cut the king off",
+    "Bring your king closer",
+    "Understand the ladder-style mating idea"
+  ],
+  "tags": ["endgame", "rook", "checkmate", "beginner"],
+  "steps": [
+    {
+      "type": "explanation",
+      "title": "The rook cuts off space",
+      "body": "A rook is great at blocking ranks and files. Use it to fence the enemy king in before trying to mate."
+    },
+    {
+      "type": "explanation",
+      "title": "Your king still matters",
+      "body": "The rook alone cannot checkmate. Your king must step in and help take away escape squares."
+    },
+    {
+      "type": "board_demo",
+      "title": "Basic winning setup",
+      "fen": "7k/8/8/8/8/8/6R1/6K1 w - - 0 1",
+      "coach_note": "The rook controls space from far away. The king must march forward to help finish the position."
+    },
+    {
+      "type": "board_demo",
+      "title": "Think in boxes",
+      "fen": "7k/8/8/8/8/6R1/8/6K1 w - - 0 1",
+      "coach_note": "Like queen vs king, the idea is to make the enemy king's safe area smaller. The rook helps build the wall."
+    },
+    {
+      "type": "quiz",
+      "title": "What is the winning method?",
+      "question": "In rook vs king, what should you usually do first?",
+      "options": [
+        "Sacrifice the rook",
+        "Cut off the king and bring your king in",
+        "Check every move forever"
+      ],
+      "answer": "Cut off the king and bring your king in",
+      "feedback": {
+        "correct": "Correct. Restriction first, then king support, then mate.",
+        "incorrect": "Not quite. Endless checks are not the real method."
+      }
+    },
+    {
+      "type": "recap",
+      "title": "Lesson recap",
+      "body": "Use the rook to reduce the enemy king's space, bring your king closer, and finish with a clean mate."
+    }
+  ]
 }
