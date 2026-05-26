@@ -81,6 +81,15 @@
     margin-top: 4px;
 }
 
+#practice-status.is-check {
+    color: var(--red);
+}
+
+#practice-status.is-checkmate {
+    color: #fca5a5;
+    font-weight: 900;
+}
+
 .practice-actions {
     display: grid;
     gap: 8px;

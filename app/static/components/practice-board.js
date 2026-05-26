@@ -315,6 +315,7 @@ export class PracticeBoard {
       fen: this.fen,
       turnColor: this.turn,
       lastMove: this.lastMove,
+      check: this.engine?.isCheck?.() || false,
       animation: {
         enabled: Boolean(options.animate),
         duration: options.animate ? this.animationDuration : 0,
@@ -552,6 +553,7 @@ export class PracticeBoard {
       fen: this.fen,
       turnColor: this.turn,
       lastMove,
+      check: this.engine?.isCheck?.() || false,
       animation: {
         enabled: true,
         duration: this.animationDuration,
@@ -599,6 +601,10 @@ export class PracticeBoard {
       orientation: this.orientation,
       history: this.history,
       position: this.position,
+      isCheck: Boolean(this.engine?.isCheck?.()),
+      isCheckmate: Boolean(this.engine?.isCheckmate?.()),
+      isStalemate: Boolean(this.engine?.isStalemate?.()),
+      isGameOver: Boolean(this.engine?.isGameOver?.()),
     });
   }
 

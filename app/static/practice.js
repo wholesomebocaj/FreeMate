@@ -21,10 +21,21 @@ const board = new PracticeBoard(boardElement, {
     fenFeedback.textContent = message;
     fenFeedback.className = "result error";
   },
-  onPositionChange: ({ fen, turn }) => {
+  onPositionChange: ({ fen, turn, isCheck, isCheckmate }) => {
     fenInput.value = fen;
-    status.textContent = `${turn === "white" ? "White" : "Black"} to move`;
-    practiceTurn.textContent = turn === "white" ? "White" : "Black";
+    if (isCheckmate) {
+      status.textContent = "Checkmate — game over";
+      status.className = "is-checkmate";
+      practiceTurn.textContent = "Game over";
+    } else if (isCheck) {
+      status.textContent = `${turn === "white" ? "White" : "Black"} is in check`;
+      status.className = "is-check";
+      practiceTurn.textContent = turn === "white" ? "White" : "Black";
+    } else {
+      status.textContent = `${turn === "white" ? "White" : "Black"} to move`;
+      status.className = "";
+      practiceTurn.textContent = turn === "white" ? "White" : "Black";
+    }
     if (!board.history.length) {
       lastMove.textContent = "None";
     }

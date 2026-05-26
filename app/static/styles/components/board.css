@@ -266,6 +266,12 @@ button.board-square {
     background-color: rgba(246, 246, 105, 0.28);
 }
 
+.practice-board.cg-wrap cg-board square.check,
+.practice-board-component.cg-wrap cg-board square.check {
+    background-color: rgba(248, 113, 113, 0.36);
+    box-shadow: inset 0 0 0 999px rgba(248, 113, 113, 0.18);
+}
+
 .practice-board.cg-wrap piece,
 .practice-board-component.cg-wrap piece {
     background-position: center;
