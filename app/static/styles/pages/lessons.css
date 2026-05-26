@@ -498,6 +498,26 @@
     margin: 0 0 12px;
 }
 
+.lesson-action-card {
+    display: grid;
+    gap: 12px;
+}
+
+.lesson-action-buttons {
+    display: grid;
+    gap: 10px;
+}
+
+.lesson-controls-rail {
+    display: grid;
+    gap: 10px;
+}
+
+.lesson-controls-rail .button {
+    min-height: 48px;
+    width: 100%;
+}
+
 .coach-panel,
 .lesson-stage {
     min-height: 0;
@@ -563,8 +583,8 @@
 .lesson-step {
     align-items: start;
     display: grid;
-    gap: 18px 28px;
-    grid-template-columns: minmax(0, 1fr) 250px;
+    gap: 16px;
+    grid-template-columns: minmax(0, 1fr);
     min-height: 410px;
 }
 
@@ -590,11 +610,9 @@
     display: flex;
     gap: 16px;
     justify-content: space-between;
-    margin: 0;
-    min-height: 100%;
+    margin: 0 0 8px;
     padding: 16px;
-    position: sticky;
-    top: 112px;
+    position: static;
 }
 
 .lesson-step-header .lesson-step-progress {
@@ -609,16 +627,6 @@
 .lesson-practice-board,
 .lesson-complete {
     grid-column: 1;
-}
-
-.lesson-step-header {
-    grid-column: 2;
-    grid-row: auto;
-}
-
-.lesson-step .lesson-board-feedback,
-.lesson-step .lesson-step-note {
-    grid-column: 2;
 }
 
 .lesson-step .lesson-practice-board {

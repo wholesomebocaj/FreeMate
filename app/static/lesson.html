@@ -46,22 +46,6 @@
                     <h2 id="sidebar-bracket-title">Loading bracket...</h2>
                     <p id="sidebar-bracket-range">Preparing course context.</p>
                 </div>
-                <div class="focus-card lesson-sidebar-course">
-                    <p class="eyebrow">Current course</p>
-                    <h3 id="sidebar-course-title">Loading course...</h3>
-                    <p id="sidebar-course-description">
-                        Preparing your lesson list.
-                    </p>
-                    <div class="lesson-row-progress compact">
-                        <div class="progress-track" aria-hidden="true">
-                            <div
-                                class="progress-fill"
-                                id="sidebar-course-progress"
-                            ></div>
-                        </div>
-                        <span id="sidebar-course-percent">0%</span>
-                    </div>
-                </div>
                 <details class="mobile-panel" data-mobile-collapse open>
                     <summary>Course roadmap</summary>
                     <div class="mobile-panel-body">
@@ -85,6 +69,13 @@
                             <p id="lesson-goal">
                                 Follow the guided steps, then complete the exercise.
                             </p>
+                        </div>
+                        <div class="focus-card lesson-action-card">
+                            <p class="eyebrow">Lesson actions</p>
+                            <div
+                                class="lesson-action-buttons"
+                                id="lesson-action-buttons"
+                            ></div>
                         </div>
                         <div class="focus-card">
                             <p class="eyebrow">Lesson progress</p>
@@ -288,27 +279,6 @@
                 if (!tree) return;
 
                 tree.innerHTML = "";
-
-                if (course) {
-                    const coursePercent = lessons.length
-                        ? courseProgress(course, completedLessons)
-                        : 0;
-                    document.getElementById(
-                        "sidebar-course-title",
-                    ).textContent = course.title || "Current course";
-                    document.getElementById(
-                        "sidebar-course-description",
-                    ).textContent =
-                        course.description ||
-                        "Follow the guided lesson path for this course.";
-                    document.getElementById(
-                        "sidebar-course-percent",
-                    ).textContent = `${coursePercent}%`;
-                    const fill = document.getElementById(
-                        "sidebar-course-progress",
-                    );
-                    if (fill) fill.style.width = `${coursePercent}%`;
-                }
 
                 const breadcrumb = document.createElement("section");
                 breadcrumb.className = "tree-category";

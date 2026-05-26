@@ -52,44 +52,10 @@ export class LessonRenderer {
         ${this.completedSteps.has(this.currentStepIndex) ? "Completed" : "In progress"}
       </span>
     `;
-    const controls = document.createElement("div");
-    controls.className = "lesson-controls";
-
-    if (this.currentStepIndex > 0) {
-      const backButton = document.createElement("button");
-      backButton.className = "button secondary";
-      backButton.textContent = "Back";
-      backButton.onclick = () => {
-        this.currentStepIndex--;
-        this.renderStep();
-      };
-
-      controls.appendChild(backButton);
-    }
-
-    const nextButton = document.createElement("button");
-    nextButton.className = "button primary";
-    nextButton.textContent =
-      this.currentStepIndex === this.lesson.steps.length - 1
-        ? "Finish"
-        : "Next";
-    nextButton.disabled = !this.completedSteps.has(this.currentStepIndex);
-    nextButton.title = nextButton.disabled
-      ? "Complete this step to continue"
-      : "";
-
-    nextButton.onclick = () => {
-      if (!this.completedSteps.has(this.currentStepIndex)) return;
-      this.currentStepIndex++;
-      this.renderStep();
-    };
-
-    controls.appendChild(nextButton);
 
     const headerRow = document.createElement("div");
     headerRow.className = "lesson-step-header";
     headerRow.appendChild(progress);
-    headerRow.appendChild(controls);
     wrapper.appendChild(headerRow);
 
     switch (step.type) {
@@ -137,6 +103,7 @@ export class LessonRenderer {
       }, 650);
     }
 
+    this.renderStepControls(wrapper);
     this.container.appendChild(wrapper);
   }
 
@@ -350,10 +317,60 @@ export class LessonRenderer {
       stepState.classList.remove("waiting");
       stepState.classList.add("done");
     }
+    this.syncLessonControls(wrapper);
+  }
+
+  renderStepControls(wrapper) {
+    const actionButtons = document.getElementById("lesson-action-buttons");
+    const target = actionButtons || wrapper;
+    target.innerHTML = "";
+
+    const controls = document.createElement("div");
+    controls.className = "lesson-controls lesson-controls-rail";
+
+    if (this.currentStepIndex > 0) {
+      const backButton = document.createElement("button");
+      backButton.className = "button secondary";
+      backButton.textContent = "Back";
+      backButton.onclick = () => {
+        this.currentStepIndex--;
+        this.renderStep();
+      };
+      controls.appendChild(backButton);
+    }
+
+    const nextButton = document.createElement("button");
+    nextButton.className = "button primary";
+    nextButton.textContent =
+      this.currentStepIndex === this.lesson.steps.length - 1
+        ? "Finish"
+        : "Next";
+    nextButton.disabled = !this.completedSteps.has(this.currentStepIndex);
+    nextButton.title = nextButton.disabled
+      ? "Complete this step to continue"
+      : "";
+    nextButton.onclick = () => {
+      if (!this.completedSteps.has(this.currentStepIndex)) return;
+      this.currentStepIndex++;
+      this.renderStep();
+    };
+    controls.appendChild(nextButton);
+
+    target.appendChild(controls);
+  }
+
+  syncLessonControls(wrapper) {
+    const actionButtons = document.getElementById("lesson-action-buttons");
+    if (actionButtons) {
+      this.renderStepControls(wrapper);
+      return;
+    }
     const nextButton = wrapper.querySelector(".lesson-controls .button.primary");
     if (nextButton) {
-      nextButton.disabled = false;
-      nextButton.title = "";
+      nextButton.disabled = !this.completedSteps.has(this.currentStepIndex);
+      nextButton.title = nextButton.disabled
+        ? "Complete this step to continue"
+        : "";
     }
   }
 
