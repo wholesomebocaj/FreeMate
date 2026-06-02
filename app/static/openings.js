@@ -1,3 +1,4 @@
+import { Chess } from "/static/vendor/chessjs/chess.js";
 import { PracticeBoard, STARTING_FEN } from "/static/components/practice-board.js";
 import { recordReviewFailure, recordReviewSuccess } from "/static/components/review-store.js";
 import {
@@ -215,6 +216,7 @@ async function initOpeningTrainer() {
   });
 
   await autoPlayOpponentMoves();
+  void Promise.allSettled(trainingLines.map((line) => ensureLineStateCache(line)));
 
   roadmap.addEventListener("click", async (event) => {
     const moveItem = event.target.closest(".opening-move-list li[data-line-index]");
@@ -547,6 +549,7 @@ async function initOpeningTrainer() {
 
     let fen = startFen;
     let played = [];
+    const engine = new Chess(startFen);
 
     states[0] = {
       moveIndex: 0,
@@ -558,23 +561,17 @@ async function initOpeningTrainer() {
 
     for (let index = 0; index < line.moves.length; index += 1) {
       const move = line.moves[index];
-      const validation = await fetchJson("/api/openings/validate-move", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          opening_id: opening.id,
-          move: move.uci,
-          line_id: line.id,
-          move_index: index,
-          played_moves: played,
-        }),
+      const result = engine.move({
+        from: move.uci.slice(0, 2),
+        to: move.uci.slice(2, 4),
+        ...(move.uci.length > 4 ? { promotion: move.uci.slice(4, 5) } : {}),
       });
 
-      if (!validation.is_valid) {
-        throw new Error(validation.message || `Could not precompute ${line.title}.`);
+      if (!result) {
+        throw new Error(`Could not precompute ${line.title}.`);
       }
 
-      fen = validation.resulting_fen;
+      fen = engine.fen();
       played = [...played, move.uci];
       states[index + 1] = {
         moveIndex: index + 1,
