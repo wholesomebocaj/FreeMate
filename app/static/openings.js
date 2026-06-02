@@ -113,7 +113,6 @@ async function initOpeningTrainer() {
     opponentSettle: 220,
   };
   const lineStateCache = new Map();
-  const lineStateRequests = new Map();
   let roadmapRendered = false;
   let lineProgressSaveTimer = null;
   let openingProgressSaveTimer = null;
@@ -155,7 +154,7 @@ async function initOpeningTrainer() {
   let playedMoves = [];
   const trainSide = opening.training.sideToTrain || "white";
 
-  await restoreLineState(activeLine);
+  restoreLineState(activeLine);
 
   const board = new PracticeBoard(boardElement, {
     mode: "lesson",
@@ -215,8 +214,9 @@ async function initOpeningTrainer() {
     },
   });
 
-  await autoPlayOpponentMoves();
-  void Promise.allSettled(trainingLines.map((line) => ensureLineStateCache(line)));
+  fastForwardToUserTurn(activeLine);
+  renderTrainerState({ syncBoard: true, scrollRoadmap: true });
+  scheduleLineStateWarmup(trainingLines);
 
   roadmap.addEventListener("click", async (event) => {
     const moveItem = event.target.closest(".opening-move-list li[data-line-index]");
@@ -292,12 +292,12 @@ async function initOpeningTrainer() {
     }
   });
 
-  async function loadBranch(nextLine) {
+  function loadBranch(nextLine) {
     activeLine = nextLine;
     openingProgress.activeLineId = activeLine.id;
     saveOpeningProgress(opening.id, openingProgress);
-    await ensureLineStateCache(activeLine);
-    await restoreLineState(activeLine);
+    restoreLineState(activeLine);
+    fastForwardToUserTurn(activeLine);
 
     status.textContent = "Loading";
     status.className = "lesson-step-progress-state waiting";
@@ -309,8 +309,7 @@ async function initOpeningTrainer() {
     feedback.className = "lesson-board-feedback";
 
     applyBoardConfig({ allowedMoves: [], highlightSquares: [] });
-    renderTrainerState({ syncBoard: true, forceRoadmapRender: true, scrollRoadmap: true });
-    await autoPlayOpponentMoves();
+    renderTrainerState({ syncBoard: true, scrollRoadmap: true });
   }
 
   async function jumpToMoveIndex(nextIndex) {
@@ -319,7 +318,6 @@ async function initOpeningTrainer() {
       return;
     }
 
-    await ensureLineStateCache(activeLine);
     applyCachedLineState(activeLine, boundedIndex);
     scheduleLineProgressSave();
     renderTrainerState({ syncBoard: true, historyNavigation: true });
@@ -378,11 +376,10 @@ async function initOpeningTrainer() {
 
   function renderTrainerState({
     syncBoard = false,
-    forceRoadmapRender = false,
     scrollRoadmap = false,
     historyNavigation = false,
   } = {}) {
-    if (forceRoadmapRender || !roadmapRendered) {
+    if (!roadmapRendered) {
       renderOpeningRoadmap(
         roadmap,
         trainingLines,
@@ -404,6 +401,10 @@ async function initOpeningTrainer() {
         branchCompletions,
         openingProgress,
       );
+    }
+
+    if (scrollRoadmap) {
+      scrollRoadmapSelection();
     }
 
     if (moveIndex >= activeLine.moves.length) {
@@ -499,8 +500,8 @@ async function initOpeningTrainer() {
     });
   }
 
-  async function restoreLineState(line) {
-    const cache = await ensureLineStateCache(line);
+  function restoreLineState(line) {
+    const cache = ensureLineStateCache(line);
     const saved = normalizeSavedLineState(openingProgress.lines?.[line.id], line);
 
     if (saved) {
@@ -517,31 +518,17 @@ async function initOpeningTrainer() {
     applyCachedLineState(line, 0, cache);
   }
 
-  async function ensureLineStateCache(line) {
+  function ensureLineStateCache(line) {
     if (lineStateCache.has(line.id)) {
       return lineStateCache.get(line.id);
     }
 
-    if (lineStateRequests.has(line.id)) {
-      return lineStateRequests.get(line.id);
-    }
-
-    const request = buildLineStateCache(line)
-      .then((cache) => {
-        lineStateCache.set(line.id, cache);
-        lineStateRequests.delete(line.id);
-        return cache;
-      })
-      .catch((error) => {
-        lineStateRequests.delete(line.id);
-        throw error;
-      });
-
-    lineStateRequests.set(line.id, request);
-    return request;
+    const cache = buildLineStateCache(line);
+    lineStateCache.set(line.id, cache);
+    return cache;
   }
 
-  async function buildLineStateCache(line) {
+  function buildLineStateCache(line) {
     const states = [];
     const startFen = opening.training.startingFen === "startpos"
       ? STARTING_FEN
@@ -583,6 +570,38 @@ async function initOpeningTrainer() {
     }
 
     return { states };
+  }
+
+  function fastWarmLineStateCache(lines) {
+    lines.forEach((line) => {
+      if (!lineStateCache.has(line.id)) {
+        lineStateCache.set(line.id, buildLineStateCache(line));
+      }
+    });
+  }
+
+  function scheduleLineStateWarmup(lines) {
+    const warmup = () => fastWarmLineStateCache(lines);
+
+    if (typeof window.requestIdleCallback === "function") {
+      window.requestIdleCallback(warmup, { timeout: 1500 });
+      return;
+    }
+
+    window.setTimeout(warmup, 0);
+  }
+
+  function fastForwardToUserTurn(line = activeLine) {
+    const cache = ensureLineStateCache(line);
+    let targetIndex = moveIndex;
+
+    while (targetIndex < line.moves.length && !isUserMove(targetIndex, trainSide)) {
+      targetIndex += 1;
+    }
+
+    if (targetIndex !== moveIndex) {
+      applyCachedLineState(line, targetIndex, cache);
+    }
   }
 
   function applyCachedLineState(line, targetIndex, cache = lineStateCache.get(line.id)) {
@@ -710,6 +729,14 @@ async function initOpeningTrainer() {
 
     lastBoardConfigKey = nextKey;
     board.setConfig(nextConfig);
+  }
+
+  function scrollRoadmapSelection() {
+    const activeMove = roadmap.querySelector(".opening-move-list li.active");
+    activeMove?.scrollIntoView?.({ block: "nearest", behavior: "auto" });
+
+    const activeLineButton = roadmap.querySelector(".opening-roadmap-line.is-active");
+    activeLineButton?.scrollIntoView?.({ block: "nearest", behavior: "auto" });
   }
 
   function setText(node, value) {
