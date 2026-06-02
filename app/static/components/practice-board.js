@@ -96,7 +96,7 @@ export class PracticeBoard {
     this.onComplete = config.onComplete || (() => {});
     this.onPositionChange = config.onPositionChange || (() => {});
     this.highlightSquares = config.highlightSquares || [];
-    this.animationDuration = config.animationDuration || 180;
+    this.animationDuration = config.animationDuration || 160;
     this.sound = this.enableSounds ? config.sound || new BoardSound() : { play() {} };
     this.pendingPromotion = null;
 

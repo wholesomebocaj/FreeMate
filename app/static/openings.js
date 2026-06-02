@@ -162,7 +162,7 @@ async function initOpeningTrainer() {
     orientation: trainSide === "black" ? "black" : "white",
     lockToAllowedMoves: true,
     highlightLegalMoves: true,
-    animationDuration: 520,
+    animationDuration: 460,
     enableSounds: true,
     onMoveSuccess: async ({ move }) => {
       const validation = await fetchJson("/api/openings/validate-move", {
@@ -448,7 +448,7 @@ async function initOpeningTrainer() {
         allowedMoves: [],
         lockToAllowedMoves: true,
         highlightSquares: moveHighlights(expected.uci),
-        animationDuration: 520,
+        animationDuration: 460,
       });
       return;
     }
@@ -467,7 +467,7 @@ async function initOpeningTrainer() {
       successMessage: expected.explanation,
       errorMessage: `This line wants ${expected.san}. Try the highlighted move.`,
       highlightSquares: moveHighlights(expected.uci),
-      animationDuration: 520,
+      animationDuration: 460,
     });
   }
 
